@@ -28,7 +28,8 @@
 {
      NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"ProfileHeaderView" owner:nil options:nil];
     
-    return nibViews.firstObject;
+    ProfileHeaderView* view = nibViews.firstObject;
+    return view;
 }
 
 @end
