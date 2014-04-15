@@ -11,7 +11,8 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Parse/Parse.h>
 #import "ProfileHeaderView.h"
-
+#import "ParseManager.h"
+#import "ProfileViewController.h"
 
 #define ESTIMOTE_PROXIMITY_UUID             [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]
 
@@ -47,9 +48,9 @@
     [super viewDidLoad];
     [self loadHeaderView];
     
-    self.users = @[@"dennis",@"steve",@"charles"];
+    self.users = [ParseManager getUsers]; //@[@"dennis",@"steve",@"charles"];
     
-    self.images = @[[UIImage imageNamed:@"dennis.jpg"],[UIImage imageNamed:@"steve.jpg"], [UIImage imageNamed:@"charles.jpg"]];
+    //self.images = @[[UIImage imageNamed:@"dennis.jpg"],[UIImage imageNamed:@"steve.jpg"], [UIImage imageNamed:@"charles.jpg"]];
     
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
@@ -98,16 +99,28 @@
 - (void)loadHeaderView
 {
     //create the view from a xib file
-    UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
+    ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
     
     //quick hack to make the view appear in the correct location
     CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
     
     //set the frame
     headerView.frame = frame;
+    headerView.nameTextField.text = [[PFUser currentUser]username];
+    headerView.ageTextField.text = [[PFUser currentUser]objectForKey:@"age"];
+    headerView.genderTextField.text = [[PFUser currentUser]objectForKey:@"gender"];
     
     //add the new view to the array of subviews
     [self.view addSubview:headerView];
+    
+    
+    
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+   
 
 }
 
@@ -120,12 +133,27 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    PFUser* user = self.users[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"homeReuseCellID"];
-    cell.textLabel.text = self.users[indexPath.row];
-    cell.detailTextLabel.text = @"like and interests";
-    cell.imageView.image = self.images[indexPath.row];
+    cell.textLabel.text = user.username;
+    cell.detailTextLabel.text = user.email;
+    PFFile* file = [user objectForKey:@"profilePicture"];
+    NSData* data = [file getData];
+    cell.imageView.image = [UIImage imageWithData:data]; 
     return cell;
     
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showProfileView"])
+    {
+        NSIndexPath *indexPath = [self.homeTableView indexPathForSelectedRow];
+        ProfileViewController *viewController = segue.destinationViewController;
+        viewController.user = self.users[indexPath.row];
+    }
 }
 
 #pragma mark - CLLocationManager Delegate Methods
@@ -271,7 +299,7 @@
 
 - (void)createCBCentralManager
 {
-    NSLog(@"state %d", self.centralManager.state);
+    NSLog(@"state %ld", self.centralManager.state);
     
     if (self.centralManager.state == CBCentralManagerStatePoweredOff)
     {

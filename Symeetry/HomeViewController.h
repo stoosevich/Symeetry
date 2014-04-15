@@ -11,5 +11,6 @@
 @interface HomeViewController : UIViewController
 
 // KLM comment
+// Another comment
 
 @end
