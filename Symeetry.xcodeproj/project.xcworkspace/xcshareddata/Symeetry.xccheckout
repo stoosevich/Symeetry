@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>41B036F4-5261-422E-9299-B0A976CCF258</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Symeetry</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>40ED160D-CB5A-4788-9BD1-025E9F60E0D3</key>
+		<string>https://github.com/stoosevich/Symeetry.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Symeetry.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>40ED160D-CB5A-4788-9BD1-025E9F60E0D3</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/stoosevich/Symeetry.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>40ED160D-CB5A-4788-9BD1-025E9F60E0D3</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>40ED160D-CB5A-4788-9BD1-025E9F60E0D3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Symeetry</string>
+		</dict>
+	</array>
+</dict>
+</plist>
