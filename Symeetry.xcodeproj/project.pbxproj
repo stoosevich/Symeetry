@@ -93,12 +93,12 @@
 		81AB5B2F18FC858A0060B17A /* SymeetryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SymeetryTests-Info.plist"; sourceTree = "<group>"; };
 		81AB5B3118FC858A0060B17A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		81AB5B3318FC858A0060B17A /* SymeetryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SymeetryTests.m; sourceTree = "<group>"; };
-		81B2848918FD9C2100A27224 /* Food_crop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Food_crop.jpg; sourceTree = "<group>"; };
-		81B2848B18FD9C2D00A27224 /* movies_crop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = movies_crop.jpg; sourceTree = "<group>"; };
-		81B2848D18FD9C4100A27224 /* Music_crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Music_crop.png; sourceTree = "<group>"; };
-		CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dennis.jpg; sourceTree = "<group>"; };
-		CE562EC818FCD11900DDB3D3 /* charles.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = charles.jpg; sourceTree = "<group>"; };
-		CE562ECA18FCD13F00DDB3D3 /* steve.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = steve.jpg; sourceTree = "<group>"; };
+		81B2848918FD9C2100A27224 /* Food_crop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Food_crop.jpg; path = Symeetry/Food_crop.jpg; sourceTree = "<group>"; };
+		81B2848B18FD9C2D00A27224 /* movies_crop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = movies_crop.jpg; path = Symeetry/movies_crop.jpg; sourceTree = "<group>"; };
+		81B2848D18FD9C4100A27224 /* Music_crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Music_crop.png; path = Symeetry/Music_crop.png; sourceTree = "<group>"; };
+		CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dennis.jpg; path = Symeetry/dennis.jpg; sourceTree = "<group>"; };
+		CE562EC818FCD11900DDB3D3 /* charles.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = charles.jpg; path = Symeetry/charles.jpg; sourceTree = "<group>"; };
+		CE562ECA18FCD13F00DDB3D3 /* steve.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = steve.jpg; path = Symeetry/steve.jpg; sourceTree = "<group>"; };
 		CE562ECC18FCD88B00DDB3D3 /* ProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileHeaderView.h; sourceTree = "<group>"; };
 		CE562ECD18FCD88B00DDB3D3 /* ProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileHeaderView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,6 +138,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8114069018FDC964004E578F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				81B2848D18FD9C4100A27224 /* Music_crop.png */,
+				81B2848B18FD9C2D00A27224 /* movies_crop.jpg */,
+				81B2848918FD9C2100A27224 /* Food_crop.jpg */,
+				CE562ECA18FCD13F00DDB3D3 /* steve.jpg */,
+				CE562EC818FCD11900DDB3D3 /* charles.jpg */,
+				CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		818829FC18FC881100724B79 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +176,7 @@
 		81AB5AFC18FC85890060B17A = {
 			isa = PBXGroup;
 			children = (
+				8114069018FDC964004E578F /* Images */,
 				81AB5B0E18FC85890060B17A /* Symeetry */,
 				818829FD18FC883000724B79 /* View Controllers */,
 				818829FC18FC881100724B79 /* Classes */,
@@ -206,12 +220,6 @@
 		81AB5B0E18FC85890060B17A /* Symeetry */ = {
 			isa = PBXGroup;
 			children = (
-				81B2848D18FD9C4100A27224 /* Music_crop.png */,
-				81B2848B18FD9C2D00A27224 /* movies_crop.jpg */,
-				81B2848918FD9C2100A27224 /* Food_crop.jpg */,
-				CE562ECA18FCD13F00DDB3D3 /* steve.jpg */,
-				CE562EC818FCD11900DDB3D3 /* charles.jpg */,
-				CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */,
 				81AB5B1718FC85890060B17A /* AppDelegate.h */,
 				81AB5B1818FC85890060B17A /* AppDelegate.m */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
