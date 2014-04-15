@@ -4,7 +4,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileHeaderView">
+            <connections>
+                <outlet property="ageTextField" destination="vQM-v5-fqU" id="OaM-MJ-V7H"/>
+                <outlet property="genderTextField" destination="Jy3-fV-cnH" id="ZOb-Jf-YiG"/>
+                <outlet property="imageView" destination="FRX-9F-nK4" id="QHA-xO-3Km"/>
+                <outlet property="nameTextField" destination="1U8-ci-O79" id="04S-ZG-mtw"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
