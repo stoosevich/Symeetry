@@ -54,5 +54,43 @@
     }
 }
 
+/*
+ * Adds a newly found beacon to the database of beacon if it has not already present.
+ * A new beacon is currentlt determined by the UUID of the beacon
+ * @param CLBeacon beacon the beacon to be added to the database
+ * @return void
+ */
++(void)addBeaconWithName:(NSString*)name withUUID:(NSString*)uuid
+{
+    
+    //convert the beacon object into a parse object
+    
+    
+    PFObject* parseBeacon = [PFObject objectWithClassName:@"Beacon"];
+    
+    //if we have not see this beacon before add it to the list of beacons
+    PFQuery *query = [PFQuery queryWithClassName:@"Beacon"];
+    [query whereKey:@"uuid" equalTo:uuid];
+    [query whereKey:@"name" equalTo:name];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         //first check if the beacon is in Parse, if not then add it
+         if (objects.count == 0)
+         {
+             
+             [parseBeacon saveEventually:^(BOOL succeeded, NSError *error)
+              {
+                  if (error)
+                  {
+                      //if the beacon is not added to parse
+                  }
+              }];
+         }
+     }];
+
+    
+}
+
 
 @end
