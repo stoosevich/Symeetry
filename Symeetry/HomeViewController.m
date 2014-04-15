@@ -12,6 +12,13 @@
 #import <Parse/Parse.h>
 #import "ProfileHeaderView.h"
 
+
+#define ESTIMOTE_PROXIMITY_UUID             [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]
+
+#define ESTIMOTE_MACBEACON_PROXIMITY_UUID   [[NSUUID alloc] initWithUUIDString:@"08D4A950-80F0-4D42-A14B-D53E063516E6"]
+
+#define ESTIMOTE_IOSBEACON_PROXIMITY_UUID   [[NSUUID alloc] initWithUUIDString:@"8492E75F-4FD6-469D-B132-043FE94921D8"]
+
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, CBCentralManagerDelegate, CBPeripheralDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *homeTableView;
 
@@ -38,14 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
-    
-    //quick hack to make the view appear in the correct location
-    CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
-    headerView.frame = frame;
-    
-    [self.view addSubview:headerView];
+    [self loadHeaderView];
     
     self.users = @[@"dennis",@"steve",@"charles"];
     
@@ -60,11 +60,16 @@
     self.locationManager.delegate = self;
     
     //create the beacon to monitor for services
-    self.beaconId = [[NSUUID alloc]initWithUUIDString:@"6C0FCA40-77D1-48DC-B5ED-A52817AD81B2"];
+    
+    //track ony the estimote beacon for the time being
+    
+    
+    //self.beaconId = [[NSUUID alloc]initWithUUIDString:@"D943D5F6-7A2E-6CA4-0FB9-D766F5BD135A"];
+
     
     //initialze the beacon region with a UUID and indentifier
-    self.beaconRegion = [[CLBeaconRegion alloc]initWithProximityUUID:nil identifier:nil];
-    
+    self.beaconRegion = [[CLBeaconRegion alloc]initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID identifier:@"com.Estimote"];
+
     
     //the location manager sends beacon notifications when the user turns on the display and the device is already inside the region. These notifications are sent even if your app is not running. In that situation
     self.beaconRegion.notifyEntryStateOnDisplay = YES;
@@ -78,8 +83,7 @@
     
 
     /***********CORE BLUETOOTH***********/
-    self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
-    [self startScan];
+    [self createCBCentralManager];
     
     //    PFUser *newUser = [PFUser user];
     //    newUser.username = @"charles";
@@ -90,6 +94,22 @@
 	
 }
 
+
+- (void)loadHeaderView
+{
+    //create the view from a xib file
+    UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
+    
+    //quick hack to make the view appear in the correct location
+    CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
+    
+    //set the frame
+    headerView.frame = frame;
+    
+    //add the new view to the array of subviews
+    [self.view addSubview:headerView];
+
+}
 
 #pragma mark - UITableViewDelegate Methods
 
@@ -122,6 +142,7 @@
         UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Symeetry Beacon Found" message:@"Check-in?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [beaconAlert show];
         [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+        self.didRequestCheckin = !self.didRequestCheckin;
     }
 }
 
@@ -148,7 +169,9 @@
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
     
-    NSLog(@"Did range beacons");
+    //NSLog(@"ranging beacons");
+    
+    UINavigationBar* navBar = self.navigationController.navigationBar;
     
     //create a beacon object
     CLBeacon* beacon = [[CLBeacon alloc]init];
@@ -167,9 +190,9 @@
             [self showSymeetryAlertScreen];
         }
         
-        self.view.backgroundColor = [UIColor redColor];
-        
+        navBar.backgroundColor =[UIColor redColor];
         NSLog(@"Beacon accurary %f", beacon.accuracy);
+        NSLog(@"Beacon accurary CLProximityImmediate");
     }
     else if (beacon.proximity == CLProximityNear)
     {
@@ -180,7 +203,8 @@
             [self showSymeetryAlertScreen];
         }
         
-        self.view.backgroundColor = [UIColor greenColor];
+        navBar.backgroundColor = [UIColor blueColor];
+        NSLog(@"Beacon accurary CLProximityNear");
         
     }
     else if (beacon.proximity == CLProximityFar)
@@ -191,12 +215,14 @@
             self.didRequestCheckin = !self.didRequestCheckin;
             [self showSymeetryAlertScreen];
         }
-        self.view.backgroundColor = [UIColor orangeColor];
+        navBar.backgroundColor = [UIColor orangeColor];
+        NSLog(@"Beacon accurary %f", beacon.accuracy);
+        NSLog(@"Beacon accurary CLProximityFar");
         
     }
     else if (beacon.proximity == CLRegionStateUnknown)
     {
-        self.view.backgroundColor = [UIColor grayColor];
+        //navBar.backgroundColor = [UIColor grayColor];
     }
     
 }
@@ -209,21 +235,23 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
-    if (state == CLRegionStateInside)
+    if (state == CLRegionStateInside && !self.didRequestCheckin)
     {
         //we are inside the region being monitored
         [self showRegionStateAlertScreen:@"region state: inside"];
+        [self showSymeetryAlertScreen];
         
     }
-    else if (state == CLRegionStateOutside)
+    else if (state == CLRegionStateOutside && self.didCheckin)
     {
         //we are outside the region state being monitored
         [self showRegionStateAlertScreen:@"region state: outside"];
+        [self showRegionStateAlertScreen:@"Leaving Symeetry region, loggin out of service"];
         
     }
-    else if (state == CLRegionStateUnknown)
+    else if (state == CLRegionStateUnknown )
     {
-        //we are in a unknow region state
+        //we are in a unknow region state,
         [self showRegionStateAlertScreen:@"region state: unknown"];
     }
 }
@@ -240,9 +268,48 @@
 
 
 #pragma mark - CoreBluetoothDelegate Methods
+
+- (void)createCBCentralManager
+{
+    NSLog(@"state %d", self.centralManager.state);
+    
+    if (self.centralManager.state == CBCentralManagerStatePoweredOff)
+    {
+        //bluetooth is off we need to tell the user to turn on the service
+        
+    }
+    else if (self.centralManager.state == CBCentralManagerStateUnauthorized)
+    {
+        //bluetooth is not authorized for this app, we need to tell the user to adjust settings
+        
+    }
+    else if (self.centralManager.state == CBCentralManagerStateUnsupported)
+    {
+        //we need to tell the user that the device does not support this action
+    }
+    else if (self.centralManager.state == CBCentralManagerStateUnknown)
+    {
+        self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
+        [self startScan];
+    }
+    
+    else if(self.centralManager.state == CBCentralManagerStatePoweredOn)
+    {
+        self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
+        [self startScan];
+    }
+}
+
+/*
+ * Scan for bluetooth peripherals of any kind.
+ */
 - (void)startScan
 {
-    [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+    if (self.centralManager.state == CBCentralManagerStatePoweredOn ||
+        self.centralManager.state == CBCentralManagerStateUnknown)
+    {
+        [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+    }
 }
 
 
@@ -251,6 +318,7 @@
 {
     
 }
+
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
@@ -261,12 +329,31 @@
     
     if(peripheral.name)
     {
-        PFObject* beacon = [PFObject objectWithClassName:@"Beacon"];
-        NSString* str = [(NSUUID*)peripheral.identifier UUIDString];
-        beacon[@"uuid"]= str;
-        beacon[@"name"]= peripheral.name;
-        [beacon saveInBackground];
+        //if we have not see this beacon before add it to the list of beacons
+        PFQuery *query = [PFQuery queryWithClassName:@"Beacon"];
+        [query whereKey:@"uuid" equalTo:[peripheral.identifier UUIDString]];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+         {
+             //first check if the beacon is in Parse, if not then add it
+             if (objects.count == 0)
+             {
+                 PFObject* beacon = [PFObject objectWithClassName:@"Beacon"];
+                 NSString* str = [(NSUUID*)peripheral.identifier UUIDString];
+                 beacon[@"uuid"]= str;
+                 beacon[@"name"]= peripheral.name;
+                 [beacon saveEventually:^(BOOL succeeded, NSError *error)
+                  {
+                      if (error)
+                      {
+                          //if the beacon is not added to parse
+                      }
+                  }];
+             }
+         }];
+        
     }
+    
     //add device to list. A device can be found more then once
     if(![self.beacons containsObject:peripheral])
     {
