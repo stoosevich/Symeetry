@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695430F18FD8C8F00A101F4 /* ParseManager.m */; };
 		818829FB18FC87F300724B79 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818829FA18FC87F300724B79 /* ProfileViewController.m */; };
 		81882A0018FC88BD00724B79 /* InterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818829FF18FC88BD00724B79 /* InterestsViewController.m */; };
 		81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81882A0218FC8AEE00724B79 /* InterestsCollectionViewCell.m */; };
@@ -53,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseManager.h; sourceTree = "<group>"; };
+		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseManager.m; sourceTree = "<group>"; };
 		818829F918FC87F300724B79 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = Symeetry/ProfileViewController.h; sourceTree = "<group>"; };
 		818829FA18FC87F300724B79 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = Symeetry/ProfileViewController.m; sourceTree = "<group>"; };
 		818829FE18FC88BD00724B79 /* InterestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InterestsViewController.h; path = Symeetry/InterestsViewController.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				81AB5B1718FC85890060B17A /* AppDelegate.h */,
 				81AB5B1818FC85890060B17A /* AppDelegate.m */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
+				5695430E18FD8C8F00A101F4 /* ParseManager.h */,
+				5695430F18FD8C8F00A101F4 /* ParseManager.m */,
 				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
 				CE562ECC18FCD88B00DDB3D3 /* ProfileHeaderView.h */,
 				CE562ECD18FCD88B00DDB3D3 /* ProfileHeaderView.m */,
@@ -352,6 +357,7 @@
 				81AB5B1518FC85890060B17A /* main.m in Sources */,
 				81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */,
 				81882A0018FC88BD00724B79 /* InterestsViewController.m in Sources */,
+				5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
