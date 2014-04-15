@@ -24,13 +24,11 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
++ (ProfileHeaderView *)newViewFromNib:(NSString*)viewName
 {
-    // Drawing code
+     NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"ProfileHeaderView" owner:nil options:nil];
+    
+    return nibViews.firstObject;
 }
-*/
 
 @end

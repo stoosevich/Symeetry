@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Parse/Parse.h>
-
+#import "ProfileHeaderView.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, CBCentralManagerDelegate, CBPeripheralDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *homeTableView;
@@ -38,6 +38,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
+    
+    //quick hack to make the view appear in the correct location
+    CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
+    headerView.frame = frame;
+    
+    [self.view addSubview:headerView];
+    
     self.users = @[@"dennis",@"steve",@"charles"];
     
     self.images = @[[UIImage imageNamed:@"dennis.jpg"],[UIImage imageNamed:@"steve.jpg"], [UIImage imageNamed:@"charles.jpg"]];
