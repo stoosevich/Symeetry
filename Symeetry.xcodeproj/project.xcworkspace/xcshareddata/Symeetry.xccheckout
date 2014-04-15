@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>529BFED5-AF49-4FA5-A372-69238FB90D01</string>
+	<string>159ED6C6-2485-46FF-AD10-6A5028C498F9</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Symeetry</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>6D27A35B-160B-469A-BD95-12B06602EF54</key>
-		<string>https://github.com/stoosevich/Symeetry</string>
+		<key>78A31AA0-E472-41D4-A4A5-C4E5715DFAFA</key>
+		<string>https://github.com/stoosevich/Symeetry.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Symeetry.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>6D27A35B-160B-469A-BD95-12B06602EF54</key>
+		<key>78A31AA0-E472-41D4-A4A5-C4E5715DFAFA</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/stoosevich/Symeetry</string>
+	<string>https://github.com/stoosevich/Symeetry.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>6D27A35B-160B-469A-BD95-12B06602EF54</string>
+	<string>78A31AA0-E472-41D4-A4A5-C4E5715DFAFA</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>6D27A35B-160B-469A-BD95-12B06602EF54</string>
+			<string>78A31AA0-E472-41D4-A4A5-C4E5715DFAFA</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Symeetry</string>
 		</dict>
