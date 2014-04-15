@@ -7,8 +7,16 @@
 //
 
 #import "ProfileViewController.h"
+#import "ProfileHeaderView.h"
+#import "ParseManager.h"
 
-@interface ProfileViewController ()
+
+
+@interface ProfileViewController () <UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextField *homeTownTextField;
+@property (weak, nonatomic) IBOutlet UILabel *relationShipLabel;
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 
 @end
 
@@ -26,24 +34,67 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.homeTownTextField.text = [self.user objectForKey:@"homeTown"];
+    self.emailTextField.text = [self.user objectForKey:@"email"];
+    
+    self.relationShipLabel.text = [self relationShipStatus];
+    
+    UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
+    //quick hack to make the view appear in the correct location
+    CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
+    headerView.frame = frame;
+    
+    self.homeTownTextField.enabled = [ParseManager isCurrentUser:self.user];
+    self.emailTextField.enabled = [ParseManager isCurrentUser:self.user];
+    
+    [self.view addSubview:headerView];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    
 }
 
-/*
-#pragma mark - Navigation
+-(NSString*)relationShipStatus{
+    
+    int x = [(NSNumber*)[self.user objectForKey:@"relationshipStatus"] intValue];
+    
+    switch (x) {
+        case 0:
+            return @"Single";
+            break;
+        case 1:
+            return @"Dating";
+            break;
+            
+        case 2:
+            return @"Engaged";
+            break;
+            
+        case 3:
+            return @"Married";
+            break;
+            
+        default:
+            return nil;
+            break;
+    }
+}
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [textField endEditing:YES];
+    if (textField == self.emailTextField) {
+        [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"email"];
+    }
+    else if(textField == self.homeTownTextField){
+        [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"homeTown"];
+    }
+    return YES;
 }
-*/
+
 
 @end
