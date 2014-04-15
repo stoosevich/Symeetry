@@ -41,6 +41,7 @@
 		CE562EC918FCD11900DDB3D3 /* charles.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC818FCD11900DDB3D3 /* charles.jpg */; };
 		CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562ECA18FCD13F00DDB3D3 /* steve.jpg */; };
 		CE562ECE18FCD88B00DDB3D3 /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE562ECD18FCD88B00DDB3D3 /* ProfileHeaderView.m */; };
+		CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseManager.h; sourceTree = "<group>"; };
-		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseManager.m; sourceTree = "<group>"; };
+		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseManager.h; path = Symeetry/ParseManager.h; sourceTree = "<group>"; };
+		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseManager.m; path = Symeetry/ParseManager.m; sourceTree = "<group>"; };
 		818829F918FC87F300724B79 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = Symeetry/ProfileViewController.h; sourceTree = "<group>"; };
 		818829FA18FC87F300724B79 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = Symeetry/ProfileViewController.m; sourceTree = "<group>"; };
 		818829FE18FC88BD00724B79 /* InterestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InterestsViewController.h; path = Symeetry/InterestsViewController.h; sourceTree = "<group>"; };
@@ -65,7 +66,7 @@
 		81882A0718FC8DFE00724B79 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		81882A0918FC8E0D00724B79 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		81882A0B18FC8E4E00724B79 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		81882A0D18FC923300724B79 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
+		81882A0D18FC923300724B79 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileHeaderView.xib; path = Symeetry/ProfileHeaderView.xib; sourceTree = "<group>"; };
 		81882A0F18FC96F000724B79 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		81882A1118FC96F800724B79 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		81882A1318FC972500724B79 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -96,8 +97,10 @@
 		CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dennis.jpg; sourceTree = "<group>"; };
 		CE562EC818FCD11900DDB3D3 /* charles.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = charles.jpg; sourceTree = "<group>"; };
 		CE562ECA18FCD13F00DDB3D3 /* steve.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = steve.jpg; sourceTree = "<group>"; };
-		CE562ECC18FCD88B00DDB3D3 /* ProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileHeaderView.h; sourceTree = "<group>"; };
-		CE562ECD18FCD88B00DDB3D3 /* ProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileHeaderView.m; sourceTree = "<group>"; };
+		CE562ECC18FCD88B00DDB3D3 /* ProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileHeaderView.h; path = Symeetry/ProfileHeaderView.h; sourceTree = "<group>"; };
+		CE562ECD18FCD88B00DDB3D3 /* ProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileHeaderView.m; path = Symeetry/ProfileHeaderView.m; sourceTree = "<group>"; };
+		CE5ACEE918FDED5000E91087 /* BlueToothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlueToothManager.h; path = Symeetry/BlueToothManager.h; sourceTree = "<group>"; };
+		CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlueToothManager.m; path = Symeetry/BlueToothManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +141,13 @@
 		818829FC18FC881100724B79 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CE5ACEE918FDED5000E91087 /* BlueToothManager.h */,
+				CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */,
+				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
+				CE562ECC18FCD88B00DDB3D3 /* ProfileHeaderView.h */,
+				CE562ECD18FCD88B00DDB3D3 /* ProfileHeaderView.m */,
+				5695430E18FD8C8F00A101F4 /* ParseManager.h */,
+				5695430F18FD8C8F00A101F4 /* ParseManager.m */,
 				81882A0118FC8AEE00724B79 /* InterestsCollectionViewCell.h */,
 				81882A0218FC8AEE00724B79 /* InterestsCollectionViewCell.m */,
 			);
@@ -209,11 +219,6 @@
 				81AB5B1718FC85890060B17A /* AppDelegate.h */,
 				81AB5B1818FC85890060B17A /* AppDelegate.m */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
-				5695430E18FD8C8F00A101F4 /* ParseManager.h */,
-				5695430F18FD8C8F00A101F4 /* ParseManager.m */,
-				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
-				CE562ECC18FCD88B00DDB3D3 /* ProfileHeaderView.h */,
-				CE562ECD18FCD88B00DDB3D3 /* ProfileHeaderView.m */,
 				81AB5B2018FC85890060B17A /* Images.xcassets */,
 				81AB5B0F18FC85890060B17A /* Supporting Files */,
 			);
@@ -351,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB5B1F18FC85890060B17A /* HomeViewController.m in Sources */,
+				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
 				CE562ECE18FCD88B00DDB3D3 /* ProfileHeaderView.m in Sources */,
 				818829FB18FC87F300724B79 /* ProfileViewController.m in Sources */,
