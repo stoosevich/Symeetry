@@ -109,8 +109,8 @@
 
 - (void)checkUserIntoSymeetry
 {
-    CLLocation* currentLocation = 
-    [ParseManager addLocation:<#(CLLocation *)#> forUser:[PFUser curr] atBeacon:@""];
+//    CLLocation* currentLocation = 
+//    [ParseManager addLocation:nil forUser:[PFUser curr] atBeacon:@""];
     
 }
 
