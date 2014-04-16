@@ -11,12 +11,29 @@
 
 @implementation ParseManager
 
++(PFUser*)currentUser
+{
+    return [PFUser currentUser];
+}
+
+/*
+ * Query the Parse backend to find the list of all users in the system who are not
+ * the current user
+ * @return NSArray array of PFUser objects
+ */
 +(NSArray*)getUsers
 {
     PFQuery* query = [PFUser query];
+    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
     return [query findObjects];
 }
 
+
+/*
+ * Query the Parse backend to find the interest of the user based on the
+ * user's specific id
+ * @return PFObject the Parse Interest object for the specified user
+ */
 +(PFObject*)getInterest:(PFUser*)user
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
@@ -24,9 +41,10 @@
     return [[query findObjects] firstObject];
 }
 
+
 /*
  * @ param PFUser user
- * @ return BOOL yes if it is the current user
+ * @ return BOOL yes if it is the current user, no otherwise
  */
 +(BOOL)isCurrentUser:(PFUser*)user
 {
@@ -39,13 +57,13 @@
 }
 
 /*
+ * checks to see if current user is true then modifies the object(object) at the desired key(key)
+ * then saves in background
  * @ param PFUser user
  * @ param id object
  * @ param forKey key
- * checks to see if current user is true then modifies the object(object) at the desired key(key)
- * then saves in background
+ * @ return void
  */
-
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key
 {
     if ([self isCurrentUser:user]) {
@@ -57,7 +75,8 @@
 /*
  * Adds a newly found beacon to the database of beacon if it has not already present.
  * A new beacon is currentlt determined by the UUID of the beacon
- * @param CLBeacon beacon the beacon to be added to the database
+ * @param NSString name the name of the beacon as determined by the bluetooth peripheral name
+ * @param NSString uuid the uuid of the beacon that was found
  * @return void
  */
 +(void)addBeaconWithName:(NSString*)name withUUID:(NSString*)uuid
@@ -89,18 +108,10 @@
          }
      }];
 
-    
 }
 
 /*
- *
- */
-+(void)createUserName:(NSString*)name email:(NSString*)email photo:(UIImage*)photo
-{
-    
-}
-
-/*
+ * Convert a UIImage to a PFFile object to storage on parse
  * @param UIImage image the UIImage to be converted to a Parse file
  * @return PFFile file the file created from the UIImage object
  */

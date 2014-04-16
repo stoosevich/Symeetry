@@ -44,9 +44,9 @@
     [super viewDidLoad];
     [self loadHeaderView];
     
-    self.users = [ParseManager getUsers]; //@[@"dennis",@"steve",@"charles"];
-    
-    //self.images = @[[UIImage imageNamed:@"dennis.jpg"],[UIImage imageNamed:@"steve.jpg"], [UIImage imageNamed:@"charles.jpg"]];
+    self.users = [ParseManager getUsers];
+  
+ 
     
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
