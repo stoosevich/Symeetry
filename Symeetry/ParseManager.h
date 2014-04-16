@@ -20,7 +20,7 @@
 +(PFObject*)getInterest:(PFUser*)user;
 
 //saving and object update methods
-+(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key;
++(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId;
 +(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid;
 +(void)updateLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid;

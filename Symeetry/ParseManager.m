@@ -64,12 +64,16 @@
  * @ param forKey key
  * @ return void
  */
-+(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key
++(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void (^)(void))completionBlock
 {
     if ([self isCurrentUser:user])
     {
         [[PFUser currentUser] setObject:object forKey:key];
-        [[PFUser currentUser] saveInBackground];
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                completionBlock();
+            }];
+        }];
     }
 }
 
