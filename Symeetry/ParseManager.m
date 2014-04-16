@@ -108,9 +108,16 @@
 +(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid
 {
     PFObject* parseLocation = [PFObject objectWithClassName:@"Location"];
-    [parseLocation setObject:location forKey:@"coordinate"];
+    [parseLocation setObject:location forKey:@"coordinates"];
     [parseLocation setObject:userId forKey:@"userId"];
     [parseLocation setObject:uuid forKey:@"uuid"];
+    [parseLocation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        if (error)
+        {
+            //TODO: handle error on save
+        }
+    }];
 }
 
 
