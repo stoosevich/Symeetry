@@ -79,14 +79,7 @@
     
 
     /***********CORE BLUETOOTH***********/
-    //[self createCBCentralManager];
-    
-    //    PFUser *newUser = [PFUser user];
-    //    newUser.username = @"charles";
-    //    newUser.password = @"password";
-    //    newUser.email = @"symeetry@hotmail.com";
-    //
-    //    [newUser signUpInBackground];
+
 	
 }
 

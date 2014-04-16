@@ -45,7 +45,6 @@
 		CE562EC918FCD11900DDB3D3 /* charles.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC818FCD11900DDB3D3 /* charles.jpg */; };
 		CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562ECA18FCD13F00DDB3D3 /* steve.jpg */; };
 		CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */; };
-		CE5ACEEE18FDF96800E91087 /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5ACEED18FDF96800E91087 /* ProfileHeaderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,7 +107,6 @@
 		CE562ECA18FCD13F00DDB3D3 /* steve.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = steve.jpg; path = Symeetry/steve.jpg; sourceTree = "<group>"; };
 		CE5ACEE918FDED5000E91087 /* BlueToothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlueToothManager.h; path = Symeetry/BlueToothManager.h; sourceTree = "<group>"; };
 		CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlueToothManager.m; path = Symeetry/BlueToothManager.m; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,13 +163,8 @@
 				CE5ACEE918FDED5000E91087 /* BlueToothManager.h */,
 				CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */,
 				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
-<<<<<<< HEAD
-				CE5ACEEC18FDF96800E91087 /* ProfileHeaderView.h */,
-				CE5ACEED18FDF96800E91087 /* ProfileHeaderView.m */,
-=======
 				8114069118FE0CD8004E578F /* ProfileHeaderView.h */,
 				8114069218FE0CD8004E578F /* ProfileHeaderView.m */,
->>>>>>> steve
 				5695430E18FD8C8F00A101F4 /* ParseManager.h */,
 				5695430F18FD8C8F00A101F4 /* ParseManager.m */,
 				81882A0118FC8AEE00724B79 /* InterestsCollectionViewCell.h */,
@@ -390,11 +383,7 @@
 				81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */,
 				81882A0018FC88BD00724B79 /* InterestsViewController.m in Sources */,
 				5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */,
-<<<<<<< HEAD
-				CE5ACEEE18FDF96800E91087 /* ProfileHeaderView.m in Sources */,
-=======
 				8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */,
->>>>>>> steve
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
