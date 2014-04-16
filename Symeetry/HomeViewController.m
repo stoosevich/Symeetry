@@ -44,6 +44,8 @@
     [super viewDidLoad];
     [self loadHeaderView];
     
+    
+    
     self.users = [ParseManager getUsers]; //@[@"dennis",@"steve",@"charles"];
     
     //self.images = @[[UIImage imageNamed:@"dennis.jpg"],[UIImage imageNamed:@"steve.jpg"], [UIImage imageNamed:@"charles.jpg"]];

@@ -9,6 +9,7 @@
 #import "InterestsViewController.h"
 #import "InterestsCollectionViewCell.h"
 #import "ProfileHeaderView.h"
+#import "ParseManager.h"
 
 @interface InterestsViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -38,7 +39,7 @@
     
     // Local test users and images
     self.interests = @[@"music", @"movies", @"food"];
-    self.images = @[[UIImage imageNamed:@"music_crop.jpg"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"food_crop"]];
+ //   self.images = @[[UIImage imageNamed:@"music_crop.jpg"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"food_crop"]];
     
     
 }
@@ -76,11 +77,10 @@
 }
 
 
--(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+-(InterestsCollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"interestsReuseCellID" forIndexPath:indexPath];
-    
-    
+    InterestsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"interestsReuseCellID" forIndexPath:indexPath];
+ //   cell.imageView.image = self.images
     return cell;
 }
 
