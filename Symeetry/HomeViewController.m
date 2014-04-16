@@ -20,7 +20,7 @@
 
 #define ESTIMOTE_IOSBEACON_PROXIMITY_UUID   [[NSUUID alloc] initWithUUIDString:@"8492E75F-4FD6-469D-B132-043FE94921D8"]
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, CBCentralManagerDelegate, CBPeripheralDelegate, UIAlertViewDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate,CBPeripheralDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *homeTableView;
 
 @property CLLocationManager* locationManager;
@@ -44,11 +44,8 @@
     [super viewDidLoad];
     [self loadHeaderView];
     
-    
-    
-    self.users = [ParseManager getUsers]; //@[@"dennis",@"steve",@"charles"];
-    
-    //self.images = @[[UIImage imageNamed:@"dennis.jpg"],[UIImage imageNamed:@"steve.jpg"], [UIImage imageNamed:@"charles.jpg"]];
+    self.users = [ParseManager getUsers];
+
     
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
@@ -96,17 +93,27 @@
 
 - (void)loadHeaderView
 {
+ 
+
     //create the view from a xib file
     ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
     
     //quick hack to make the view appear in the correct location
     CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
-    
+
     //set the frame
     headerView.frame = frame;
+    
+    //update the profile header details
     headerView.nameTextField.text = [[PFUser currentUser]username];
-    headerView.ageTextField.text = [[PFUser currentUser]objectForKey:@"age"];
+    NSNumber* age  = [[PFUser currentUser]objectForKey:@"age"];
+    headerView.ageTextField.text = age.description;
     headerView.genderTextField.text = [[PFUser currentUser]objectForKey:@"gender"];
+    
+    //convert the file to a UIImage
+    PFFile* file = [[PFUser currentUser]objectForKey:@"profilePhoto"];
+    NSData* data = [file getData];
+    headerView.imageView.image = [UIImage imageWithData:data];
     
     //add the new view to the array of subviews
     [self.view addSubview:headerView];

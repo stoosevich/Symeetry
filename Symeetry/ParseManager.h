@@ -13,10 +13,13 @@
 
 @interface ParseManager : NSObject
 
++(PFUser*)currentUser;
 +(NSArray*)getUsers;
 +(BOOL)isCurrentUser:(PFUser*)user;
 +(PFObject*)getInterest:(PFUser*)user;
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key;
++(void)saveUserInterests:(PFObject*)interests objectToSet:(id)object forKey:(NSString*)key;
 +(void)addBeaconWithName:(NSString*)name withUUID:(NSString*)uuid;
++(PFFile*)convertUIImageToPFFile:(UIImage*)image;
 
 @end
