@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56322D5618FF265B004EF55D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56322D5518FF265B004EF55D /* LoginViewController.m */; };
 		5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695430F18FD8C8F00A101F4 /* ParseManager.m */; };
 		8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8114069218FE0CD8004E578F /* ProfileHeaderView.m */; };
 		818829FB18FC87F300724B79 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818829FA18FC87F300724B79 /* ProfileViewController.m */; };
@@ -59,6 +60,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		56322D5418FF265B004EF55D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		56322D5518FF265B004EF55D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseManager.h; path = Symeetry/ParseManager.h; sourceTree = "<group>"; };
 		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseManager.m; path = Symeetry/ParseManager.m; sourceTree = "<group>"; };
 		8114069118FE0CD8004E578F /* ProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileHeaderView.h; path = Symeetry/ProfileHeaderView.h; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 		818829FD18FC883000724B79 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				56322D5418FF265B004EF55D /* LoginViewController.h */,
+				56322D5518FF265B004EF55D /* LoginViewController.m */,
 				81AB5B1D18FC85890060B17A /* HomeViewController.h */,
 				81AB5B1E18FC85890060B17A /* HomeViewController.m */,
 				818829F918FC87F300724B79 /* ProfileViewController.h */,
@@ -384,6 +389,7 @@
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
 				818829FB18FC87F300724B79 /* ProfileViewController.m in Sources */,
+				56322D5618FF265B004EF55D /* LoginViewController.m in Sources */,
 				81AB5B1518FC85890060B17A /* main.m in Sources */,
 				81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */,
 				CE2F48B318FF287300949055 /* SimilarityAlgorithm.m in Sources */,
