@@ -86,6 +86,10 @@
 {
     InterestsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"interestsReuseCellID" forIndexPath:indexPath];
     cell.imageView.image = self.images[indexPath.row];
+    cell.interestTextField.text = self.interestNames[indexPath.row];
+    
+    
+    
     return cell;
 }
 
