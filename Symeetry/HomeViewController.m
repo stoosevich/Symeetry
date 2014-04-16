@@ -94,8 +94,6 @@
 
 - (void)loadHeaderView
 {
- 
-
     //create the view from a xib file
     ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
     
@@ -118,7 +116,6 @@
     
     //add the new view to the array of subviews
     [self.view addSubview:headerView];
-
 }
 
 
