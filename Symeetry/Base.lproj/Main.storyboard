@@ -184,11 +184,23 @@
                                     <outlet property="delegate" destination="NeW-jG-8jf" id="Ozf-XJ-k7K"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HnL-dX-i57">
+                                <rect key="frame" x="223" y="266" width="61" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Change">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onChangeRelationShipButtonPressed:" destination="NeW-jG-8jf" eventType="touchUpInside" id="iau-tF-1B0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0Df-Ri-1dW" firstAttribute="leading" secondItem="Qhw-le-nvI" secondAttribute="trailing" constant="1" id="69C-dd-Tf4"/>
                             <constraint firstItem="1CV-We-u3d" firstAttribute="top" secondItem="YgP-aN-BVw" secondAttribute="bottom" constant="-24" id="UD9-k6-glP"/>
+                            <constraint firstItem="HnL-dX-i57" firstAttribute="leading" secondItem="Hq9-un-zVm" secondAttribute="trailing" constant="8" id="deB-QD-Gwe"/>
                             <constraint firstItem="Hq9-un-zVm" firstAttribute="leading" secondItem="Ebe-kH-QcJ" secondAttribute="trailing" constant="1" id="eof-wm-e9p"/>
                             <constraint firstItem="1CV-We-u3d" firstAttribute="leading" secondItem="YgP-aN-BVw" secondAttribute="trailing" constant="1" id="sLz-an-ce8"/>
                             <constraint firstItem="0Df-Ri-1dW" firstAttribute="top" secondItem="Qhw-le-nvI" secondAttribute="bottom" constant="-24" id="wtu-6C-0ee"/>
@@ -197,6 +209,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="EWZ-sU-830"/>
                     <connections>
+                        <outlet property="changeRelationShipButton" destination="HnL-dX-i57" id="tVT-Vq-KY5"/>
                         <outlet property="emailTextField" destination="0Df-Ri-1dW" id="Cgq-yu-uP7"/>
                         <outlet property="homeTownTextField" destination="1CV-We-u3d" id="T7d-8z-pOg"/>
                         <outlet property="relationShipLabel" destination="Hq9-un-zVm" id="fvh-5y-Xjx"/>

@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *relationShipLabel;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property ProfileHeaderView *headerView;
+@property (weak, nonatomic) IBOutlet UIButton *changeRelationShipButton;
 
 @end
 
@@ -36,6 +37,12 @@
 {
     [super viewDidLoad];
     
+    if ([ParseManager isCurrentUser:self.user]) {
+        self.changeRelationShipButton.hidden = NO;
+    }
+    else{
+        self.changeRelationShipButton.hidden = YES;
+    }
     self.homeTownTextField.text = [self.user objectForKey:@"homeTown"];
     self.emailTextField.text = [self.user objectForKey:@"email"];
     
@@ -68,6 +75,19 @@
 {
     [super didReceiveMemoryWarning];
     
+}
+
+- (IBAction)onChangeRelationShipButtonPressed:(id)sender
+{
+    int x = [[self.user objectForKey:@"relationshipStatus"] intValue];
+    if (x != 3) {
+        x++;
+        [ParseManager saveInfo:self.user objectToSet:@(x) forKey:@"relationshipStatus"];
+    }
+    else{
+        x = 0;
+        [ParseManager saveInfo:self.user objectToSet:@(x) forKey:@"relationshipStatus"];
+    }
 }
 
 -(NSString*)relationShipStatus{
