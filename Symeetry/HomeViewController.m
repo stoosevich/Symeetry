@@ -76,10 +76,6 @@
     
     //turn on the monitoring manually, rather then waiting for us to enter a region
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
-    
-
-    /***********CORE BLUETOOTH***********/
-
 	
 }
 
@@ -110,6 +106,13 @@
     [self.view addSubview:headerView];
 }
 
+
+- (void)checkUserIntoSymeetry
+{
+    CLLocation* currentLocation = 
+    [ParseManager addLocation:<#(CLLocation *)#> forUser:[PFUser curr] atBeacon:@""];
+    
+}
 
 #pragma mark - UITableViewDelegate Methods
 
