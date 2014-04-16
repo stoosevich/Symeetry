@@ -14,6 +14,8 @@
 #import "ParseManager.h"
 #import "ProfileViewController.h"
 
+
+//tring to fix 
 #define ESTIMOTE_PROXIMITY_UUID             [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]
 
 #define ESTIMOTE_MACBEACON_PROXIMITY_UUID   [[NSUUID alloc] initWithUUIDString:@"08D4A950-80F0-4D42-A14B-D53E063516E6"]
@@ -117,8 +119,7 @@
 //TODO: We need to fix the beacon information being transmitted to Parse to be the beacon we are nearest
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    CLLocation* location = [locations lastObject];
-    
+    CLLocation* location = [locations lastObject];    
     [self.locationManager stopUpdatingLocation];
     
     //get the date/time of the event
@@ -132,7 +133,6 @@
          //update parse with the information
          [ParseManager addLocation:location forUser:[[PFUser currentUser] objectId] atBeacon:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"];
      }
-
 }
 
 #pragma mark - UITableViewDelegate Methods

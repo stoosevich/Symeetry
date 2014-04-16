@@ -17,8 +17,9 @@
 @property (strong, nonatomic) IBOutlet UICollectionView *interestsCollectionView;
 
 //local data source
-@property NSArray* interests;
+@property NSDictionary* interests;
 @property NSArray* images;
+@property NSArray* interestNames;
 
 @end
 
@@ -28,6 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
 
     UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
     
@@ -37,50 +40,52 @@
     
     [self.view addSubview:headerView];
     
-    // Local test users and images
-    self.interests = @[@"music", @"movies", @"food"];
- //   self.images = @[[UIImage imageNamed:@"music_crop.jpg"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"food_crop"]];
+    // Local images
+   self.images = @[[UIImage imageNamed:@"Music_crop"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"Food_crop.jpg"]];
+    self.interestNames = @[@"Music", @"Movies", @"Food"];
+    
     
     
 }
 
 // Add animation to cells
--(void)viewDidAppear:(BOOL)animated
-{
-    int index_start = -1;
-    int index_finish = 0;
-    CGFloat dx_start = index_start*960;
-    CGFloat dx_finish =index_finish*960;
-    
-    [self.interestsCollectionView setContentOffset:CGPointMake(dx_start, 0) animated:animated];
-    
-    
-    [UIView animateWithDuration:0.67 animations:
-     ^{
-         // Animate the views on and off the screen. This will appear to slide.
-         [self.interestsCollectionView setContentOffset:CGPointMake(dx_finish, 0) animated:animated];
-         
-     }
-                     completion:^(BOOL finished)
-     {
-         if (finished)
-         {
-             
-             
-         }
-     }];
-}
+//-(void)viewDidAppear:(BOOL)animated
+//{
+//    int index_start = -1;
+//    int index_finish = 0;
+//    CGFloat dx_start = index_start*960;
+//    CGFloat dx_finish =index_finish*960;
+//    
+//    [self.interestsCollectionView setContentOffset:CGPointMake(dx_start, 0) animated:animated];
+//    
+//    
+//    [UIView animateWithDuration:0.67 animations:
+//     ^{
+//         // Animate the views on and off the screen. This will appear to slide.
+//         [self.interestsCollectionView setContentOffset:CGPointMake(dx_finish, 0) animated:animated];
+//         
+//     }
+//                     completion:^(BOOL finished)
+//     {
+//         if (finished)
+//         {
+//             
+//             
+//         }
+//     }];
+//}
+
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.interests.count;
+    return self.images.count;
 }
 
 
 -(InterestsCollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     InterestsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"interestsReuseCellID" forIndexPath:indexPath];
- //   cell.imageView.image = self.images
+    cell.imageView.image = self.images[indexPath.row];
     return cell;
 }
 
