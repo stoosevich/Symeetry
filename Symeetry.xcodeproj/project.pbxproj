@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695430F18FD8C8F00A101F4 /* ParseManager.m */; };
+		8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8114069218FE0CD8004E578F /* ProfileHeaderView.m */; };
 		818829FB18FC87F300724B79 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818829FA18FC87F300724B79 /* ProfileViewController.m */; };
 		81882A0018FC88BD00724B79 /* InterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818829FF18FC88BD00724B79 /* InterestsViewController.m */; };
 		81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81882A0218FC8AEE00724B79 /* InterestsCollectionViewCell.m */; };
@@ -60,6 +61,8 @@
 /* Begin PBXFileReference section */
 		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseManager.h; path = Symeetry/ParseManager.h; sourceTree = "<group>"; };
 		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseManager.m; path = Symeetry/ParseManager.m; sourceTree = "<group>"; };
+		8114069118FE0CD8004E578F /* ProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileHeaderView.h; path = Symeetry/ProfileHeaderView.h; sourceTree = "<group>"; };
+		8114069218FE0CD8004E578F /* ProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileHeaderView.m; path = Symeetry/ProfileHeaderView.m; sourceTree = "<group>"; };
 		818829F918FC87F300724B79 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = Symeetry/ProfileViewController.h; sourceTree = "<group>"; };
 		818829FA18FC87F300724B79 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = Symeetry/ProfileViewController.m; sourceTree = "<group>"; };
 		818829FE18FC88BD00724B79 /* InterestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InterestsViewController.h; path = Symeetry/InterestsViewController.h; sourceTree = "<group>"; };
@@ -105,8 +108,7 @@
 		CE562ECA18FCD13F00DDB3D3 /* steve.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = steve.jpg; path = Symeetry/steve.jpg; sourceTree = "<group>"; };
 		CE5ACEE918FDED5000E91087 /* BlueToothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlueToothManager.h; path = Symeetry/BlueToothManager.h; sourceTree = "<group>"; };
 		CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlueToothManager.m; path = Symeetry/BlueToothManager.m; sourceTree = "<group>"; };
-		CE5ACEEC18FDF96800E91087 /* ProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileHeaderView.h; path = Symeetry/ProfileHeaderView.h; sourceTree = "<group>"; };
-		CE5ACEED18FDF96800E91087 /* ProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileHeaderView.m; path = Symeetry/ProfileHeaderView.m; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,8 +165,13 @@
 				CE5ACEE918FDED5000E91087 /* BlueToothManager.h */,
 				CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */,
 				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
+<<<<<<< HEAD
 				CE5ACEEC18FDF96800E91087 /* ProfileHeaderView.h */,
 				CE5ACEED18FDF96800E91087 /* ProfileHeaderView.m */,
+=======
+				8114069118FE0CD8004E578F /* ProfileHeaderView.h */,
+				8114069218FE0CD8004E578F /* ProfileHeaderView.m */,
+>>>>>>> steve
 				5695430E18FD8C8F00A101F4 /* ParseManager.h */,
 				5695430F18FD8C8F00A101F4 /* ParseManager.m */,
 				81882A0118FC8AEE00724B79 /* InterestsCollectionViewCell.h */,
@@ -383,7 +390,11 @@
 				81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */,
 				81882A0018FC88BD00724B79 /* InterestsViewController.m in Sources */,
 				5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */,
+<<<<<<< HEAD
 				CE5ACEEE18FDF96800E91087 /* ProfileHeaderView.m in Sources */,
+=======
+				8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */,
+>>>>>>> steve
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
