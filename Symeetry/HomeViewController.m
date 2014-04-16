@@ -43,7 +43,7 @@
 {
     [super viewDidLoad];
     [self loadHeaderView];
-    
+
     self.users = [ParseManager getUsers];
 
     
@@ -104,7 +104,7 @@
     //convert the file to a UIImage
     PFFile* file = [[PFUser currentUser]objectForKey:@"profilePhoto"];
     NSData* data = [file getData];
-    headerView.imageView.image = [UIImage imageWithData:data];
+    //headerView.imageView.image = [UIImage imageWithData:data];
     
     //add the new view to the array of subviews
     [self.view addSubview:headerView];
