@@ -46,6 +46,8 @@
     [super viewDidLoad];
     [self loadHeaderView];
 
+    [PFUser logInWithUsername:@"dennis" password:@"password"];
+    
     self.users = [ParseManager getUsers];
 
     
@@ -56,6 +58,7 @@
     //intialize the location manager
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     
     //create the beacon to monitor for services
     
@@ -111,9 +114,30 @@
 
 - (void)checkUserIntoSymeetry
 {
-//    CLLocation* currentLocation = 
-//    [ParseManager addLocation:nil forUser:[PFUser curr] atBeacon:@""];
+    [self.locationManager startUpdatingLocation];
+}
+
+
+//TODO: We need to fix the beacon information being transmitted to Parse to be the beacon we are nearest
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation* location = [locations lastObject];    
+    [self.locationManager stopUpdatingLocation];
     
+    //get the date/time of the event
+    NSDate* eventDate = location.timestamp;
+    
+    //determine how recent
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    
+     if (abs(howRecent) < 15.0)
+     {
+         //update parse with the information
+         
+//         PFUser* user = [PFUser currentUser];
+//         NSLog(@"user ID %@", [user objectId]);
+         [ParseManager addLocation:location forUser:[[PFUser currentUser] objectId] atBeacon:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"];
+     }
 }
 
 #pragma mark - UITableViewDelegate Methods
@@ -208,12 +232,12 @@
         if(!self.didRequestCheckin)
         {
             self.didRequestCheckin = !self.didRequestCheckin;
-            [self showSymeetryAlertScreen];
+            //[self showSymeetryAlertScreen];
         }
         
         navBar.backgroundColor =[UIColor redColor];
-        NSLog(@"Beacon accurary %f", beacon.accuracy);
-        NSLog(@"Beacon accurary CLProximityImmediate");
+//        NSLog(@"Beacon accurary %f", beacon.accuracy);
+//        NSLog(@"Beacon accurary CLProximityImmediate");
     }
     else if (beacon.proximity == CLProximityNear)
     {
@@ -221,11 +245,11 @@
         if ( !self.didRequestCheckin)
         {
             self.didRequestCheckin = !self.didRequestCheckin;
-            [self showSymeetryAlertScreen];
+            //[self showSymeetryAlertScreen];
         }
         
         navBar.backgroundColor = [UIColor blueColor];
-        NSLog(@"Beacon accurary CLProximityNear");
+//        NSLog(@"Beacon accurary CLProximityNear");
         
     }
     else if (beacon.proximity == CLProximityFar)
@@ -234,11 +258,11 @@
         if(!self.didRequestCheckin)
         {
             self.didRequestCheckin = !self.didRequestCheckin;
-            [self showSymeetryAlertScreen];
+            //[self showSymeetryAlertScreen];
         }
         navBar.backgroundColor = [UIColor orangeColor];
-        NSLog(@"Beacon accurary %f", beacon.accuracy);
-        NSLog(@"Beacon accurary CLProximityFar");
+//        NSLog(@"Beacon accurary %f", beacon.accuracy);
+//        NSLog(@"Beacon accurary CLProximityFar");
         
     }
     else if (beacon.proximity == CLRegionStateUnknown)
@@ -314,7 +338,12 @@
     if (buttonIndex == 1)
     {
         self.didCheckin = YES;
+        [self checkUserIntoSymeetry];
         NSLog(@"did checkin");
+    }
+    else if (buttonIndex ==0)
+    {
+        
     }
 }
 
