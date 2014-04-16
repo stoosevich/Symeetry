@@ -23,7 +23,6 @@
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key;
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId;
 +(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid;
-+(void)updateLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid;
 +(void)retrieveLocationFor:(NSString*)userId location:(NSArray*)locations;
 
 
