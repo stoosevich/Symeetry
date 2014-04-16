@@ -40,10 +40,14 @@
     
     self.relationShipLabel.text = [self relationShipStatus];
     
-    UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
+    ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
     //quick hack to make the view appear in the correct location
     CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
     headerView.frame = frame;
+    headerView.nameTextField.text = [self.user username];
+    headerView.ageTextField.text = [[self.user objectForKey:@"age"] description];
+    headerView.genderTextField.text = [self.user objectForKey:@"gender"];
+    
     
     self.homeTownTextField.enabled = [ParseManager isCurrentUser:self.user];
     self.emailTextField.enabled = [ParseManager isCurrentUser:self.user];
