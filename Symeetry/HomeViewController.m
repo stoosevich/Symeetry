@@ -77,6 +77,9 @@
     
     //turn on the monitoring manually, rather then waiting for us to enter a region
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
+    
+    SimilarityAlgorithm* algorithm = [SimilarityAlgorithm new];
+    [algorithm similarityForUser:nil toUser:nil];
 	
 }
 
