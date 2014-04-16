@@ -92,5 +92,23 @@
     
 }
 
+/*
+ *
+ */
++(void)createUserName:(NSString*)name email:(NSString*)email photo:(UIImage*)photo
+{
+    
+}
+
+/*
+ * @param UIImage image the UIImage to be converted to a Parse file
+ * @return PFFile file the file created from the UIImage object
+ */
++(PFFile*)convertUIImageToPFFile:(UIImage*)image
+{
+    NSData* imagedata = UIImageJPEGRepresentation(image, 0.8f);
+    PFFile* file = [PFFile fileWithData:imagedata];
+    return file;
+}
 
 @end
