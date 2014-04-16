@@ -24,8 +24,23 @@
     return dictionary;
 }
 
+
 - (void)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser
 {
+    NSDictionary* firstUserDict = [self initalizeInterestDictionary];
+    
+    NSDictionary* secondUserDict = [self initalizeInterestDictionary];
+    
+    int similar = 0;
+    
+    for (NSDictionary* item in firstUserDict)
+    {
+        if([firstUserDict objectForKey:item] == [secondUserDict objectForKey:item])
+        {
+            similar++;
+            NSLog(@"similar:%i", similar);
+        }
+    }
     
 }
 
