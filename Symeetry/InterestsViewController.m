@@ -17,9 +17,11 @@
 @property (strong, nonatomic) IBOutlet UICollectionView *interestsCollectionView;
 
 //local data source
-@property NSDictionary* interests;
+@property NSMutableDictionary* chosenInterests;
 @property NSArray* images;
 @property NSArray* interestNames;
+//@property UISwipeGestureRecognizer *swipeLeftRecognizer;
+@property UISwipeGestureRecognizer *swipeRightRecognizer;
 
 @end
 
@@ -31,7 +33,7 @@
     [super viewDidLoad];
     
     
-
+    self.chosenInterests = [NSMutableDictionary new];
     UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
     
     //quick hack to make the view appear in the correct location
@@ -85,12 +87,40 @@
 -(InterestsCollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     InterestsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"interestsReuseCellID" forIndexPath:indexPath];
+    
+    // Setting swipe gestures on cells.
+    UISwipeGestureRecognizer* swipeRightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipedRightToDislike)];
+    swipeRightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRightRecognizer];
+    
+    UISwipeGestureRecognizer* swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipedLeftToLike)];
+    swipeLeftRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeftRecognizer];
+    
+    
+    
     cell.imageView.image = self.images[indexPath.row];
     cell.interestTextField.text = self.interestNames[indexPath.row];
+    
+//    if (self.swipeLeftRecognizer == UISwipeGestureRecognizerDirectionLeft) {
+//        [self.chosenInterests setObject:cell.interestTextField.text forKey:<#(id<NSCopying>)#>
+//    }
     
     
     
     return cell;
+}
+
+
+         
+- (void)swipedRightToDislike
+{
+    NSLog(@"swiped right");
+}
+
+- (void)swipedLeftToLike
+{
+    NSLog(@"swiped left");
 }
 
 @end
