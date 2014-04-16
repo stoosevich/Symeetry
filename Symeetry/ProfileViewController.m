@@ -82,11 +82,16 @@
     int x = [[self.user objectForKey:@"relationshipStatus"] intValue];
     if (x != 3) {
         x++;
-        [ParseManager saveInfo:self.user objectToSet:@(x) forKey:@"relationshipStatus"];
+        [ParseManager saveInfo:self.user objectToSet:@(x) forKey:@"relationshipStatus" completionBlock:^{
+            self.relationShipLabel.text = [self relationShipStatus];
+        }];
     }
     else{
         x = 0;
-        [ParseManager saveInfo:self.user objectToSet:@(x) forKey:@"relationshipStatus"];
+        [ParseManager saveInfo:self.user objectToSet:@(x) forKey:@"relationshipStatus" completionBlock:^{
+            self.relationShipLabel.text = [self relationShipStatus];
+
+        }];
     }
 }
 
@@ -120,13 +125,19 @@
 {
     [textField endEditing:YES];
     if (textField == self.emailTextField) {
-        [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"email"];
+        [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"email" completionBlock:^{
+            
+        }];
     }
     else if(textField == self.homeTownTextField){
-        [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"homeTown"];
+        [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"homeTown" completionBlock:^{
+            
+        }];
     }
     else if(textField == self.headerView.ageTextField){
-        [ParseManager saveInfo:self.user objectToSet:@(textField.text.intValue) forKey:@"age"];
+        [ParseManager saveInfo:self.user objectToSet:@(textField.text.intValue) forKey:@"age" completionBlock:^{
+            
+        }];
     }else if (textField == self.headerView.genderTextField){
         if ([self.headerView.genderTextField.text isEqualToString:@"Male"] ||
             [self.headerView.genderTextField.text isEqualToString:@"male"] ||
@@ -134,7 +145,9 @@
             [self.headerView.genderTextField.text isEqualToString:@"female"] ||
             [self.headerView.genderTextField.text isEqualToString:@"M" ] ||
             [self.headerView.genderTextField.text isEqualToString:@"F"]) {
-            [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"gender"];
+            [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"gender" completionBlock:^{
+                
+            }];
         }
         else{
             self.headerView.genderTextField.text = [self.user objectForKey:@"gender"];
