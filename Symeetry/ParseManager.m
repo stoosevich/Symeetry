@@ -24,7 +24,7 @@
 +(NSArray*)getUsers
 {
     PFQuery* query = [PFUser query];
-    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    //[query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
     return [query findObjects];
 }
 
@@ -48,7 +48,7 @@
  */
 +(BOOL)isCurrentUser:(PFUser*)user
 {
-    if (user == [PFUser currentUser]) {
+    if ([user.username isEqualToString:[[PFUser currentUser] username]]) {
         return YES;
     }
     else{

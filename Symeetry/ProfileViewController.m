@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *homeTownTextField;
 @property (weak, nonatomic) IBOutlet UILabel *relationShipLabel;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property ProfileHeaderView *headerView;
 
 @end
 
@@ -40,27 +41,32 @@
     
     self.relationShipLabel.text = [self relationShipStatus];
     
-    ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
+    self.headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
     //quick hack to make the view appear in the correct location
-    CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
-    headerView.frame = frame;
-    headerView.nameTextField.text = [self.user username];
-    headerView.ageTextField.text = [[self.user objectForKey:@"age"] description];
-    headerView.genderTextField.text = [self.user objectForKey:@"gender"];
+    CGRect frame = CGRectMake(0.0, 60.0f, self.headerView.frame.size.width, self.headerView.frame.size.height);
+    self.headerView.frame = frame;
+    self.headerView.nameTextField.text = [self.user username];
+    self.headerView.ageTextField.text = [[self.user objectForKey:@"age"] description];
+    self.headerView.ageTextField.keyboardAppearance = UIKeyboardAppearanceDark;
+    self.headerView.ageTextField.delegate = self;
+    self.headerView.genderTextField.text = [self.user objectForKey:@"gender"];
+    self.headerView.genderTextField.keyboardAppearance = UIKeyboardAppearanceDark;
+    self.headerView.genderTextField.delegate = self;
     PFFile* file = [self.user objectForKey:@"photo"];
     NSData* data = [file getData];
-    headerView.imageView.image = [UIImage imageWithData:data];
+    self.headerView.imageView.image = [UIImage imageWithData:data];
     
+    self.headerView.nameTextField.enabled = NO;
+    self.headerView.ageTextField.enabled = [ParseManager isCurrentUser:self.user];
     self.homeTownTextField.enabled = [ParseManager isCurrentUser:self.user];
     self.emailTextField.enabled = [ParseManager isCurrentUser:self.user];
     
-    [self.view addSubview:headerView];
+    [self.view addSubview:self.headerView];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    
     
 }
 
@@ -99,6 +105,22 @@
     else if(textField == self.homeTownTextField){
         [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"homeTown"];
     }
+    else if(textField == self.headerView.ageTextField){
+        [ParseManager saveInfo:self.user objectToSet:@(textField.text.intValue) forKey:@"age"];
+    }else if (textField == self.headerView.genderTextField){
+        if ([self.headerView.genderTextField.text isEqualToString:@"Male"] ||
+            [self.headerView.genderTextField.text isEqualToString:@"male"] ||
+            [self.headerView.genderTextField.text isEqualToString:@"Female"] ||
+            [self.headerView.genderTextField.text isEqualToString:@"female"] ||
+            [self.headerView.genderTextField.text isEqualToString:@"M" ] ||
+            [self.headerView.genderTextField.text isEqualToString:@"F"]) {
+            [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"gender"];
+        }
+        else{
+            self.headerView.genderTextField.text = [self.user objectForKey:@"gender"];
+        }
+    }
+
     return YES;
 }
 
