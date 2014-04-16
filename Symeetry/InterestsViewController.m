@@ -20,6 +20,8 @@
 @property NSDictionary* interests;
 @property NSArray* images;
 @property NSArray* interestNames;
+@property UISwipeGestureRecognizer *swipeLeftRecognizer;
+@property UISwipeGestureRecognizer *swipeRightRecognizer;
 
 @end
 
