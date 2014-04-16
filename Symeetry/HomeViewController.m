@@ -46,12 +46,8 @@
 {
     [super viewDidLoad];
     [self loadHeaderView];
-
-    //[PFUser logInWithUsername:@"dennis" password:@"password"];
-    
     self.users = [ParseManager getUsers];
 
-    
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
     self.didCheckin = NO;
