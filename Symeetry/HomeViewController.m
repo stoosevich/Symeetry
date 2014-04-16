@@ -46,6 +46,8 @@
     [super viewDidLoad];
     [self loadHeaderView];
 
+    [PFUser logInWithUsername:@"dennis" password:@"password"];
+    
     self.users = [ParseManager getUsers];
 
     
@@ -131,6 +133,9 @@
      if (abs(howRecent) < 15.0)
      {
          //update parse with the information
+         
+//         PFUser* user = [PFUser currentUser];
+//         NSLog(@"user ID %@", [user objectId]);
          [ParseManager addLocation:location forUser:[[PFUser currentUser] objectId] atBeacon:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"];
      }
 }
@@ -335,6 +340,10 @@
         self.didCheckin = YES;
         [self checkUserIntoSymeetry];
         NSLog(@"did checkin");
+    }
+    else if (buttonIndex ==0)
+    {
+        
     }
 }
 

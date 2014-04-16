@@ -107,15 +107,24 @@
  */
 +(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid
 {
+    
+    NSNumber* latitude = [NSNumber numberWithDouble: location.coordinate.latitude];
+    NSNumber* longitude = [NSNumber numberWithDouble: location.coordinate.longitude];
+    
     PFObject* parseLocation = [PFObject objectWithClassName:@"Location"];
-    [parseLocation setObject:location forKey:@"coordinates"];
-    [parseLocation setObject:userId forKey:@"userId"];
-    [parseLocation setObject:uuid forKey:@"uuid"];
+    
+    parseLocation[@"userId"] = userId;
+    parseLocation[@"uuid"] = uuid;
+    parseLocation[@"latitude"] = latitude;
+    parseLocation[@"longitude"] = longitude;
+    parseLocation[@"locationTime"] = location.timestamp;
+    
     [parseLocation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
         if (error)
         {
             //TODO: handle error on save
+            NSLog(@"error saving location");
         }
     }];
 }
