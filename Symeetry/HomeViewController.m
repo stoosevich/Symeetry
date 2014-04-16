@@ -20,16 +20,12 @@
 
 #define ESTIMOTE_IOSBEACON_PROXIMITY_UUID   [[NSUUID alloc] initWithUUIDString:@"8492E75F-4FD6-469D-B132-043FE94921D8"]
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, CBCentralManagerDelegate, CBPeripheralDelegate, UIAlertViewDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate,CBPeripheralDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *homeTableView;
 
 @property CLLocationManager* locationManager;
 @property NSUUID* beaconId;
 @property CLBeaconRegion* beaconRegion;
-
-///bluetooth related
-@property CBCentralManager* centralManager;
-@property NSMutableArray *beacons;
 
 //status related
 @property BOOL didRequestCheckin;
@@ -47,10 +43,9 @@
 {
     [super viewDidLoad];
     [self loadHeaderView];
-    
-    self.users = [ParseManager getUsers]; //@[@"dennis",@"steve",@"charles"];
-    
-    //self.images = @[[UIImage imageNamed:@"dennis.jpg"],[UIImage imageNamed:@"steve.jpg"], [UIImage imageNamed:@"charles.jpg"]];
+
+    self.users = [ParseManager getUsers];
+
     
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
@@ -77,21 +72,14 @@
     
     
     //assign the location manager to start monitoring the region
-    //[self.locationManager startMonitoringForRegion:self.beaconRegion];
+    [self.locationManager startMonitoringForRegion:self.beaconRegion];
     
     //turn on the monitoring manually, rather then waiting for us to enter a region
-    //[self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
+    [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
     
 
     /***********CORE BLUETOOTH***********/
-    [self createCBCentralManager];
-    
-    //    PFUser *newUser = [PFUser user];
-    //    newUser.username = @"charles";
-    //    newUser.password = @"password";
-    //    newUser.email = @"symeetry@hotmail.com";
-    //
-    //    [newUser signUpInBackground];
+
 	
 }
 
@@ -103,26 +91,25 @@
     
     //quick hack to make the view appear in the correct location
     CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
-    
+
     //set the frame
     headerView.frame = frame;
+    
+    //update the profile header details
     headerView.nameTextField.text = [[PFUser currentUser]username];
-    headerView.ageTextField.text = [[PFUser currentUser]objectForKey:@"age"];
+    NSNumber* age  = [[PFUser currentUser]objectForKey:@"age"];
+    headerView.ageTextField.text = age.description;
     headerView.genderTextField.text = [[PFUser currentUser]objectForKey:@"gender"];
+    
+    //convert the file to a UIImage
+    PFFile* file = [[PFUser currentUser]objectForKey:@"profilePhoto"];
+    NSData* data = [file getData];
+    //headerView.imageView.image = [UIImage imageWithData:data];
     
     //add the new view to the array of subviews
     [self.view addSubview:headerView];
-    
-    
-    
-
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-   
-
-}
 
 #pragma mark - UITableViewDelegate Methods
 
@@ -130,6 +117,7 @@
 {
     return self.users.count;
 }
+
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -295,144 +283,6 @@
 }
 
 
-#pragma mark - CoreBluetoothDelegate Methods
-
-- (void)createCBCentralManager
-{
-    NSLog(@"state %ld", self.centralManager.state);
-    
-    if (self.centralManager.state == CBCentralManagerStatePoweredOff)
-    {
-        //bluetooth is off we need to tell the user to turn on the service
-        
-    }
-    else if (self.centralManager.state == CBCentralManagerStateUnauthorized)
-    {
-        //bluetooth is not authorized for this app, we need to tell the user to adjust settings
-        
-    }
-    else if (self.centralManager.state == CBCentralManagerStateUnsupported)
-    {
-        //we need to tell the user that the device does not support this action
-    }
-    else if (self.centralManager.state == CBCentralManagerStateUnknown)
-    {
-        self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
-        [self startScan];
-    }
-    
-    else if(self.centralManager.state == CBCentralManagerStatePoweredOn)
-    {
-        self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
-        [self startScan];
-    }
-}
-
-/*
- * Scan for bluetooth peripherals of any kind.
- */
-- (void)startScan
-{
-    if (self.centralManager.state == CBCentralManagerStatePoweredOn ||
-        self.centralManager.state == CBCentralManagerStateUnknown)
-    {
-        [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-    }
-}
-
-
-
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central
-{
-    
-}
-
-
-- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
-{
-    
-    NSLog(@"peripheral name: %@\nUUID: %@\nservices:%@\n",peripheral.name, peripheral.identifier.description,peripheral.services);
-    
-    NSMutableArray* peripherals = [NSMutableArray new]; //[self mutableArrayValueForKey:@"estimote"];
-    
-    if(peripheral.name)
-    {
-        //if we have not see this beacon before add it to the list of beacons
-        PFQuery *query = [PFQuery queryWithClassName:@"Beacon"];
-        [query whereKey:@"uuid" equalTo:[peripheral.identifier UUIDString]];
-        
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-         {
-             //first check if the beacon is in Parse, if not then add it
-             if (objects.count == 0)
-             {
-                 PFObject* beacon = [PFObject objectWithClassName:@"Beacon"];
-                 NSString* str = [(NSUUID*)peripheral.identifier UUIDString];
-                 beacon[@"uuid"]= str;
-                 beacon[@"name"]= peripheral.name;
-                 [beacon saveEventually:^(BOOL succeeded, NSError *error)
-                  {
-                      if (error)
-                      {
-                          //if the beacon is not added to parse
-                      }
-                  }];
-             }
-         }];
-        
-    }
-    
-    //add device to list. A device can be found more then once
-    if(![self.beacons containsObject:peripheral])
-    {
-        [peripherals addObject:peripheral];
-    }
-    
-}
-
-- (void)connectToPerihperal
-{
-    [self.centralManager stopScan];
-    
-    [self.centralManager connectPeripheral:self.beacons.firstObject options:nil];
-}
-
-- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
-{
-    [peripheral setDelegate:(id)self];
-    [peripheral discoverServices:nil];
-    
-    NSLog(@"didConnectPeripheral");
-}
-
-
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
-{
-    for (CBService *service in peripheral.services)
-    {
-        if(true)//check for the desired service
-        {
-            [peripheral discoverCharacteristics:nil forService:service];
-        }
-    }
-}
-
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
-{
-    for (CBCharacteristic* characteristic in service.characteristics)
-    {
-        //pull out the characteristics we are interested in, we can also set the
-        //notification value for the characteristic if we need to be updated constantly
-        NSLog(@"Characteristics of service %@", characteristic);
-    }
-}
-
-
-//callback for the update from the peripheral
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
-{
-    
-}
 
 #pragma mark -  UIAlertViewDelegate Methods
 

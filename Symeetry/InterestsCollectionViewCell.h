@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface InterestsCollectionViewCell : UICollectionViewCell
-
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @end
