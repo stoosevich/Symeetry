@@ -102,9 +102,9 @@
     headerView.genderTextField.text = [[PFUser currentUser]objectForKey:@"gender"];
     
     //convert the file to a UIImage
-    PFFile* file = [[PFUser currentUser]objectForKey:@"profilePhoto"];
+    PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
     NSData* data = [file getData];
-    //headerView.imageView.image = [UIImage imageWithData:data];
+    headerView.imageView.image = [UIImage imageWithData:data];
     
     //add the new view to the array of subviews
     [self.view addSubview:headerView];
@@ -126,7 +126,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"homeReuseCellID"];
     cell.textLabel.text = user.username;
     cell.detailTextLabel.text = user.email;
-    PFFile* file = [user objectForKey:@"profilePicture"];
+    PFFile* file = [user objectForKey:@"photo"];
     NSData* data = [file getData];
     cell.imageView.image = [UIImage imageWithData:data]; 
     return cell;
