@@ -66,10 +66,25 @@
  */
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key
 {
-    if ([self isCurrentUser:user]) {
+    if ([self isCurrentUser:user])
+    {
         [[PFUser currentUser] setObject:object forKey:key];
         [[PFUser currentUser] saveInBackground];
     }
+}
+
+
+
++(void)saveUserInterests:(PFObject*)interests objectToSet:(id)object forKey:(NSString*)key
+{
+    [interests setObject:object forKey:key];
+    [interests saveEventually:^(BOOL succeeded, NSError *error)
+    {
+       if(error)
+       {
+           //TODO: need to handle error on save
+       }
+    }];
 }
 
 /*
