@@ -13,6 +13,7 @@
 #import "ProfileHeaderView.h"
 #import "ParseManager.h"
 #import "ProfileViewController.h"
+#import "SimilarityAlgorithm.h"
 
 
 //tring to fix 
@@ -45,8 +46,8 @@
 {
     [super viewDidLoad];
     [self loadHeaderView];
+    self.users = [ParseManager getUsers];
 
-    
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
     self.didCheckin = NO;
@@ -67,12 +68,11 @@
     //initialze the beacon region with a UUID and indentifier
     self.beaconRegion = [[CLBeaconRegion alloc]initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID identifier:@"com.Estimote"];
 
-    
     //the location manager sends beacon notifications when the user turns on the display and the device is already inside the region. These notifications are sent even if your app is not running. In that situation
     self.beaconRegion.notifyEntryStateOnDisplay = YES;
     
     
-    //assign the location manager to start monitoring the region
+    //assign the location manager to start monitoring the region when the view appears
     [self.locationManager startMonitoringForRegion:self.beaconRegion];
     
     //turn on the monitoring manually, rather then waiting for us to enter a region
@@ -108,6 +108,19 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    //assign the location manager to start monitoring the region when the view appears
+    [self.locationManager startMonitoringForRegion:self.beaconRegion];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    //quit monioring when the view disappears
+    [self.locationManager stopMonitoringForRegion:self.beaconRegion];
+}
+
 - (void)checkUserIntoSymeetry
 {
     [self.locationManager startUpdatingLocation];
@@ -129,12 +142,10 @@
      if (abs(howRecent) < 15.0)
      {
          //update parse with the information
-         
-//         PFUser* user = [PFUser currentUser];
-//         NSLog(@"user ID %@", [user objectId]);
          [ParseManager addLocation:location forUser:[[PFUser currentUser] objectId] atBeacon:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"];
      }
 }
+
 
 #pragma mark - UITableViewDelegate Methods
 
