@@ -8,7 +8,7 @@
 
 #import "ProfileHeaderView.h"
 
-@interface ProfileHeaderView()
+@interface ProfileHeaderView() <UITextFieldDelegate>
 
 
 @end
@@ -29,7 +29,20 @@
      NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"ProfileHeaderView" owner:nil options:nil];
     
     ProfileHeaderView* view = nibViews.firstObject;
+    view.nameTextField.enabled = NO;
+    view.ageTextField.enabled = NO;
+    view.genderTextField.enabled = NO;
+    view.nameTextField.keyboardAppearance = UIKeyboardAppearanceDark;
+    view.genderTextField.keyboardAppearance = UIKeyboardAppearanceDark;
+    view.ageTextField.keyboardAppearance = UIKeyboardAppearanceDark;
+    
     return view;
+}
+
+-(void)setDelegates:(id)object{
+    self.nameTextField.delegate = object;
+    self.genderTextField.delegate = object;
+    self.ageTextField.delegate = object;
 }
 
 @end

@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *ageTextField;
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
 
+
+-(void)setDelegates:(id)object;
+
 //factory method to create view from xib
 + (ProfileHeaderView *)newViewFromNib:(NSString*)viewName;
 
