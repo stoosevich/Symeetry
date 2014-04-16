@@ -33,11 +33,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="299"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Food_crop.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="hOK-cu-dBC">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hOK-cu-dBC" userLabel="Interest Image View">
                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="299"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Food" placeholder="test" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Z6-iXT">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="v1K-p2-DsI">
+                                                    <rect key="frame" x="195" y="10" width="50" height="49"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Interest Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Z6-iXT" userLabel="Interest Name Text Field">
                                                     <rect key="frame" x="0.0" y="269" width="250" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,6 +55,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outlet property="imageView" destination="hOK-cu-dBC" id="Wkx-nm-xOz"/>
+                                            <outlet property="interestTextField" destination="eRx-Z6-iXT" id="8Dl-RC-egK"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -226,7 +231,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Food_crop.jpg" width="235" height="235"/>
+        <image name="interests_star" width="512" height="512"/>
     </resources>
     <color key="tintColor" red="1" green="0.50217481019999999" blue="0.0020682545409999998" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

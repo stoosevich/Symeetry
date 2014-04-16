@@ -10,4 +10,6 @@
 
 @interface InterestsCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet UITextField *interestTextField;
+
 @end
