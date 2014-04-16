@@ -74,16 +74,54 @@
 }
 
 
-
-+(void)saveUserInterests:(PFObject*)interests objectToSet:(id)object forKey:(NSString*)key
++(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId
 {
-    [interests setObject:object forKey:key];
-    [interests saveEventually:^(BOOL succeeded, NSError *error)
+    PFObject* parseInterest = [PFObject objectWithClassName:@"Interests"];
+    
+    [interests enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
     {
-       if(error)
-       {
-           //TODO: need to handle error on save
-       }
+        parseInterest[key] = obj;
+    }];
+    
+    [parseInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        if (error)
+        {
+            //handle error
+        }
+    }];
+}
+
+
+/*
+ * Add a user's location to parse, include the user's coordinates, id and the beacon
+ * nearest their current location
+ * @ param CLLocation users current location
+ * @ param NSString User Id the unique id of the user at the given location
+ * @ param NSString uuid the unqiue id of the beacon the user
+ * @ return void
+ */
++(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid
+{
+    PFObject* parseLocation = [PFObject objectWithClassName:@"Location"];
+    [parseLocation setObject:location forKey:@"coordinate"];
+    [parseLocation setObject:userId forKey:@"userId"];
+    [parseLocation setObject:uuid forKey:@"uuid"];
+}
+
+
+/*
+ *
+ */
++(void)retrieveLocationFor:(NSString*)userId location:(NSArray*)locations
+{
+    PFQuery* query = [PFQuery queryWithClassName:@"Location"];
+    [query whereKey:@"userId" equalTo:userId];
+    [query orderByDescending:@"updatedAt"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        
     }];
 }
 
