@@ -47,7 +47,9 @@
     headerView.nameTextField.text = [self.user username];
     headerView.ageTextField.text = [[self.user objectForKey:@"age"] description];
     headerView.genderTextField.text = [self.user objectForKey:@"gender"];
-    
+    PFFile* file = [self.user objectForKey:@"photo"];
+    NSData* data = [file getData];
+    headerView.imageView.image = [UIImage imageWithData:data];
     
     self.homeTownTextField.enabled = [ParseManager isCurrentUser:self.user];
     self.emailTextField.enabled = [ParseManager isCurrentUser:self.user];
