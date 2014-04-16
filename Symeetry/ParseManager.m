@@ -114,7 +114,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
-        if (objects.count)
+        if (objects.count == 0)
         {
             NSNumber* latitude = [NSNumber numberWithDouble: location.coordinate.latitude];
             NSNumber* longitude = [NSNumber numberWithDouble: location.coordinate.longitude];
