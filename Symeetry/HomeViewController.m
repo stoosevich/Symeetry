@@ -85,14 +85,13 @@
     
     //user ParseManager to get all usrs in the system converted to custom objects
     self.customUsers = [ParseManager convertPFUserToCustomUser];
-    
-    SimilarityAlgorithm* algorithm = [SimilarityAlgorithm new];
+ 
     
     NSDictionary* currentUserInterest = [ParseManager getInterest:[ParseManager currentUser]];
     
     for (NSDictionary* interest in self.interests)
     {
-        [algorithm similarityForUser:currentUserInterest toUser:interest];
+        
     }
     
 	
