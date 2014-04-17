@@ -29,6 +29,7 @@
 @property CLLocationManager* locationManager;
 @property NSUUID* beaconId;
 @property CLBeaconRegion* beaconRegion;
+@property float beaconAccuracy;
 
 //status related
 @property BOOL didRequestCheckin;
@@ -38,7 +39,7 @@
 @property NSArray* users;
 @property NSArray* images;
 @property NSArray* interests;
-@property NSArray* customUsers;
+
 
 @end
 
@@ -96,6 +97,7 @@
     //update the profile header details
     headerView.nameTextField.text = [[PFUser currentUser]username];
     NSNumber* age  = [[PFUser currentUser]objectForKey:@"age"];
+    
     headerView.ageTextField.text = age.description;
     headerView.genderTextField.text = [[PFUser currentUser]objectForKey:@"gender"];
     
@@ -236,6 +238,7 @@
     beacon = beacons.lastObject;
     
     
+
     //change the background color and image of the view
     if (beacon.proximity == CLProximityImmediate)
     {
@@ -243,12 +246,11 @@
         if(!self.didRequestCheckin)
         {
             self.didRequestCheckin = !self.didRequestCheckin;
-            //[self showSymeetryAlertScreen];
         }
-        
+
+        NSLog(@"beacon accuracy %f", beacon.accuracy);
+        navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
         navBar.backgroundColor =[UIColor redColor];
-//        NSLog(@"Beacon accurary %f", beacon.accuracy);
-//        NSLog(@"Beacon accurary CLProximityImmediate");
     }
     else if (beacon.proximity == CLProximityNear)
     {
@@ -256,11 +258,10 @@
         if ( !self.didRequestCheckin)
         {
             self.didRequestCheckin = !self.didRequestCheckin;
-            //[self showSymeetryAlertScreen];
         }
         
+        navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
         navBar.backgroundColor = [UIColor blueColor];
-//        NSLog(@"Beacon accurary CLProximityNear");
         
     }
     else if (beacon.proximity == CLProximityFar)
@@ -269,16 +270,15 @@
         if(!self.didRequestCheckin)
         {
             self.didRequestCheckin = !self.didRequestCheckin;
-            //[self showSymeetryAlertScreen];
         }
+        
+        navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
         navBar.backgroundColor = [UIColor orangeColor];
-//        NSLog(@"Beacon accurary %f", beacon.accuracy);
-//        NSLog(@"Beacon accurary CLProximityFar");
         
     }
     else if (beacon.proximity == CLRegionStateUnknown)
     {
-        //navBar.backgroundColor = [UIColor grayColor];
+        navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
     }
     
 }
