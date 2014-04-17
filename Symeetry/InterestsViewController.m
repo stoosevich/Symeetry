@@ -13,7 +13,6 @@
 
 @interface InterestsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate>
 
-
 @property (strong, nonatomic) IBOutlet UICollectionView *interestsCollectionView;
 
 //local data source
@@ -27,11 +26,9 @@
 
 @implementation InterestsViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     
     self.chosenInterests = [NSMutableDictionary new];
     UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
@@ -44,10 +41,7 @@
     
     // Local images
    self.images = @[[UIImage imageNamed:@"Music_crop"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"Food_crop.jpg"]];
-    self.interestNames = @[@"Music", @"Movies", @"Food"];
-    
-    
-    
+    self.interestNames = @[@"Music", @"Movies", @"Food", @"School", @"Dancing", @"Books", @"Tv", @"Art", @"Technology", @"Games", @"Fashion", @"Volunteer"];
 }
 
 // Add animation to cells
@@ -83,7 +77,6 @@
     return self.images.count;
 }
 
-
 -(InterestsCollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     InterestsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"interestsReuseCellID" forIndexPath:indexPath];
@@ -91,7 +84,6 @@
     // Setting swipe gestures on cells.
     UISwipeGestureRecognizer* swipeRightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
     swipeRightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    
     [cell addGestureRecognizer:swipeRightRecognizer];
     
     UISwipeGestureRecognizer* swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
@@ -100,33 +92,26 @@
 
     cell.imageView.image = self.images[indexPath.row];
     cell.interestTextField.text = self.interestNames[indexPath.row];
-
-//    if (swipeRightRecognizer.direction == UISwipeGestureRecognizerDirectionLeft)
-//    {
-//        [self.chosenInterests setObject:cell.interestTextField.text forKey:@"Music"];
-//    }
-//    
-//    else if (swipeRightRecognizer.direction == UISwipeGestureRecognizerDirectionRight)
-//    {
-//        [self.chosenInterests setObject:cell.interestTextField.text forKey:@"false"];
-// 
-//    }
-//    
+    cell.interestsStarImageView.hidden = NO;
     
     return cell;
 }
+
 - (void)handleSwipeGesture:(UISwipeGestureRecognizer*)sender
 
-//- (void)handleSwipeGesture:(UISwipeGestureRecognizer*)sender
 {
-  //  [self.chosenInterests setObject: forKey:true;
-if(sender.direction == UISwipeGestureRecognizerDirectionRight)
+
+    if(sender.direction == UISwipeGestureRecognizerDirectionRight)
     {
         NSLog(@"swiped right");
         NSLog(@"%@", [sender.view class]);
         NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:(InterestsCollectionViewCell*)sender.view];
         int x = indexPath.row;
         NSLog(@"%d", x);
+        [self.chosenInterests setObject:@"NO" forKey: self.interestNames[indexPath.row]];
+        NSLog(@"dictionary keys %@",self.chosenInterests);
+        
+        
     }
    else if (sender.direction == UISwipeGestureRecognizerDirectionLeft)
     {
@@ -135,9 +120,9 @@ if(sender.direction == UISwipeGestureRecognizerDirectionRight)
         NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:(InterestsCollectionViewCell*)sender.view];
         int x = indexPath.row;
         NSLog(@"%d", x);
+        [self.chosenInterests setObject:@"YES" forKey: self.interestNames[indexPath.row]];
+        NSLog(@"dictionary keys %@",self.chosenInterests);
     }
-    
-    
     
 }
 
