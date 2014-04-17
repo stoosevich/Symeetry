@@ -17,20 +17,9 @@
 
 @implementation SimilarityAlgorithm
 
-- (NSDictionary*)initalizeInterestDictionary
-{
-    NSDictionary* dictionary = @{@"movies":@YES, @"food":@YES, @"travel":@YES,  @"books":@NO, @"tv": @NO};
-    
-    return dictionary;
-}
 
-
-- (void)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser
++ (void)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser
 {
-    //NSDictionary* firstUserDict = [self initalizeInterestDictionary];
-    
-    //NSDictionary* secondUserDict = [self initalizeInterestDictionary];
-    
     int similar = 0;
     
     //loop throught the current user's (first user) dictionary and compare

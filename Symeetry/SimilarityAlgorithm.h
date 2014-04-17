@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface SimilarityAlgorithm : NSObject
-- (void)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser;
++(void)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser;
 @end
