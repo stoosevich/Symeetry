@@ -18,6 +18,12 @@
 
 @implementation SimilarityAlgorithm
 
++(void)iterateOverDictionary:(PFObject*)interests
+{
+  
+}
+
+
 +(void)compareInterestr:(PFObject*)currentUser otherUsers:(NSArray*)otherUsers
 {
     
