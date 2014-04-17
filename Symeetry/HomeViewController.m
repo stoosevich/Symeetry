@@ -247,8 +247,6 @@
         {
             self.didRequestCheckin = !self.didRequestCheckin;
         }
-
-        NSLog(@"beacon accuracy %f", beacon.accuracy);
         navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
         navBar.backgroundColor =[UIColor redColor];
     }
