@@ -8,10 +8,13 @@
 
 #import "LoginViewController.h"
 #import "Parse/Parse.h"
+#import "ParseManager.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *comfirmPasswordTextField;
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 
 @end
 
@@ -21,7 +24,8 @@
 {
     [super viewDidLoad];
     self.passwordTextField.secureTextEntry = YES;
-    //[PFUser logOut];
+    self.comfirmPasswordTextField.secureTextEntry = YES;
+    [PFUser logOut];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -33,10 +37,15 @@
 
 - (IBAction)onLoginButtonPressed:(id)sender
 {
-    [PFUser logInWithUsername:self.usernameTextField.text password:self.passwordTextField.text];
-    if ([[[PFUser currentUser] username] isEqualToString:@"charles"]) {
+    [ParseManager logInOrSignUp:self.usernameTextField.text
+                       password:self.passwordTextField.text
+                     comfirming:self.comfirmPasswordTextField.text
+                          email:self.emailTextField.text
+                completionBlock:^{
+                    
         [self performSegueWithIdentifier:@"LoginSegue" sender:self];
-    }
+
+    }];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField

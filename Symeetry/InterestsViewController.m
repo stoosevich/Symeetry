@@ -40,7 +40,8 @@
     [self.view addSubview:headerView];
     
     // Local images
-   self.images = @[[UIImage imageNamed:@"Music_crop"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"Food_crop.jpg"]];
+   self.images = @[[UIImage imageNamed:@"Music_crop"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"Food_crop.jpg"], [UIImage imageNamed:@"school.jpg"], [UIImage imageNamed:@"dancing.jpg"], [UIImage imageNamed:@"books.jpg"], [UIImage imageNamed:@"tv.jpg"], [UIImage imageNamed:@"art.jpg"], [UIImage imageNamed:@"technology.jpg"], [UIImage imageNamed:@"games.jpg"], [UIImage imageNamed:@"fashion.jpg"], [UIImage imageNamed:@"volunteer.jpg"]];
+    
     self.interestNames = @[@"Music", @"Movies", @"Food", @"School", @"Dancing", @"Books", @"Tv", @"Art", @"Technology", @"Games", @"Fashion", @"Volunteer"];
 }
 
@@ -92,7 +93,7 @@
 
     cell.imageView.image = self.images[indexPath.row];
     cell.interestTextField.text = self.interestNames[indexPath.row];
-    cell.interestsStarImageView.hidden = NO;
+    cell.interestsStarImageView.hidden = self.chosenInterests[self.interestNames[indexPath.row]];
     
     return cell;
 }
@@ -106,9 +107,10 @@
         NSLog(@"swiped right");
         NSLog(@"%@", [sender.view class]);
         NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:(InterestsCollectionViewCell*)sender.view];
-        int x = indexPath.row;
-        NSLog(@"%d", x);
-        [self.chosenInterests setObject:@"NO" forKey: self.interestNames[indexPath.row]];
+        InterestsCollectionViewCell* cell = (InterestsCollectionViewCell*)[self.interestsCollectionView cellForItemAtIndexPath:indexPath];
+        cell.interestsStarImageView.hidden = NO;
+        
+        [self.chosenInterests setObject:@YES forKey: self.interestNames[indexPath.row]];
         NSLog(@"dictionary keys %@",self.chosenInterests);
         
         
@@ -118,12 +120,15 @@
         NSLog(@"swiped left");
         NSLog(@"%@", [sender.view class]);
         NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:(InterestsCollectionViewCell*)sender.view];
-        int x = indexPath.row;
-        NSLog(@"%d", x);
-        [self.chosenInterests setObject:@"YES" forKey: self.interestNames[indexPath.row]];
+        InterestsCollectionViewCell* cell = (InterestsCollectionViewCell*)[self.interestsCollectionView cellForItemAtIndexPath:indexPath];
+        cell.interestsStarImageView.hidden = YES;
+
+        [self.chosenInterests setObject:@NO forKey: self.interestNames[indexPath.row]];
         NSLog(@"dictionary keys %@",self.chosenInterests);
     }
     
+    NSLog(@"dictionary keys class %@", [self.chosenInterests[@"Movies"] class]);
+
 }
 
 

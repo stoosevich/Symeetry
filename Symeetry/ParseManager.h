@@ -18,7 +18,17 @@
 +(NSArray*)getUsers;
 +(NSArray*)retrieveUsersWithInterests:(void(^)(void))completionBlock;
 +(BOOL)isCurrentUser:(PFUser*)user;
+
 +(PFObject*)getInterest:(PFUser*)user;
+
+
++(NSDictionary*)getInterest:(PFUser*)user;
++(NSArray*)convertPFUserToCustomUser;
++(void)logInOrSignUp:(NSString*)username
+            password:(NSString*)password
+          comfirming:(NSString*)comfirmPassword
+               email:(NSString*)email
+     completionBlock:(void (^)(void))completionBlock;
 
 
 //saving and object update methods
