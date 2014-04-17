@@ -11,7 +11,7 @@
 #import "ProfileHeaderView.h"
 #import "ParseManager.h"
 
-@interface InterestsViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface InterestsViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate>
 
 
 @property (strong, nonatomic) IBOutlet UICollectionView *interestsCollectionView;
@@ -89,38 +89,60 @@
     InterestsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"interestsReuseCellID" forIndexPath:indexPath];
     
     // Setting swipe gestures on cells.
-    UISwipeGestureRecognizer* swipeRightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipedRightToDislike)];
+    UISwipeGestureRecognizer* swipeRightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
     swipeRightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    
     [self.view addGestureRecognizer:swipeRightRecognizer];
     
-    UISwipeGestureRecognizer* swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipedLeftToLike)];
+    UISwipeGestureRecognizer* swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
     swipeLeftRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.view addGestureRecognizer:swipeLeftRecognizer];
-    
-    
-    
+
     cell.imageView.image = self.images[indexPath.row];
     cell.interestTextField.text = self.interestNames[indexPath.row];
-    
-//    if (self.swipeLeftRecognizer == UISwipeGestureRecognizerDirectionLeft) {
-//        [self.chosenInterests setObject:cell.interestTextField.text forKey:<#(id<NSCopying>)#>
+
+//    if (swipeRightRecognizer.direction == UISwipeGestureRecognizerDirectionLeft)
+//    {
+//        [self.chosenInterests setObject:cell.interestTextField.text forKey:@"Music"];
 //    }
-    
-    
+//    
+//    else if (swipeRightRecognizer.direction == UISwipeGestureRecognizerDirectionRight)
+//    {
+//        [self.chosenInterests setObject:cell.interestTextField.text forKey:@"false"];
+// 
+//    }
+//    
     
     return cell;
 }
+- (void)handleSwipeGesture:(UISwipeGestureRecognizer*)sender
 
-
-         
-- (void)swipedRightToDislike
+//- (void)handleSwipeGesture:(UISwipeGestureRecognizer*)sender
 {
+  //  [self.chosenInterests setObject: forKey:true;
+if(sender.direction == UISwipeGestureRecognizerDirectionRight)
+    {
+        
+//        NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:sender];
+//        NSLog(@"%@", indexPath);
     NSLog(@"swiped right");
+//        NSArray* indexPaths = [self.interestsCollectionView indexPathsForSelectedItems];
+//        NSIndexPath *indexPath = indexPaths.firstObject;
+//        InterestsCollectionViewCell *cell = (InterestsCollectionViewCell*)[self.interestsCollectionView cellForItemAtIndexPath:indexPath];
+        
+//        NSLog(@"%@",cell.interestTextField.text);
+        
+        //[self.chosenInterests setObject:cell.interestTextField.text forKey:@"Music"];
+    }
+   else if (sender.direction == UISwipeGestureRecognizerDirectionLeft)
+    {
+        NSLog(@"swiped left");
+    }
+    
+    
+    
 }
 
-- (void)swipedLeftToLike
-{
-    NSLog(@"swiped left");
-}
+
 
 @end
