@@ -21,9 +21,6 @@
 
 +(PFObject*)getInterest:(PFUser*)user;
 
-
-+(NSDictionary*)getInterest:(PFUser*)user;
-+(NSArray*)convertPFUserToCustomUser;
 +(void)logInOrSignUp:(NSString*)username
             password:(NSString*)password
           comfirming:(NSString*)comfirmPassword
@@ -36,11 +33,8 @@
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId;
 +(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid;
 
-
-
 //helper method
 +(void)addBeaconWithName:(NSString*)name withUUID:(NSString*)uuid;
-+(PFFile*)convertUIImageToPFFile:(UIImage*)image;
 
 
 
