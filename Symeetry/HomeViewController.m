@@ -29,7 +29,6 @@
 @property CLLocationManager* locationManager;
 @property NSUUID* beaconId;
 @property CLBeaconRegion* beaconRegion;
-@property float beaconAccuracy;
 
 //status related
 @property BOOL didRequestCheckin;
@@ -247,7 +246,7 @@
         {
             self.didRequestCheckin = !self.didRequestCheckin;
         }
-        navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
+        //navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
         navBar.backgroundColor =[UIColor redColor];
     }
     else if (beacon.proximity == CLProximityNear)
@@ -258,7 +257,7 @@
             self.didRequestCheckin = !self.didRequestCheckin;
         }
         
-        navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
+        //navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
         navBar.backgroundColor = [UIColor blueColor];
         
     }
@@ -270,7 +269,7 @@
             self.didRequestCheckin = !self.didRequestCheckin;
         }
         
-        navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
+        //navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
         navBar.backgroundColor = [UIColor orangeColor];
         
     }
