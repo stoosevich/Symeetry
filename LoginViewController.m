@@ -25,7 +25,6 @@
     [super viewDidLoad];
     self.passwordTextField.secureTextEntry = YES;
     self.comfirmPasswordTextField.secureTextEntry = YES;
-    [PFUser logOut];
 }
 
 -(void)viewDidAppear:(BOOL)animated
