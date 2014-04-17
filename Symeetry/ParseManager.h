@@ -16,26 +16,25 @@
 //user related methods
 +(PFUser*)currentUser;
 +(NSArray*)getUsers;
-+(NSArray*)retrieveUsersInterests;
++(NSArray*)retrieveUsersWithInterests:(void(^)(void))completionBlock;
 +(BOOL)isCurrentUser:(PFUser*)user;
-+(NSDictionary*)getInterest:(PFUser*)user;
-+(NSArray*)convertPFUserToCustomUser;
+
++(PFObject*)getInterest:(PFUser*)user;
+
 +(void)logInOrSignUp:(NSString*)username
             password:(NSString*)password
           comfirming:(NSString*)comfirmPassword
                email:(NSString*)email
      completionBlock:(void (^)(void))completionBlock;
 
+
 //saving and object update methods
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId;
 +(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid;
-+(void)retrieveLocationFor:(NSString*)userId location:(NSArray*)locations;
-
 
 //helper method
 +(void)addBeaconWithName:(NSString*)name withUUID:(NSString*)uuid;
-+(PFFile*)convertUIImageToPFFile:(UIImage*)image;
 
 
 

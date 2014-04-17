@@ -8,6 +8,7 @@
 
 #import "SimilarityAlgorithm.h"
 
+
 @interface SimilarityAlgorithm()
 {
     
@@ -17,34 +18,33 @@
 
 @implementation SimilarityAlgorithm
 
-- (NSDictionary*)initalizeInterestDictionary
++(void)compareInterestr:(PFObject*)currentUser otherUsers:(NSArray*)otherUsers
 {
-    NSDictionary* dictionary = @{@"movies":@YES, @"food":@YES, @"travel":@YES,  @"books":@NO, @"tv": @NO};
     
-    return dictionary;
+    for (PFObject* user in otherUsers)
+    {
+        [self similarityForUser:currentUser[@"interests"] toUser:user[@"interests"]];
+    }
 }
 
 
-- (void)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser
++ (NSNumber*)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser
 {
-    //NSDictionary* firstUserDict = [self initalizeInterestDictionary];
-    
-    //NSDictionary* secondUserDict = [self initalizeInterestDictionary];
-    
-    int similar = 0;
+    int similarity = 0;
     
     //loop throught the current user's (first user) dictionary and compare
     //each value to the other user. For each mathc, increase the count by 1
-//    for (NSDictionary* item in firstUser)
-//    {
-//        if([firstUser objectForKey:item] == [secondUser objectForKey:item])
-//        {
-//            similar++;
-//        }
-//    }
+    for (NSDictionary* item in firstUser)
+    {
+        if([firstUser objectForKey:item] == [secondUser objectForKey:item])
+        {
+            similarity++;
+        }
+    }
     
-    NSLog(@"total similarity %i", similar);
-    
+    //secondUser[@"similarityIndex"] = similarity;
+    NSLog(@"total similarity %i", similarity);
+    return [NSNumber numberWithInt:similarity];
 }
 
 
