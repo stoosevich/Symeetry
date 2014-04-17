@@ -35,13 +35,13 @@
     
     //loop throught the current user's (first user) dictionary and compare
     //each value to the other user. For each mathc, increase the count by 1
-    for (NSDictionary* item in firstUser)
-    {
-        if([firstUser objectForKey:item] == [secondUser objectForKey:item])
-        {
-            similar++;
-        }
-    }
+//    for (NSDictionary* item in firstUser)
+//    {
+//        if([firstUser objectForKey:item] == [secondUser objectForKey:item])
+//        {
+//            similar++;
+//        }
+//    }
     
     NSLog(@"total similarity %i", similar);
     

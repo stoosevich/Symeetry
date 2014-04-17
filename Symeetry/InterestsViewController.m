@@ -21,7 +21,7 @@
 @property NSArray* images;
 @property NSArray* interestNames;
 //@property UISwipeGestureRecognizer *swipeLeftRecognizer;
-@property UISwipeGestureRecognizer *swipeRightRecognizer;
+//@property UISwipeGestureRecognizer *swipeRightRecognizer;
 
 @end
 
@@ -92,11 +92,11 @@
     UISwipeGestureRecognizer* swipeRightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
     swipeRightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
     
-    [self.view addGestureRecognizer:swipeRightRecognizer];
+    [cell addGestureRecognizer:swipeRightRecognizer];
     
     UISwipeGestureRecognizer* swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
     swipeLeftRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:swipeLeftRecognizer];
+    [cell addGestureRecognizer:swipeLeftRecognizer];
 
     cell.imageView.image = self.images[indexPath.row];
     cell.interestTextField.text = self.interestNames[indexPath.row];
@@ -122,21 +122,19 @@
   //  [self.chosenInterests setObject: forKey:true;
 if(sender.direction == UISwipeGestureRecognizerDirectionRight)
     {
-        
-//        NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:sender];
-//        NSLog(@"%@", indexPath);
-    NSLog(@"swiped right");
-//        NSArray* indexPaths = [self.interestsCollectionView indexPathsForSelectedItems];
-//        NSIndexPath *indexPath = indexPaths.firstObject;
-//        InterestsCollectionViewCell *cell = (InterestsCollectionViewCell*)[self.interestsCollectionView cellForItemAtIndexPath:indexPath];
-        
-//        NSLog(@"%@",cell.interestTextField.text);
-        
-        //[self.chosenInterests setObject:cell.interestTextField.text forKey:@"Music"];
+        NSLog(@"swiped right");
+        NSLog(@"%@", [sender.view class]);
+        NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:(InterestsCollectionViewCell*)sender.view];
+        int x = indexPath.row;
+        NSLog(@"%d", x);
     }
    else if (sender.direction == UISwipeGestureRecognizerDirectionLeft)
     {
         NSLog(@"swiped left");
+        NSLog(@"%@", [sender.view class]);
+        NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:(InterestsCollectionViewCell*)sender.view];
+        int x = indexPath.row;
+        NSLog(@"%d", x);
     }
     
     
