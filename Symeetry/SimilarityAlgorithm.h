@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Parse/Parse.h"
 
 @interface SimilarityAlgorithm : NSObject
-+(void)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser;
+
++(void)compareInterestr:(PFObject*)currentUser otherUsers:(NSArray*)otherUsers;
+
++(id)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser;
 @end

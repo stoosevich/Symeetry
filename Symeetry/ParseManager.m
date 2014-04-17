@@ -7,8 +7,8 @@
 //
 
 #import "ParseManager.h"
-#import "SimilarUser.h"
 #import "SimilarityAlgorithm.h"
+
 @implementation ParseManager
 
 /*
@@ -31,34 +31,29 @@
     return [query findObjects];
 }
 
-
-+(NSArray*)retrieveUsersInterests;
+/*
+ *
+ */
++(NSArray*)retrieveUsersWithInterests:(void(^)(void))completionBlock
 {
-    
-    /*
-     1. get all users not including self
-     2. for each user, we need to get the users interest
-     3. we need to add the similar users to an array
-     
-     THIS SHOUDL BE DONE AS A NESTED QUERY
-     */
-   
+
+    //__block NSDictionary* currentUserInterests = [ParseManager getInterest:[PFUser currentUser]];
     PFQuery* query = [PFUser query];
-    [query whereKey:@"userId" notEqualTo:[[PFUser currentUser] objectId]]; //exclude the current user
+    //[query whereKey:@"userId" notEqualTo:[[PFUser currentUser] objectId]]; //exclude the current user
     
-    PFQuery* interestQuery = [PFQuery queryWithClassName:@"Interests"];
-    [query whereKey:@"userId" matchesQuery:interestQuery];
+    [query includeKey:@"interests"];
     
-    return [interestQuery findObjects];
+    return [query findObjects];
 }
 
 
 /*
+ * TODO: THIS QUERY NEEDS TO BE ASYNCHRONOUS
  * Query the Parse backend to find the interest of the user based on the
  * user's specific id
  * @return PFObject the Parse Interest object for the specified user
  */
-+(NSDictionary*)getInterest:(PFUser*)user
++(PFObject*)getInterest:(PFUser*)user
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
     [query whereKey:@"userid" equalTo:user.objectId];
@@ -104,6 +99,10 @@
 }
 
 
+
+/*
+ * Stub method to update the user's interest on Parse
+ */
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId
 {
     PFObject* parseInterest = [PFObject objectWithClassName:@"Interests"];
@@ -166,20 +165,6 @@
 }
 
 
-/*
- *
- */
-+(void)retrieveLocationFor:(NSString*)userId location:(NSArray*)locations
-{
-    PFQuery* query = [PFQuery queryWithClassName:@"Location"];
-    [query whereKey:@"userId" equalTo:userId];
-    [query orderByDescending:@"updatedAt"];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
-        
-    }];
-}
 
 /*
  * Adds a newly found beacon to the database of beacon if it has not already present.

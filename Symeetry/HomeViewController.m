@@ -78,23 +78,7 @@
     
     //turn on the monitoring manually, rather then waiting for us to enter a region
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
-    
-    
-    //get the interest of all users
-    self.interests = [ParseManager retrieveUsersInterests];
-    
-    //user ParseManager to get all usrs in the system converted to custom objects
-    self.customUsers = [ParseManager convertPFUserToCustomUser];
- 
-    
-    NSDictionary* currentUserInterest = [ParseManager getInterest:[ParseManager currentUser]];
-    
-    for (NSDictionary* interest in self.interests)
-    {
-        
-    }
-    
-	
+
 }
 
 

@@ -8,6 +8,7 @@
 
 #import "SimilarityAlgorithm.h"
 
+
 @interface SimilarityAlgorithm()
 {
     
@@ -17,23 +18,33 @@
 
 @implementation SimilarityAlgorithm
 
-
-+ (void)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser
++(void)compareInterestr:(PFObject*)currentUser otherUsers:(NSArray*)otherUsers
 {
-    int similar = 0;
+    
+    for (PFObject* user in otherUsers)
+    {
+        [self similarityForUser:currentUser[@"interests"] toUser:user[@"interests"]];
+    }
+}
+
+
++ (NSNumber*)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser
+{
+    int similarity = 0;
     
     //loop throught the current user's (first user) dictionary and compare
     //each value to the other user. For each mathc, increase the count by 1
-//    for (NSDictionary* item in firstUser)
-//    {
-//        if([firstUser objectForKey:item] == [secondUser objectForKey:item])
-//        {
-//            similar++;
-//        }
-//    }
+    for (NSDictionary* item in firstUser)
+    {
+        if([firstUser objectForKey:item] == [secondUser objectForKey:item])
+        {
+            similarity++;
+        }
+    }
     
-    NSLog(@"total similarity %i", similar);
-    
+    //secondUser[@"similarityIndex"] = similarity;
+    NSLog(@"total similarity %i", similarity);
+    return [NSNumber numberWithInt:similarity];
 }
 
 
