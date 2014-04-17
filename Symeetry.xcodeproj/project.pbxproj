@@ -35,6 +35,7 @@
 		81A30990190030CB00963305 /* technology.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81A30985190030CB00963305 /* technology.jpg */; };
 		81A30991190030CB00963305 /* tv.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81A30986190030CB00963305 /* tv.jpg */; };
 		81A30992190030CB00963305 /* volunteer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81A30987190030CB00963305 /* volunteer.jpg */; };
+		81A3099419003E7000963305 /* interests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81A3099319003E7000963305 /* interests.plist */; };
 		81AB5B0918FC85890060B17A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0818FC85890060B17A /* Foundation.framework */; };
 		81AB5B0B18FC85890060B17A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0A18FC85890060B17A /* CoreGraphics.framework */; };
 		81AB5B0D18FC85890060B17A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0C18FC85890060B17A /* UIKit.framework */; };
@@ -105,6 +106,7 @@
 		81A30985190030CB00963305 /* technology.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = technology.jpg; sourceTree = "<group>"; };
 		81A30986190030CB00963305 /* tv.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tv.jpg; sourceTree = "<group>"; };
 		81A30987190030CB00963305 /* volunteer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = volunteer.jpg; sourceTree = "<group>"; };
+		81A3099319003E7000963305 /* interests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = interests.plist; path = ../interests.plist; sourceTree = "<group>"; };
 		81AB5B0518FC85890060B17A /* Symeetry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Symeetry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB5B0818FC85890060B17A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		81AB5B0A18FC85890060B17A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -275,6 +277,7 @@
 		81AB5B0E18FC85890060B17A /* Symeetry */ = {
 			isa = PBXGroup;
 			children = (
+				81A3099319003E7000963305 /* interests.plist */,
 				81AB5B1718FC85890060B17A /* AppDelegate.h */,
 				81AB5B1818FC85890060B17A /* AppDelegate.m */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
@@ -391,6 +394,7 @@
 			files = (
 				CE562EC718FCCF7F00DDB3D3 /* dennis.jpg in Resources */,
 				81A3098F190030CB00963305 /* school.jpg in Resources */,
+				81A3099419003E7000963305 /* interests.plist in Resources */,
 				81A30992190030CB00963305 /* volunteer.jpg in Resources */,
 				81AB5B2118FC85890060B17A /* Images.xcassets in Resources */,
 				81A30989190030CB00963305 /* books.jpg in Resources */,
@@ -570,6 +574,7 @@
 				GCC_PREFIX_HEADER = "Symeetry/Symeetry-Prefix.pch";
 				INFOPLIST_FILE = "Symeetry/Symeetry-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "C541FEFC-FC14-4589-B9DA-BC55CD5A37CE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -587,6 +592,7 @@
 				GCC_PREFIX_HEADER = "Symeetry/Symeetry-Prefix.pch";
 				INFOPLIST_FILE = "Symeetry/Symeetry-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "C541FEFC-FC14-4589-B9DA-BC55CD5A37CE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
