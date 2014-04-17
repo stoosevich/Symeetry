@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		56322D5618FF265B004EF55D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56322D5518FF265B004EF55D /* LoginViewController.m */; };
+		56322D5918FF68C0004EF55D /* SimilarUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 56322D5818FF68C0004EF55D /* SimilarUser.m */; };
 		5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695430F18FD8C8F00A101F4 /* ParseManager.m */; };
 		8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8114069218FE0CD8004E578F /* ProfileHeaderView.m */; };
 		818829FB18FC87F300724B79 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818829FA18FC87F300724B79 /* ProfileViewController.m */; };
@@ -62,6 +63,8 @@
 /* Begin PBXFileReference section */
 		56322D5418FF265B004EF55D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		56322D5518FF265B004EF55D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		56322D5718FF68C0004EF55D /* SimilarUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimilarUser.h; path = Symeetry/SimilarUser.h; sourceTree = "<group>"; };
+		56322D5818FF68C0004EF55D /* SimilarUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimilarUser.m; path = Symeetry/SimilarUser.m; sourceTree = "<group>"; };
 		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseManager.h; path = Symeetry/ParseManager.h; sourceTree = "<group>"; };
 		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseManager.m; path = Symeetry/ParseManager.m; sourceTree = "<group>"; };
 		8114069118FE0CD8004E578F /* ProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileHeaderView.h; path = Symeetry/ProfileHeaderView.h; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 		818829FC18FC881100724B79 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				56322D5718FF68C0004EF55D /* SimilarUser.h */,
+				56322D5818FF68C0004EF55D /* SimilarUser.m */,
 				CE2F48B118FF287300949055 /* SimilarityAlgorithm.h */,
 				CE2F48B218FF287300949055 /* SimilarityAlgorithm.m */,
 				CE5ACEE918FDED5000E91087 /* BlueToothManager.h */,
@@ -385,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56322D5918FF68C0004EF55D /* SimilarUser.m in Sources */,
 				81AB5B1F18FC85890060B17A /* HomeViewController.m in Sources */,
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
