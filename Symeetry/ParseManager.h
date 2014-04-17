@@ -20,6 +20,11 @@
 +(BOOL)isCurrentUser:(PFUser*)user;
 +(NSDictionary*)getInterest:(PFUser*)user;
 +(NSArray*)convertPFUserToCustomUser;
++(void)logInOrSignUp:(NSString*)username
+            password:(NSString*)password
+          comfirming:(NSString*)comfirmPassword
+               email:(NSString*)email
+     completionBlock:(void (^)(void))completionBlock;
 
 //saving and object update methods
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;
