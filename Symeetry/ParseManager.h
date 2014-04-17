@@ -16,8 +16,10 @@
 //user related methods
 +(PFUser*)currentUser;
 +(NSArray*)getUsers;
++(NSArray*)retrieveUsersInterests;
 +(BOOL)isCurrentUser:(PFUser*)user;
-+(PFObject*)getInterest:(PFUser*)user;
++(NSDictionary*)getInterest:(PFUser*)user;
++(NSArray*)convertPFUserToCustomUser;
 
 //saving and object update methods
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;

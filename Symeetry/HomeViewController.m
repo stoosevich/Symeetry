@@ -14,7 +14,7 @@
 #import "ParseManager.h"
 #import "ProfileViewController.h"
 #import "SimilarityAlgorithm.h"
-
+#import "SimilarUser.h"
 
 //tring to fix 
 #define ESTIMOTE_PROXIMITY_UUID             [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]
@@ -37,6 +37,7 @@
 //local data source
 @property NSArray* users;
 @property NSArray* images;
+@property NSArray* interests;
 
 @end
 
@@ -78,8 +79,17 @@
     //turn on the monitoring manually, rather then waiting for us to enter a region
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
     
+    self.interests = [ParseManager retrieveUsersInterests];
+    
     SimilarityAlgorithm* algorithm = [SimilarityAlgorithm new];
-    [algorithm similarityForUser:nil toUser:nil];
+    
+    NSDictionary* currentUserInterest = [ParseManager getInterest:[ParseManager currentUser]];
+    
+    for (NSDictionary* interest in self.interests)
+    {
+        [algorithm similarityForUser:currentUserInterest toUser:interest];
+    }
+    
 	
 }
 
@@ -129,6 +139,9 @@
     [self.locationManager startUpdatingLocation];
 }
 
+
+
+#pragma mark - CoreLocationManagerDelegate Methods
 
 //TODO: We need to fix the beacon information being transmitted to Parse to be the beacon we are nearest
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations

@@ -27,20 +27,23 @@
 
 - (void)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser
 {
-    NSDictionary* firstUserDict = [self initalizeInterestDictionary];
+    //NSDictionary* firstUserDict = [self initalizeInterestDictionary];
     
-    NSDictionary* secondUserDict = [self initalizeInterestDictionary];
+    //NSDictionary* secondUserDict = [self initalizeInterestDictionary];
     
     int similar = 0;
     
-    for (NSDictionary* item in firstUserDict)
+    //loop throught the current user's (first user) dictionary and compare
+    //each value to the other user. For each mathc, increase the count by 1
+    for (NSDictionary* item in firstUser)
     {
-        if([firstUserDict objectForKey:item] == [secondUserDict objectForKey:item])
+        if([firstUser objectForKey:item] == [secondUser objectForKey:item])
         {
             similar++;
-            NSLog(@"similar:%i", similar);
         }
     }
+    
+    NSLog(@"total similarity %i", similar);
     
 }
 

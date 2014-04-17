@@ -7,10 +7,13 @@
 //
 
 #import "ParseManager.h"
-
-
+#import "SimilarUser.h"
+#import "SimilarityAlgorithm.h"
 @implementation ParseManager
 
+/*
+ * Get the current user logged into the system
+ */
 +(PFUser*)currentUser
 {
     return [PFUser currentUser];
@@ -29,12 +32,48 @@
 }
 
 
++(NSArray*)retrieveUsersInterests;
+{
+    
+    /*
+     1. get all users not including self
+     2. for each user, we need to get the users interest
+     3. we need to add the similar users to an array
+     
+     THIS SHOUDL BE DONE AS A NESTED QUERY
+     */
+   
+    PFQuery* query = [PFUser query];
+    [query whereKey:@"userId" notEqualTo:[[PFUser currentUser] objectId]]; //exclude the current user
+    
+    PFQuery* interestQuery = [PFQuery queryWithClassName:@"Interests"];
+    [query whereKey:@"userId" matchesQuery:interestQuery];
+    
+    return [interestQuery findObjects];
+}
+
+
++(NSArray*)convertPFUserToCustomUser
+{
+    NSArray* users = [ParseManager getUsers];
+    NSMutableArray* customUsers = [NSMutableArray new];
+    
+    for (PFUser* user in users)
+    {
+        SimilarUser *customUser = [SimilarUser new];
+
+        
+    }
+    
+    return customUsers;
+}
+
 /*
  * Query the Parse backend to find the interest of the user based on the
  * user's specific id
  * @return PFObject the Parse Interest object for the specified user
  */
-+(PFObject*)getInterest:(PFUser*)user
++(NSDictionary*)getInterest:(PFUser*)user
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
     [query whereKey:@"userid" equalTo:user.objectId];
@@ -48,10 +87,12 @@
  */
 +(BOOL)isCurrentUser:(PFUser*)user
 {
-    if ([user.username isEqualToString:[[PFUser currentUser] username]]) {
+    if ([user.username isEqualToString:[[PFUser currentUser] username]])
+    {
         return YES;
     }
-    else{
+    else
+    {
         return NO;
     }
 }
