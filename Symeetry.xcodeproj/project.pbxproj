@@ -43,6 +43,7 @@
 		81B2848C18FD9C2D00A27224 /* movies_crop.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81B2848B18FD9C2D00A27224 /* movies_crop.jpg */; };
 		81B2848E18FD9C4100A27224 /* Music_crop.png in Resources */ = {isa = PBXBuildFile; fileRef = 81B2848D18FD9C4100A27224 /* Music_crop.png */; };
 		CE2F48B318FF287300949055 /* SimilarityAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2F48B218FF287300949055 /* SimilarityAlgorithm.m */; };
+		CE2F48B618FF3CA100949055 /* SimilarUser.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2F48B518FF3CA100949055 /* SimilarUser.m */; };
 		CE562EC718FCCF7F00DDB3D3 /* dennis.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */; };
 		CE562EC918FCD11900DDB3D3 /* charles.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC818FCD11900DDB3D3 /* charles.jpg */; };
 		CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562ECA18FCD13F00DDB3D3 /* steve.jpg */; };
@@ -108,6 +109,8 @@
 		81B2848D18FD9C4100A27224 /* Music_crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Music_crop.png; path = Symeetry/Music_crop.png; sourceTree = "<group>"; };
 		CE2F48B118FF287300949055 /* SimilarityAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimilarityAlgorithm.h; path = Symeetry/SimilarityAlgorithm.h; sourceTree = "<group>"; };
 		CE2F48B218FF287300949055 /* SimilarityAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimilarityAlgorithm.m; path = Symeetry/SimilarityAlgorithm.m; sourceTree = "<group>"; };
+		CE2F48B418FF3CA100949055 /* SimilarUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimilarUser.h; path = Symeetry/SimilarUser.h; sourceTree = "<group>"; };
+		CE2F48B518FF3CA100949055 /* SimilarUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimilarUser.m; path = Symeetry/SimilarUser.m; sourceTree = "<group>"; };
 		CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dennis.jpg; path = Symeetry/dennis.jpg; sourceTree = "<group>"; };
 		CE562EC818FCD11900DDB3D3 /* charles.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = charles.jpg; path = Symeetry/charles.jpg; sourceTree = "<group>"; };
 		CE562ECA18FCD13F00DDB3D3 /* steve.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = steve.jpg; path = Symeetry/steve.jpg; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 		818829FC18FC881100724B79 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CE2F48B418FF3CA100949055 /* SimilarUser.h */,
+				CE2F48B518FF3CA100949055 /* SimilarUser.m */,
 				CE2F48B118FF287300949055 /* SimilarityAlgorithm.h */,
 				CE2F48B218FF287300949055 /* SimilarityAlgorithm.m */,
 				CE5ACEE918FDED5000E91087 /* BlueToothManager.h */,
@@ -385,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2F48B618FF3CA100949055 /* SimilarUser.m in Sources */,
 				81AB5B1F18FC85890060B17A /* HomeViewController.m in Sources */,
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
