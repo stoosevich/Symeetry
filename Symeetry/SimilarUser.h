@@ -9,5 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface SimilarUser : NSObject
-
+@property NSString* userId;
+@property NSString* userName;
+@property NSString* homeTown;
+@property NSString* gender;
+@property NSNumber* age;
+@property UIImage* photo;
 @end

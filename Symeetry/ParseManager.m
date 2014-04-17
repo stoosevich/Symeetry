@@ -61,8 +61,11 @@
     for (PFUser* user in users)
     {
         SimilarUser *customUser = [SimilarUser new];
-        
-        
+        customUser.userId = user[@"userId"];
+        customUser.userName = user.username;
+        customUser.gender = user[@"gender"];
+        customUser.age = user[@"age"];
+        customUser.homeTown = user[@"homeTown"];
     }
     
     return customUsers;

@@ -9,12 +9,7 @@
 #import "SimilarUser.h"
 
 @interface SimilarUser()
-@property NSString* userId;
-@property NSString* userName;
-@property NSString* homeTown;
-@property NSString* gender;
-@property NSNumber* age;
-@property UIImage* photo;
+
 
 @end
 
