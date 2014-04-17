@@ -275,7 +275,7 @@
     }
     else if (beacon.proximity == CLRegionStateUnknown)
     {
-        navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
+        //navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
     }
     
 }
