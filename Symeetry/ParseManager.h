@@ -18,7 +18,7 @@
 +(NSArray*)getUsers;
 +(NSArray*)retrieveUsersWithInterests;
 +(BOOL)isCurrentUser:(PFUser*)user;
-
++(NSDictionary*)convertPFObjectToNSDictionary:(PFObject*)objectToConvert;
 +(PFObject*)getInterest:(PFUser*)user;
 
 +(void)logInOrSignUp:(NSString*)username

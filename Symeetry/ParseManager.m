@@ -23,7 +23,6 @@
  *Signs the user up if they are new
  *Logs the new user in
  */
-
 +(void)logInOrSignUp:(NSString*)username
             password:(NSString*)password
           comfirming:(NSString*)comfirmPassword
@@ -244,6 +243,31 @@
     NSData* imagedata = UIImageJPEGRepresentation(image, 0.8f);
     PFFile* file = [PFFile fileWithData:imagedata];
     return file;
+}
+
+
++(NSDictionary*)convertPFObjectToNSDictionary:(PFObject*)objectToConvert
+{
+    
+    //extract all the keys from the PFObject
+    NSArray* objectToConvertKeys = [objectToConvert allKeys];
+ 
+    //create a mutable dictionary
+    NSMutableDictionary* dictionary =[[NSMutableDictionary alloc]init];
+    
+    //create and enumerator for the array of keys
+    NSEnumerator *e = [objectToConvertKeys objectEnumerator];
+    
+    id object;
+    
+    while (object = [e nextObject])
+    {
+        [dictionary setValue:[objectToConvert objectForKey:object] forKey:object];
+    }
+
+    NSLog(@"pfobject %@",objectToConvert);
+    NSLog(@"dict %@", dictionary);
+    return dictionary;
 }
 
 @end
