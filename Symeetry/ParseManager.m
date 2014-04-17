@@ -61,7 +61,7 @@
     for (PFUser* user in users)
     {
         SimilarUser *customUser = [SimilarUser new];
-
+        
         
     }
     
