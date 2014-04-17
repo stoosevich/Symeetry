@@ -16,7 +16,7 @@
 //user related methods
 +(PFUser*)currentUser;
 +(NSArray*)getUsers;
-+(NSArray*)retrieveUsersWithInterests:(void(^)(void))completionBlock;
++(NSArray*)retrieveUsersWithInterests;
 +(BOOL)isCurrentUser:(PFUser*)user;
 
 +(PFObject*)getInterest:(PFUser*)user;

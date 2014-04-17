@@ -78,6 +78,16 @@
     
     //turn on the monitoring manually, rather then waiting for us to enter a region
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
+    
+    self.interests = [ParseManager retrieveUsersWithInterests];
+    
+    PFObject* userInterest = [ParseManager getInterest:[PFUser currentUser]];
+    NSLog(@"user interests %@",userInterest);
+    NSLog(@"art %@",userInterest[@"art"]);
+    NSLog(@"technology %@",userInterest[@"technology"]);
+    NSLog(@"userId %@",userInterest[@"userid"]);
+  
+
 
 }
 

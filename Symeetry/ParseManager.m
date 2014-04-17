@@ -67,15 +67,12 @@
 /*
  *
  */
-+(NSArray*)retrieveUsersWithInterests:(void(^)(void))completionBlock
++(NSArray*)retrieveUsersWithInterests
 {
 
-    //__block NSDictionary* currentUserInterests = [ParseManager getInterest:[PFUser currentUser]];
     PFQuery* query = [PFUser query];
-    //[query whereKey:@"userId" notEqualTo:[[PFUser currentUser] objectId]]; //exclude the current user
-    
+    [query whereKey:@"userId" notEqualTo:[[PFUser currentUser] objectId]]; //exclude the current user
     [query includeKey:@"interests"];
-    
     return [query findObjects];
 }
 
