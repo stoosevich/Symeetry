@@ -30,6 +30,13 @@
 {
     [super viewDidLoad];
     
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"interests" ofType:@"plist"];
+  //  NSArray *interestNamesArray = [NSArray arrayWithContentsOfFile:path];
+    NSMutableDictionary *interestNamesDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    // Having outlet for tableArray variable.
+    interestNamesDictionary = [[NSMutableDictionary alloc]initWithDictionary:interestNamesDictionary copyItems:YES];
+    NSLog(@"contents %@", interestNamesDictionary);
+    
     self.chosenInterests = [NSMutableDictionary new];
     UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
     
