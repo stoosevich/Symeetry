@@ -15,4 +15,6 @@
 @property NSString* gender;
 @property NSNumber* age;
 @property UIImage* photo;
+@property NSDictionary* interests;
+
 @end

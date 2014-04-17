@@ -60,14 +60,21 @@
     
     for (PFUser* user in users)
     {
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Interests"];
+        [query whereKey:@"usedId" equalTo:[user objectId]];
+        NSArray* interest = [query findObjects];
+        
         SimilarUser *customUser = [SimilarUser new];
         customUser.userId = user[@"userId"];
         customUser.userName = user.username;
         customUser.gender = user[@"gender"];
         customUser.age = user[@"age"];
         customUser.homeTown = user[@"homeTown"];
+        customUser.photo = [UIImage imageWithData:[user[@"photo"] getData]];
+        customUser.interests = interest.firstObject;
+        [customUsers addObject:customUser];
     }
-    
     return customUsers;
 }
 

@@ -38,6 +38,7 @@
 @property NSArray* users;
 @property NSArray* images;
 @property NSArray* interests;
+@property NSArray* customUsers;
 
 @end
 
@@ -65,7 +66,6 @@
     
     //self.beaconId = [[NSUUID alloc]initWithUUIDString:@"D943D5F6-7A2E-6CA4-0FB9-D766F5BD135A"];
 
-    
     //initialze the beacon region with a UUID and indentifier
     self.beaconRegion = [[CLBeaconRegion alloc]initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID identifier:@"com.Estimote"];
 
@@ -80,6 +80,8 @@
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
     
     self.interests = [ParseManager retrieveUsersInterests];
+    
+    self.customUsers = [ParseManager convertPFUserToCustomUser];
     
     SimilarityAlgorithm* algorithm = [SimilarityAlgorithm new];
     
