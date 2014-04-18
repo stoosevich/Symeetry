@@ -387,14 +387,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="299"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Music_crop.png" translatesAutoresizingMaskIntoConstraints="NO" id="7PZ-ga-WbJ" userLabel="Interest Image View">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7PZ-ga-WbJ" userLabel="Interest Image View">
                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="238"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <gestureRecognizers/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="GNy-Nh-LbK">
-                                                    <rect key="frame" x="34" y="238" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Music" placeholder="Interest Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sVl-EU-v7U" userLabel="Interest Name Text Field">
                                                     <rect key="frame" x="0.0" y="269" width="250" height="30"/>
@@ -404,19 +400,23 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="yWL-ee-fb5">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="GNy-Nh-LbK" userLabel="rankButton1">
+                                                    <rect key="frame" x="34" y="238" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="yWL-ee-fb5" userLabel="rankButton2">
                                                     <rect key="frame" x="72" y="238" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="9WB-Di-NUp">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="9WB-Di-NUp" userLabel="rankButton3">
                                                     <rect key="frame" x="110" y="238" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" translatesAutoresizingMaskIntoConstraints="NO" id="WtT-dm-NE0">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="WtT-dm-NE0" userLabel="rankButton4">
                                                     <rect key="frame" x="148" y="238" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" translatesAutoresizingMaskIntoConstraints="NO" id="LrX-c1-nVX">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="LrX-c1-nVX" userLabel="rankButton5">
                                                     <rect key="frame" x="186" y="238" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -450,7 +450,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Music_crop.png" width="235" height="235"/>
         <image name="interests_star" width="512" height="512"/>
         <image name="interests_star_dark" width="512" height="512"/>
     </resources>
