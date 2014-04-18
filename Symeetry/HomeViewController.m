@@ -35,7 +35,7 @@
 @property BOOL didCheckin;
 
 //local data source
-@property NSMutableArray* users;
+@property NSArray* users;
 @property NSArray* images;
 
 
@@ -48,9 +48,8 @@
     [super viewDidLoad];
     [self loadHeaderView];
     
-    //self.users = [ParseManager getUsers];
+    self. users = [ParseManager retrieveUsersWithCalcualteSimilarity];
     
-    [ParseManager retrieveUsersWithCalcualteSimilarity:self.homeTableView forSource:self.users];
     [self.homeTableView reloadData];
     
     //set flags for requesting check-in to service and if checked-in to service

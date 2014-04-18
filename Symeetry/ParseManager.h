@@ -21,7 +21,9 @@
 //multiple user object queries
 +(NSArray*)getUsers;
 +(NSArray*)retrieveUsersWithInterests;
-+(void)retrieveUsersWithCalcualteSimilarity:(UITableView*)tableView forSource:(NSMutableArray*)users;
+
+//WIP
++(NSArray*)retrieveUsersWithCalcualteSimilarity;
 
 //handle user signon, login and logoff
 +(void)logInOrSignUp:(NSString*)username

@@ -13,13 +13,14 @@
 @implementation ParseManager
 
 
+
+/*
+ * Block to calculate the similarity between two different user.
+ */
 int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* currUser, NSDictionary* otherUser)
 {
     int similarity = 0;
-    
-    //NSLog(@"curr user dict: %@",currUser);
-    //NSLog(@"other user dict: %@",otherUser);
-    
+
     //loop throught the current user's dictionary of interests and compare
     //each value to the other user. For each match increase the count by 1
     for (NSDictionary* item in currUser)
@@ -33,49 +34,82 @@ int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* cur
 };
 
 
-void(^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
+void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 {
-    
-    //get the interest for the current user
-    NSDictionary* currentUser = [ParseManager convertPFObjectToNSDictionary:[PFUser currentUser][@"interests"]];
+
+    NSDictionary* currentUser = [ParseManager getInterest:[PFUser currentUser]];
     NSDictionary* otherUser = nil;
     
   for(PFObject* user in userObjects)
   {
       //get the interest for each user in the list of objects returned from the search
       otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
-      
-      //call a block function to calculate the similarity of the two users
-      user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
+
+      //only calculate the similarity if there other user has intersts
+      if(otherUser)
+      {
+          //call a block function to calculate the similarity of the two users
+          user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
+          NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
+      }
   }
+    
+    
+    
    
 };
 
 
+//:(NSString*)uuid completionHandler:(void (^)(NSArray*))completionBlock
 
 
 /*
  *
  */
-+(void)retrieveUsersWithCalcualteSimilarity:(UITableView*)tableView forSource:(NSMutableArray*)users;
++(NSArray*)retrieveUsersWithCalcualteSimilarity
 {
-    
-    users = [NSMutableArray new];
     PFQuery* query = [PFUser query];
     
     //exclude the current user
-    [query whereKey:@"userId" notEqualTo:[[PFUser currentUser] objectId]];     [query includeKey:@"interests"];
-    [query addAscendingOrder:@"similarityIndex"];
+    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
     
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
-        if (!error)
-        {
-            updateUserSimilarity(objects);
-            NSLog(@"objects %@", objects);
-        }
+    
+    //include the actual interest objecst not just a link
+    [query includeKey:@"interests"];
+    
+    //sort by similarity
+    [query addDescendingOrder:@"similarityIndex"];
+    [query addAscendingOrder:@"username"];
 
+    
+    NSArray* users = [query findObjects];
+    
+    updateUserSimilarity(users);
+    
+    
+    //sort the object once the similarity index is updated
+    NSArray *sortedArray;
+    
+    sortedArray = [users sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2) {
+        NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
+        
+        NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
+        return [second compare:first];
     }];
+    
+    return sortedArray;
+    
+    
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+//    {
+//        if (!error)
+//        {
+//            updateUserSimilarity(objects);
+//            NSLog(@"objects %@", objects);
+//            
+//        }
+//
+//    }];
     
 }
 
@@ -215,6 +249,7 @@ void(^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId
 {
     PFObject* parseInterest = [PFObject objectWithClassName:@"Interests"];
+    parseInterest[@"userid"] = userId;
     
     [interests enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
     {
