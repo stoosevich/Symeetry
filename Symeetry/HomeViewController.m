@@ -13,7 +13,7 @@
 #import "ProfileHeaderView.h"
 #import "ParseManager.h"
 #import "ProfileViewController.h"
-#import "SimilarityAlgorithm.h"
+#import "Defaults.h"
 
 
 #define ESTIMOTE_PROXIMITY_UUID             [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]
@@ -28,6 +28,8 @@
 @property CLLocationManager* locationManager;
 @property NSUUID* beaconId;
 @property CLBeaconRegion* beaconRegion;
+@property NSMutableDictionary* beacons;
+@property NSMutableDictionary* rangedRegions;
 
 //status related
 @property BOOL didRequestCheckin;
@@ -60,28 +62,40 @@
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     
-    //create the beacon to monitor for services
-    
-    //track ony the estimote beacon for the time being
-    
+    [self createRegionsForMonitoring];
     
     //self.beaconId = [[NSUUID alloc]initWithUUIDString:@"D943D5F6-7A2E-6CA4-0FB9-D766F5BD135A"];
 
     //initialze the beacon region with a UUID and indentifier
-    self.beaconRegion = [[CLBeaconRegion alloc]initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID identifier:@"com.Estimote"];
-
+    //self.beaconRegion = [[CLBeaconRegion alloc]initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID identifier:@"com.Estimote"];
+    
     //the location manager sends beacon notifications when the user turns on the display and the device is already inside the region. These notifications are sent even if your app is not running. In that situation
-    self.beaconRegion.notifyEntryStateOnDisplay = YES;
+    //self.beaconRegion.notifyEntryStateOnDisplay = YES;
     
     
     //assign the location manager to start monitoring the region when the view appears
-    [self.locationManager startMonitoringForRegion:self.beaconRegion];
+    //[self.locationManager startMonitoringForRegion:self.beaconRegion];
     
     //turn on the monitoring manually, rather then waiting for us to enter a region
-    [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
+    //[self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
     
+}
 
-
+- (void)createRegionsForMonitoring
+{
+    //create a dictionary of beacons
+    self.beacons = [[NSMutableDictionary alloc] init];
+    
+    // Populate the regions we will range once
+    self.rangedRegions = [[NSMutableDictionary alloc] init];
+    
+    //for all the "known" uuid, create a region to be monitored
+    for (NSUUID *uuid in [Defaults sharedDefaults].supportedProximityUUIDs)
+    {
+        CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:[uuid UUIDString]];
+        region.notifyOnEntry = YES;
+        self.rangedRegions[region] = [NSArray array];
+    }
 }
 
 
@@ -115,45 +129,31 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //assign the location manager to start monitoring the region when the view appears
-    [self.locationManager startMonitoringForRegion:self.beaconRegion];
+    // Start ranging when the view appears.
+    for (CLBeaconRegion *region in self.rangedRegions)
+    {
+        [self.locationManager startRangingBeaconsInRegion:region];
+    }
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    //quit monioring when the view disappears
-    [self.locationManager stopMonitoringForRegion:self.beaconRegion];
+    // Start ranging when the view appears.
+    for (CLBeaconRegion *region in self.rangedRegions)
+    {
+        [self.locationManager stopRangingBeaconsInRegion:region];
+    }
 }
 
 - (void)checkUserIntoSymeetry
 {
     [self.locationManager startUpdatingLocation];
-    [ParseManager addPFGeoPointLocation];
-}
-
-
-
-#pragma mark - CoreLocationManagerDelegate Methods
-
-//TODO: We need to fix the beacon information being transmitted to Parse to be the beacon we are nearest
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    CLLocation* location = [locations lastObject];    
-    [self.locationManager stopUpdatingLocation];
     
-    //get the date/time of the event
-    NSDate* eventDate = location.timestamp;
-    
-    //determine how recent
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    
-     if (abs(howRecent) < 15.0)
-     {
-         //update parse with the information
-         [ParseManager addPFGeoPointLocation];
-         [ParseManager addLocation:location forUser:[[PFUser currentUser] objectId] atBeacon:self.beaconId];
-     }
+//    for (CLBeaconRegion *region in self.rangedRegions)
+//    {
+//        [self.locationManager startRangingBeaconsInRegion:region];
+//    }
 }
 
 
@@ -180,6 +180,7 @@
     
 }
 
+#pragma mark - Prepare for Segue Method
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -193,6 +194,26 @@
 
 #pragma mark - CLLocationManager Delegate Methods
 
+//TODO: We need to fix the beacon information being transmitted to Parse to be the beacon we are nearest
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation* location = [locations lastObject];
+    [self.locationManager stopUpdatingLocation];
+    
+    //get the date/time of the event
+    NSDate* eventDate = location.timestamp;
+    
+    //determine how recent
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    
+    if (abs(howRecent) < 15.0)
+    {
+        //update parse with the information
+        [ParseManager addPFGeoPointLocation];
+        [ParseManager addLocation:location forUser:[[PFUser currentUser] objectId] atBeacon:self.beaconId];
+    }
+}
+
 /*
  * tells the delegate that the user entered the specified region
  */
@@ -200,7 +221,7 @@
 {
     NSLog(@"Beacon found");
     
-    if ([region.identifier isEqualToString:@"com.Symeetry.iBeacons"] && !self.didRequestCheckin)
+    if ([region.identifier isEqualToString:@"com.Symeetry.beacon"] && !self.didRequestCheckin)
     {
         UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Symeetry Beacon Found" message:@"Check-in?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [beaconAlert show];
@@ -216,7 +237,7 @@
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     
-    if ([region.identifier isEqualToString:@"com.Symeetry.iBeacons"])
+    if ([region.identifier isEqualToString:@"ccom.Symeetry.beacon"])
     {
         NSLog(@"Left region");
         UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Out of range of Symeetry Beacon" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -234,55 +255,51 @@
     
     //NSLog(@"ranging beacons");
     
-    UINavigationBar* navBar = self.navigationController.navigationBar;
+    
     
     //create a beacon object
-    CLBeacon* beacon = [[CLBeacon alloc]init];
+    //CLBeacon* beacon = [[CLBeacon alloc]init];
     
     //get the last object our of the array of beacons
-    beacon = beacons.lastObject;
+    //beacon = beacons.lastObject;
     
+    /*
+     Per Apple -  CoreLocation will call this delegate method at 1 Hz with updated range information.
+     Beacons will be categorized and displayed by proximity.  A beacon can belong to multiple
+     regions.  It will be displayed multiple times if that is the case.  If that is not desired,
+     use a set instead of an array.
+     */
     
+    //set the property rangedRegions to the beacons which CoreLocation reported to us
+    self.rangedRegions[region] = beacons;
+    
+    //we no longer need the beacons we created so remove them
+    [self.beacons removeAllObjects];
+    
+    //create and array of all know beacons
+    NSMutableArray *allBeacons = [NSMutableArray array];
+    
+    //
+    for (NSArray *regionResult in [self.rangedRegions allValues])
+    {
+        [allBeacons addObjectsFromArray:regionResult];
+    }
+    
+    //we only want to look at beacon with the 3 possbile ranges
+    for (NSNumber *range in @[@(CLProximityUnknown), @(CLProximityImmediate), @(CLProximityNear), @(CLProximityFar)])
+    {
+        //create an array to hold the beacons within proximity
+        NSArray *proximityBeacons = [allBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", [range intValue]]];
+        
+        //if there are beacons, update our list of beacons
+        if([proximityBeacons count])
+        {
+            self.beacons[range] = proximityBeacons;
+            [self updateNavigationBarColorBasedOnProximity:proximityBeacons.firstObject];
+            NSLog(@"beacon %@", proximityBeacons.firstObject);
+        }
+    }
 
-    //change the background color and image of the view
-    if (beacon.proximity == CLProximityImmediate)
-    {
-        //regarless of range, only check user in once
-        if(!self.didRequestCheckin)
-        {
-            self.didRequestCheckin = !self.didRequestCheckin;
-        }
-        
-        navBar.backgroundColor =[UIColor redColor];
-    }
-    else if (beacon.proximity == CLProximityNear)
-    {
-        //regarless of range, only check user in once
-        if ( !self.didRequestCheckin)
-        {
-            self.didRequestCheckin = !self.didRequestCheckin;
-        }
-        
-        navBar.backgroundColor = [UIColor blueColor];
-        
-    }
-    else if (beacon.proximity == CLProximityFar)
-    {
-        //regarless of range, only check user in once
-        if(!self.didRequestCheckin)
-        {
-            self.didRequestCheckin = !self.didRequestCheckin;
-        }
-        
-        
-        navBar.backgroundColor = [UIColor orangeColor];
-        
-    }
-    else if (beacon.proximity == CLRegionStateUnknown)
-    {
-        
-    }
-    
 }
 
 
@@ -323,6 +340,51 @@
     [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
 }
 
+
+- (void)updateNavigationBarColorBasedOnProximity:(CLBeacon*)beacon
+{
+    UINavigationBar* navBar = self.navigationController.navigationBar;
+    
+    //change the background color and image of the view
+    if (beacon.proximity == CLProximityImmediate)
+    {
+        //regarless of range, only check user in once
+        if(!self.didRequestCheckin)
+        {
+            self.didRequestCheckin = !self.didRequestCheckin;
+        }
+        
+        navBar.backgroundColor =[UIColor redColor];
+    }
+    else if (beacon.proximity == CLProximityNear)
+    {
+        //regarless of range, only check user in once
+        if ( !self.didRequestCheckin)
+        {
+            self.didRequestCheckin = !self.didRequestCheckin;
+        }
+        
+        navBar.backgroundColor = [UIColor blueColor];
+        
+    }
+    else if (beacon.proximity == CLProximityFar)
+    {
+        //regarless of range, only check user in once
+        if(!self.didRequestCheckin)
+        {
+            self.didRequestCheckin = !self.didRequestCheckin;
+        }
+        
+        
+        navBar.backgroundColor = [UIColor orangeColor];
+        
+    }
+    else if (beacon.proximity == CLRegionStateUnknown)
+    {
+        
+    }
+
+}
 
 
 #pragma mark -  UIAlertViewDelegate Methods

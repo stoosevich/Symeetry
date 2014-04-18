@@ -7,8 +7,6 @@
 //
 
 #import "ParseManager.h"
-#import "SimilarityAlgorithm.h"
-
 
 @implementation ParseManager
 
