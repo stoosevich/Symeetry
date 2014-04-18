@@ -35,9 +35,8 @@
 @property BOOL didCheckin;
 
 //local data source
-@property NSArray* users;
+@property NSMutableArray* users;
 @property NSArray* images;
-@property NSArray* interests;
 
 
 @end
@@ -48,8 +47,12 @@
 {
     [super viewDidLoad];
     [self loadHeaderView];
-    self.users = [ParseManager getUsers];
-
+    
+    //self.users = [ParseManager getUsers];
+    
+    [ParseManager retrieveUsersWithCalcualteSimilarity:self.homeTableView forSource:self.users];
+    [self.homeTableView reloadData];
+    
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
     self.didCheckin = NO;
@@ -78,15 +81,6 @@
     
     //turn on the monitoring manually, rather then waiting for us to enter a region
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
-    
-    self.interests = nil;
-    
-    NSLog(@"interests %@",self.interests);
-    
-    [ParseManager retrieveUsersWithCalcualteSimilarity];
-    
-    NSDictionary* userInterest = [ParseManager getInterest:[PFUser currentUser]];
-    NSLog(@"user interest %@",userInterest);
 
 }
 

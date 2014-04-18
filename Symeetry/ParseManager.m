@@ -17,6 +17,9 @@ int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* cur
 {
     int similarity = 0;
     
+    //NSLog(@"curr user dict: %@",currUser);
+    //NSLog(@"other user dict: %@",otherUser);
+    
     //loop throught the current user's dictionary of interests and compare
     //each value to the other user. For each match increase the count by 1
     for (NSDictionary* item in currUser)
@@ -33,13 +36,16 @@ int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* cur
 void(^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 {
     
-    NSDictionary* currentUser = [ParseManager convertPFObjectToNSDictionary:[PFUser currentUser]];
+    //get the interest for the current user
+    NSDictionary* currentUser = [ParseManager convertPFObjectToNSDictionary:[PFUser currentUser][@"interests"]];
     NSDictionary* otherUser = nil;
     
   for(PFObject* user in userObjects)
   {
-      otherUser = [ParseManager convertPFObjectToNSDictionary:user];
+      //get the interest for each user in the list of objects returned from the search
+      otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
       
+      //call a block function to calculate the similarity of the two users
       user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
   }
    
@@ -51,17 +57,22 @@ void(^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 /*
  *
  */
-+(void)retrieveUsersWithCalcualteSimilarity
++(void)retrieveUsersWithCalcualteSimilarity:(UITableView*)tableView forSource:(NSMutableArray*)users;
 {
+    
+    users = [NSMutableArray new];
     PFQuery* query = [PFUser query];
-    [query whereKey:@"userId" notEqualTo:[[PFUser currentUser] objectId]]; //exclude the current user
-    [query includeKey:@"interests"];
+    
+    //exclude the current user
+    [query whereKey:@"userId" notEqualTo:[[PFUser currentUser] objectId]];     [query includeKey:@"interests"];
     [query addAscendingOrder:@"similarityIndex"];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
         if (!error)
         {
             updateUserSimilarity(objects);
+            NSLog(@"objects %@", objects);
         }
 
     }];
