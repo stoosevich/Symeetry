@@ -79,6 +79,9 @@
     
     //turn on the monitoring manually, rather then waiting for us to enter a region
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
+    
+    NSArray* nearByUsers = [ParseManager retrieveSymeetryUsersNearCurrentUser];
+    NSLog(@"near by users %@", nearByUsers);
 
 }
 
@@ -127,6 +130,7 @@
 - (void)checkUserIntoSymeetry
 {
     [self.locationManager startUpdatingLocation];
+    [ParseManager addPFGeoPointLocation];
 }
 
 
@@ -260,7 +264,6 @@
             self.didRequestCheckin = !self.didRequestCheckin;
         }
         
-        
         navBar.backgroundColor = [UIColor blueColor];
         
     }
@@ -293,21 +296,21 @@
     if (state == CLRegionStateInside && !self.didRequestCheckin)
     {
         //we are inside the region being monitored
-        [self showRegionStateAlertScreen:@"region state: inside"];
+        //[self showRegionStateAlertScreen:@"region state: inside"];
         [self showSymeetryAlertScreen];
         
     }
     else if (state == CLRegionStateOutside && self.didCheckin)
     {
         //we are outside the region state being monitored
-        [self showRegionStateAlertScreen:@"region state: outside"];
+        //[self showRegionStateAlertScreen:@"region state: outside"];
         [self showRegionStateAlertScreen:@"Leaving Symeetry region, loggin out of service"];
         
     }
     else if (state == CLRegionStateUnknown )
     {
         //we are in a unknow region state,
-        [self showRegionStateAlertScreen:@"region state: unknown"];
+        //[self showRegionStateAlertScreen:@"region state: unknown"];
     }
 }
 

@@ -278,22 +278,52 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     }];
 }
 
-
+/*
+ *
+ */
 +(void)addPFGeoPointLocation
 {
     [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
     {
         if (!error)
         {
+            NSLog(@"geo point %@", geoPoint);
             [[PFUser currentUser] setObject:geoPoint forKey:@"location"];
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+            {
+                if (error)
+                {
+                    NSLog(@"error: %@",[error userInfo]);
+                }
+            }];
         }
         else
         {
-            
+            NSLog(@"error: %@",[error userInfo]);
         }
     }];
 }
 
+
++ (NSArray*)retrieveSymeetryUsersNearCurrentUser
+{
+    // User's location
+    PFUser* user = [PFUser currentUser];
+    PFGeoPoint *userGeoPoint = user[@"location"];
+    NSLog(@"geopoint %@", userGeoPoint.description);
+    
+    // Create a query for places
+    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+    
+    // Interested in locations near user.
+    [query whereKey:@"location" nearGeoPoint:userGeoPoint];
+    
+    // Limit what could be a lot of points.
+    query.limit = 50;
+    
+    // Final list of objects
+    return [query findObjects];
+}
 /*
  * Add a user's location to parse (if not present), include the user's coordinates, id and the beacon
  * nearest their current location. The user's location is first checked to see if it 

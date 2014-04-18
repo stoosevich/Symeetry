@@ -25,7 +25,11 @@
 //find users that are in the immediate vicinity based on the uuid of a beacon
 +(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid;
 
+//
 +(NSArray*)retrieveUsersInLocalRegion:(NSNumber*)proximity;
+
+//user Parse GeoPoint service to find nearby users
++ (NSArray*)retrieveSymeetryUsersNearCurrentUser;
 
 //handle user signon, login and logoff
 +(void)logInOrSignUp:(NSString*)username
