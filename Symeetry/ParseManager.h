@@ -23,7 +23,9 @@
 
 
 //find users that are in the immediate vicinity based on the uuid of a beacon
-+(NSArray*)retrieveUsersInLocalVicinityWithCalcualtedSimilarity:(NSUUID*)uuid;
++(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid;
+
++(NSArray*)retrieveUsersInLocalRegion:(NSNumber*)proximity;
 
 //handle user signon, login and logoff
 +(void)logInOrSignUp:(NSString*)username
@@ -36,6 +38,7 @@
 //saving and object update methods
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId;
++(void)addPFGeoPointLocation;
 +(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSUUID*)uuid;
 
 //core location/bluetooth related methods

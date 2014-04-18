@@ -72,10 +72,10 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
  * the results are sorted by the user similarity index and/or by user name.
  * @ return NSArray
  */
-+(NSArray*)retrieveUsersInLocalVicinityWithCalcualtedSimilarity:(NSUUID*)uuid
++(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid
 {
     
-    NSString* uuidString = [uuid UUIDString];
+    //NSString* uuidString = [uuid UUIDString];
     
     PFQuery* query = [PFUser query];
     
@@ -124,6 +124,20 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     
 }
 
+
+
+/*
+ *
+ */
++(NSArray*)retrieveUsersInLocalRegion:(NSNumber*)proximity
+{
+    PFQuery* currentUserLocation = [PFQuery queryWithClassName:@"Location"];
+    [currentUserLocation whereKey:@"userId" equalTo:[[PFUser currentUser] objectId]];
+    
+    //PFQuery* locationQuery = [PFQuery queryWithClassName:@"Location"];
+    //[locationQuery whereKey:@"latitude" matchesKey:<#(NSString *)#> inQuery:<#(PFQuery *)#>]
+    return nil;
+}
 
 
 /*
@@ -264,6 +278,21 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     }];
 }
 
+
++(void)addPFGeoPointLocation
+{
+    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
+    {
+        if (!error)
+        {
+            [[PFUser currentUser] setObject:geoPoint forKey:@"location"];
+        }
+        else
+        {
+            
+        }
+    }];
+}
 
 /*
  * Add a user's location to parse (if not present), include the user's coordinates, id and the beacon

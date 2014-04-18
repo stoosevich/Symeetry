@@ -47,7 +47,7 @@
     [super viewDidLoad];
     [self loadHeaderView];
     
-    self. users = [ParseManager retrieveUsersInLocalVicinityWithCalcualtedSimilarity:ESTIMOTE_PROXIMITY_UUID];
+    self. users = [ParseManager retrieveUsersInLocalVicinityWithSimilarity:ESTIMOTE_PROXIMITY_UUID];
     
     [self.homeTableView reloadData];
     
@@ -148,7 +148,8 @@
      if (abs(howRecent) < 15.0)
      {
          //update parse with the information
-         [ParseManager addLocation:location forUser:[[PFUser currentUser] objectId] atBeacon:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"];
+         [ParseManager addPFGeoPointLocation];
+         [ParseManager addLocation:location forUser:[[PFUser currentUser] objectId] atBeacon:self.beaconId];
      }
 }
 
@@ -166,8 +167,9 @@
     
     PFUser* user = self.users[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"homeReuseCellID"];
-    cell.textLabel.text = user.username;
-    cell.detailTextLabel.text = user.email;
+    NSString* formatString = [NSString stringWithFormat:@"%@ %@",user.username,[user[@"similarityIndex"] description]];
+    cell.textLabel.text = formatString;
+    cell.detailTextLabel.text = @"likes and interests";
     PFFile* file = [user objectForKey:@"photo"];
     NSData* data = [file getData];
     cell.imageView.image = [UIImage imageWithData:data]; 
@@ -247,7 +249,7 @@
         {
             self.didRequestCheckin = !self.didRequestCheckin;
         }
-        //navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
+        
         navBar.backgroundColor =[UIColor redColor];
     }
     else if (beacon.proximity == CLProximityNear)
@@ -258,7 +260,7 @@
             self.didRequestCheckin = !self.didRequestCheckin;
         }
         
-        //navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
+        
         navBar.backgroundColor = [UIColor blueColor];
         
     }
@@ -270,13 +272,13 @@
             self.didRequestCheckin = !self.didRequestCheckin;
         }
         
-        //navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
+        
         navBar.backgroundColor = [UIColor orangeColor];
         
     }
     else if (beacon.proximity == CLRegionStateUnknown)
     {
-        //navBar.topItem.title = [NSString stringWithFormat:@"%f",beacon.accuracy];
+        
     }
     
 }
@@ -284,8 +286,7 @@
 
 /*
  * The location manager calls this method whenever there is a boundary transition for a region.
- * The location manager also calls this method in response to a call to its requestStateForRegion: method,
- * which runs asynchronously
+ * The location manager also calls this method in response to a call to its requestStateForRegion: method, which runs asynchronously
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
