@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Steve Toosevich. All rights reserved.
 //
 
-#import "HomeViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Parse/Parse.h>
+#import "HomeViewController.h"
 #import "ProfileHeaderView.h"
 #import "ParseManager.h"
 #import "ProfileViewController.h"
 #import "SimilarityAlgorithm.h"
-#import "SimilarUser.h"
+
 
 //tring to fix 
 #define ESTIMOTE_PROXIMITY_UUID             [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]
@@ -80,10 +80,13 @@
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
     
     self.interests = [ParseManager retrieveUsersWithInterests];
+    NSLog(@"interests %@",self.interests);
     
-    PFObject* userInterest = [ParseManager getInterest:[PFUser currentUser]];
-    NSDictionary* myInterests = [ParseManager convertPFObjectToNSDictionary:userInterest];
-
+    self.interests = [ParseManager convertArrayOfPFObjectsToDictionaryObjects:self.interests];
+    NSLog(@"interests %@",self.interests);
+    
+    NSDictionary* userInterest = [ParseManager getInterest:[PFUser currentUser]];
+    NSLog(@"user interest %@",userInterest);
 
 }
 

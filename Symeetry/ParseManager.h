@@ -18,9 +18,10 @@
 +(NSArray*)getUsers;
 +(NSArray*)retrieveUsersWithInterests;
 +(BOOL)isCurrentUser:(PFUser*)user;
-+(NSDictionary*)convertPFObjectToNSDictionary:(PFObject*)objectToConvert;
-+(PFObject*)getInterest:(PFUser*)user;
++(NSDictionary*)getInterest:(PFUser*)user;
 
+
+//handle user signon, login and logoff
 +(void)logInOrSignUp:(NSString*)username
             password:(NSString*)password
           comfirming:(NSString*)comfirmPassword
@@ -33,9 +34,12 @@
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId;
 +(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid;
 
-//helper method
+//core location/bluetooth related methods
 +(void)addBeaconWithName:(NSString*)name withUUID:(NSString*)uuid;
 
-
+//helper method
++(PFFile*)convertUIImageToPFFile:(UIImage*)image;
++(NSDictionary*)convertPFObjectToNSDictionary:(PFObject*)objectToConvert;
++(NSArray*)convertArrayOfPFObjectsToDictionaryObjects:(NSArray*)objectsToConvert;
 
 @end

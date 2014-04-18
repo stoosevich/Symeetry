@@ -11,9 +11,4 @@
 
 @interface SimilarityAlgorithm : NSObject
 
-+(void)iterateOverDictionary:(PFObject*)interests;
-
-+(void)compareInterestr:(PFObject*)currentUser otherUsers:(NSArray*)otherUsers;
-
-+(id)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser;
 @end

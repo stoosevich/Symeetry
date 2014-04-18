@@ -18,10 +18,6 @@
 
 @implementation SimilarityAlgorithm
 
-+(void)iterateOverDictionary:(PFObject*)interests
-{
-  
-}
 
 
 +(void)compareInterestr:(PFObject*)currentUser otherUsers:(NSArray*)otherUsers
@@ -29,12 +25,12 @@
     
     for (PFObject* user in otherUsers)
     {
-        [self similarityForUser:currentUser[@"interests"] toUser:user[@"interests"]];
+        [self compareSimilarityForCurrentUser:currentUser[@"interests"] toAnotherUser:user[@"interests"]];
     }
 }
 
 
-+ (NSNumber*)similarityForUser:(NSDictionary*)firstUser toUser:(NSDictionary*)secondUser
++ (void)compareSimilarityForCurrentUser:(NSDictionary*)firstUser toAnotherUser:(NSDictionary*)secondUser
 {
     int similarity = 0;
     
@@ -50,7 +46,7 @@
     
     //secondUser[@"similarityIndex"] = similarity;
     NSLog(@"total similarity %i", similarity);
-    return [NSNumber numberWithInt:similarity];
+
 }
 
 

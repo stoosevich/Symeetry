@@ -68,7 +68,6 @@
  */
 +(NSArray*)retrieveUsersWithInterests
 {
-
     PFQuery* query = [PFUser query];
     [query whereKey:@"userId" notEqualTo:[[PFUser currentUser] objectId]]; //exclude the current user
     [query includeKey:@"interests"];
@@ -82,11 +81,19 @@
  * user's specific id
  * @return PFObject the Parse Interest object for the specified user
  */
-+(PFObject*)getInterest:(PFUser*)user
++(NSDictionary*)getInterest:(PFUser*)user
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
     [query whereKey:@"userid" equalTo:user.objectId];
-    return [[query findObjects] firstObject];
+    
+    NSDictionary* dict = nil;
+    PFObject* interests = [query getFirstObject];
+    
+    if (interests)
+    {
+        dict = [self convertPFObjectToNSDictionary:interests];
+    }
+    return dict;
 }
 
 
@@ -245,7 +252,9 @@
     return file;
 }
 
-
+/*
+ * Convert a Parse PFObject into a NSDictionary
+ */
 +(NSDictionary*)convertPFObjectToNSDictionary:(PFObject*)objectToConvert
 {
     
@@ -260,14 +269,29 @@
     
     id object;
     
+    //use the iterator to loop through the list of objects and add the value to the key
     while (object = [e nextObject])
     {
         [dictionary setValue:[objectToConvert objectForKey:object] forKey:object];
     }
-
-    NSLog(@"pfobject %@",objectToConvert);
-    NSLog(@"dict %@", dictionary);
+    
     return dictionary;
+}
+
+/*
+ *
+ */
++(NSArray*)convertArrayOfPFObjectsToDictionaryObjects:(NSArray*)objectsToConvert
+{
+    NSMutableArray* temp = [NSMutableArray new];
+    
+    for (PFObject* object in objectsToConvert)
+    {
+        [temp addObject:[self convertPFObjectToNSDictionary:object]];
+        NSLog(@"%@",temp.firstObject);
+    }
+    
+    return [NSArray arrayWithArray:temp];
 }
 
 @end
