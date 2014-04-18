@@ -134,8 +134,6 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     PFQuery* currentUserLocation = [PFQuery queryWithClassName:@"Location"];
     [currentUserLocation whereKey:@"userId" equalTo:[[PFUser currentUser] objectId]];
     
-    //PFQuery* locationQuery = [PFQuery queryWithClassName:@"Location"];
-    //[locationQuery whereKey:@"latitude" matchesKey:<#(NSString *)#> inQuery:<#(PFQuery *)#>]
     return nil;
 }
 
@@ -287,7 +285,6 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     {
         if (!error)
         {
-            NSLog(@"geo point %@", geoPoint);
             [[PFUser currentUser] setObject:geoPoint forKey:@"location"];
             [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
             {
@@ -310,10 +307,11 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     // User's location
     PFUser* user = [PFUser currentUser];
     PFGeoPoint *userGeoPoint = user[@"location"];
-    NSLog(@"geopoint %@", userGeoPoint.description);
+    
+    //NSLog(@"geopoint %@", userGeoPoint.description);
     
     // Create a query for places
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+    PFQuery *query = [PFUser query];
     
     // Interested in locations near user.
     [query whereKey:@"location" nearGeoPoint:userGeoPoint];
