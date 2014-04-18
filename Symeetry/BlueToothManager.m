@@ -11,6 +11,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "ParseManager.h"
 
+#define iBEACON_PREFIX NSString  @"02 01 06 1A FF 4C 00 02 15"
+
 @interface BlueToothManager()<CBCentralManagerDelegate,CBPeripheralDelegate>
 ///bluetooth related
 @property CBCentralManager* centralManager;
@@ -68,7 +70,7 @@
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    
+    NSLog(@"central manger did update state");
 }
 
 
@@ -82,9 +84,8 @@
     //if the perihperal has a name
     if(peripheral.name)
     {
-        NSString* beaconUUID = [(NSUUID*)peripheral.identifier UUIDString];
         NSString* beaconName = peripheral.name;
-        [ParseManager addBeaconWithName:beaconName withUUID:beaconUUID];
+        [ParseManager addBeaconWithName:beaconName withUUID:peripheral.identifier];
     }
     
     //add device to list. A device can be found more then once

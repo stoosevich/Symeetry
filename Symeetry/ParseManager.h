@@ -20,10 +20,10 @@
 
 //multiple user object queries
 +(NSArray*)getUsers;
-+(NSArray*)retrieveUsersWithInterests;
 
-//WIP
-+(NSArray*)retrieveUsersWithCalcualteSimilarity;
+
+//find users that are in the immediate vicinity based on the uuid of a beacon
++(NSArray*)retrieveUsersInLocalVicinityWithCalcualtedSimilarity:(NSUUID*)uuid;
 
 //handle user signon, login and logoff
 +(void)logInOrSignUp:(NSString*)username
@@ -36,10 +36,10 @@
 //saving and object update methods
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId;
-+(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSString*)uuid;
++(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSUUID*)uuid;
 
 //core location/bluetooth related methods
-+(void)addBeaconWithName:(NSString*)name withUUID:(NSString*)uuid;
++(void)addBeaconWithName:(NSString*)name withUUID:(NSUUID*)uuid;
 
 //helper method
 +(PFFile*)convertUIImageToPFFile:(UIImage*)image;
