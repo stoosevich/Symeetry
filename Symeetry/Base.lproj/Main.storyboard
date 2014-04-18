@@ -27,7 +27,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="interestsReuseCellID" id="DM3-uE-1DW" customClass="InterestsCollectionViewCell">
-                                        <rect key="frame" x="35" y="64" width="250" height="299"/>
+                                        <rect key="frame" x="35" y="0.0" width="250" height="299"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="299"/>
@@ -143,9 +143,9 @@
                                 <segue destination="3cO-mS-2KM" kind="push" id="BKO-Fn-xw0"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Interests" id="PA7-Pu-uvJ">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="PA7-Pu-uvJ">
                             <connections>
-                                <segue destination="aRO-U8-zTU" kind="push" id="Bnd-df-38d"/>
+                                <action selector="logoutButton:" destination="vXZ-lx-hvc" id="Qgk-Xd-qqE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

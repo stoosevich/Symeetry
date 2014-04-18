@@ -357,5 +357,11 @@
     }
 }
 
+- (IBAction)logoutButton:(UIBarButtonItem *)sender
+{
+    [PFUser logOut];
+    PFUser *currentUser = [PFUser currentUser];
+    NSLog(@"%@",currentUser);
+}
 
 @end
