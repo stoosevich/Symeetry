@@ -9,7 +9,66 @@
 #import "ParseManager.h"
 #import "SimilarityAlgorithm.h"
 
+
 @implementation ParseManager
+
+
+int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* currUser, NSDictionary* otherUser)
+{
+    int similarity = 0;
+    
+    //loop throught the current user's dictionary of interests and compare
+    //each value to the other user. For each match increase the count by 1
+    for (NSDictionary* item in currUser)
+    {
+        if([currUser objectForKey:item] == [otherUser objectForKey:item])
+        {
+            similarity++;
+        }
+    }
+    return similarity;
+};
+
+
+void(^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
+{
+    
+    NSDictionary* currentUser = [ParseManager convertPFObjectToNSDictionary:[PFUser currentUser]];
+    NSDictionary* otherUser = nil;
+    
+  for(PFObject* user in userObjects)
+  {
+      otherUser = [ParseManager convertPFObjectToNSDictionary:user];
+      
+      user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
+  }
+   
+};
+
+
+
+
+/*
+ *
+ */
++(void)retrieveUsersWithCalcualteSimilarity
+{
+    PFQuery* query = [PFUser query];
+    [query whereKey:@"userId" notEqualTo:[[PFUser currentUser] objectId]]; //exclude the current user
+    [query includeKey:@"interests"];
+    [query addAscendingOrder:@"similarityIndex"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        if (!error)
+        {
+            updateUserSimilarity(objects);
+        }
+
+    }];
+    
+}
+
+
 
 /*
  * Get the current user logged into the system
@@ -18,6 +77,7 @@
 {
     return [PFUser currentUser];
 }
+
 
 /*Logs in User if not already logged in
  *Signs the user up if they are new
@@ -73,6 +133,8 @@
     [query includeKey:@"interests"];
     return [query findObjects];
 }
+
+
 
 
 /*

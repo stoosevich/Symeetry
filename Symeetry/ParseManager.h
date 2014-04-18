@@ -13,13 +13,15 @@
 
 @interface ParseManager : NSObject
 
-//user related methods
+//single user related methods
 +(PFUser*)currentUser;
-+(NSArray*)getUsers;
-+(NSArray*)retrieveUsersWithInterests;
 +(BOOL)isCurrentUser:(PFUser*)user;
 +(NSDictionary*)getInterest:(PFUser*)user;
 
+//multiple user object queries
++(NSArray*)getUsers;
++(NSArray*)retrieveUsersWithInterests;
++(void)retrieveUsersWithCalcualteSimilarity;
 
 //handle user signon, login and logoff
 +(void)logInOrSignUp:(NSString*)username

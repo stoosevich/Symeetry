@@ -79,11 +79,11 @@
     //turn on the monitoring manually, rather then waiting for us to enter a region
     [self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
     
-    self.interests = [ParseManager retrieveUsersWithInterests];
+    self.interests = nil;
+    
     NSLog(@"interests %@",self.interests);
     
-    self.interests = [ParseManager convertArrayOfPFObjectsToDictionaryObjects:self.interests];
-    NSLog(@"interests %@",self.interests);
+    [ParseManager retrieveUsersWithCalcualteSimilarity];
     
     NSDictionary* userInterest = [ParseManager getInterest:[PFUser currentUser]];
     NSLog(@"user interest %@",userInterest);
