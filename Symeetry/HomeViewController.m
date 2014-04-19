@@ -172,6 +172,10 @@
         ProfileViewController *viewController = segue.destinationViewController;
         viewController.user = self.users[indexPath.row];
     }
+    else if ([[segue identifier] isEqualToString:@"showMapView"])
+    {
+        
+    }
 }
 
 #pragma mark - CLLocationManager Delegate Methods

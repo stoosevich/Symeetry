@@ -300,6 +300,11 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 }
 
 
+/*
+ *
+ * @return NSArray array of users near the current users location. This is limited
+ * to 50 users and uses the Parse default geopoint location query
+ */
 + (NSArray*)retrieveSymeetryUsersNearCurrentUser
 {
     // User's location

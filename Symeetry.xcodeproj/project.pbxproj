@@ -57,6 +57,8 @@
 		CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562ECA18FCD13F00DDB3D3 /* steve.jpg */; };
 		CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */; };
 		CE6748661901D58600F05121 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6748651901D58600F05121 /* Defaults.m */; };
+		CE893D8919022CAF000260A4 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE893D8819022CAF000260A4 /* MapViewController.m */; };
+		CE893D8B19023174000260A4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE893D8A19023174000260A4 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +87,7 @@
 		81882A0718FC8DFE00724B79 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		81882A0918FC8E0D00724B79 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		81882A0B18FC8E4E00724B79 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		81882A0D18FC923300724B79 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileHeaderView.xib; path = Symeetry/ProfileHeaderView.xib; sourceTree = "<group>"; };
+		81882A0D18FC923300724B79 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		81882A0F18FC96F000724B79 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		81882A1118FC96F800724B79 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		81882A1318FC972500724B79 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -133,6 +135,9 @@
 		CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlueToothManager.m; path = Symeetry/BlueToothManager.m; sourceTree = "<group>"; };
 		CE6748641901D58600F05121 /* Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defaults.h; path = Symeetry/Defaults.h; sourceTree = "<group>"; };
 		CE6748651901D58600F05121 /* Defaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Defaults.m; path = Symeetry/Defaults.m; sourceTree = "<group>"; };
+		CE893D8719022CAF000260A4 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Symeetry/MapViewController.h; sourceTree = "<group>"; };
+		CE893D8819022CAF000260A4 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Symeetry/MapViewController.m; sourceTree = "<group>"; };
+		CE893D8A19023174000260A4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE893D8B19023174000260A4 /* MapKit.framework in Frameworks */,
 				81882A1E18FC975500724B79 /* SystemConfiguration.framework in Frameworks */,
 				81882A1C18FC974900724B79 /* StoreKit.framework in Frameworks */,
 				81882A1A18FC973F00724B79 /* Security.framework in Frameworks */,
@@ -199,7 +205,6 @@
 				CE6748651901D58600F05121 /* Defaults.m */,
 				CE5ACEE918FDED5000E91087 /* BlueToothManager.h */,
 				CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */,
-				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
 				8114069118FE0CD8004E578F /* ProfileHeaderView.h */,
 				8114069218FE0CD8004E578F /* ProfileHeaderView.m */,
 				5695430E18FD8C8F00A101F4 /* ParseManager.h */,
@@ -213,6 +218,8 @@
 		818829FD18FC883000724B79 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE893D8719022CAF000260A4 /* MapViewController.h */,
+				CE893D8819022CAF000260A4 /* MapViewController.m */,
 				81AB5B1D18FC85890060B17A /* HomeViewController.h */,
 				81AB5B1E18FC85890060B17A /* HomeViewController.m */,
 				818829F918FC87F300724B79 /* ProfileViewController.h */,
@@ -250,6 +257,7 @@
 		81AB5B0718FC85890060B17A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE893D8A19023174000260A4 /* MapKit.framework */,
 				81882A1D18FC975500724B79 /* SystemConfiguration.framework */,
 				81882A1B18FC974900724B79 /* StoreKit.framework */,
 				81882A1918FC973F00724B79 /* Security.framework */,
@@ -276,6 +284,7 @@
 				81AB5B1718FC85890060B17A /* AppDelegate.h */,
 				81AB5B1818FC85890060B17A /* AppDelegate.m */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
+				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
 				81AB5B2018FC85890060B17A /* Images.xcassets */,
 				81AB5B0F18FC85890060B17A /* Supporting Files */,
 			);
@@ -436,6 +445,7 @@
 				81AB5B1F18FC85890060B17A /* HomeViewController.m in Sources */,
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
+				CE893D8919022CAF000260A4 /* MapViewController.m in Sources */,
 				CE6748661901D58600F05121 /* Defaults.m in Sources */,
 				818829FB18FC87F300724B79 /* ProfileViewController.m in Sources */,
 				56322D5618FF265B004EF55D /* LoginViewController.m in Sources */,
