@@ -17,11 +17,7 @@
 #import "Defaults.h"
 
 
-#define ESTIMOTE_PROXIMITY_UUID             [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]
 
-#define ESTIMOTE_MACBEACON_PROXIMITY_UUID   [[NSUUID alloc] initWithUUIDString:@"08D4A950-80F0-4D42-A14B-D53E063516E6"]
-
-#define ESTIMOTE_IOSBEACON_PROXIMITY_UUID   [[NSUUID alloc] initWithUUIDString:@"8492E75F-4FD6-469D-B132-043FE94921D8"]
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate,CBPeripheralDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *homeTableView;
@@ -50,11 +46,11 @@
     [self loadHeaderView];
     
     //ask the app delegate for the location manager
-    AppDelegate* appDelegate = [[UIApplication sharedApplication]delegate];
+    AppDelegate* appDelegate =(AppDelegate*)[[UIApplication sharedApplication]delegate];
     self.locationManager  = appDelegate.locationManager;
-    appDelegate = nil;
+    self.locationManager.delegate = self;
     
-    self. users = [ParseManager retrieveUsersInLocalVicinityWithSimilarity:ESTIMOTE_PROXIMITY_UUID];
+    self. users = [ParseManager retrieveUsersInLocalVicinityWithSimilarity:nil];
     
     [self.homeTableView reloadData];
     
@@ -62,27 +58,14 @@
     self.didRequestCheckin = NO;
     self.didCheckin = NO;
     
-
-    
     [self createRegionsForMonitoring];
-    
-    //self.beaconId = [[NSUUID alloc]initWithUUIDString:@"D943D5F6-7A2E-6CA4-0FB9-D766F5BD135A"];
 
-    //initialze the beacon region with a UUID and indentifier
-    //self.beaconRegion = [[CLBeaconRegion alloc]initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID identifier:@"com.Estimote"];
-    
-    //the location manager sends beacon notifications when the user turns on the display and the device is already inside the region. These notifications are sent even if your app is not running. In that situation
-    //self.beaconRegion.notifyEntryStateOnDisplay = YES;
-    
-    
-    //assign the location manager to start monitoring the region when the view appears
-    //[self.locationManager startMonitoringForRegion:self.beaconRegion];
-    
-    //turn on the monitoring manually, rather then waiting for us to enter a region
-    //[self locationManager:self.locationManager didStartMonitoringForRegion:self.beaconRegion];
-    
 }
 
+
+/*
+ * Create one region for each known uuid and begin monitoring the regions for notifications
+ */
 - (void)createRegionsForMonitoring
 {
     //create a dictionary of beacons
@@ -100,7 +83,9 @@
     }
 }
 
-
+/*
+ * Load the custom view used for the users profile
+ */
 - (void)loadHeaderView
 {
     //create the view from a xib file
@@ -141,7 +126,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    // Start ranging when the view appears.
+    // Stop ranging when the view appears.
     for (CLBeaconRegion *region in self.rangedRegions)
     {
         [self.locationManager stopRangingBeaconsInRegion:region];
@@ -151,11 +136,6 @@
 - (void)checkUserIntoSymeetry
 {
     [self.locationManager startUpdatingLocation];
-    
-//    for (CLBeaconRegion *region in self.rangedRegions)
-//    {
-//        [self.locationManager startRangingBeaconsInRegion:region];
-//    }
 }
 
 
@@ -255,16 +235,6 @@
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
     
-    //NSLog(@"ranging beacons");
-    
-    
-    
-    //create a beacon object
-    //CLBeacon* beacon = [[CLBeacon alloc]init];
-    
-    //get the last object our of the array of beacons
-    //beacon = beacons.lastObject;
-    
     /*
      Per Apple -  CoreLocation will call this delegate method at 1 Hz with updated range information.
      Beacons will be categorized and displayed by proximity.  A beacon can belong to multiple
@@ -275,22 +245,23 @@
     //set the property rangedRegions to the beacons which CoreLocation reported to us
     self.rangedRegions[region] = beacons;
     
-    //we no longer need the beacons we created so remove them
+    //we no longer need the beacons created so remove them
     [self.beacons removeAllObjects];
     
-    //create and array of all know beacons
+    //create an array of all know beacons
     NSMutableArray *allBeacons = [NSMutableArray array];
     
-    //
+    //add all the beacon discovered by ranging into a new array
     for (NSArray *regionResult in [self.rangedRegions allValues])
     {
         [allBeacons addObjectsFromArray:regionResult];
     }
     
-    //we only want to look at beacon with the 3 possbile ranges
+    //for each possible range value, find beacons mathcing the respective range, and add them to a new array,
+    //this will put the beacons in the array from farthest to closest
     for (NSNumber *range in @[@(CLProximityUnknown), @(CLProximityImmediate), @(CLProximityNear), @(CLProximityFar)])
     {
-        //create an array to hold the beacons within proximity
+        //create an array to hold the beacons orderd proximity
         NSArray *proximityBeacons = [allBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", [range intValue]]];
         
         //if there are beacons, update our list of beacons
@@ -307,7 +278,8 @@
 
 /*
  * The location manager calls this method whenever there is a boundary transition for a region.
- * The location manager also calls this method in response to a call to its requestStateForRegion: method, which runs asynchronously
+ * The location manager also calls this method in response to a call to its requestStateForRegion: method, 
+ * which runs asynchronously
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
@@ -343,10 +315,12 @@
 }
 
 
+
+/*
+ *
+ */
 - (void)updateNavigationBarColorBasedOnProximity:(CLBeacon*)beacon
 {
-
-    
     NSLog(@"beacon responsible for color %@\n", beacon);
     
     UINavigationBar* navBar = self.navigationController.navigationBar;

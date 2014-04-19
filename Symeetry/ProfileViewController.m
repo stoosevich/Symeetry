@@ -72,11 +72,7 @@
     [self.view addSubview:self.headerView];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    
-}
+
 
 - (IBAction)onChangeRelationShipButtonPressed:(id)sender
 {
@@ -98,7 +94,9 @@
     }
 }
 
--(NSString*)relationShipStatus{
+
+-(NSString*)relationShipStatus
+{
     
     int x = [(NSNumber*)[self.user objectForKey:@"relationshipStatus"] intValue];
     

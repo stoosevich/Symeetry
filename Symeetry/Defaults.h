@@ -10,11 +10,11 @@
 
 @interface Defaults : NSObject
 
+extern NSString *BeaconIdentifier;
 
 + (Defaults *)sharedDefaults;
 
 @property (nonatomic, copy, readonly) NSArray *supportedProximityUUIDs;
-
 @property (nonatomic, copy, readonly) NSUUID *defaultProximityUUID;
 @property (nonatomic, copy, readonly) NSNumber *defaultPower;
 

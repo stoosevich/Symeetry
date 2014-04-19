@@ -16,11 +16,9 @@
 
 @end
 
-
-
 @implementation Defaults
-NSString *BeaconIdentifier = @"com.Symeetry.beacon";
 
+NSString *BeaconIdentifier = @"com.Symeetry.beacon";
 
 - (id)init
 {
@@ -39,8 +37,6 @@ NSString *BeaconIdentifier = @"com.Symeetry.beacon";
                                          [[NSUUID alloc] initWithUUIDString:@"08D4A950-80F0-4D42-A14B-D53E063516E6"],
                                          [[NSUUID alloc] initWithUUIDString:@"8492E75F-4FD6-469D-B132-043FE94921D8"],
                                          [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"]
-                                         
-                                         
                                          ];
         self.defaultPower = @-59;
     }

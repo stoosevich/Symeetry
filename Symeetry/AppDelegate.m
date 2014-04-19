@@ -20,16 +20,17 @@
     [Parse setApplicationId:@"1iPVJY5CmOx54bzcklwgtQn8wswi0H5ipKfisuJ8"
                   clientKey:@"fXgWT23ACGa7uOPagCsaEuBM1xu8bOjWSGWFwTKF"];
     
-    //intialize the location manager
+    //intialize the location manager to starting monitoring regions for iBeacons
     self.locationManager = [[CLLocationManager alloc]init];
-    self.locationManager.delegate = (id)self;
+    self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     
     return YES;
 }
 
 /*
- *
+ * Monitor location manager for state changes, send a notifcation if the region has been
+ * entered/exited
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
@@ -51,6 +52,13 @@
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    // If the application is in the foreground, we will notify the user of the region's state via an alert.
+    NSString *cancelButtonTitle = NSLocalizedString(@"OK", @"Title for cancel button in local notification");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:notification.alertBody message:nil delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
+    [alert show];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
