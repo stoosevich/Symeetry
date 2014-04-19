@@ -124,17 +124,12 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 
 
-/*
- *
- */
-+(NSArray*)retrieveUsersInLocalRegion:(NSNumber*)proximity
-{
-    PFQuery* currentUserLocation = [PFQuery queryWithClassName:@"Location"];
-    [currentUserLocation whereKey:@"userId" equalTo:[[PFUser currentUser] objectId]];
-    
-    return nil;
-}
 
++(void)updateUserNearestBeacon:(NSUUID*)uuid
+{
+    NSString* uuidString = [uuid UUIDString];
+    [PFUser currentUser][@"nearestBeacon"]= uuidString;
+}
 
 /*
  * Get the current user logged into the system
@@ -277,7 +272,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 /*
  *
  */
-+(void)addPFGeoPointLocation
++(void)setUsersPFGeoPointLocation
 {
     [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
     {
@@ -325,6 +320,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
         
         // Interested in locations near user.
         [query whereKey:@"location" nearGeoPoint:userGeoPoint];
+        [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
         
         // Limit what could be a lot of points.
         query.limit = 50;

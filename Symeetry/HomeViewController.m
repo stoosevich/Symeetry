@@ -40,6 +40,8 @@
 
 @implementation HomeViewController
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,7 +51,9 @@
     AppDelegate* appDelegate =(AppDelegate*)[[UIApplication sharedApplication]delegate];
     self.locationManager  = appDelegate.locationManager;
     self.locationManager.delegate = self;
+    [self validateApplicationServicesFunctionalityIsEnabled];
     
+    //find users near the current user
     self. users = [ParseManager retrieveUsersInLocalVicinityWithSimilarity:nil];
     
     [self.homeTableView reloadData];
@@ -58,30 +62,12 @@
     self.didRequestCheckin = NO;
     self.didCheckin = NO;
     
+    //begin creating regions for monitoring
     [self createRegionsForMonitoring];
-
 }
 
 
-/*
- * Create one region for each known uuid and begin monitoring the regions for notifications
- */
-- (void)createRegionsForMonitoring
-{
-    //create a dictionary of beacons
-    self.beacons = [[NSMutableDictionary alloc] init];
-    
-    // Populate the regions we will range once
-    self.rangedRegions = [[NSMutableDictionary alloc] init];
-    
-    //for all the "known" uuid, create a region to be monitored
-    for (NSUUID *uuid in [Defaults sharedDefaults].supportedProximityUUIDs)
-    {
-        CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:[uuid UUIDString]];
-        region.notifyEntryStateOnDisplay = YES;
-        self.rangedRegions[region] = [NSArray array];
-    }
-}
+
 
 /*
  * Load the custom view used for the users profile
@@ -133,11 +119,106 @@
     }
 }
 
+#pragma mark - BeaconHelper Methods
+
+/*
+ * Create one region for each known uuid and begin monitoring the regions for notifications
+ */
+- (void)createRegionsForMonitoring
+{
+    //create a dictionary of beacons
+    self.beacons = [[NSMutableDictionary alloc] init];
+    
+    // Populate the regions we will range once
+    self.rangedRegions = [[NSMutableDictionary alloc] init];
+    
+    //for all the "known" uuid, create a region to be monitored
+    for (NSUUID *uuid in [Defaults sharedDefaults].supportedProximityUUIDs)
+    {
+        CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:[uuid UUIDString]];
+        region.notifyEntryStateOnDisplay = YES;
+        self.rangedRegions[region] = [NSArray array];
+    }
+}
+
 - (void)checkUserIntoSymeetry
 {
     [self.locationManager startUpdatingLocation];
+    
+    //whenever a user checks in, update their location
+    [ParseManager setUsersPFGeoPointLocation];
+    
+    //find users near the current user
+    self. users = [ParseManager retrieveUsersInLocalVicinityWithSimilarity:nil];
 }
 
+
+/*
+ * Validate all required services are active and notify user via AlertView if they are
+ * not active.
+ */
+-(void)validateApplicationServicesFunctionalityIsEnabled
+{
+    //check background refesh is avaiable, otherwise notifications will not be recieved
+    if([[UIApplication sharedApplication]backgroundRefreshStatus] != UIBackgroundRefreshStatusAvailable)
+    {
+        [self notifyUserBackgroundRefeshIsDisabled:[[UIApplication sharedApplication]backgroundRefreshStatus]];
+    }
+    
+    //check location services are enabled
+    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized)
+    {
+        [self notifyUserLocationServicesAreDisabled:[CLLocationManager authorizationStatus]];
+    }
+    
+    //check coreb bluetooth is enabled
+    if (nil)
+    {
+        
+    }
+}
+
+/*
+ * Check the corelocation manager to ensure location services are active
+ */
+- (void)notifyUserLocationServicesAreDisabled:(NSUInteger)status
+{
+    if (status == kCLAuthorizationStatusRestricted )
+    {
+      [self showApplicationServicesAlertView:@"Location services are restricted"];
+    }
+    else if (status == kCLAuthorizationStatusDenied)
+    {
+        [self showApplicationServicesAlertView:@"Location services are disabled, please enable in Settings"];
+    }
+    else if (status == kCLAuthorizationStatusNotDetermined)
+    {
+        [self showApplicationServicesAlertView:@"Location services error, please try again later"];
+    }
+}
+
+/*
+ * If the background refresh service is not active the user will notifications
+ * about beacons when the app is not active
+ */
+- (void)notifyUserBackgroundRefeshIsDisabled:(NSUInteger)status
+{
+    if (status == UIBackgroundRefreshStatusDenied)
+    {
+        [self showApplicationServicesAlertView:@"Background resresh disabled, please enable in Settings"];
+    }
+    else if (status == UIBackgroundRefreshStatusRestricted)
+    {
+        [self showApplicationServicesAlertView:@"Background refesh is restricted"];
+    }
+    
+}
+
+
+- (void)notifyUserBluetoohIsDisabled
+{
+    
+}
 
 #pragma mark - UITableViewDelegate Methods
 
@@ -195,8 +276,7 @@
     if (abs(howRecent) < 15.0)
     {
         //update parse with the information
-        [ParseManager addPFGeoPointLocation];
-        [ParseManager addLocation:location forUser:[[PFUser currentUser] objectId] atBeacon:self.beaconId];
+        [ParseManager setUsersPFGeoPointLocation];
     }
 }
 
@@ -229,6 +309,7 @@
         UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Out of range of Symeetry Beacon" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [beaconAlert show];
         [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
+        [ParseManager setUsersPFGeoPointLocation];
     }
 }
 
@@ -273,6 +354,10 @@
         {
             self.beacons[range] = proximityBeacons;
             [self updateNavigationBarColorBasedOnProximity:proximityBeacons.firstObject];
+
+            //update the user with the beacon they are nearest too
+            [ParseManager updateUserNearestBeacon:((CLBeacon*)proximityBeacons.firstObject).proximityUUID
+             ];
             NSLog(@"neartest beacon %@\n", proximityBeacons.lastObject);
         }
     }
@@ -287,25 +372,25 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
-    if (state == CLRegionStateInside && !self.didRequestCheckin)
-    {
-        //we are inside the region being monitored
-        //[self showRegionStateAlertScreen:@"region state: inside"];
-        [self showSymeetryAlertScreen];
-        
-    }
-    else if (state == CLRegionStateOutside && self.didCheckin)
-    {
-        //we are outside the region state being monitored
-        //[self showRegionStateAlertScreen:@"region state: outside"];
-        [self showRegionStateAlertScreen:@"Leaving Symeetry region, loggin out of service"];
-        
-    }
-    else if (state == CLRegionStateUnknown )
-    {
-        //we are in a unknow region state,
-        //[self showRegionStateAlertScreen:@"region state: unknown"];
-    }
+//    if (state == CLRegionStateInside && !self.didRequestCheckin)
+//    {
+//        //we are inside the region being monitored
+//        //[self showRegionStateAlertScreen:@"region state: inside"];
+//        [self showSymeetryAlertScreen];
+//        
+//    }
+//    else if (state == CLRegionStateOutside && self.didCheckin)
+//    {
+//        //we are outside the region state being monitored
+//        //[self showRegionStateAlertScreen:@"region state: outside"];
+//        [self showRegionStateAlertScreen:@"Leaving Symeetry region, loggin out of service"];
+//        
+//    }
+//    else if (state == CLRegionStateUnknown )
+//    {
+//        //we are in a unknow region state,
+//        //[self showRegionStateAlertScreen:@"region state: unknown"];
+//    }
 }
 
 
@@ -332,7 +417,7 @@
     //change the background color and image of the view
     if (beacon.proximity == CLProximityImmediate)
     {
-        NSLog(@"immed %d", beacon.proximity);
+        NSLog(@"immed %ld", beacon.proximity);
         //regarless of range, only check user in once
         if(!self.didRequestCheckin)
         {
@@ -343,7 +428,7 @@
     }
     else if (beacon.proximity == CLProximityNear)
     {
-        NSLog(@"near %d", beacon.proximity);
+        NSLog(@"near %ld", beacon.proximity);
         //regarless of range, only check user in once
         if ( !self.didRequestCheckin)
         {
@@ -355,7 +440,7 @@
     }
     else if (beacon.proximity == CLProximityFar)
     {
-        NSLog(@"far %d", beacon.proximity);
+        NSLog(@"far %ld", beacon.proximity);
         //regarless of range, only check user in once
         if(!self.didRequestCheckin)
         {
@@ -368,7 +453,7 @@
     }
     else if (beacon.proximity == CLProximityUnknown)
     {
-        NSLog(@"unknown %d", beacon.proximity);
+        NSLog(@"unknown %ld", beacon.proximity);
     }
 
 }
@@ -390,6 +475,14 @@
 - (void)showRegionStateAlertScreen:(NSString*)state
 {
     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Region State Alert" message:state delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [alertView show];
+}
+
+
+- (void)showApplicationServicesAlertView:(NSString*)message
+{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Required Application Service Disabled" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
     [alertView show];
 }

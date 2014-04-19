@@ -17,16 +17,13 @@
 +(PFUser*)currentUser;
 +(BOOL)isCurrentUser:(PFUser*)user;
 +(NSDictionary*)getInterest:(PFUser*)user;
++(void)updateUserNearestBeacon:(NSUUID*)uuid;
 
 //multiple user object queries
 +(NSArray*)getUsers;
 
-
 //find users that are in the immediate vicinity based on the uuid of a beacon
 +(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid;
-
-//
-+(NSArray*)retrieveUsersInLocalRegion:(NSNumber*)proximity;
 
 //user Parse GeoPoint service to find nearby users
 + (NSArray*)retrieveSymeetryUsersNearCurrentUser;
@@ -42,7 +39,7 @@
 //saving and object update methods
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId;
-+(void)addPFGeoPointLocation;
++(void)setUsersPFGeoPointLocation;
 +(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSUUID*)uuid;
 
 //core location/bluetooth related methods

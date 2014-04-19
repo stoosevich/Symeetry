@@ -28,6 +28,11 @@
 	<array>
 		<string>bluetooth-central</string>
 		<string>bluetooth-peripheral</string>
+		<string>fetch</string>
+		<string>location</string>
+		<string>external-accessory</string>
+		<string>remote-notification</string>
+		<string>fetch</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>

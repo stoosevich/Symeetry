@@ -151,7 +151,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <segue destination="xNL-zN-uD9" kind="modal" identifier="showMapVIew" id="Fji-xH-VFY"/>
+                                <segue destination="xNL-zN-uD9" kind="push" identifier="showMapVIew" id="Fji-xH-VFY"/>
                             </connections>
                         </button>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="h7y-M6-iXF"/>
