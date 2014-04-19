@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 
 
+
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -18,9 +20,38 @@
     [Parse setApplicationId:@"1iPVJY5CmOx54bzcklwgtQn8wswi0H5ipKfisuJ8"
                   clientKey:@"fXgWT23ACGa7uOPagCsaEuBM1xu8bOjWSGWFwTKF"];
     
+    //intialize the location manager
+    self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager.delegate = (id)self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    
     return YES;
 }
-							
+
+/*
+ *
+ */
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+{
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    
+    if(state == CLRegionStateInside)
+    {
+        notification.alertBody = [NSString stringWithFormat:@"You are inside region %@", region.identifier];
+    }
+    else if(state == CLRegionStateOutside)
+    {
+        notification.alertBody = [NSString stringWithFormat:@"You are outside region %@", region.identifier];
+    }
+    else
+    {
+        return;
+    }
+    
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+}
+
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

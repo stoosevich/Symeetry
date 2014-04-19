@@ -9,6 +9,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Parse/Parse.h>
+#import "AppDelegate.h"
 #import "HomeViewController.h"
 #import "ProfileHeaderView.h"
 #import "ParseManager.h"
@@ -24,7 +25,6 @@
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate,CBPeripheralDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *homeTableView;
-
 @property CLLocationManager* locationManager;
 @property NSUUID* beaconId;
 @property CLBeaconRegion* beaconRegion;
@@ -49,6 +49,11 @@
     [super viewDidLoad];
     [self loadHeaderView];
     
+    //ask the app delegate for the location manager
+    AppDelegate* appDelegate = [[UIApplication sharedApplication]delegate];
+    self.locationManager  = appDelegate.locationManager;
+    appDelegate = nil;
+    
     self. users = [ParseManager retrieveUsersInLocalVicinityWithSimilarity:ESTIMOTE_PROXIMITY_UUID];
     
     [self.homeTableView reloadData];
@@ -57,10 +62,7 @@
     self.didRequestCheckin = NO;
     self.didCheckin = NO;
     
-    //intialize the location manager
-    self.locationManager = [[CLLocationManager alloc]init];
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+
     
     [self createRegionsForMonitoring];
     
@@ -93,7 +95,7 @@
     for (NSUUID *uuid in [Defaults sharedDefaults].supportedProximityUUIDs)
     {
         CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:[uuid UUIDString]];
-        region.notifyOnEntry = YES;
+        region.notifyEntryStateOnDisplay = YES;
         self.rangedRegions[region] = [NSArray array];
     }
 }
@@ -296,7 +298,7 @@
         {
             self.beacons[range] = proximityBeacons;
             [self updateNavigationBarColorBasedOnProximity:proximityBeacons.firstObject];
-            NSLog(@"beacon %@", proximityBeacons.firstObject);
+            NSLog(@"neartest beacon %@\n", proximityBeacons.lastObject);
         }
     }
 
@@ -343,11 +345,16 @@
 
 - (void)updateNavigationBarColorBasedOnProximity:(CLBeacon*)beacon
 {
+
+    
+    NSLog(@"beacon responsible for color %@\n", beacon);
+    
     UINavigationBar* navBar = self.navigationController.navigationBar;
     
     //change the background color and image of the view
     if (beacon.proximity == CLProximityImmediate)
     {
+        NSLog(@"immed %d", beacon.proximity);
         //regarless of range, only check user in once
         if(!self.didRequestCheckin)
         {
@@ -358,6 +365,7 @@
     }
     else if (beacon.proximity == CLProximityNear)
     {
+        NSLog(@"near %d", beacon.proximity);
         //regarless of range, only check user in once
         if ( !self.didRequestCheckin)
         {
@@ -369,6 +377,7 @@
     }
     else if (beacon.proximity == CLProximityFar)
     {
+        NSLog(@"far %d", beacon.proximity);
         //regarless of range, only check user in once
         if(!self.didRequestCheckin)
         {
@@ -376,12 +385,12 @@
         }
         
         
-        navBar.backgroundColor = [UIColor orangeColor];
+        navBar.backgroundColor = [UIColor greenColor];
         
     }
-    else if (beacon.proximity == CLRegionStateUnknown)
+    else if (beacon.proximity == CLProximityUnknown)
     {
-        
+        NSLog(@"unknown %d", beacon.proximity);
     }
 
 }
