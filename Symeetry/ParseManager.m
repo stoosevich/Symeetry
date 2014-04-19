@@ -301,29 +301,39 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 
 /*
- *
- * @return NSArray array of users near the current users location. This is limited
- * to 50 users and uses the Parse default geopoint location query
+ * This method users the Parse geopoint object to find users in close proximity 
+ * to the current user. This is limited to 50 users and uses the Parse default 
+ * geopoint location query
+ * @return NSArray array of users near the current users location.
  */
 + (NSArray*)retrieveSymeetryUsersNearCurrentUser
 {
     // User's location
     PFUser* user = [PFUser currentUser];
+    
+    //get the users geopoint
     PFGeoPoint *userGeoPoint = user[@"location"];
     
-    //NSLog(@"geopoint %@", userGeoPoint.description);
+    NSLog(@"geopoint latidute:%f longitiude:%f\n", userGeoPoint.latitude,userGeoPoint.longitude);
     
-    // Create a query for places
-    PFQuery *query = [PFUser query];
+    if (userGeoPoint)
+    {
+        
+        
+        // Create a query for places
+        PFQuery *query = [PFUser query];
+        
+        // Interested in locations near user.
+        [query whereKey:@"location" nearGeoPoint:userGeoPoint];
+        
+        // Limit what could be a lot of points.
+        query.limit = 50;
+        
+        // Final list of objects
+        return [query findObjects];
+    }
     
-    // Interested in locations near user.
-    [query whereKey:@"location" nearGeoPoint:userGeoPoint];
-    
-    // Limit what could be a lot of points.
-    query.limit = 50;
-    
-    // Final list of objects
-    return [query findObjects];
+    return nil;
 }
 /*
  * Add a user's location to parse (if not present), include the user's coordinates, id and the beacon
