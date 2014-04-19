@@ -358,7 +358,7 @@
             //update the user with the beacon they are nearest too
             [ParseManager updateUserNearestBeacon:((CLBeacon*)proximityBeacons.firstObject).proximityUUID
              ];
-            NSLog(@"neartest beacon %@\n", proximityBeacons.lastObject);
+            //NSLog(@"neartest beacon %@\n", proximityBeacons.lastObject);
         }
     }
 
@@ -410,14 +410,14 @@
  */
 - (void)updateNavigationBarColorBasedOnProximity:(CLBeacon*)beacon
 {
-    NSLog(@"beacon responsible for color %@\n", beacon);
+    //NSLog(@"beacon responsible for color %@\n", beacon);
     
     UINavigationBar* navBar = self.navigationController.navigationBar;
     
     //change the background color and image of the view
     if (beacon.proximity == CLProximityImmediate)
     {
-        NSLog(@"immed %ld", beacon.proximity);
+        //NSLog(@"immed %ld", beacon.proximity);
         //regarless of range, only check user in once
         if(!self.didRequestCheckin)
         {
@@ -428,7 +428,7 @@
     }
     else if (beacon.proximity == CLProximityNear)
     {
-        NSLog(@"near %ld", beacon.proximity);
+        //NSLog(@"near %ld", beacon.proximity);
         //regarless of range, only check user in once
         if ( !self.didRequestCheckin)
         {
@@ -440,7 +440,7 @@
     }
     else if (beacon.proximity == CLProximityFar)
     {
-        NSLog(@"far %ld", beacon.proximity);
+        //NSLog(@"far %ld", beacon.proximity);
         //regarless of range, only check user in once
         if(!self.didRequestCheckin)
         {

@@ -25,6 +25,10 @@
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     
+    //determines how often the app receives updates. This is the minimum number of seconds that must
+    //elapse before another background fetch is initiated
+    [[UIApplication sharedApplication]setMinimumBackgroundFetchInterval:30];
+    
     return YES;
 }
 
@@ -58,6 +62,11 @@
     NSString *cancelButtonTitle = NSLocalizedString(@"OK", @"Title for cancel button in local notification");
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:notification.alertBody message:nil delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
     [alert show];
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    NSLog(@"fetch completion handler exectued");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
