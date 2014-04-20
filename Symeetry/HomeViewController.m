@@ -9,7 +9,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Parse/Parse.h>
-#import "AppDelegate.h"
 #import "HomeViewController.h"
 #import "ProfileHeaderView.h"
 #import "ParseManager.h"
@@ -49,9 +48,8 @@
     
     //the Symeetry app needs a location manager as well to monitor changes
     self.locationManager = [[CLLocationManager alloc]init];
-    
     self.locationManager.delegate = self;
-    [self validateApplicationServicesFunctionalityIsEnabled];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     
     //find users near the current user
     self. users = [ParseManager retrieveUsersInLocalVicinityWithSimilarity:nil];
@@ -63,10 +61,9 @@
     self.didCheckin = NO;
     
     
-    //add the region to the set of monitored regions
+    //get the region from the set of monitored regions
     //region = [self.locationManager.monitoredRegions member:region];
 
-    
     //begin creating regions for monitoring
     [self createRegionsForMonitoring];
 }
@@ -148,11 +145,15 @@
     // Populate the regions we will range once
     self.rangedRegions = [[NSMutableDictionary alloc] init];
     
-    //for all the "known" uuids, create a region to be monitored
+    //create a region or all the "known" uuids
     for (NSUUID *uuid in [Defaults sharedDefaults].supportedProximityUUIDs)
     {
-        
-        CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:BeaconIdentifier];
+        /*
+         *proximity UUID -  The unique ID of the beacons being targeted, this must not be nil
+         *identifier -  A unique identifier to associate with the returned region object. This 
+         *identifier is used to differentiate regions within your application
+         */
+        CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:[uuid UUIDString]];
         
         //set the entry state on display to receive notifications
         region.notifyEntryStateOnDisplay = YES;
@@ -176,72 +177,7 @@
 }
 
 
-/*
- * Validate all required services are active and notify user via AlertView if they are
- * not active.
- */
--(void)validateApplicationServicesFunctionalityIsEnabled
-{
-    //check background refesh is avaiable, otherwise notifications will not be recieved
-    if([[UIApplication sharedApplication]backgroundRefreshStatus] != UIBackgroundRefreshStatusAvailable)
-    {
-        [self notifyUserBackgroundRefeshIsDisabled:[[UIApplication sharedApplication]backgroundRefreshStatus]];
-    }
-    
-    //check location services are enabled
-    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized)
-    {
-        [self notifyUserLocationServicesAreDisabled:[CLLocationManager authorizationStatus]];
-    }
-    
-    //check coreb bluetooth is enabled
-    if (nil)
-    {
-        
-    }
-}
 
-/*
- * Check the corelocation manager to ensure location services are active
- */
-- (void)notifyUserLocationServicesAreDisabled:(NSUInteger)status
-{
-    if (status == kCLAuthorizationStatusRestricted )
-    {
-      [self showApplicationServicesAlertView:@"Location services are restricted"];
-    }
-    else if (status == kCLAuthorizationStatusDenied)
-    {
-        [self showApplicationServicesAlertView:@"Location services are disabled, please enable in Settings"];
-    }
-    else if (status == kCLAuthorizationStatusNotDetermined)
-    {
-        [self showApplicationServicesAlertView:@"Location services error, please try again later"];
-    }
-}
-
-/*
- * If the background refresh service is not active the user will notifications
- * about beacons when the app is not active
- */
-- (void)notifyUserBackgroundRefeshIsDisabled:(NSUInteger)status
-{
-    if (status == UIBackgroundRefreshStatusDenied)
-    {
-        [self showApplicationServicesAlertView:@"Background resresh disabled, please enable in Settings"];
-    }
-    else if (status == UIBackgroundRefreshStatusRestricted)
-    {
-        [self showApplicationServicesAlertView:@"Background refesh is restricted"];
-    }
-    
-}
-
-
-- (void)notifyUserBluetoohIsDisabled
-{
-    
-}
 
 #pragma mark - UITableViewDelegate Methods
 
@@ -258,7 +194,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"homeReuseCellID"];
     NSString* formatString = [NSString stringWithFormat:@"%@ %@",user.username,[user[@"similarityIndex"] description]];
     cell.textLabel.text = formatString;
-    cell.detailTextLabel.text = @"likes and interests";
+    
+    CLBeacon *beacon = [self retrieveNearestBeaconFromBeaconDictionary];
+    
+    NSString *beaconFormatString = NSLocalizedString(@"Major: %@, Minor: %@, Acc: %.2fm", @"Format string for ranging table cells.");
+    cell.detailTextLabel.text = [NSString stringWithFormat:beaconFormatString, beacon.major, beacon.minor, beacon.accuracy];
+    
+    //cell.detailTextLabel.text = @"likes and interests";
     PFFile* file = [user objectForKey:@"photo"];
     NSData* data = [file getData];
     cell.imageView.image = [UIImage imageWithData:data]; 
@@ -354,21 +296,21 @@
     //set the property rangedRegions to the beacons which CoreLocation reported to us
     self.rangedRegions[region] = beacons;
     
-    //we no longer need the beacons created so remove them
+    //we will update the beacons dictionary with each ranging call
     [self.beacons removeAllObjects];
     
     //create an array of all know beacons
     NSMutableArray *allBeacons = [NSMutableArray array];
     
-    //add all the beacon discovered by ranging into a new array
+    //add all the beacons discovered by ranging into a new array
     for (NSArray *regionResult in [self.rangedRegions allValues])
     {
         [allBeacons addObjectsFromArray:regionResult];
     }
     
-    //for each possible range value, find beacons mathcing the respective range, and add them to a new array,
-    //this will put the beacons in the array from farthest to closest
-    for (NSNumber *range in @[@(CLProximityUnknown), @(CLProximityImmediate), @(CLProximityNear), @(CLProximityFar)])
+    //for each possible range value, find beacons matching the respective range, and add them to a new array,
+    //this will put the beacons in the array from nearest to farthest
+    for (NSNumber *range in @[@(CLProximityImmediate), @(CLProximityNear), @(CLProximityFar),@(CLProximityUnknown)])
     {
         //create an array to hold the beacons orderd proximity
         NSArray *proximityBeacons = [allBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", [range intValue]]];
@@ -376,16 +318,23 @@
         //if there are beacons, update our list of beacons
         if([proximityBeacons count])
         {
+            
+            //store the beacons by proximity in the dictionary. The dictionary will hold an arrays
+            //of beacons by their proximity
             self.beacons[range] = proximityBeacons;
+            
+            //change the color of the navbar based on the closest beacon
             [self updateNavigationBarColorBasedOnProximity:proximityBeacons.firstObject];
 
             //update the user with the beacon they are nearest too
             [ParseManager updateUserNearestBeacon:((CLBeacon*)proximityBeacons.firstObject).proximityUUID
              ];
-            //NSLog(@"neartest beacon %@\n", proximityBeacons.lastObject);
+            
+            NSLog(@"neartest beacon %@\n", proximityBeacons.firstObject);
         }
     }
-
+    
+    [self.homeTableView reloadData];
 }
 
 
@@ -482,6 +431,32 @@
 }
 
 
+/*
+ * Temporary method to display beacon data in the table view
+ */
+- (CLBeacon*)retrieveNearestBeaconFromBeaconDictionary
+{
+    
+    CLBeacon* nearestBeacon = nil;
+
+    //beacons are stored by the number key value
+    
+    if ( self.beacons[@1] )
+    {
+        nearestBeacon = [self.beacons[@1] firstObject];
+    }
+    else if ( self.beacons[@2] )
+    {
+        nearestBeacon = [self.beacons[@2] firstObject];
+    }
+    else if ( self.beacons[@3] )
+    {
+         nearestBeacon = [self.beacons[@3] firstObject];
+    }
+    
+    return nearestBeacon;
+}
+
 #pragma mark -  UIAlertViewDelegate Methods
 
 /*
@@ -498,14 +473,6 @@
 - (void)showRegionStateAlertScreen:(NSString*)state
 {
     UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Region State Alert" message:state delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    
-    [alertView show];
-}
-
-
-- (void)showApplicationServicesAlertView:(NSString*)message
-{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Required Application Service Disabled" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     
     [alertView show];
 }

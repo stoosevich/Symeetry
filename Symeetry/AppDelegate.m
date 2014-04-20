@@ -24,9 +24,15 @@
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     
+    
+    //create a bluetooth manager to check if bluetooth services are available
+    self.centralManager = [[CBCentralManager alloc]init];
+    
     //determines how often the app receives updates. This is the minimum number of seconds that must
     //elapse before another background fetch is initiated
     [[UIApplication sharedApplication]setMinimumBackgroundFetchInterval:30];
+    
+    [self validateApplicationServicesFunctionalityIsEnabled];
     
     return YES;
 }
@@ -67,6 +73,83 @@
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     NSLog(@"fetch completion handler exectued");
+}
+
+
+
+/*
+ * Validate all required services are active and notify user via AlertView if they are
+ * not active.
+ */
+-(void)validateApplicationServicesFunctionalityIsEnabled
+{
+    //check background refesh is avaiable, otherwise notifications will not be recieved
+    if([[UIApplication sharedApplication]backgroundRefreshStatus] != UIBackgroundRefreshStatusAvailable)
+    {
+        [self notifyUserBackgroundRefeshIsDisabled:[[UIApplication sharedApplication]backgroundRefreshStatus]];
+    }
+    
+    //check location services are enabled
+    if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
+    {
+        [self notifyUserLocationServicesAreDisabled:[CLLocationManager authorizationStatus]];
+    }
+    
+    //check coreb bluetooth is enabled
+    if (nil)
+    {
+        
+    }
+}
+
+/*
+ * Check the corelocation manager to ensure location services are active
+ */
+- (void)notifyUserLocationServicesAreDisabled:(NSUInteger)status
+{
+    if (status == kCLAuthorizationStatusRestricted )
+    {
+        [self showApplicationServicesAlertView:@"Location services are restricted"];
+    }
+    else if (status == kCLAuthorizationStatusDenied)
+    {
+        [self showApplicationServicesAlertView:@"Location services are disabled, please enable in Settings"];
+    }
+    else if (status == kCLAuthorizationStatusNotDetermined)
+    {
+        [self showApplicationServicesAlertView:@"Location services error, please try again later"];
+    }
+}
+
+/*
+ * If the background refresh service is not active the user will notifications
+ * about beacons when the app is not active
+ */
+- (void)notifyUserBackgroundRefeshIsDisabled:(NSUInteger)status
+{
+    if (status == UIBackgroundRefreshStatusDenied)
+    {
+        [self showApplicationServicesAlertView:@"Background resresh disabled, please enable in Settings"];
+    }
+    else if (status == UIBackgroundRefreshStatusRestricted)
+    {
+        [self showApplicationServicesAlertView:@"Background refesh is restricted"];
+    }
+    
+}
+
+
+- (void)notifyUserBluetoohIsDisabled
+{
+    
+}
+
+
+- (void)showApplicationServicesAlertView:(NSString*)message
+{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Required Application Service Disabled" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [alertView show];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
