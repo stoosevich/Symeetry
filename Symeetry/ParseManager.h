@@ -11,6 +11,7 @@
 #import "Parse/Parse.h"
 
 
+
 @interface ParseManager : NSObject
 
 //single user related methods
@@ -20,7 +21,7 @@
 +(void)updateUserNearestBeacon:(NSUUID*)uuid;
 
 //multiple user object queries
-+(NSArray*)getUsers;
++(void)getUsers;
 
 //find users that are in the immediate vicinity based on the uuid of a beacon
 +(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid;
@@ -44,6 +45,7 @@
 
 //core location/bluetooth related methods
 +(void)addBeaconWithName:(NSString*)name withUUID:(NSUUID*)uuid;
++(void)getListOfAvailableBeaconIds;
 
 //helper method
 +(PFFile*)convertUIImageToPFFile:(UIImage*)image;

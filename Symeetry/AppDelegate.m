@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
-
+#import "HomeViewController.h"
 
 @implementation AppDelegate 
 
@@ -47,34 +47,32 @@
     
     if(state == CLRegionStateInside)
     {
-        notification.alertBody = [NSString stringWithFormat:@"Symeetry: You are inside region %@", region.identifier];
+        //notification.alertBody = [NSString stringWithFormat:@"Symeetry: You are inside region %@", region.identifier];
     }
     else if(state == CLRegionStateOutside)
     {
-        notification.alertBody = [NSString stringWithFormat:@"Symeetry: You are outside region %@", region.identifier];
+        //notification.alertBody = [NSString stringWithFormat:@"Symeetry: You are outside region %@", region.identifier];
     }
     else
     {
         return;
     }
     
-    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    //[[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
+
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     // If the application is in the foreground, we will notify the user of the region's state via an alert.
     NSString *cancelButtonTitle = NSLocalizedString(@"OK", @"Title for cancel button in local notification");
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:notification.alertBody message:nil delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
+    
+    //the main view controller needs to be the delegate for the notification
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:notification.alertBody message:@"AppDelegate Alert" delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
     [alert show];
+    
 }
-
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    NSLog(@"fetch completion handler exectued");
-}
-
 
 
 /*

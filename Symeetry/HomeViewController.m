@@ -16,19 +16,16 @@
 #import "Defaults.h"
 
 
-
-
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate,CBPeripheralDelegate, UIAlertViewDelegate>
-@property (strong, nonatomic) IBOutlet UITableView *homeTableView;
+
 @property CLLocationManager* locationManager;
-@property NSUUID* beaconId;
-@property CLBeaconRegion* beaconRegion;
 @property NSMutableDictionary* beacons;
 @property NSMutableDictionary* rangedRegions;
 
+
 //status related
 @property BOOL didRequestCheckin;
-@property BOOL didCheckin;
+@property (nonatomic, getter=isCheckedIn) BOOL checkedIn;
 
 //local data source
 @property NSArray* users;
@@ -51,21 +48,17 @@
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     
-    //find users near the current user
-    self. users = [ParseManager retrieveUsersInLocalVicinityWithSimilarity:nil];
+    //begin creating regions for monitoring
+    self.activeRegions = [NSMutableArray new];
+    [self createRegionsForMonitoring];
     
-    [self.homeTableView reloadData];
+    //find users near the current user
+    //[self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
     
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
-    self.didCheckin = NO;
-    
-    
-    //get the region from the set of monitored regions
-    //region = [self.locationManager.monitoredRegions member:region];
+    self.checkedIn = NO;
 
-    //begin creating regions for monitoring
-    [self createRegionsForMonitoring];
 }
 
 
@@ -139,13 +132,10 @@
  */
 - (void)createRegionsForMonitoring
 {
-    //create a dictionary of beacons
-    self.beacons = [[NSMutableDictionary alloc] init];
-    
     // Populate the regions we will range once
     self.rangedRegions = [[NSMutableDictionary alloc] init];
     
-    //create a region or all the "known" uuids
+    //create a region for all the "known" uuids
     for (NSUUID *uuid in [Defaults sharedDefaults].supportedProximityUUIDs)
     {
         /*
@@ -157,26 +147,54 @@
         
         //set the entry state on display to receive notifications
         region.notifyEntryStateOnDisplay = YES;
-//        NSLog(@"region uuid %@",region.proximityUUID);
-//        NSLog(@"region entryStateNotify %d",region.notifyEntryStateOnDisplay);
-//        NSLog(@"region major %@",region.major);
-//        NSLog(@"region minor %@",region.minor);
+        region.notifyOnEntry = YES;
+        region.notifyOnExit = YES;
+        
+        
+        //initialize the dictionary for ranged regions with an empty array. Each region array will contain the ibeacons
+        //ranged for that region.
         self.rangedRegions[region] = [NSArray array];
+        
+        //
+        [self.locationManager startMonitoringForRegion:region];
+
+        //NSLog(@"region uuid %@",region.proximityUUID);
+
     }
 }
 
+/*
+ * This method is called the first time a user encounters a region which is being monitored.
+ * The location manage udpates is started, along with the beacon monitoring for all known regions
+ * @param void
+ * @return void
+ */
 - (void)checkUserIntoSymeetry
 {
-    [self.locationManager startUpdatingLocation];
-    
-    //whenever a user checks in, update their location
-    [ParseManager setUsersPFGeoPointLocation];
-    
-    //find users near the current user
-    self. users = [ParseManager retrieveUsersInLocalVicinityWithSimilarity:nil];
+
+    //if the user has not checked in
+    if (!self.isCheckedIn )
+    {
+        [self.locationManager startUpdatingLocation];
+        
+        // start ranging beacons when the user checksin
+        for (CLBeaconRegion *region in self.rangedRegions)
+        {
+            [self.locationManager startRangingBeaconsInRegion:region];
+        }
+        
+        //whenever a user checks in, update their location
+        [ParseManager setUsersPFGeoPointLocation];
+        
+        //find users near the current user
+        [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
+        
+        self.checkedIn = YES;
+
+    }
+
+    NSLog(@"checkUserIntoSymeetry: active regions %@",self.activeRegions);
 }
-
-
 
 
 #pragma mark - UITableViewDelegate Methods
@@ -254,15 +272,17 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    NSLog(@"Beacon found");
+    NSLog(@"Beacon found in region %@", region.identifier);
     
-    //[region.identifier isEqualToString:@"com.Symeetry.beacon"] && !self.didRequestCheckin
-    if (YES)
+    //if the users has not already checked in, confirm they want to checkin, otherwise
+    //just add the region to the list of active regions, and update the list of available users
+    if (!self.isCheckedIn)
     {
-        UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Symeetry Beacon Found" message:@"Check-in?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [beaconAlert show];
-        [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
-        self.didRequestCheckin = !self.didRequestCheckin;
+        [self showSymeetryCheckinScreen];
+    }
+    else if (self.checkedIn && self.activeRegions.count >0)
+    {
+        [self.activeRegions addObject:region.identifier];
     }
 }
 
@@ -272,15 +292,22 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    //[region.identifier isEqualToString:@"ccom.Symeetry.beacon"]
-    if (YES)
+    
+    UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Out of range of iBeacons" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [beaconAlert show];
+    
+    //stop ranging beacons for region
+    // Stop ranging when the view appears.
+    for (CLBeaconRegion *region in self.rangedRegions)
     {
-        NSLog(@"Left region");
-        UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Out of range of Symeetry Beacon" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [beaconAlert show];
-        [self.locationManager stopRangingBeaconsInRegion:self.beaconRegion];
-        [ParseManager setUsersPFGeoPointLocation];
+        [self.locationManager stopRangingBeaconsInRegion:region];
     }
+    
+    [ParseManager setUsersPFGeoPointLocation];
+    
+    //update the list of available users
+    [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
+
 }
 
 
@@ -340,6 +367,7 @@
 }
 
 
+
 /*
  * The location manager calls this method whenever there is a boundary transition for a region.
  * The location manager also calls this method in response to a call to its requestStateForRegion: method, 
@@ -347,24 +375,22 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
-//    if (state == CLRegionStateInside && !self.didRequestCheckin)
-//    {
-//        //we are inside the region being monitored
-//        [self showRegionStateAlertScreen:@"homeViewController - region state: inside"];
-//        [self showSymeetryAlertScreen];
-//        
-//    }
-//    else if (state == CLRegionStateOutside && self.didCheckin)
-//    {
-//        //we are outside the region state being monitored
-//        //[self showRegionStateAlertScreen:@"region state: outside"];
-//        [self showRegionStateAlertScreen:@"homeViewController: Leaving Symeetry region, loggin out of service"];
-//        
-//    }
-//    else if (state == CLRegionStateUnknown )
-//    {
-//        //we are in a unknow region state,;
-//    }
+    //we are inside the region being monitored
+    if (state == CLRegionStateInside)
+    {
+        //add the region to the list of active regions to query
+        [self.activeRegions addObject:region.identifier];
+        
+    }
+    else if (state == CLRegionStateOutside)
+    {
+        //we are outside the region state being monitored
+        [self.activeRegions removeObject:region.identifier];
+    }
+    else if (state == CLRegionStateUnknown )
+    {
+        //we are in a unknow region state
+    }
 }
 
 
@@ -374,55 +400,45 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
 {
-    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+    
+    // Stop ranging when the view appears.
+    for (CLBeaconRegion *region in self.rangedRegions)
+    {
+        [self.locationManager startRangingBeaconsInRegion:region];
+    }
 }
 
+#pragma mark - SymeetryApplicaitonHelperMethods
 
+- (void)requestUserCheckin
+{
+    
+    self.didRequestCheckin = !self.didRequestCheckin;
+}
 
 /*
  *
  */
 - (void)updateNavigationBarColorBasedOnProximity:(CLBeacon*)beacon
 {
-    //NSLog(@"beacon responsible for color %@\n", beacon);
-    
     UINavigationBar* navBar = self.navigationController.navigationBar;
     
     //change the background color and image of the view
     if (beacon.proximity == CLProximityImmediate)
     {
         //NSLog(@"immed %ld", beacon.proximity);
-        //regarless of range, only check user in once
-        if(!self.didRequestCheckin)
-        {
-            self.didRequestCheckin = !self.didRequestCheckin;
-        }
-        
         navBar.backgroundColor =[UIColor redColor];
     }
     else if (beacon.proximity == CLProximityNear)
     {
         //NSLog(@"near %ld", beacon.proximity);
-        //regarless of range, only check user in once
-        if ( !self.didRequestCheckin)
-        {
-            self.didRequestCheckin = !self.didRequestCheckin;
-        }
-        
         navBar.backgroundColor = [UIColor blueColor];
         
     }
     else if (beacon.proximity == CLProximityFar)
     {
         //NSLog(@"far %ld", beacon.proximity);
-        //regarless of range, only check user in once
-        if(!self.didRequestCheckin)
-        {
-            self.didRequestCheckin = !self.didRequestCheckin;
-        }
-
         navBar.backgroundColor = [UIColor greenColor];
-        
     }
     else if (beacon.proximity == CLProximityUnknown)
     {
@@ -464,9 +480,9 @@
 /*
  * Show an alert view when the user enters a region where Symeetry is actively being broadcast
  */
-- (void)showSymeetryAlertScreen
+- (void)showSymeetryCheckinScreen
 {
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"iBeacon Present" message:@"Check-in?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Check-in", nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"iBeacon Present" message:@"Check-in" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Check-in", nil];
     
     [alertView show];
 }
@@ -479,13 +495,17 @@
     [alertView show];
 }
 
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1)
+    if ([alertView.message isEqualToString:@"Check-in"] && buttonIndex == 1)
     {
-        self.didCheckin = YES;
         [self checkUserIntoSymeetry];
         NSLog(@"did checkin");
+    }
+    else if ([alertView.message isEqualToString:@"Check-in"] && buttonIndex == 0)
+    {
+        self.didRequestCheckin = !self.didRequestCheckin;
     }
     else if (buttonIndex ==0)
     {
@@ -493,11 +513,117 @@
     }
 }
 
+
 - (IBAction)logoutButton:(UIBarButtonItem *)sender
 {
     [PFUser logOut];
     PFUser *currentUser = [PFUser currentUser];
     NSLog(@"%@",currentUser);
 }
+
+
+
+
+/*
+ * This method retrieves all users in the current vicinity, based on the beacon uuid
+ * and assigns each user a similarity index based on the similarity to the current user.
+ * the results are sorted by the user similarity index and/or by user name.
+ * @ return NSArray
+ */
+- (void)retrieveUsersInLocalVicinityWithSimilarity:(NSArray*)uuid
+{
+    
+    
+    /*
+     * Block to calculate the similarity between two different users. This block
+     * compares the values between two differnet NSDictionary objects, and for every
+     * pair of values that are the same, the similarity index is increased by 1
+     */
+    int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* currUser, NSDictionary* otherUser)
+    {
+        int similarity = 0;
+        
+        //loop throught the current user's dictionary of interests and compare
+        //each value to the other user. For each match increase the count by 1
+        for (NSDictionary* item in currUser)
+        {
+            if([currUser objectForKey:item] == [otherUser objectForKey:item])
+            {
+                similarity++;
+            }
+        }
+        return similarity;
+    };
+    
+    
+    
+    /*
+     * Block to update the similarity index of a user based on comparision
+     * to the current user. This blocks loops through an array of users and
+     * call another block to calculate the actual similarity index between the
+     * two users
+     */
+    void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
+    {
+        
+        NSDictionary* currentUser = [ParseManager getInterest:[PFUser currentUser]];
+        NSDictionary* otherUser = nil;
+        
+        for(PFObject* user in userObjects)
+        {
+            //get the interest for each user in the list of objects returned from the search
+            otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
+            
+            //only calculate the similarity if there other user has intersts
+            if(otherUser)
+            {
+                //call a block function to calculate the similarity of the two users
+                user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
+                //NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
+            }
+        }
+        
+    };
+
+    PFQuery* query = [PFUser query];
+    
+    //exclude the current user
+    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    [query whereKey:@"nearestBeacon" containedIn:uuid];
+    
+    
+    //include the actual interest objecst not just a link
+    [query includeKey:@"interests"];
+    
+    //sort by by user name, this will be resorted once the similarity index is assigned
+    [query addAscendingOrder:@"username"];
+    
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        
+        updateUserSimilarity(objects);
+        
+        
+        //sort the objects once the similarity index is updated
+        NSArray *sortedArray;
+        
+        //sort the array using a block comparator
+        sortedArray = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
+                       {
+                           //covert each object to a PFObject and retrieve the similarity index
+                           NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
+                           NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
+                           return [second compare:first];
+                       }];
+        
+        self.users = sortedArray;
+        [self.homeTableView reloadData];
+
+    }];
+
+}
+
+
 
 @end

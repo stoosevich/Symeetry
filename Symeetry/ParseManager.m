@@ -7,10 +7,95 @@
 //
 
 #import "ParseManager.h"
+#import "HomeViewController.h"
+
+@interface ParseManager()
+
+@end
+
+
 
 @implementation ParseManager
 
+#pragma mark -  USER QUERY RELATED METHODS
 
+/*
+ * Get the current user logged into the system
+ */
++(PFUser*)currentUser
+{
+    return [PFUser currentUser];
+}
+
+
+/*
+ * @ param PFUser user
+ * @ return BOOL yes if it is the current user, no otherwise
+ */
++(BOOL)isCurrentUser:(PFUser*)user
+{
+    if ([user.username isEqualToString:[[PFUser currentUser] username]])
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
+
+/*Logs in User if not already logged in
+ *Signs the user up if they are new
+ *Logs the new user in
+ */
++(void)logInOrSignUp:(NSString*)username
+            password:(NSString*)password
+          comfirming:(NSString*)comfirmPassword
+               email:(NSString*)email
+     completionBlock:(void (^)(void))completionBlock
+{
+    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
+        if (error) {
+            if ([password isEqualToString:comfirmPassword])
+            {
+                PFUser* newUser = [PFUser new];
+                [newUser setUsername:username];
+                [newUser setPassword:password];
+                [newUser setEmail:email];
+                [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (succeeded) {
+                        completionBlock();
+                    }
+                }];
+            }
+            
+        }
+        else {
+            completionBlock();
+        }
+    }];
+}
+
+
+/*
+ * Query the Parse backend to find the list of all users in the system who are not
+ * the current user
+ * @return NSArray array of PFUser objects
+ */
++(void)getUsers
+{
+    PFQuery* query = [PFUser query];
+    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         
+     }];
+    
+}
+
+#pragma mark -  USER RANKING AND RETRIEVAL RELATED METHODS
 
 /*
  * Block to calculate the similarity between two different users. This block 
@@ -122,7 +207,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     
 }
 
-
+#pragma mark - BEACON RETRIEVE AND UPDATE RELATED METHODS
 
 /*
  * Update the users reference to the nearest beacon
@@ -134,60 +219,15 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 }
 
 
-/*
- * Get the current user logged into the system
- */
-+(PFUser*)currentUser
++(void)getListOfAvailableBeaconIds
 {
-    return [PFUser currentUser];
+    
 }
 
 
-/*Logs in User if not already logged in
- *Signs the user up if they are new
- *Logs the new user in
- */
-+(void)logInOrSignUp:(NSString*)username
-            password:(NSString*)password
-          comfirming:(NSString*)comfirmPassword
-               email:(NSString*)email
-     completionBlock:(void (^)(void))completionBlock
-{
-    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
-        if (error) {
-            if ([password isEqualToString:comfirmPassword])
-            {
-                PFUser* newUser = [PFUser new];
-                [newUser setUsername:username];
-                [newUser setPassword:password];
-                [newUser setEmail:email];
-                [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (succeeded) {
-                        completionBlock();
-                    }
-                }];
-            }
-            
-        }
-        else {
-            completionBlock();
-        }
-    }];
-}
 
 
-/*
- * Query the Parse backend to find the list of all users in the system who are not
- * the current user
- * @return NSArray array of PFUser objects
- */
-+(NSArray*)getUsers
-{
-    PFQuery* query = [PFUser query];
-    //[query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-    return [query findObjects];
-}
-
+#pragma mark - HELPER METHODS
 
 
 /*
@@ -212,21 +252,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 }
 
 
-/*
- * @ param PFUser user
- * @ return BOOL yes if it is the current user, no otherwise
- */
-+(BOOL)isCurrentUser:(PFUser*)user
-{
-    if ([user.username isEqualToString:[[PFUser currentUser] username]])
-    {
-        return YES;
-    }
-    else
-    {
-        return NO;
-    }
-}
+
 
 /*
  * checks to see if current user is true then modifies the object(object) at the desired key(key)

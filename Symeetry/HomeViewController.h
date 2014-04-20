@@ -10,4 +10,7 @@
 
 @interface HomeViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UITableView *homeTableView;
+@property NSMutableArray* activeRegions;
+
 @end
