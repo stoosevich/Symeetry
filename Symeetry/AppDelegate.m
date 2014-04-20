@@ -47,7 +47,7 @@
     
     if(state == CLRegionStateInside)
     {
-        //notification.alertBody = [NSString stringWithFormat:@"Symeetry: You are inside region %@", region.identifier];
+        notification.alertBody = [NSString stringWithFormat:@"Symeetry region entered %@", region.identifier];
     }
     else if(state == CLRegionStateOutside)
     {
@@ -58,19 +58,19 @@
         return;
     }
     
-    //[[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
 
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    // If the application is in the foreground, we will notify the user of the region's state via an alert.
-    NSString *cancelButtonTitle = NSLocalizedString(@"OK", @"Title for cancel button in local notification");
-    
-    
-    //the main view controller needs to be the delegate for the notification
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:notification.alertBody message:@"AppDelegate Alert" delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
-    [alert show];
+//    // If the application is in the foreground, we will notify the user of the region's state via an alert.
+//    NSString *cancelButtonTitle = NSLocalizedString(@"OK", @"Title for cancel button in local notification");
+//    
+//    
+//    //the main view controller needs to be the delegate for the notification
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:notification.alertBody message:@"AppDelegate Alert" delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
+//    [alert show];
     
 }
 
