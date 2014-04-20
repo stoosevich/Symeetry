@@ -47,9 +47,9 @@
     [super viewDidLoad];
     [self loadHeaderView];
     
-    //ask the app delegate for the location manager
-    AppDelegate* appDelegate =(AppDelegate*)[[UIApplication sharedApplication]delegate];
-    self.locationManager  = appDelegate.locationManager;
+    //the Symeetry app needs a location manager as well to monitor changes
+    self.locationManager = [[CLLocationManager alloc]init];
+    
     self.locationManager.delegate = self;
     [self validateApplicationServicesFunctionalityIsEnabled];
     
@@ -61,6 +61,11 @@
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
     self.didCheckin = NO;
+    
+    
+    //add the region to the set of monitored regions
+    //region = [self.locationManager.monitoredRegions member:region];
+
     
     //begin creating regions for monitoring
     [self createRegionsForMonitoring];
@@ -92,8 +97,19 @@
     
     //convert the file to a UIImage
     PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
-    NSData* data = [file getData];
-    headerView.imageView.image = [UIImage imageWithData:data];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+    {
+        if (!error)
+        {
+            headerView.imageView.image = [UIImage imageWithData:data];
+            
+        }
+        else
+        {
+            //do something, like load a default image
+        }
+    }];
+    
     
     //add the new view to the array of subviews
     [self.view addSubview:headerView];
@@ -132,11 +148,18 @@
     // Populate the regions we will range once
     self.rangedRegions = [[NSMutableDictionary alloc] init];
     
-    //for all the "known" uuid, create a region to be monitored
+    //for all the "known" uuids, create a region to be monitored
     for (NSUUID *uuid in [Defaults sharedDefaults].supportedProximityUUIDs)
     {
-        CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:[uuid UUIDString]];
+        
+        CLBeaconRegion *region = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:BeaconIdentifier];
+        
+        //set the entry state on display to receive notifications
         region.notifyEntryStateOnDisplay = YES;
+//        NSLog(@"region uuid %@",region.proximityUUID);
+//        NSLog(@"region entryStateNotify %d",region.notifyEntryStateOnDisplay);
+//        NSLog(@"region major %@",region.major);
+//        NSLog(@"region minor %@",region.minor);
         self.rangedRegions[region] = [NSArray array];
     }
 }
@@ -287,7 +310,8 @@
 {
     NSLog(@"Beacon found");
     
-    if ([region.identifier isEqualToString:@"com.Symeetry.beacon"] && !self.didRequestCheckin)
+    //[region.identifier isEqualToString:@"com.Symeetry.beacon"] && !self.didRequestCheckin
+    if (YES)
     {
         UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Symeetry Beacon Found" message:@"Check-in?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [beaconAlert show];
@@ -302,8 +326,8 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    
-    if ([region.identifier isEqualToString:@"ccom.Symeetry.beacon"])
+    //[region.identifier isEqualToString:@"ccom.Symeetry.beacon"]
+    if (YES)
     {
         NSLog(@"Left region");
         UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Out of range of Symeetry Beacon" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -372,25 +396,24 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
-//    if (state == CLRegionStateInside && !self.didRequestCheckin)
-//    {
-//        //we are inside the region being monitored
-//        //[self showRegionStateAlertScreen:@"region state: inside"];
-//        [self showSymeetryAlertScreen];
-//        
-//    }
-//    else if (state == CLRegionStateOutside && self.didCheckin)
-//    {
-//        //we are outside the region state being monitored
-//        //[self showRegionStateAlertScreen:@"region state: outside"];
-//        [self showRegionStateAlertScreen:@"Leaving Symeetry region, loggin out of service"];
-//        
-//    }
-//    else if (state == CLRegionStateUnknown )
-//    {
-//        //we are in a unknow region state,
-//        //[self showRegionStateAlertScreen:@"region state: unknown"];
-//    }
+    if (state == CLRegionStateInside && !self.didRequestCheckin)
+    {
+        //we are inside the region being monitored
+        [self showRegionStateAlertScreen:@"homeViewController - region state: inside"];
+        [self showSymeetryAlertScreen];
+        
+    }
+    else if (state == CLRegionStateOutside && self.didCheckin)
+    {
+        //we are outside the region state being monitored
+        //[self showRegionStateAlertScreen:@"region state: outside"];
+        [self showRegionStateAlertScreen:@"homeViewController: Leaving Symeetry region, loggin out of service"];
+        
+    }
+    else if (state == CLRegionStateUnknown )
+    {
+        //we are in a unknow region state,;
+    }
 }
 
 
@@ -446,14 +469,14 @@
         {
             self.didRequestCheckin = !self.didRequestCheckin;
         }
-        
-        
+
         navBar.backgroundColor = [UIColor greenColor];
         
     }
     else if (beacon.proximity == CLProximityUnknown)
     {
-        NSLog(@"unknown %ld", beacon.proximity);
+        //NSLog(@"unknown %ld", beacon.proximity);
+        navBar.backgroundColor = [UIColor clearColor];
     }
 
 }

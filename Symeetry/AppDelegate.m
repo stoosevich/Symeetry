@@ -10,9 +10,7 @@
 #import <Parse/Parse.h>
 
 
-
-
-@implementation AppDelegate
+@implementation AppDelegate 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -20,7 +18,8 @@
     [Parse setApplicationId:@"1iPVJY5CmOx54bzcklwgtQn8wswi0H5ipKfisuJ8"
                   clientKey:@"fXgWT23ACGa7uOPagCsaEuBM1xu8bOjWSGWFwTKF"];
     
-    //intialize the location manager to starting monitoring regions for iBeacons
+    //intialize a location manager to be notified of state transitions. We need this in the app
+    //delegate to handle the call back from the delegate when the app is not active
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
@@ -42,11 +41,11 @@
     
     if(state == CLRegionStateInside)
     {
-        notification.alertBody = [NSString stringWithFormat:@"You are inside region %@", region.identifier];
+        notification.alertBody = [NSString stringWithFormat:@"Symeetry: You are inside region %@", region.identifier];
     }
     else if(state == CLRegionStateOutside)
     {
-        notification.alertBody = [NSString stringWithFormat:@"You are outside region %@", region.identifier];
+        notification.alertBody = [NSString stringWithFormat:@"Symeetry: You are outside region %@", region.identifier];
     }
     else
     {
@@ -60,6 +59,7 @@
 {
     // If the application is in the foreground, we will notify the user of the region's state via an alert.
     NSString *cancelButtonTitle = NSLocalizedString(@"OK", @"Title for cancel button in local notification");
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:notification.alertBody message:nil delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
     [alert show];
 }

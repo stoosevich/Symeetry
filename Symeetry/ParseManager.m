@@ -124,12 +124,15 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 
 
-
+/*
+ * Update the users reference to the nearest beacon
+ */
 +(void)updateUserNearestBeacon:(NSUUID*)uuid
 {
     NSString* uuidString = [uuid UUIDString];
     [PFUser currentUser][@"nearestBeacon"]= uuidString;
 }
+
 
 /*
  * Get the current user logged into the system
@@ -171,6 +174,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
         }
     }];
 }
+
 
 /*
  * Query the Parse backend to find the list of all users in the system who are not
@@ -237,8 +241,11 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     if ([self isCurrentUser:user])
     {
         [[PFUser currentUser] setObject:object forKey:key];
-        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            [user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        
+        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+        {
+            [user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error)
+            {
                 completionBlock();
             }];
         }];
@@ -268,6 +275,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
         }
     }];
 }
+
 
 /*
  *
@@ -331,8 +339,11 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     
     return nil;
 }
+
+
+
 /*
- * Add a user's location to parse (if not present), include the user's coordinates, id and the beacon
+ * Add a user's location to parse (if not present), include the user's coordinates, id and the
  * nearest their current location. The user's location is first checked to see if it 
  * exists in Parse already.
  * @ param CLLocation users current location
@@ -378,7 +389,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 /*
  * Adds a newly found beacon to the database of beacon if it has not already present.
- * A new beacon is currentlt determined by the UUID of the beacon
+ * A new beacon is currently determined by the UUID of the beacon
  * @param NSString name the name of the beacon as determined by the bluetooth peripheral name
  * @param NSString uuid the uuid of the beacon that was found
  * @return void
@@ -426,6 +437,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     return file;
 }
 
+
 /*
  * Convert a Parse PFObject into a NSDictionary
  */
@@ -452,6 +464,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     return dictionary;
 }
 
+
 /*
  *
  */
@@ -462,7 +475,6 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     for (PFObject* object in objectsToConvert)
     {
         [temp addObject:[self convertPFObjectToNSDictionary:object]];
-        NSLog(@"%@",temp.firstObject);
     }
     
     return [NSArray arrayWithArray:temp];
