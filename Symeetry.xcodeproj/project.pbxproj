@@ -43,7 +43,6 @@
 		81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AB5B1818FC85890060B17A /* AppDelegate.m */; };
 		81AB5B1C18FC85890060B17A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB5B1A18FC85890060B17A /* Main.storyboard */; };
 		81AB5B1F18FC85890060B17A /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AB5B1E18FC85890060B17A /* HomeViewController.m */; };
-		81AB5B2118FC85890060B17A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81AB5B2018FC85890060B17A /* Images.xcassets */; };
 		81AB5B2818FC85890060B17A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B2718FC85890060B17A /* XCTest.framework */; };
 		81AB5B2918FC85890060B17A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0818FC85890060B17A /* Foundation.framework */; };
 		81AB5B2A18FC858A0060B17A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0C18FC85890060B17A /* UIKit.framework */; };
@@ -56,6 +55,7 @@
 		CE562EC918FCD11900DDB3D3 /* charles.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC818FCD11900DDB3D3 /* charles.jpg */; };
 		CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562ECA18FCD13F00DDB3D3 /* steve.jpg */; };
 		CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */; };
+		CE66E60D1904639900C295E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE66E60C1904639900C295E0 /* Images.xcassets */; };
 		CE6748661901D58600F05121 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6748651901D58600F05121 /* Defaults.m */; };
 		CE893D8919022CAF000260A4 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE893D8819022CAF000260A4 /* MapViewController.m */; };
 		CE893D8B19023174000260A4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE893D8A19023174000260A4 /* MapKit.framework */; };
@@ -119,7 +119,6 @@
 		81AB5B1B18FC85890060B17A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		81AB5B1D18FC85890060B17A /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = Symeetry/HomeViewController.h; sourceTree = "<group>"; };
 		81AB5B1E18FC85890060B17A /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = Symeetry/HomeViewController.m; sourceTree = "<group>"; };
-		81AB5B2018FC85890060B17A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		81AB5B2618FC85890060B17A /* SymeetryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SymeetryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB5B2718FC85890060B17A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		81AB5B2F18FC858A0060B17A /* SymeetryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SymeetryTests-Info.plist"; sourceTree = "<group>"; };
@@ -133,6 +132,7 @@
 		CE562ECA18FCD13F00DDB3D3 /* steve.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = steve.jpg; path = Symeetry/steve.jpg; sourceTree = "<group>"; };
 		CE5ACEE918FDED5000E91087 /* BlueToothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlueToothManager.h; path = Symeetry/BlueToothManager.h; sourceTree = "<group>"; };
 		CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlueToothManager.m; path = Symeetry/BlueToothManager.m; sourceTree = "<group>"; };
+		CE66E60C1904639900C295E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE6748641901D58600F05121 /* Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defaults.h; path = Symeetry/Defaults.h; sourceTree = "<group>"; };
 		CE6748651901D58600F05121 /* Defaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Defaults.m; path = Symeetry/Defaults.m; sourceTree = "<group>"; };
 		CE893D8719022CAF000260A4 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Symeetry/MapViewController.h; sourceTree = "<group>"; };
@@ -283,9 +283,9 @@
 				81A3099319003E7000963305 /* interests.plist */,
 				81AB5B1718FC85890060B17A /* AppDelegate.h */,
 				81AB5B1818FC85890060B17A /* AppDelegate.m */,
+				CE66E60C1904639900C295E0 /* Images.xcassets */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
 				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
-				81AB5B2018FC85890060B17A /* Images.xcassets */,
 				81AB5B0F18FC85890060B17A /* Supporting Files */,
 			);
 			path = Symeetry;
@@ -405,10 +405,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE562EC718FCCF7F00DDB3D3 /* dennis.jpg in Resources */,
+				CE66E60D1904639900C295E0 /* Images.xcassets in Resources */,
 				81A3098F190030CB00963305 /* school.jpg in Resources */,
 				81A3099419003E7000963305 /* interests.plist in Resources */,
 				81A30992190030CB00963305 /* volunteer.jpg in Resources */,
-				81AB5B2118FC85890060B17A /* Images.xcassets in Resources */,
 				81A30989190030CB00963305 /* books.jpg in Resources */,
 				CE562EC918FCD11900DDB3D3 /* charles.jpg in Resources */,
 				81AB5B1318FC85890060B17A /* InfoPlist.strings in Resources */,

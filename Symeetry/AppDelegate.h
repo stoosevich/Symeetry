@@ -15,5 +15,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property CLLocationManager* locationManager;
 @property CBCentralManager* centralManager;
+@property NSMutableSet* regionsMonitored;
 
 @end

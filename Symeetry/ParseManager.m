@@ -218,10 +218,16 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     [PFUser currentUser][@"nearestBeacon"]= uuidString;
 }
 
-
+/*
+ * Query Parse for a list of all know beacons
+ */
 +(void)getListOfAvailableBeaconIds
 {
-    
+    PFQuery* beaconQuery = [PFQuery queryWithClassName:@"Beacon"];
+    [beaconQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        
+    }];
 }
 
 

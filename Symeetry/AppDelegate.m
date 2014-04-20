@@ -10,7 +10,9 @@
 #import <Parse/Parse.h>
 #import "HomeViewController.h"
 
-@implementation AppDelegate 
+
+@implementation AppDelegate
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -23,6 +25,9 @@
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    
+    //initialize the set of regions we have seen
+    self.regionsMonitored = [NSMutableSet new];
     
     
     //create a bluetooth manager to check if bluetooth services are available
@@ -45,13 +50,25 @@
 {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     
-    if(state == CLRegionStateInside)
+    //
+    //NSLog(@"region in set %i", [self.regionsMonitored containsObject:region.identifier]);
+    
+    //if we enter a region, and the region has not yet been added to the set of montiored regions,
+    //then create an alert and add it to the set
+    if(state == CLRegionStateInside && ![self.regionsMonitored containsObject:region.identifier])
     {
         notification.alertBody = [NSString stringWithFormat:@"Symeetry region entered %@", region.identifier];
+        notification.alertAction = @"Checkin to Symeetry"; //value of unlock slider
+        notification.alertLaunchImage = @"SymeetryFound";
+        notification.soundName = @"";
+        [self.regionsMonitored addObject:region.identifier];
     }
     else if(state == CLRegionStateOutside)
     {
         //notification.alertBody = [NSString stringWithFormat:@"Symeetry: You are outside region %@", region.identifier];
+        
+        //when we exit a region, remove it from the set
+        [self.regionsMonitored removeObject:region.identifier];
     }
     else
     {
@@ -64,7 +81,10 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
-//    // If the application is in the foreground, we will notify the user of the region's state via an alert.
+    
+    //NSLog(@"notification  %@" ,notification);
+    
+    // If the application is in the foreground, we will notify the user of the region's state via an alert.
 //    NSString *cancelButtonTitle = NSLocalizedString(@"OK", @"Title for cancel button in local notification");
 //    
 //    

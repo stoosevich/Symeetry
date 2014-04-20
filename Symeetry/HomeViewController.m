@@ -16,7 +16,7 @@
 #import "Defaults.h"
 
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate,CBPeripheralDelegate, UIAlertViewDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate>
 
 @property CLLocationManager* locationManager;
 @property NSMutableDictionary* beacons;
@@ -43,7 +43,6 @@
     [super viewDidLoad];
     [self loadHeaderView];
     
-    //the Symeetry app needs a location manager as well to monitor changes
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
@@ -51,9 +50,6 @@
     //begin creating regions for monitoring
     self.activeRegions = [NSMutableArray new];
     [self createRegionsForMonitoring];
-    
-    //find users near the current user
-    //[self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
     
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
@@ -272,7 +268,7 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    NSLog(@"Beacon found in region %@", region.identifier);
+    NSLog(@"Entering region %@", region.identifier);
     
     //if the users has not already checked in, confirm they want to checkin, otherwise
     //just add the region to the list of active regions, and update the list of available users
@@ -293,17 +289,18 @@
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     
-    UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Out of range of iBeacons" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [beaconAlert show];
-    
-    //stop ranging beacons for region
-    // Stop ranging when the view appears.
+    //stop ranging beacons for region exited
     for (CLBeaconRegion *region in self.rangedRegions)
     {
         [self.locationManager stopRangingBeaconsInRegion:region];
     }
     
     [ParseManager setUsersPFGeoPointLocation];
+    
+    NSString* formatString = [NSString stringWithFormat:@"region\n%@",region.identifier];
+    UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Leaving region" message:formatString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [beaconAlert show];
     
     //update the list of available users
     [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
@@ -386,6 +383,7 @@
     {
         //we are outside the region state being monitored
         [self.activeRegions removeObject:region.identifier];
+        [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
     }
     else if (state == CLRegionStateUnknown )
     {
@@ -409,12 +407,6 @@
 }
 
 #pragma mark - SymeetryApplicaitonHelperMethods
-
-- (void)requestUserCheckin
-{
-    
-    self.didRequestCheckin = !self.didRequestCheckin;
-}
 
 /*
  *
@@ -482,7 +474,7 @@
  */
 - (void)showSymeetryCheckinScreen
 {
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"iBeacon Present" message:@"Check-in" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Check-in", nil];
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"iBeacon Region Discovered" message:@"Check-in" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Check-in", nil];
     
     [alertView show];
 }
@@ -623,7 +615,6 @@
     }];
 
 }
-
 
 
 @end
