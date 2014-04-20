@@ -61,8 +61,13 @@
     
     self.headerView.genderTextField.text = [self.user objectForKey:@"gender"];
     PFFile* file = [self.user objectForKey:@"photo"];
-    NSData* data = [file getData];
-    self.headerView.imageView.image = [UIImage imageWithData:data];
+    
+    //load the picture asynchronously
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+    {
+         self.headerView.imageView.image = [UIImage imageWithData:data];
+    }];
+   
     
     self.headerView.ageTextField.enabled = [ParseManager isCurrentUser:self.user];
     self.headerView.genderTextField.enabled = [ParseManager isCurrentUser:self.user];

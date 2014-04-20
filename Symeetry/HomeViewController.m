@@ -196,14 +196,18 @@
     cell.textLabel.text = formatString;
     
     CLBeacon *beacon = [self retrieveNearestBeaconFromBeaconDictionary];
-    
     NSString *beaconFormatString = NSLocalizedString(@"Major: %@, Minor: %@, Acc: %.2fm", @"Format string for ranging table cells.");
     cell.detailTextLabel.text = [NSString stringWithFormat:beaconFormatString, beacon.major, beacon.minor, beacon.accuracy];
     
     //cell.detailTextLabel.text = @"likes and interests";
     PFFile* file = [user objectForKey:@"photo"];
-    NSData* data = [file getData];
-    cell.imageView.image = [UIImage imageWithData:data]; 
+    
+    //load the image asynchronously
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+    {
+        cell.imageView.image = [UIImage imageWithData:data];
+    }];
+    
     return cell;
     
 }
@@ -329,8 +333,6 @@
             //update the user with the beacon they are nearest too
             [ParseManager updateUserNearestBeacon:((CLBeacon*)proximityBeacons.firstObject).proximityUUID
              ];
-            
-            NSLog(@"neartest beacon %@\n", proximityBeacons.firstObject);
         }
     }
     
@@ -345,24 +347,24 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
-    if (state == CLRegionStateInside && !self.didRequestCheckin)
-    {
-        //we are inside the region being monitored
-        [self showRegionStateAlertScreen:@"homeViewController - region state: inside"];
-        [self showSymeetryAlertScreen];
-        
-    }
-    else if (state == CLRegionStateOutside && self.didCheckin)
-    {
-        //we are outside the region state being monitored
-        //[self showRegionStateAlertScreen:@"region state: outside"];
-        [self showRegionStateAlertScreen:@"homeViewController: Leaving Symeetry region, loggin out of service"];
-        
-    }
-    else if (state == CLRegionStateUnknown )
-    {
-        //we are in a unknow region state,;
-    }
+//    if (state == CLRegionStateInside && !self.didRequestCheckin)
+//    {
+//        //we are inside the region being monitored
+//        [self showRegionStateAlertScreen:@"homeViewController - region state: inside"];
+//        [self showSymeetryAlertScreen];
+//        
+//    }
+//    else if (state == CLRegionStateOutside && self.didCheckin)
+//    {
+//        //we are outside the region state being monitored
+//        //[self showRegionStateAlertScreen:@"region state: outside"];
+//        [self showRegionStateAlertScreen:@"homeViewController: Leaving Symeetry region, loggin out of service"];
+//        
+//    }
+//    else if (state == CLRegionStateUnknown )
+//    {
+//        //we are in a unknow region state,;
+//    }
 }
 
 
