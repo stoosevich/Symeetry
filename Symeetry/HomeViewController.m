@@ -54,9 +54,6 @@
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
     self.checkedIn = NO;
-    
-    [self getUsers];
-
 }
 
 
@@ -150,6 +147,7 @@
     }
 }
 
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -189,7 +187,6 @@
         [self.locationManager startMonitoringForRegion:region];
 
         //NSLog(@"region uuid %@",region.proximityUUID);
-
     }
 }
 
@@ -219,7 +216,6 @@
         
         self.checkedIn = YES;
     }
-
     NSLog(@"checkUserIntoSymeetry: active regions %@",self.activeRegions);
 }
 
@@ -296,7 +292,6 @@
     }];
     
     return cell;
-    
 }
 
 #pragma mark - Prepare for Segue Method
@@ -329,7 +324,7 @@
     //just add the region to the list of active regions, and update the list of available users
     if (!self.isCheckedIn)
     {
-        [self showSymeetryCheckinScreen];
+        //need to consider if this should be handled by the app delegate only
     }
     else if (self.checkedIn && self.activeRegions.count >0)
     {
