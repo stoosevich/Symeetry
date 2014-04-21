@@ -43,12 +43,10 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
                email:(NSString*)email
      completionBlock:(void (^)(void))completionBlock;
 
-
 //saving and object update methods
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;
 +(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId;
 +(void)setUsersPFGeoPointLocation;
-+(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSUUID*)uuid;
 
 //core location/bluetooth related methods
 +(void)addBeaconWithName:(NSString*)name withUUID:(NSUUID*)uuid;

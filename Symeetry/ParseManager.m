@@ -389,52 +389,6 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 }
 
 
-
-/*
- * Add a user's location to parse (if not present), include the user's coordinates, id and the
- * nearest their current location. The user's location is first checked to see if it 
- * exists in Parse already.
- * @ param CLLocation users current location
- * @ param NSString User Id the unique id of the user at the given location
- * @ param NSString uuid the unqiue id of the beacon the user
- * @ return void
- */
-+(void)addLocation:(CLLocation*)location forUser:(NSString*)userId atBeacon:(NSUUID*)uuid
-{
-    NSString* uuidString = [uuid UUIDString];
-    
-    PFQuery* query = [PFQuery queryWithClassName:@"Location"];
-    [query whereKey:@"userId" equalTo:userId];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
-        if (objects.count == 0)
-        {
-            NSNumber* latitude = [NSNumber numberWithDouble: location.coordinate.latitude];
-            NSNumber* longitude = [NSNumber numberWithDouble: location.coordinate.longitude];
-            
-            PFObject* parseLocation = [PFObject objectWithClassName:@"Location"];
-            
-            parseLocation[@"userId"] = userId;
-            parseLocation[@"uuid"] = uuidString;
-            parseLocation[@"latitude"] = latitude;
-            parseLocation[@"longitude"] = longitude;
-            parseLocation[@"locationTime"] = location.timestamp;
-            
-            [parseLocation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-             {
-                 if (error)
-                 {
-                     //TODO: handle error on save
-                     NSLog(@"error saving location");
-                 }
-             }];
-        }
-    }];
-}
-
-
-
 /*
  * Adds a newly found beacon to the database of beacon if it has not already present.
  * A new beacon is currently determined by the UUID of the beacon
