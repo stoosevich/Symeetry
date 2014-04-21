@@ -80,8 +80,6 @@
     {
         return;
     }
-    
-    
 }
 
 
@@ -117,10 +115,10 @@
         [self notifyUserLocationServicesAreDisabled:[CLLocationManager authorizationStatus]];
     }
     
-    //check coreb bluetooth is enabled
-    if (nil)
+    //check core bluetooth is enabled
+    if (self.centralManager.state != CBCentralManagerStatePoweredOn)
     {
-        
+        [self notifyUserBluetoohIsDisabled: self.centralManager.state];
     }
 }
 
@@ -161,9 +159,27 @@
 }
 
 
-- (void)notifyUserBluetoohIsDisabled
+- (void)notifyUserBluetoohIsDisabled:(NSUInteger)status
 {
-    
+    if (self.centralManager.state == CBCentralManagerStatePoweredOff)
+    {
+        //bluetooth is off we need to tell the user to turn on the service
+        [self showApplicationServicesAlertView:@"Bluetooth if off, please enable in settings"];
+    }
+    else if (self.centralManager.state == CBCentralManagerStateUnauthorized)
+    {
+        //bluetooth is not authorized for this app, we need to tell the user to adjust settings
+        [self showApplicationServicesAlertView:@"Bluetooth is restricted"];
+    }
+    else if (self.centralManager.state == CBCentralManagerStateUnsupported)
+    {
+        //we need to tell the user that the device does not support this action
+        [self showApplicationServicesAlertView:@"Bluetooth is not avialable on this device"];
+    }
+    else if (self.centralManager.state == CBCentralManagerStateUnknown)
+    {
+        
+    }
 }
 
 

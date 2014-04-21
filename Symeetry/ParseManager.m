@@ -95,6 +95,20 @@
     
 }
 
+
+
++(void)getUsersWithCompletion:(MyCompletion)completion
+{
+    PFQuery* query = [PFUser query];
+    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         completion(objects, error);
+     }];
+}
+
+
 #pragma mark -  USER RANKING AND RETRIEVAL RELATED METHODS
 
 /*

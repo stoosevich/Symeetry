@@ -14,6 +14,7 @@
 
 @interface ParseManager : NSObject
 
+
 //single user related methods
 +(PFUser*)currentUser;
 +(BOOL)isCurrentUser:(PFUser*)user;
@@ -22,6 +23,12 @@
 
 //multiple user object queries
 +(void)getUsers;
+//define a block for the call back
+typedef void (^MyCompletion)(NSArray *objects, NSError *error);
+
+//create the public class method with block
++ (void)getUsersWithCompletion:(MyCompletion)completion;
+
 
 //find users that are in the immediate vicinity based on the uuid of a beacon
 +(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid;

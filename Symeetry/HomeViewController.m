@@ -54,9 +54,34 @@
     //set flags for requesting check-in to service and if checked-in to service
     self.didRequestCheckin = NO;
     self.checkedIn = NO;
+    
+    [self getUsers];
 
 }
 
+
+//method in the calling object to pass block with weak reference
+- (void)getUsers
+{
+    //Create a weak reference to pass into the block
+    __weak HomeViewController *weakSelf = self;
+    
+    [ParseManager getUsersWithCompletion:^(NSArray *objects, NSError *error)
+    {
+        //[weakSelf doStuffWithUsers:objects];
+        weakSelf.users = objects;
+        [weakSelf.homeTableView reloadData];
+        
+    }];
+    
+}
+
+//method in the calling object to deal with the results of the block
+- (void)doStuffWithUsers:(NSArray*)results
+{
+    self.users = results;
+    [self.homeTableView reloadData];
+}
 
 
 
@@ -96,7 +121,6 @@
         }
     }];
     
-    
     //add the new view to the array of subviews
     [self.view addSubview:headerView];
 }
@@ -131,7 +155,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - BeaconHelper Methods
+#pragma mark - Beacon Helper Methods
 
 /*
  * Create one region for each known uuid and begin monitoring the regions for notifications
@@ -200,7 +224,10 @@
 }
 
 
-
+/*
+ * Handle notifications from the App Delegate about entry and exit of
+ * regions
+ */
 - (void)handleRegionBoundaryNotification:(NSNotification*)notification
 {
     //if the region entered is new, add it to the active regions
@@ -210,11 +237,14 @@
     //check if we enterd a new region
     if ([state isEqualToString:@"CLRegionStateInside"])
     {
+        
+        //if the user is not checked in and the region is "new"
         if (!self.isCheckedIn && ![self.activeRegions containsObject:uuidString])
         {
             [self.activeRegions addObject:uuidString];
             [self showSymeetryCheckinScreen];
         }
+        //if the user is already checked in, just add the region and update the users
         else if (self.checkedIn && ![self.activeRegions containsObject:uuidString])
         {
             [self.activeRegions addObject:uuidString];
@@ -423,25 +453,12 @@
 //    }
 }
 
-
-/*
- * work around to start ranging the beacons without having to enter a region. This is for testing
- * purposes only
- */
-- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
-{
-    
-    // Stop ranging when the view appears.
-    for (CLBeaconRegion *region in self.rangedRegions)
-    {
-        [self.locationManager startRangingBeaconsInRegion:region];
-    }
-}
-
 #pragma mark - SymeetryApplicaitonHelperMethods
 
 /*
- *
+ * Change the
+ * @param CLBeacon the nearest beacon to the current user
+ * @return void
  */
 - (void)updateNavigationBarColorBasedOnProximity:(CLBeacon*)beacon
 {
@@ -537,7 +554,7 @@
     }
 }
 
-
+//temporary method to handle user logot
 - (IBAction)logoutButton:(UIBarButtonItem *)sender
 {
     [PFUser logOut];
