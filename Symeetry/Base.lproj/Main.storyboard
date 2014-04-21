@@ -4,80 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Interests View Controller-->
-        <scene sceneID="rar-x9-2Kk">
-            <objects>
-                <viewController id="aRO-U8-zTU" customClass="InterestsViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jY8-SB-8av"/>
-                        <viewControllerLayoutGuide type="bottom" id="6sW-97-5am"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7Pg-m2-Ygd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tvB-6Z-k4f">
-                                <rect key="frame" x="0.0" y="135" width="320" height="430"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uxJ-hK-lFw">
-                                    <size key="itemSize" width="250" height="299"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="interestsReuseCellID" id="DM3-uE-1DW" customClass="InterestsCollectionViewCell">
-                                        <rect key="frame" x="35" y="0.0" width="250" height="299"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="250" height="299"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hOK-cu-dBC" userLabel="Interest Image View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="299"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <gestureRecognizers/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="v1K-p2-DsI">
-                                                    <rect key="frame" x="205" y="10" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Interest Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-Z6-iXT" userLabel="Interest Name Text Field">
-                                                    <rect key="frame" x="0.0" y="269" width="250" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <gestureRecognizers/>
-                                        <connections>
-                                            <outlet property="imageView" destination="hOK-cu-dBC" id="Wkx-nm-xOz"/>
-                                            <outlet property="interestTextField" destination="eRx-Z6-iXT" id="8Dl-RC-egK"/>
-                                            <outlet property="interestsStarImageView" destination="v1K-p2-DsI" id="bs1-Xa-h3n"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="aRO-U8-zTU" id="Ke5-me-Yv5"/>
-                                    <outlet property="delegate" destination="aRO-U8-zTU" id="l4G-6z-LAb"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="IAM-zw-ht0"/>
-                    <connections>
-                        <outlet property="interestsCollectionView" destination="tvB-6Z-k4f" id="7Bi-UX-VnH"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4X8-WM-lwI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1046" y="798"/>
-        </scene>
         <!--Home View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -376,10 +302,10 @@
             </objects>
             <point key="canvasLocation" x="-39" y="463"/>
         </scene>
-        <!--Interests Test View Controller-->
+        <!--Interests View Controller-->
         <scene sceneID="SX9-IO-Ue2">
             <objects>
-                <viewController id="3cO-mS-2KM" userLabel="Interests Test View Controller" customClass="InterestsViewController" sceneMemberID="viewController">
+                <viewController id="3cO-mS-2KM" customClass="InterestsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vKP-eI-dze"/>
                         <viewControllerLayoutGuide type="bottom" id="shn-hD-dDd"/>
@@ -392,17 +318,17 @@
                                 <rect key="frame" x="0.0" y="135" width="320" height="430"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7hV-y4-dNd">
-                                    <size key="itemSize" width="250" height="299"/>
+                                    <size key="itemSize" width="250" height="324"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="interestsReuseCellID" id="oGa-6z-YgV" customClass="InterestsCollectionViewCell">
-                                        <rect key="frame" x="35" y="64" width="250" height="299"/>
+                                        <rect key="frame" x="35" y="64" width="250" height="324"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="250" height="299"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="324"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7PZ-ga-WbJ" userLabel="Interest Image View">
@@ -411,41 +337,36 @@
                                                     <gestureRecognizers/>
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Music" placeholder="Interest Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sVl-EU-v7U" userLabel="Interest Name Text Field">
-                                                    <rect key="frame" x="0.0" y="269" width="250" height="30"/>
+                                                    <rect key="frame" x="0.0" y="294" width="250" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="GNy-Nh-LbK" userLabel="rankButton1">
-                                                    <rect key="frame" x="34" y="238" width="30" height="30"/>
+                                                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2.5" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="owa-ce-cvb">
+                                                    <rect key="frame" x="18" y="246" width="214" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="yWL-ee-fb5" userLabel="rankButton2">
-                                                    <rect key="frame" x="72" y="238" width="30" height="30"/>
+                                                    <connections>
+                                                        <action selector="adjustInterest:" destination="oGa-6z-YgV" eventType="valueChanged" id="bQv-GS-XQZ"/>
+                                                    </connections>
+                                                </slider>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3N-QA-ngF">
+                                                    <rect key="frame" x="195" y="284" width="42" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="9WB-Di-NUp" userLabel="rankButton3">
-                                                    <rect key="frame" x="110" y="238" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="WtT-dm-NE0" userLabel="rankButton4">
-                                                    <rect key="frame" x="148" y="238" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="LrX-c1-nVX" userLabel="rankButton5">
-                                                    <rect key="frame" x="186" y="238" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <gestureRecognizers/>
                                         <connections>
                                             <outlet property="imageView" destination="7PZ-ga-WbJ" id="2X6-QP-DdM"/>
+                                            <outlet property="interestSlider" destination="owa-ce-cvb" id="Bwp-rf-dS0"/>
                                             <outlet property="interestTextField" destination="sVl-EU-v7U" id="f34-cl-AYF"/>
-                                            <outlet property="interestsStarImageView" destination="GNy-Nh-LbK" id="qIy-xo-DsH"/>
+                                            <outlet property="rankTestLabel" destination="q3N-QA-ngF" id="bD1-yy-VPK"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -464,7 +385,97 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FEn-ld-tui" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="487" y="1167"/>
+            <point key="canvasLocation" x="759" y="1266"/>
+        </scene>
+        <!--Interests Test View Controller-->
+        <scene sceneID="Are-5k-RuX">
+            <objects>
+                <viewController id="xRh-VO-1TU" userLabel="Interests Test View Controller" customClass="InterestsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Jpw-DJ-z1h"/>
+                        <viewControllerLayoutGuide type="bottom" id="zp7-jJ-Wld"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7ma-Tt-qkM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3dd-mj-rTZ">
+                                <rect key="frame" x="0.0" y="135" width="320" height="430"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Y3r-iF-lNy">
+                                    <size key="itemSize" width="250" height="299"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="interestsReuseCellID" id="MCT-hr-tTW" customClass="InterestsCollectionViewCell">
+                                        <rect key="frame" x="35" y="0.0" width="250" height="299"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="299"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8H5-J4-Gi0" userLabel="Interest Image View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="238"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <gestureRecognizers/>
+                                                </imageView>
+                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Music" placeholder="Interest Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IIJ-5n-vSg" userLabel="Interest Name Text Field">
+                                                    <rect key="frame" x="0.0" y="269" width="250" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="w8P-B6-Rz8" userLabel="rankButton1">
+                                                    <rect key="frame" x="34" y="238" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="RTz-XY-9RR" userLabel="rankButton2">
+                                                    <rect key="frame" x="72" y="238" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="lu2-Pg-hi9" userLabel="rankButton3">
+                                                    <rect key="frame" x="110" y="238" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="Zkc-Cd-Gcy" userLabel="rankButton4">
+                                                    <rect key="frame" x="148" y="238" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="interests_star_dark" highlightedImage="interests_star" translatesAutoresizingMaskIntoConstraints="NO" id="ED1-jH-0D0" userLabel="rankButton5">
+                                                    <rect key="frame" x="186" y="238" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outlet property="imageView" destination="8H5-J4-Gi0" id="tZY-Vx-cGK"/>
+                                            <outlet property="interestTextField" destination="IIJ-5n-vSg" id="T3X-aN-ROt"/>
+                                            <outlet property="interestsStarImageView" destination="w8P-B6-Rz8" id="Ltb-LV-mWz"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="xRh-VO-1TU" id="TuF-sx-qPw"/>
+                                    <outlet property="delegate" destination="xRh-VO-1TU" id="Sn5-Et-JpX"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="VN1-5D-a2P"/>
+                    <connections>
+                        <outlet property="interestsCollectionView" destination="3dd-mj-rTZ" id="MNm-XJ-J5u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GXo-13-cBS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1127" y="1138"/>
         </scene>
     </scenes>
     <resources>

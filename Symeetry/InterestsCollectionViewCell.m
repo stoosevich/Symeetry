@@ -7,6 +7,7 @@
 //
 
 #import "InterestsCollectionViewCell.h"
+#import "ParseManager.h"
 
 @interface InterestsCollectionViewCell()
 
@@ -16,6 +17,7 @@
 
 @implementation InterestsCollectionViewCell
 
+    
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -24,6 +26,13 @@
         // Initialization code
     }
     return self;
+}
+
+- (IBAction)adjustInterest:(id)sender {
+    self.chosenInterests = [NSMutableDictionary new];
+    self.rankTestLabel.text = [NSString stringWithFormat:@"%d", (int)self.interestSlider.value];
+    [self.chosenInterests setObject:@((int)self.interestSlider.value) forKey:self.interestTextField.text];
+    NSLog(@"%@", self.chosenInterests);
 }
 
 

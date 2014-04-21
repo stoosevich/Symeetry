@@ -12,5 +12,9 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UITextField *interestTextField;
 @property (strong, nonatomic) IBOutlet UIImageView *interestsStarImageView;
+@property (strong, nonatomic) IBOutlet UISlider *interestSlider;
+@property (strong, nonatomic) IBOutlet UILabel *rankTestLabel;
+@property NSMutableDictionary* chosenInterests;
+
 
 @end

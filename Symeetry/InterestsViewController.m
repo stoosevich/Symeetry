@@ -15,8 +15,9 @@
 
 @property (strong, nonatomic) IBOutlet UICollectionView *interestsCollectionView;
 
+
 //local data source
-@property NSMutableDictionary* chosenInterests;
+//@property NSMutableDictionary* chosenInterests;
 @property NSArray* images;
 @property NSArray* interestNames;
 //@property UISwipeGestureRecognizer *swipeLeftRecognizer;
@@ -35,7 +36,7 @@
     interestNamesDictionary = [[NSMutableDictionary alloc]initWithDictionary:interestNamesDictionary copyItems:YES];
     NSLog(@"contents %@", interestNamesDictionary);
     
-    self.chosenInterests = [NSMutableDictionary new];
+ //   self.chosenInterests = [NSMutableDictionary new];
     UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
     
     //quick hack to make the view appear in the correct location
@@ -88,53 +89,50 @@
     InterestsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"interestsReuseCellID" forIndexPath:indexPath];
     
     // Setting swipe gestures on cells.
-    UISwipeGestureRecognizer* swipeRightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
-    swipeRightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    [cell addGestureRecognizer:swipeRightRecognizer];
-    
-    UISwipeGestureRecognizer* swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
-    swipeLeftRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-    [cell addGestureRecognizer:swipeLeftRecognizer];
+//    UISwipeGestureRecognizer* swipeRightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
+//    swipeRightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+//    [cell addGestureRecognizer:swipeRightRecognizer];
+//    
+//    UISwipeGestureRecognizer* swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeGesture:)];
+//    swipeLeftRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+//    [cell addGestureRecognizer:swipeLeftRecognizer];
 
     cell.imageView.image = self.images[indexPath.row];
     cell.interestTextField.text = self.interestNames[indexPath.row];
-    cell.interestsStarImageView.hidden = self.chosenInterests[self.interestNames[indexPath.row]];
-    
     return cell;
 }
 
-- (void)handleSwipeGesture:(UISwipeGestureRecognizer*)sender
-
-{
-
-    if(sender.direction == UISwipeGestureRecognizerDirectionRight)
-    {
-        NSLog(@"swiped right");
-        NSLog(@"%@", [sender.view class]);
-        NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:(InterestsCollectionViewCell*)sender.view];
-        InterestsCollectionViewCell* cell = (InterestsCollectionViewCell*)[self.interestsCollectionView cellForItemAtIndexPath:indexPath];
-        cell.interestsStarImageView.hidden = NO;
-        
-        [self.chosenInterests setObject:@YES forKey: self.interestNames[indexPath.row]];
-        NSLog(@"dictionary keys %@",self.chosenInterests);
-        
-        
-    }
-   else if (sender.direction == UISwipeGestureRecognizerDirectionLeft)
-    {
-        NSLog(@"swiped left");
-        NSLog(@"%@", [sender.view class]);
-        NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:(InterestsCollectionViewCell*)sender.view];
-        InterestsCollectionViewCell* cell = (InterestsCollectionViewCell*)[self.interestsCollectionView cellForItemAtIndexPath:indexPath];
-        cell.interestsStarImageView.hidden = YES;
-
-        [self.chosenInterests setObject:@NO forKey: self.interestNames[indexPath.row]];
-        NSLog(@"dictionary keys %@",self.chosenInterests);
-    }
-    
-    NSLog(@"dictionary keys class %@", [self.chosenInterests[@"Movies"] class]);
-
-}
+//- (void)handleSwipeGesture:(UISwipeGestureRecognizer*)sender
+//
+//{
+//
+//    if(sender.direction == UISwipeGestureRecognizerDirectionRight)
+//    {
+//        NSLog(@"swiped right");
+//        NSLog(@"%@", [sender.view class]);
+//        NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:(InterestsCollectionViewCell*)sender.view];
+//        InterestsCollectionViewCell* cell = (InterestsCollectionViewCell*)[self.interestsCollectionView cellForItemAtIndexPath:indexPath];
+//        cell.interestsStarImageView.hidden = NO;
+//        
+//        [self.chosenInterests setObject:@YES forKey: self.interestNames[indexPath.row]];
+//        NSLog(@"dictionary keys %@",self.chosenInterests);
+//        
+//        
+//    }
+//   else if (sender.direction == UISwipeGestureRecognizerDirectionLeft)
+//    {
+//        NSLog(@"swiped left");
+//        NSLog(@"%@", [sender.view class]);
+//        NSIndexPath* indexPath = [self.interestsCollectionView indexPathForCell:(InterestsCollectionViewCell*)sender.view];
+//        InterestsCollectionViewCell* cell = (InterestsCollectionViewCell*)[self.interestsCollectionView cellForItemAtIndexPath:indexPath];
+//        cell.interestsStarImageView.hidden = YES;
+//
+//        [self.chosenInterests setObject:@NO forKey: self.interestNames[indexPath.row]];
+//        NSLog(@"dictionary keys %@",self.chosenInterests);
+//    }
+//    
+//
+//}
 
 
 
