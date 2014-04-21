@@ -55,11 +55,8 @@
     if(state == CLRegionStateInside && ![self.regionsMonitored containsObject:region.identifier])
     {
         notification.alertBody = [NSString stringWithFormat:@"iBeacon found %@",region.identifier];
-        notification.alertAction = @"Checkin to Symeetry"; //value of unlock slider
-        notification.alertLaunchImage = nil;
         notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
-        notification.applicationIconBadgeNumber = 1;
-        [self.regionsMonitored addObject:region.identifier];
+        
         [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
         
         //create dictionary to pass the region identifier and state
@@ -68,6 +65,9 @@
 
         //post the local notifcation to the notification center so the appropiate observer can respond
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CLRegionStateInsideNotification" object:self userInfo:notificationInfo];
+        
+        //add region to list of notified regions
+        [self.regionsMonitored addObject:region.identifier];
     }
     else if(state == CLRegionStateOutside)
     {

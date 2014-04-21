@@ -173,9 +173,6 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
  */
 +(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid
 {
-    
-    //NSString* uuidString = [uuid UUIDString];
-    
     PFQuery* query = [PFUser query];
     
     //exclude the current user
