@@ -35,7 +35,7 @@
     
     //determines how often the app receives updates. This is the minimum number of seconds that must
     //elapse before another background fetch is initiated
-    [[UIApplication sharedApplication]setMinimumBackgroundFetchInterval:30];
+    [[UIApplication sharedApplication]setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     [self validateApplicationServicesFunctionalityIsEnabled];
     
@@ -50,18 +50,24 @@
 {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     
-    //
-    //NSLog(@"region in set %i", [self.regionsMonitored containsObject:region.identifier]);
-    
     //if we enter a region, and the region has not yet been added to the set of montiored regions,
     //then create an alert and add it to the set
     if(state == CLRegionStateInside && ![self.regionsMonitored containsObject:region.identifier])
     {
-        notification.alertBody = [NSString stringWithFormat:@"Symeetry region entered %@", region.identifier];
+        notification.alertBody = [NSString stringWithFormat:@"iBeacon found %@",region.identifier];
         notification.alertAction = @"Checkin to Symeetry"; //value of unlock slider
-        notification.alertLaunchImage = @"SymeetryFound";
-        notification.soundName = @"";
+        notification.alertLaunchImage = nil;
+        notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
+        notification.applicationIconBadgeNumber = 1;
         [self.regionsMonitored addObject:region.identifier];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+        
+        //create dictionary to pass the region identifier and state
+        NSDictionary* notificationInfo = @{@"identifier":region.identifier, @"state":@"CLRegionStateInside"};
+        notification.userInfo = notificationInfo;
+
+        //post the local notifcation to the notification center so the appropiate observer can respond
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"CLRegionStateInsideNotification" object:self userInfo:notificationInfo];
     }
     else if(state == CLRegionStateOutside)
     {
@@ -75,21 +81,19 @@
         return;
     }
     
-    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    
 }
 
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     
-    //NSLog(@"notification  %@" ,notification);
-    
     // If the application is in the foreground, we will notify the user of the region's state via an alert.
 //    NSString *cancelButtonTitle = NSLocalizedString(@"OK", @"Title for cancel button in local notification");
-//    
+//    NSString *checkinButtonTitle = NSLocalizedString(@"Checkin", @"Title for checkin button in local notification");
 //    
 //    //the main view controller needs to be the delegate for the notification
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:notification.alertBody message:@"AppDelegate Alert" delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:notification.alertBody message:notification.alertAction delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:checkinButtonTitle,nil];
 //    [alert show];
     
 }
@@ -190,6 +194,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

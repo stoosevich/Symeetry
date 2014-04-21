@@ -104,6 +104,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    
+    //register for notifications from the app delegate about region entry/exit
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleRegionBoundaryNotification:)
+                                                 name:@"CLRegionStateInsideNotification" object:nil];
     // Start ranging when the view appears.
     for (CLBeaconRegion *region in self.rangedRegions)
     {
@@ -119,6 +124,11 @@
     {
         [self.locationManager stopRangingBeaconsInRegion:region];
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - BeaconHelper Methods
@@ -161,7 +171,7 @@
 
 /*
  * This method is called the first time a user encounters a region which is being monitored.
- * The location manage udpates is started, along with the beacon monitoring for all known regions
+ * The location manager updates are started, along with the beacon monitoring for all known regions
  * @param void
  * @return void
  */
@@ -171,8 +181,6 @@
     //if the user has not checked in
     if (!self.isCheckedIn )
     {
-        [self.locationManager startUpdatingLocation];
-        
         // start ranging beacons when the user checksin
         for (CLBeaconRegion *region in self.rangedRegions)
         {
@@ -186,10 +194,45 @@
         [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
         
         self.checkedIn = YES;
-
     }
 
     NSLog(@"checkUserIntoSymeetry: active regions %@",self.activeRegions);
+}
+
+
+
+- (void)handleRegionBoundaryNotification:(NSNotification*)notification
+{
+    //if the region entered is new, add it to the active regions
+    NSString* uuidString = [[notification userInfo] objectForKey:@"identifier"];
+    NSString* state = [[notification userInfo] objectForKey:@"state"];
+    
+    //check if we enterd a new region
+    if ([state isEqualToString:@"CLRegionStateInside"])
+    {
+        if (!self.isCheckedIn && ![self.activeRegions containsObject:uuidString])
+        {
+            [self.activeRegions addObject:uuidString];
+            [self showSymeetryCheckinScreen];
+        }
+        else if (self.checkedIn && ![self.activeRegions containsObject:uuidString])
+        {
+            [self.activeRegions addObject:uuidString];
+            [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
+            [self.homeTableView reloadData];
+            //whenever a user enters a new region, update their location
+            [ParseManager setUsersPFGeoPointLocation];
+        }
+    }
+    else if ([state isEqualToString:@"CLRegionStateOutside"])
+    {
+        //do something when we leave a region
+        [self.activeRegions removeObject:uuidString];
+        [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
+        [self.homeTableView reloadData];
+        //whenever a user enters a new region, update their location
+        [ParseManager setUsersPFGeoPointLocation];
+    }
 }
 
 
@@ -244,24 +287,6 @@
 
 #pragma mark - CLLocationManager Delegate Methods
 
-//TODO: We need to fix the beacon information being transmitted to Parse to be the beacon we are nearest
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    CLLocation* location = [locations lastObject];
-    [self.locationManager stopUpdatingLocation];
-    
-    //get the date/time of the event
-    NSDate* eventDate = location.timestamp;
-    
-    //determine how recent
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    
-    if (abs(howRecent) < 15.0)
-    {
-        //update parse with the information
-        [ParseManager setUsersPFGeoPointLocation];
-    }
-}
 
 /*
  * tells the delegate that the user entered the specified region
@@ -278,7 +303,14 @@
     }
     else if (self.checkedIn && self.activeRegions.count >0)
     {
+        //if the user is already checkedin, then add the new region entered
+        //and update the list of user available
         [self.activeRegions addObject:region.identifier];
+        [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
+        [self.homeTableView reloadData];
+        
+        //whenever a user enters a new region, update their location
+        [ParseManager setUsersPFGeoPointLocation];
     }
 }
 
@@ -296,6 +328,7 @@
     }
     
     [ParseManager setUsersPFGeoPointLocation];
+    [self.activeRegions removeObject:region.identifier];
     
     NSString* formatString = [NSString stringWithFormat:@"region\n%@",region.identifier];
     UIAlertView *beaconAlert = [[UIAlertView alloc]initWithTitle:@"Leaving region" message:formatString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -304,7 +337,7 @@
     
     //update the list of available users
     [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
-
+    [self.homeTableView reloadData];
 }
 
 
@@ -372,23 +405,22 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
-    //we are inside the region being monitored
-    if (state == CLRegionStateInside)
-    {
-        //add the region to the list of active regions to query
-        [self.activeRegions addObject:region.identifier];
-        
-    }
-    else if (state == CLRegionStateOutside)
-    {
-        //we are outside the region state being monitored
-        [self.activeRegions removeObject:region.identifier];
-        [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
-    }
-    else if (state == CLRegionStateUnknown )
-    {
-        //we are in a unknow region state
-    }
+//    //we are inside the region being monitored
+//    if (state == CLRegionStateInside)
+//    {
+//        //add the region to the list of active regions to query
+//        [self.activeRegions addObject:region.identifier];
+//        
+//    }
+//    else if (state == CLRegionStateOutside)
+//    {
+//        //we are outside the region state being monitored
+//        [self.activeRegions removeObject:region.identifier];
+//    }
+//    else if (state == CLRegionStateUnknown )
+//    {
+//        //we are in a unknow region state
+//    }
 }
 
 
