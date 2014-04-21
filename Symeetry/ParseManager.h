@@ -14,7 +14,6 @@
 
 @interface ParseManager : NSObject
 
-
 //single user related methods
 +(PFUser*)currentUser;
 +(BOOL)isCurrentUser:(PFUser*)user;
@@ -23,6 +22,7 @@
 
 //multiple user object queries
 +(void)getUsers;
+
 //define a block for the call back
 typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 

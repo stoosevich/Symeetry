@@ -45,9 +45,9 @@
 }
 
 
-/*Logs in User if not already logged in
- *Signs the user up if they are new
- *Logs the new user in
+/* Logs in User if not already logged in
+ * Signs the user up if they are new
+ * Logs the new user in
  */
 +(void)logInOrSignUp:(NSString*)username
             password:(NSString*)password
@@ -80,23 +80,25 @@
 
 /*
  * Query the Parse backend to find the list of all users in the system who are not
- * the current user
+ * the current user. This query is syncronous and will cause the main thread to wait
+ * until it completes
  * @return NSArray array of PFUser objects
  */
 +(void)getUsers
 {
     PFQuery* query = [PFUser query];
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         
-     }];
-    
+    [query findObjects];
 }
 
 
-
+/*
+ * Query the Parse backend to find the list of all users in the system who are not
+ * the current user. This query is asyncronous and will allow the main thread to
+ * process other activites
+ * @param block object with NSArray and NSError parameters
+ * @return void
+ */
 +(void)getUsersWithCompletion:(MyCompletion)completion
 {
     PFQuery* query = [PFUser query];
