@@ -298,35 +298,6 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 #pragma mark - HELPER METHODS
 
-+(void)getUserInterest:(PFUser*)user
-{
-
-    [ParseManager getUserInterest:user WithComplettion:^(NSArray *objects, NSError *error)
-    {
-        if (objects)
-        {
-            //NSDictionary* dict  = [self convertPFObjectToNSDictionary:objects.firstObject];
-        }
-    }];
-    
-}
-
-
-+(void)saveUserInterests:(PFUser *)user objectToSet:(id)object forKey:(NSString *)key completionBlock:(void (^)(void))completionBlock
-{
-    PFObject *userinterests = [PFObject objectWithClassName:@"GameScore"];
-}
-
-+(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
-{
-    PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
-    [query whereKey:@"userid" equalTo:user.objectId];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
-        completion(objects,error);
-    }];
-}
 
 
 /*
@@ -368,30 +339,6 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
             }];
         }];
     }
-}
-
-
-
-/*
- * Stub method to update the user's interest on Parse
- */
-+(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId
-{
-    PFObject* parseInterest = [PFObject objectWithClassName:@"Interests"];
-    parseInterest[@"userid"] = userId;
-    
-    [interests enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
-    {
-        parseInterest[key] = obj;
-    }];
-    
-    [parseInterest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-        if (error)
-        {
-            //handle error
-        }
-    }];
 }
 
 

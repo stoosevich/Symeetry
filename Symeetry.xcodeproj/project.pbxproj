@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5608DB221906CFAF002BE613 /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5608DB211906CFAF002BE613 /* ChatManager.m */; };
 		5608DB241906D80A002BE613 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608DB231906D80A002BE613 /* MultipeerConnectivity.framework */; };
-		5608DB27190706C2002BE613 /* ChatRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5608DB26190706C2002BE613 /* ChatRoomViewController.m */; };
 		56322D5618FF265B004EF55D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56322D5518FF265B004EF55D /* LoginViewController.m */; };
 		5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695430F18FD8C8F00A101F4 /* ParseManager.m */; };
 		8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8114069218FE0CD8004E578F /* ProfileHeaderView.m */; };
@@ -62,6 +60,9 @@
 		CE6748661901D58600F05121 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6748651901D58600F05121 /* Defaults.m */; };
 		CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */; };
 		CE7561E31905ABBC00611B93 /* SymeetryPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */; };
+		CE7D935F190725BF00F3EDC0 /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D935C190725BF00F3EDC0 /* ChatManager.m */; };
+		CE7D9360190725BF00F3EDC0 /* ChatRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D935E190725BF00F3EDC0 /* ChatRoomViewController.m */; };
+		CE7D9363190729C700F3EDC0 /* PresentAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D9362190729C700F3EDC0 /* PresentAnimationController.m */; };
 		CE893D8919022CAF000260A4 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE893D8819022CAF000260A4 /* MapViewController.m */; };
 		CE893D8B19023174000260A4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE893D8A19023174000260A4 /* MapKit.framework */; };
 /* End PBXBuildFile section */
@@ -77,11 +78,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5608DB201906CFAF002BE613 /* ChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatManager.h; sourceTree = "<group>"; };
-		5608DB211906CFAF002BE613 /* ChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatManager.m; sourceTree = "<group>"; };
 		5608DB231906D80A002BE613 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
-		5608DB25190706C2002BE613 /* ChatRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRoomViewController.h; sourceTree = "<group>"; };
-		5608DB26190706C2002BE613 /* ChatRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRoomViewController.m; sourceTree = "<group>"; };
 		56322D5418FF265B004EF55D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		56322D5518FF265B004EF55D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseManager.h; path = Symeetry/ParseManager.h; sourceTree = "<group>"; };
@@ -149,6 +146,12 @@
 		CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryAnnotationView.m; path = Symeetry/SymeetryAnnotationView.m; sourceTree = "<group>"; };
 		CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryPointAnnotation.h; path = Symeetry/SymeetryPointAnnotation.h; sourceTree = "<group>"; };
 		CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryPointAnnotation.m; path = Symeetry/SymeetryPointAnnotation.m; sourceTree = "<group>"; };
+		CE7D935B190725BF00F3EDC0 /* ChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatManager.h; path = Symeetry/ChatManager.h; sourceTree = "<group>"; };
+		CE7D935C190725BF00F3EDC0 /* ChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatManager.m; path = Symeetry/ChatManager.m; sourceTree = "<group>"; };
+		CE7D935D190725BF00F3EDC0 /* ChatRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatRoomViewController.h; path = Symeetry/ChatRoomViewController.h; sourceTree = "<group>"; };
+		CE7D935E190725BF00F3EDC0 /* ChatRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatRoomViewController.m; path = Symeetry/ChatRoomViewController.m; sourceTree = "<group>"; };
+		CE7D9361190729C700F3EDC0 /* PresentAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentAnimationController.h; path = Symeetry/PresentAnimationController.h; sourceTree = "<group>"; };
+		CE7D9362190729C700F3EDC0 /* PresentAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentAnimationController.m; path = Symeetry/PresentAnimationController.m; sourceTree = "<group>"; };
 		CE893D8719022CAF000260A4 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Symeetry/MapViewController.h; sourceTree = "<group>"; };
 		CE893D8819022CAF000260A4 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Symeetry/MapViewController.m; sourceTree = "<group>"; };
 		CE893D8A19023174000260A4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -218,6 +221,10 @@
 			children = (
 				CE6748641901D58600F05121 /* Defaults.h */,
 				CE6748651901D58600F05121 /* Defaults.m */,
+				CE7D935B190725BF00F3EDC0 /* ChatManager.h */,
+				CE7D935C190725BF00F3EDC0 /* ChatManager.m */,
+				CE7D9361190729C700F3EDC0 /* PresentAnimationController.h */,
+				CE7D9362190729C700F3EDC0 /* PresentAnimationController.m */,
 				CE730E081906043000FD6F95 /* SymeetryAnnotationView.h */,
 				CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */,
 				CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */,
@@ -228,8 +235,6 @@
 				8114069218FE0CD8004E578F /* ProfileHeaderView.m */,
 				5695430E18FD8C8F00A101F4 /* ParseManager.h */,
 				5695430F18FD8C8F00A101F4 /* ParseManager.m */,
-				5608DB201906CFAF002BE613 /* ChatManager.h */,
-				5608DB211906CFAF002BE613 /* ChatManager.m */,
 				81882A0118FC8AEE00724B79 /* InterestsCollectionViewCell.h */,
 				81882A0218FC8AEE00724B79 /* InterestsCollectionViewCell.m */,
 			);
@@ -239,14 +244,14 @@
 		818829FD18FC883000724B79 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE7D935D190725BF00F3EDC0 /* ChatRoomViewController.h */,
+				CE7D935E190725BF00F3EDC0 /* ChatRoomViewController.m */,
 				CE893D8719022CAF000260A4 /* MapViewController.h */,
 				CE893D8819022CAF000260A4 /* MapViewController.m */,
 				81AB5B1D18FC85890060B17A /* HomeViewController.h */,
 				81AB5B1E18FC85890060B17A /* HomeViewController.m */,
 				818829F918FC87F300724B79 /* ProfileViewController.h */,
 				818829FA18FC87F300724B79 /* ProfileViewController.m */,
-				5608DB25190706C2002BE613 /* ChatRoomViewController.h */,
-				5608DB26190706C2002BE613 /* ChatRoomViewController.m */,
 				56322D5418FF265B004EF55D /* LoginViewController.h */,
 				56322D5518FF265B004EF55D /* LoginViewController.m */,
 				818829FE18FC88BD00724B79 /* InterestsViewController.h */,
@@ -467,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB5B1F18FC85890060B17A /* HomeViewController.m in Sources */,
+				CE7D9363190729C700F3EDC0 /* PresentAnimationController.m in Sources */,
 				CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */,
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
@@ -475,13 +481,13 @@
 				818829FB18FC87F300724B79 /* ProfileViewController.m in Sources */,
 				56322D5618FF265B004EF55D /* LoginViewController.m in Sources */,
 				CE7561E31905ABBC00611B93 /* SymeetryPointAnnotation.m in Sources */,
+				CE7D9360190725BF00F3EDC0 /* ChatRoomViewController.m in Sources */,
 				81AB5B1518FC85890060B17A /* main.m in Sources */,
-				5608DB221906CFAF002BE613 /* ChatManager.m in Sources */,
+				CE7D935F190725BF00F3EDC0 /* ChatManager.m in Sources */,
 				81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */,
 				81882A0018FC88BD00724B79 /* InterestsViewController.m in Sources */,
 				5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */,
 				8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */,
-				5608DB27190706C2002BE613 /* ChatRoomViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
