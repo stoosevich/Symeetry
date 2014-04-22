@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ParseManager.h"
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 
 @interface ChatManager : NSObject <MCNearbyServiceAdvertiserDelegate, MCSessionDelegate, MCAdvertiserAssistantDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceBrowserDelegate>
@@ -27,6 +28,7 @@
 -(void)checkinChat;
 -(void)sendMessage:(NSString*)message peer:(MCPeerID*)peer error:(NSError*)error sent:(void(^)(void))sent;
 -(void)disconnect:(MCPeerID*)peer;
+-(MCPeerID*)findCorrectPeer:(PFUser*)user;
 
 
 @end

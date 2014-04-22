@@ -7,13 +7,14 @@
 //
 
 #import "ChatManager.h"
-#import "ParseManager.h"
+
 
 
 @interface ChatManager()
 
 @property MCPeerID* userBasedPeerID;
 //@property ChatManager* chatMang;
+@property NSMutableArray* users;
 
 @end
 
@@ -29,7 +30,7 @@
     self.mySession.delegate = self;
     self.advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"symeetry-txtchat" discoveryInfo:nil session:self.mySession];
     self.advertiserAssistant.delegate = self;
-    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.userBasedPeerID serviceType:@"symeetry-txtchat"];
+    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.devicePeerID serviceType:@"symeetry-txtchat"];
     self.browser.delegate = self;
 }
 
@@ -48,6 +49,7 @@
 //    MCBrowserViewController* browserVC = [[MCBrowserViewController alloc]initWithBrowser:browser session:self.mySession];
 //    browserVC.delegate = self;
     [self.browser invitePeer:peer toSession:self.mySession withContext:nil timeout:20];
+    completionBlock();
 }
 
 -(void)checkoutChat
@@ -82,6 +84,18 @@
     [self.mySession disconnect];
 }
 
+-(MCPeerID*)findCorrectPeer:(PFUser*)user
+{
+    MCPeerID* correctPeer;
+    for (MCPeerID*peer in self.users) {
+        if ([peer.displayName isEqualToString:user.username]) {
+            correctPeer = peer;
+            break;
+        }
+    }
+    return correctPeer;
+}
+
 
 #pragma mark -- Browser
 
@@ -89,20 +103,26 @@
 {
     NSLog(@"Did not start browsing");
 }
+
 -(void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
 {
+    [self.users addObject:peerID];
     NSLog(@"%@", peerID.displayName);
 }
+
 -(void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID
 {
+    [self.users removeObject:peerID];
     dispatch_async(dispatch_get_main_queue(), ^{
         self.lostConnection();
     });
 }
+
 -(void)browserViewControllerDidFinish:(MCBrowserViewController *)browserViewController
 {
     
 }
+
 -(void)browserViewControllerWasCancelled:(MCBrowserViewController *)browserViewController
 {
     
@@ -115,6 +135,7 @@
     invitationHandler(YES, self.mySession);
     
 }
+
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didNotStartAdvertisingPeer:(NSError *)error
 {
     NSLog(@"can't send signal");
@@ -126,20 +147,24 @@
 {
     
 }
+
 -(void)session:(MCSession *)session didFinishReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID atURL:(NSURL *)localURL withError:(NSError *)error
 {
     
 }
+
 -(void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.gotMessage();
     });
 }
+
 -(void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID
 {
     
 }
+
 -(void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state
 {
     switch (state) {
