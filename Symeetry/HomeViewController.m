@@ -14,9 +14,9 @@
 #import "ParseManager.h"
 #import "ProfileViewController.h"
 #import "Defaults.h"
+#import "MapViewController.h"
 
-
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate>
 
 @property CLLocationManager* locationManager;
 @property NSMutableDictionary* beacons;
@@ -58,7 +58,6 @@
     self.checkedIn = YES;
     
    
-    
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.homeTableView addSubview:refreshControl];
@@ -305,10 +304,13 @@
         NSIndexPath *indexPath = [self.homeTableView indexPathForSelectedRow];
         ProfileViewController *viewController = segue.destinationViewController;
         viewController.user = self.users[indexPath.row];
+        ProfileViewController *toVC = segue.destinationViewController;
+        toVC.transitioningDelegate = self;
     }
     else if ([[segue identifier] isEqualToString:@"showMapView"])
     {
-        
+        MapViewController *toVC = segue.destinationViewController;
+        toVC.transitioningDelegate = self;
     }
 }
 

@@ -53,7 +53,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 //saving and object update methods
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;
-+(void)updateInterest:(NSDictionary*)interests forUser:(NSString*)userId;
+
 +(void)setUsersPFGeoPointLocation;
 
 //core location/bluetooth related methods
