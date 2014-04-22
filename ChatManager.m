@@ -75,6 +75,13 @@
     }
 }
 
+-(void)disconnect:(MCPeerID*)peer
+{
+    NSError* error = [NSError new];
+    [self.mySession sendData:[@"This user has left" dataUsingEncoding:NSUTF8StringEncoding] toPeers:[NSArray arrayWithObject:peer] withMode:MCSessionSendDataReliable error:&error];
+    [self.mySession disconnect];
+}
+
 
 #pragma mark -- Browser
 
@@ -110,7 +117,7 @@
 }
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didNotStartAdvertisingPeer:(NSError *)error
 {
-    
+    NSLog(@"can't send signal");
 }
 
 #pragma mark -- Session
@@ -146,7 +153,7 @@
             
         } case MCSessionStateConnecting: {
             
-            NSLog(@"Connecting to %@", peerID);
+            NSLog(@"Connecting to %@", peerID.displayName);
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.connecting();
             });
@@ -154,7 +161,8 @@
             break;
         } case MCSessionStateNotConnected: {
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.lostConnection();
+                NSLog(@"Not Connected to %@", peerID.displayName);
+                //[self disconnect:peerID];
             });
             
             break;

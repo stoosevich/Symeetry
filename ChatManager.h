@@ -26,5 +26,7 @@
 -(void)checkoutChat;
 -(void)checkinChat;
 -(void)sendMessage:(NSString*)message peer:(MCPeerID*)peer error:(NSError*)error sent:(void(^)(void))sent;
+-(void)disconnect:(MCPeerID*)peer;
+
 
 @end
