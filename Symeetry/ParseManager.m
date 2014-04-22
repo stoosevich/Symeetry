@@ -263,10 +263,22 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 /*
  * Update the users reference to the nearest beacon
  */
-+(void)updateUserNearestBeacon:(NSUUID*)uuid withAccuracy:(NSNumber*)accuracy
++(void)updateUserNearestBeacon:(CLBeacon*)beacon
 {
-    NSString* uuidString = [uuid UUIDString];
+    
+    NSString* uuidString = [beacon.proximityUUID UUIDString];
     [PFUser currentUser][@"nearestBeacon"]= uuidString;
+    [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:beacon.accuracy];
+    [PFUser currentUser][@"major"] = beacon.major;
+    [PFUser currentUser][@"minor"] = beacon.minor;
+    
+    [[PFUser currentUser]saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        if (error)
+        {
+            //handle eror
+        }
+    }];
 }
 
 /*
@@ -293,8 +305,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     {
         if (objects)
         {
-            
-             NSDictionary* dict  = [self convertPFObjectToNSDictionary:objects.firstObject];
+            NSDictionary* dict  = [self convertPFObjectToNSDictionary:objects.firstObject];
         }
     }];
     

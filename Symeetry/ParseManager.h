@@ -26,7 +26,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 //asynchronous method
 +(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion;
 
-+(void)updateUserNearestBeacon:(NSUUID*)uuid withAccuracy:(NSNumber*)accuracy;
++(void)updateUserNearestBeacon:(CLBeacon*)beacon;
 
 //multiple user object queries
 +(void)getUsers;

@@ -270,11 +270,15 @@
     
     PFUser* user = self.users[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"homeReuseCellID"];
-    NSString* formatString = [NSString stringWithFormat:@"%@ %@",user.username,[user[@"similarityIndex"] description]];
-    cell.textLabel.text = formatString;
     
+    NSString* formatString = [NSString stringWithFormat:@"%@ %@",user.username,[user[@"similarityIndex"] description]];
     NSString *beaconFormatString = NSLocalizedString(@"UUID: %@ Major: %@, Minor: %@, Acc: %.2fm", @"Format string for ranging table cells.");
-    cell.detailTextLabel.text = [NSString stringWithFormat:beaconFormatString,[self.nearestBeacon.proximityUUID UUIDString], self.nearestBeacon.major, self.nearestBeacon.minor, self.nearestBeacon.accuracy];
+    
+    //show user name and ranking
+    cell.detailTextLabel.text = formatString;
+    
+    //show beacon information
+    cell.textLabel.text = [NSString stringWithFormat:beaconFormatString,[self.nearestBeacon.proximityUUID UUIDString], self.nearestBeacon.major, self.nearestBeacon.minor, self.nearestBeacon.accuracy];
     
     //cell.detailTextLabel.text = @"likes and interests";
     PFFile* file = [user objectForKey:@"photo"];
@@ -451,8 +455,8 @@
 
         }
 
-        NSLog(@"current beacon %@", currentBeacon);
-        NSLog(@"nearest beacon %@", self.nearestBeacon);
+//        NSLog(@"current beacon %@", currentBeacon);
+//        NSLog(@"nearest beacon %@", self.nearestBeacon);
         
         if (currentBeacon)
         {
@@ -464,7 +468,7 @@
                 //change the color of the navbar based on the closest beacon
                 [self updateNavigationBarColorBasedOnProximity:self.nearestBeacon];
                 
-                [ParseManager updateUserNearestBeacon:self.nearestBeacon.proximityUUID withAccuracy:[NSNumber numberWithFloat:self.nearestBeacon.accuracy]];
+                [ParseManager updateUserNearestBeacon:self.nearestBeacon];
             }
         }
     }
@@ -674,7 +678,7 @@
     /*
      * Block to update the similarity index of a user based on comparision
      * to the current user. This blocks loops through an array of users and
-     * call another block to calculate the actual similarity index between the
+     * calls another block to calculate the actual similarity index between the
      * two users
      */
     void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
