@@ -42,7 +42,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 +(void)retrieveUsersInLocalVicinityWithSimilarity:(NSArray*)regions WithComplettion:(MyCompletion)completion;
 
 //user Parse GeoPoint service to find nearby users
-+ (NSArray*)retrieveSymeetryUsersNearCurrentUser;
++ (NSArray*)retrieveSymeetryUsersForMapView;
 
 //handle user signon, login and logoff
 +(void)logInOrSignUp:(NSString*)username

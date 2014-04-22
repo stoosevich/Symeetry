@@ -7,7 +7,8 @@
 //
 
 #import <MapKit/MapKit.h>
+#import <Parse/Parse.h>
 
 @interface SymeetryAnnotationView : MKAnnotationView
-@property UIImageView* imageView;
+@property PFUser* user;
 @end

@@ -10,5 +10,5 @@
 #import <Parse/Parse.h>
 
 @interface SymeetryPointAnnotation : MKPointAnnotation <MKAnnotation, MKMapViewDelegate>
-@property UIImageView* imageView;
+@property PFUser* user;
 @end

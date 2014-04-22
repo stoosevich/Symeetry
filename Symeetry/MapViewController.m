@@ -11,6 +11,7 @@
 #import "ParseManager.h"
 #import "SymeetryPointAnnotation.h"
 #import "SymeetryAnnotationView.h"
+#import "ProfileHeaderView.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 
@@ -31,7 +32,7 @@
     //make sure we are the delegate of the map view
     
     self.mapView.delegate = self;
-    self.nearbyUsers = [ParseManager retrieveSymeetryUsersNearCurrentUser];
+    self.nearbyUsers = [ParseManager retrieveSymeetryUsersForMapView];
 
     //allow the user's location to be shown
     self.mapView.showsUserLocation = YES;
@@ -63,32 +64,54 @@
     for (PFUser* user in self.nearbyUsers)
     {
         //create a pin for the map
-        SymeetryPointAnnotation* symeetryAnnotation =[SymeetryPointAnnotation new];
+        SymeetryPointAnnotation* symeetryAnnotation = [SymeetryPointAnnotation new];
         
         PFGeoPoint* geopoint  = user[@"location"];
-        NSLog(@"geopoint lat:%f long:%f", geopoint.longitude, geopoint.longitude);
+        //NSLog(@"geopoint lat:%f long:%f", geopoint.longitude, geopoint.longitude);
         
         CLLocationCoordinate2D userCoordinate =  CLLocationCoordinate2DMake(geopoint.latitude, geopoint.longitude);
         
         //set the coordinate and title of the pin
         symeetryAnnotation.coordinate =  userCoordinate;
-        symeetryAnnotation.title  = user[@"username"];
-        symeetryAnnotation.subtitle = @"interest";
-        
-        //get the users photo and create an image view for the pin annotation
-        PFFile* file = user[@"photo"];
-        NSData* imageData = [file getData];
-        UIImage* image = [UIImage imageWithData:imageData];
-        UIImage* resizedImage = [self resizeImage:image toWidth:20.0f andHeight:30.0f];
-        UIImageView* iconImage = [[UIImageView alloc]initWithImage:resizedImage];
-        symeetryAnnotation.imageView = iconImage;
-        
+        //symeetryAnnotation.title  = user[@"username"];
+        //symeetryAnnotation.subtitle = @"interest";
+
         //update map with pin
         [self.mapView addAnnotation:symeetryAnnotation];
     }
 }
 
+//map view delegate call back
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    NSLog(@"view class %@",[view class]);
+//    
+//    SymeetryPointAnnotation* symeetryAnnotation = (SymeetryPointAnnotation*)view;
+//    
+//    PFFile* file = symeetryAnnotation.user[@"photo"];
+//    NSData* imageData = [file getData];
+//    UIImage* image = [UIImage imageWithData:imageData];
+//    UIImage* resizedImage = [self resizeImage:image toWidth:20.0f andHeight:30.0f];
+//    UIImageView* iconImageView = [[UIImageView alloc]initWithImage:resizedImage];
+    
+    //create the view from a xib file
+    ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
+    
+    //quick hack to make the view appear in the correct location
+    CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
+    
+    //set the frame
+    headerView.frame = frame;
+    
+    //update the profile header details
+    headerView.nameTextField.text = @"User name here";
+ 
+    //add custom view to pin
+   [view addSubview:headerView];
+    //addSubview:headerView.center = CGPointMake(view.bounds.size.width*0.5f, -self.visibleCalloutView.bounds.size.height*0.5f);
+}
 
+//
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     
@@ -103,17 +126,21 @@
         static NSString *annotationIdentifier = @"SymeetryAnnotation";
         
         
-        MKPinAnnotationView *annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
-        
-//        SymeetryAnnotationView *annotationView = [[SymeetryAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+        SymeetryAnnotationView *annotationView = [[SymeetryAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
         
         if (!annotationView)
         {
-            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+            annotationView = [[SymeetryAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
             annotationView.canShowCallout = YES;
             annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeInfoDark];
-            annotationView.leftCalloutAccessoryView = ((SymeetryAnnotationView*)annotation).imageView;
-            annotationView.image = ((SymeetryAnnotationView*)annotation).imageView.image;
+            
+            
+            PFFile* file = annotationView.user[@"photo"];
+            NSData* imageData = [file getData];
+            UIImage* image = [UIImage imageWithData:imageData];
+            UIImage* resizedImage = [self resizeImage:image toWidth:20.0f andHeight:30.0f];
+            UIImageView* iconImageView = [[UIImageView alloc]initWithImage:resizedImage];
+            annotationView.leftCalloutAccessoryView = iconImageView;
         }
         else
         {

@@ -428,7 +428,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
  * geopoint location query
  * @return NSArray array of users near the current users location.
  */
-+ (NSArray*)retrieveSymeetryUsersNearCurrentUser
++ (NSArray*)retrieveSymeetryUsersForMapView
 {
     // User's location
     PFUser* user = [PFUser currentUser];
