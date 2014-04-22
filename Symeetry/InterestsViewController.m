@@ -46,7 +46,7 @@
     [self.view addSubview:headerView];
     
     // Local images
-   self.images = @[[UIImage imageNamed:@"Music_crop"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"Food_crop.jpg"], [UIImage imageNamed:@"school.jpg"], [UIImage imageNamed:@"dancing.jpg"], [UIImage imageNamed:@"books.jpg"], [UIImage imageNamed:@"tv.jpg"], [UIImage imageNamed:@"art.jpg"], [UIImage imageNamed:@"technology.jpg"], [UIImage imageNamed:@"games.jpg"], [UIImage imageNamed:@"fashion.jpg"], [UIImage imageNamed:@"volunteer.jpg"]];
+   self.images = @[[UIImage imageNamed:@"music_note240x240"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"Food_crop.jpg"], [UIImage imageNamed:@"school.jpg"], [UIImage imageNamed:@"dancing.jpg"], [UIImage imageNamed:@"books.jpg"], [UIImage imageNamed:@"tv.jpg"], [UIImage imageNamed:@"art.jpg"], [UIImage imageNamed:@"technology.jpg"], [UIImage imageNamed:@"games.jpg"], [UIImage imageNamed:@"fashion.jpg"], [UIImage imageNamed:@"volunteer.jpg"]];
     
     self.interestNames = @[@"Music", @"Movies", @"Food", @"School", @"Dancing", @"Books", @"Tv", @"Art", @"Technology", @"Games", @"Fashion", @"Volunteer"];
 }
@@ -99,6 +99,7 @@
 
     cell.imageView.image = self.images[indexPath.row];
     cell.interestTextField.text = self.interestNames[indexPath.row];
+    cell.backgroundView.backgroundColor = [UIColor redColor];
     return cell;
 }
 
