@@ -311,7 +311,12 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     
 }
 
-
+/*
+ * TODO: THIS QUERY NEEDS TO BE ASYNCHRONOUS
+ * Query the Parse backend to find the interest of the user based on the
+ * user's specific id
+ * @return PFObject the Parse Interest object for the specified user
+ */
 +(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
@@ -322,30 +327,6 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
         completion(objects,error);
     }];
 }
-
-/*
- * TODO: THIS QUERY NEEDS TO BE ASYNCHRONOUS
- * Query the Parse backend to find the interest of the user based on the
- * user's specific id
- * @return PFObject the Parse Interest object for the specified user
- */
-+(NSDictionary*)getInterest:(PFUser*)user
-{
-    PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
-    [query whereKey:@"userid" equalTo:user.objectId];
-    
-    NSDictionary* dict = nil;
-    PFObject* interests = [query getFirstObject];
-    
-    if (interests)
-    {
-        dict = [self convertPFObjectToNSDictionary:interests];
-    }
-    return dict;
-}
-
-
-
 
 /*
  * checks to see if current user is true then modifies the object(object) at the desired key(key)
