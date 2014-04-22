@@ -305,7 +305,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     {
         if (objects)
         {
-            NSDictionary* dict  = [self convertPFObjectToNSDictionary:objects.firstObject];
+            //NSDictionary* dict  = [self convertPFObjectToNSDictionary:objects.firstObject];
         }
     }];
     
