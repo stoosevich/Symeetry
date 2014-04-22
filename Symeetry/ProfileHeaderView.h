@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
 
 
+
 -(void)setDelegates:(id)object;
 
 //factory method to create view from xib

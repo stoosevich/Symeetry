@@ -1,5 +1,5 @@
 //
-//  SymeetryPointAnnotation.h
+//  SymeetryAnnotationView.h
 //  Symeetry
 //
 //  Created by user on 4/21/14.
@@ -9,6 +9,6 @@
 #import <MapKit/MapKit.h>
 #import <Parse/Parse.h>
 
-@interface SymeetryPointAnnotation : MKPointAnnotation <MKAnnotation, MKMapViewDelegate>
+@interface SymeetryAnnotationView : MKAnnotationView
 @property PFUser* user;
 @end

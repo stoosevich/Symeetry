@@ -31,17 +31,22 @@
     ProfileHeaderView* view = nibViews.firstObject;
     view.nameTextField.enabled = NO;
     view.ageTextField.enabled = NO;
-    view.genderTextField.enabled = NO;
+    //view.genderTextField.enabled = NO;
     view.nameTextField.keyboardAppearance = UIKeyboardAppearanceDark;
-    view.genderTextField.keyboardAppearance = UIKeyboardAppearanceDark;
+    //view.genderTextField.keyboardAppearance = UIKeyboardAppearanceDark;
     view.ageTextField.keyboardAppearance = UIKeyboardAppearanceDark;
     
+    //set a small defaul frame size
+    CGRect frame = CGRectMake(0.0, 00.0f, 20.0f, 20.0f);
+    view.frame = frame;
+
     return view;
 }
 
--(void)setDelegates:(id)object{
+-(void)setDelegates:(id)object
+{
     self.nameTextField.delegate = object;
-    self.genderTextField.delegate = object;
+    //self.genderTextField.delegate = object;
     self.ageTextField.delegate = object;
 }
 

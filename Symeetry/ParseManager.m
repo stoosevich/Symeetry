@@ -124,13 +124,13 @@ int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* cur
 
     //loop throught the current user's dictionary of interests and compare
     //each value to the other user. For each match increase the count by 1
-    for (NSDictionary* item in currUser)
-    {
-        if([currUser objectForKey:item] == [otherUser objectForKey:item])
-        {
-            similarity++;
-        }
-    }
+//    for (NSDictionary* item in currUser)
+//    {
+//        if([currUser objectForKey:item] == [otherUser objectForKey:item])
+//        {
+//            similarity++;
+//        }
+//    }
     return similarity;
 };
 
@@ -166,58 +166,96 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 
 /*
- * This method retrieves all users in the current vicinity, based on the beacon uuid
+ * This synchronous method retrieves all users in the current vicinity, based on the beacon uuid
  * and assigns each user a similarity index based on the similarity to the current user.
  * the results are sorted by the user similarity index and/or by user name.
  * @ return NSArray
  */
-+(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid
+//+(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid
+//{
+//    PFQuery* query = [PFUser query];
+//    
+//    //exclude the current user
+//    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+//    //[query whereKey:@"uuid" equalTo:uuidString];
+//    
+//    
+//    //include the actual interest objecst not just a link
+//    [query includeKey:@"interests"];
+//    
+//    //sort by by user name, this will be resorted once the similarity index is assigned
+//    [query addAscendingOrder:@"username"];
+//
+//    
+//    NSArray* users = [query findObjects];
+//    
+//    updateUserSimilarity(users);
+//    
+//    
+//    //sort the object once the similarity index is updated
+//    NSArray *sortedArray;
+//    
+//    //sort the array using a block comparator
+//    sortedArray = [users sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
+//    {
+//        //covert each object to a PFObject and retrieve the similarity index
+//        NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
+//        NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
+//        return [second compare:first];
+//    }];
+//    
+//    return sortedArray;
+//}
+
+-(void)retrieveUsersInLocalVicinityWithSimilarityTest:(NSArray*)regions
 {
+    [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
+    {
+        updateUserSimilarity(objects);
+        
+        //sort the object once the similarity index is updated
+        NSArray *sortedArray;
+        
+        //sort the array using a block comparator
+        sortedArray = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
+                       {
+                           //covert each object to a PFObject and retrieve the similarity index
+                           NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
+                           NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
+                           return [second compare:first];
+                       }];
+    }];
+}
+
+
++(void)retrieveUsersInLocalVicinityWithSimilarity:(NSArray*)regions WithComplettion:(MyCompletion)completion
+{
+    
+    NSMutableArray* uuids = [NSMutableArray new];
+    
+    for (CLRegion* region in regions)
+    {
+        [uuids addObject:region.identifier];
+    }
+    
     PFQuery* query = [PFUser query];
     
     //exclude the current user
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-    //[query whereKey:@"uuid" equalTo:uuidString];
-    
+    [query whereKey:@"nearestBeacon" containedIn:uuids];
     
     //include the actual interest objecst not just a link
     [query includeKey:@"interests"];
     
     //sort by by user name, this will be resorted once the similarity index is assigned
     [query addAscendingOrder:@"username"];
-
-    
-    NSArray* users = [query findObjects];
-    
-    updateUserSimilarity(users);
     
     
-    //sort the object once the similarity index is updated
-    NSArray *sortedArray;
-    
-    //sort the array using a block comparator
-    sortedArray = [users sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
-        //covert each object to a PFObject and retrieve the similarity index
-        NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
-        NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
-        return [second compare:first];
+        completion(objects,error);
     }];
-    
-    return sortedArray;
-    
-    
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-//    {
-//        if (!error)
-//        {
-//            updateUserSimilarity(objects);
-//            NSLog(@"objects %@", objects);
-//            
-//        }
-//
-//    }];
-    
+
 }
 
 #pragma mark - BEACON RETRIEVE AND UPDATE RELATED METHODS
@@ -225,10 +263,22 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 /*
  * Update the users reference to the nearest beacon
  */
-+(void)updateUserNearestBeacon:(NSUUID*)uuid
++(void)updateUserNearestBeacon:(CLBeacon*)beacon
 {
-    NSString* uuidString = [uuid UUIDString];
+    
+    NSString* uuidString = [beacon.proximityUUID UUIDString];
     [PFUser currentUser][@"nearestBeacon"]= uuidString;
+    [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:beacon.accuracy];
+    [PFUser currentUser][@"major"] = beacon.major;
+    [PFUser currentUser][@"minor"] = beacon.minor;
+    
+    [[PFUser currentUser]saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+    {
+        if (error)
+        {
+            //handle eror
+        }
+    }];
 }
 
 /*
@@ -248,6 +298,34 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 #pragma mark - HELPER METHODS
 
++(void)getUserInterest:(PFUser*)user
+{
+
+    [ParseManager getUserInterest:user WithComplettion:^(NSArray *objects, NSError *error)
+    {
+        if (objects)
+        {
+            //NSDictionary* dict  = [self convertPFObjectToNSDictionary:objects.firstObject];
+        }
+    }];
+    
+}
+
++(void)saveUserInterests:(PFUser *)user objectToSet:(id)object forKey:(NSString *)key completionBlock:(void (^)(void))completionBlock
+{
+    PFObject *userinterests = [PFObject objectWithClassName:@"GameScore"];
+}
+
++(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
+{
+    PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
+    [query whereKey:@"userid" equalTo:user.objectId];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        completion(objects,error);
+    }];
+}
 
 /*
  * TODO: THIS QUERY NEEDS TO BE ASYNCHRONOUS
@@ -354,15 +432,13 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
  * geopoint location query
  * @return NSArray array of users near the current users location.
  */
-+ (NSArray*)retrieveSymeetryUsersNearCurrentUser
++ (NSArray*)retrieveSymeetryUsersForMapView
 {
     // User's location
     PFUser* user = [PFUser currentUser];
     
     //get the users geopoint
     PFGeoPoint *userGeoPoint = user[@"location"];
-    
-    NSLog(@"geopoint latidute:%f longitiude:%f\n", userGeoPoint.latitude,userGeoPoint.longitude);
     
     if (userGeoPoint)
     {

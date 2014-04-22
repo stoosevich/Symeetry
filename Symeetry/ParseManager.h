@@ -11,30 +11,38 @@
 #import "Parse/Parse.h"
 
 
-
 @interface ParseManager : NSObject
-
-//single user related methods
-+(PFUser*)currentUser;
-+(BOOL)isCurrentUser:(PFUser*)user;
-+(NSDictionary*)getInterest:(PFUser*)user;
-+(void)updateUserNearestBeacon:(NSUUID*)uuid;
-
-//multiple user object queries
-+(void)getUsers;
 
 //define a block for the call back
 typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
-//create the public class method with block
+//single user related methods
++(PFUser*)currentUser;
++(BOOL)isCurrentUser:(PFUser*)user;
+
+//synchronous method
++(NSDictionary*)getInterest:(PFUser*)user;
+
+//asynchronous method
++(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion;
+
++(void)updateUserNearestBeacon:(CLBeacon*)beacon;
+
+//multiple user object queries
++(void)getUsers;
+
+//public class method with completion block
 + (void)getUsersWithCompletion:(MyCompletion)completion;
 
 
 //find users that are in the immediate vicinity based on the uuid of a beacon
-+(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid;
+//+(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid;
+
+//find users that are in the immediate vicinity based on the uuid of a beacon
++(void)retrieveUsersInLocalVicinityWithSimilarity:(NSArray*)regions WithComplettion:(MyCompletion)completion;
 
 //user Parse GeoPoint service to find nearby users
-+ (NSArray*)retrieveSymeetryUsersNearCurrentUser;
++ (NSArray*)retrieveSymeetryUsersForMapView;
 
 //handle user signon, login and logoff
 +(void)logInOrSignUp:(NSString*)username
