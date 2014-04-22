@@ -338,18 +338,6 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 }
 
-+(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
-{
-    PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
-    [query whereKey:@"userid" equalTo:user.objectId];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
-        completion(objects,error);
-    }];
-}
-
-
 
 /*
  * TODO: THIS QUERY NEEDS TO BE ASYNCHRONOUS
