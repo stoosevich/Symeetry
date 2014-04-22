@@ -317,6 +317,15 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     }];
 }
 
++(NSDictionary*)getInterest:(PFUser*)user
+{
+    PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
+    [query whereKey:@"userid" equalTo:user.objectId];
+    NSArray* result = [query findObjects];
+    NSDictionary* dict  = [ParseManager convertPFObjectToNSDictionary:result.firstObject];
+    return dict;
+}
+
 /*
  * checks to see if current user is true then modifies the object(object) at the desired key(key)
  * then saves in background
