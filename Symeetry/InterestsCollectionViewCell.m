@@ -33,6 +33,8 @@
     self.rankTestLabel.text = [NSString stringWithFormat:@"%d", (int)self.interestSlider.value];
     [self.chosenInterests setObject:@((int)self.interestSlider.value) forKey:self.interestTextField.text];
     NSLog(@"%@", self.chosenInterests);
+    
+    //test comment
 }
 
 
