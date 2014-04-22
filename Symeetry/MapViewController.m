@@ -10,6 +10,7 @@
 #import "MapViewController.h"
 #import "ParseManager.h"
 #import "SymeetryPointAnnotation.h"
+#import "SymeetryAnnotationView.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 
@@ -62,14 +63,17 @@
     for (PFUser* user in self.nearbyUsers)
     {
         //create a pin for the map
-        //MKPointAnnotation* symeetryAnnotation =[MKPointAnnotation new];
-        
-        SymeetryPointAnnotation* symeetryAnnotation = [SymeetryPointAnnotation new];
+        SymeetryPointAnnotation* symeetryAnnotation =[SymeetryPointAnnotation new];
         
         PFGeoPoint* geopoint  = user[@"location"];
         NSLog(@"geopoint lat:%f long:%f", geopoint.longitude, geopoint.longitude);
         
         CLLocationCoordinate2D userCoordinate =  CLLocationCoordinate2DMake(geopoint.latitude, geopoint.longitude);
+        
+        //set the coordinate and title of the pin
+        symeetryAnnotation.coordinate =  userCoordinate;
+        symeetryAnnotation.title  = user[@"username"];
+        symeetryAnnotation.subtitle = @"interest";
         
         //get the users photo and create an image view for the pin annotation
         PFFile* file = user[@"photo"];
@@ -77,11 +81,6 @@
         UIImage* image = [UIImage imageWithData:imageData];
         UIImage* resizedImage = [self resizeImage:image toWidth:20.0f andHeight:30.0f];
         UIImageView* iconImage = [[UIImageView alloc]initWithImage:resizedImage];
-        
-        //set the coordinate and title of the pin
-        symeetryAnnotation.coordinate =  userCoordinate;
-        symeetryAnnotation.title  = user[@"username"];
-        symeetryAnnotation.subtitle = @"interest";
         symeetryAnnotation.imageView = iconImage;
         
         //update map with pin
@@ -89,32 +88,35 @@
     }
 }
 
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    NSLog(@"class is %@",[annotation class]);
     
+    //do not alter the pin for the user
     if ([annotation isKindOfClass:[MKUserLocation class]])
     {
         return nil;
     }
     
-    if ([annotation isKindOfClass:[SymeetryPointAnnotation class]])
+    if ([annotation isKindOfClass:[SymeetryAnnotationView class]])
     {
         static NSString *annotationIdentifier = @"SymeetryAnnotation";
         
+        
         MKPinAnnotationView *annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+        
+//        SymeetryAnnotationView *annotationView = [[SymeetryAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
         
         if (!annotationView)
         {
             annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
             annotationView.canShowCallout = YES;
-            annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            UIImage* image = [UIImage imageNamed:@"SymeetryNear"];
-            annotationView.leftCalloutAccessoryView = [[UIImageView alloc ] initWithImage:image];
+            annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeInfoDark];
+            annotationView.leftCalloutAccessoryView = ((SymeetryAnnotationView*)annotation).imageView;
+            annotationView.image = ((SymeetryAnnotationView*)annotation).imageView.image;
         }
         else
         {
-            //pin.annotation = annotation;
             annotationView.annotation =  annotation;
         }
         return annotationView;

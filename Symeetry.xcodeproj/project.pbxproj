@@ -57,6 +57,7 @@
 		CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */; };
 		CE66E60D1904639900C295E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE66E60C1904639900C295E0 /* Images.xcassets */; };
 		CE6748661901D58600F05121 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6748651901D58600F05121 /* Defaults.m */; };
+		CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */; };
 		CE7561E31905ABBC00611B93 /* SymeetryPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */; };
 		CE893D8919022CAF000260A4 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE893D8819022CAF000260A4 /* MapViewController.m */; };
 		CE893D8B19023174000260A4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE893D8A19023174000260A4 /* MapKit.framework */; };
@@ -136,6 +137,8 @@
 		CE66E60C1904639900C295E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE6748641901D58600F05121 /* Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defaults.h; path = Symeetry/Defaults.h; sourceTree = "<group>"; };
 		CE6748651901D58600F05121 /* Defaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Defaults.m; path = Symeetry/Defaults.m; sourceTree = "<group>"; };
+		CE730E081906043000FD6F95 /* SymeetryAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryAnnotationView.h; path = Symeetry/SymeetryAnnotationView.h; sourceTree = "<group>"; };
+		CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryAnnotationView.m; path = Symeetry/SymeetryAnnotationView.m; sourceTree = "<group>"; };
 		CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryPointAnnotation.h; path = Symeetry/SymeetryPointAnnotation.h; sourceTree = "<group>"; };
 		CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryPointAnnotation.m; path = Symeetry/SymeetryPointAnnotation.m; sourceTree = "<group>"; };
 		CE893D8719022CAF000260A4 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Symeetry/MapViewController.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 			children = (
 				CE6748641901D58600F05121 /* Defaults.h */,
 				CE6748651901D58600F05121 /* Defaults.m */,
+				CE730E081906043000FD6F95 /* SymeetryAnnotationView.h */,
+				CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */,
 				CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */,
 				CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */,
 				CE5ACEE918FDED5000E91087 /* BlueToothManager.h */,
@@ -447,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB5B1F18FC85890060B17A /* HomeViewController.m in Sources */,
+				CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */,
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
 				CE893D8919022CAF000260A4 /* MapViewController.m in Sources */,
