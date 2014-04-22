@@ -311,6 +311,10 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     
 }
 
++(void)saveUserInterests:(PFUser *)user objectToSet:(id)object forKey:(NSString *)key completionBlock:(void (^)(void))completionBlock
+{
+    PFObject *userinterests = [PFObject objectWithClassName:@"GameScore"];
+}
 
 +(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
 {
