@@ -17,7 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property NSArray* nearbyUsers;
-@property NSMutableDictionary* userPins;
+
 
 @end
 
@@ -65,6 +65,8 @@
     {
         //create a pin for the map
         SymeetryPointAnnotation* symeetryAnnotation = [SymeetryPointAnnotation new];
+        
+        //assign user to the annotation
         symeetryAnnotation.user = user;
         
         PFGeoPoint* geopoint  = user[@"location"];
@@ -88,7 +90,7 @@
     ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
     
     //the view appear in the correct location
-    CGRect frame = CGRectMake(0.0, 00.0f, 20.0f, 20.0f);
+    CGRect frame = CGRectMake(0.0, 00.0f, 30.0f, 60.0f);
     
     //set the frame
     headerView.frame = frame;
@@ -97,12 +99,13 @@
     
     //update the profile header details
     headerView.nameTextField.text = annotation.user.username;
+    headerView.nameTextField.backgroundColor = [UIColor whiteColor];
     
     PFFile* file = annotation.user[@"photo"];
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
     {
         UIImage* image = [UIImage imageWithData:data];
-        UIImage* resizedImage = [self resizeImage:image toWidth:20.0f andHeight:30.0f];
+        UIImage* resizedImage = [self resizeImage:image toWidth:30.0f andHeight:30.0f];
         headerView.imageView.image = resizedImage;
     }];
 
@@ -124,7 +127,7 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     
-    //do not alter the pin for the user
+    //do not alter the pin for the current user
     if ([annotation isKindOfClass:[MKUserLocation class]])
     {
         return nil;
@@ -140,7 +143,6 @@
         {
             annotationView = [[SymeetryAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
             annotationView.canShowCallout = YES;
-
         }
         else
         {

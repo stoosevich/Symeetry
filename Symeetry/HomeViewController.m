@@ -227,33 +227,37 @@
     //create a temporary region since we cannot pass the region object in the notification user info
     CLBeaconRegion* region = [[CLBeaconRegion alloc]initWithProximityUUID:uuid identifier:[uuid UUIDString]];
 
-    //check if we enterd a new region
-    if ([state isEqualToString:@"CLRegionStateInside"])
+    //make sure the region is not empty first
+    if(region)
     {
-        NSString* formatString = [NSString stringWithFormat:@"App exited region:%@",region.identifier];
-        [self showRegionStateAlertScreen:formatString];
-        
-        //if we are notified that we entered a new region, add it to the active list
-        if (![self.activeRegions containsObject:region])
+        //check if we enterd a new region
+        if ([state isEqualToString:@"CLRegionStateInside"])
         {
-            [self.activeRegions addObject:region];
+            NSString* formatString = [NSString stringWithFormat:@"App exited region:%@",region.identifier];
+            [self showRegionStateAlertScreen:formatString];
+            
+            //if we are notified that we entered a new region, add it to the active list
+            if (![self.activeRegions containsObject:region])
+            {
+                [self.activeRegions addObject:region];
+            }
         }
-    }
-    else if ([state isEqualToString:@"CLRegionStateOutside"])
-    {
-        NSString* formatString = [NSString stringWithFormat:@"App exited region:%@",region.identifier];
-        [self showRegionStateAlertScreen:formatString];
+        else if ([state isEqualToString:@"CLRegionStateOutside"])
+        {
+            NSString* formatString = [NSString stringWithFormat:@"App exited region:%@",region.identifier];
+            [self showRegionStateAlertScreen:formatString];
+            
+            //if we are notified that we left a region
+            [self.activeRegions removeObject:region];
+        }
         
-        //if we are notified that we left a region
-        [self.activeRegions removeObject:region];
+        //[self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
+        [self retrieveUsersInLocalVicinityWithSimilarityTest:self.activeRegions];
+        [self.homeTableView reloadData];
+        
+        //whenever a user enters a new region, update their location
+        [ParseManager setUsersPFGeoPointLocation];
     }
-    
-    //[self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
-    [self retrieveUsersInLocalVicinityWithSimilarityTest:self.activeRegions];
-    [self.homeTableView reloadData];
-    
-    //whenever a user enters a new region, update their location
-    [ParseManager setUsersPFGeoPointLocation];
 }
 
 
