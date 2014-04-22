@@ -9,6 +9,7 @@
 #import "ParseManager.h"
 #import "HomeViewController.h"
 
+
 @interface ParseManager()
 
 @end
@@ -311,9 +312,28 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     
 }
 
-+(void)saveUserInterests:(PFUser *)user objectToSet:(id)object forKey:(NSString *)key completionBlock:(void (^)(void))completionBlock
++(void)saveUserInterestsByKey:(NSString*)key withValue:(int)value
 {
-    PFObject *userinterests = [PFObject objectWithClassName:@"GameScore"];
+    //get the current user
+    PFUser* user = [PFUser currentUser];
+    
+    [self getUserInterest:user WithComplettion:^(NSArray *objects, NSError *error)
+    {
+        //get the first object, there should only be one per user
+        PFObject* interest = objects.firstObject;
+        
+        //update the category with the new value
+        interest[key] = [NSNumber numberWithInt:value];
+        
+        [interest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+        {
+            if(error)
+            {
+                //handle error 
+            }
+        }];
+    }];
+
 }
 
 +(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
