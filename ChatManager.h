@@ -14,10 +14,17 @@
 @property MCPeerID* devicePeerID;
 @property MCSession* mySession;
 @property MCAdvertiserAssistant* advertiserAssistant;
+@property MCNearbyServiceBrowser* browser;
 @property (nonatomic, copy) void (^connected)(void);
 @property (nonatomic, copy) void (^connecting)(void);
 @property (nonatomic, copy) void (^lostConnection)(void);
+@property (nonatomic, copy) void (^gotMessage)(void);
 
-
+-(void)setPeerID;
+-(instancetype)initWithConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(void))gotMessage;
+-(void)inviteToChat:(MCPeerID*)peer completedBlock:(void(^)(void))completionBlock;
+-(void)checkoutChat;
+-(void)checkinChat;
+-(void)sendMessage:(NSString*)message peer:(MCPeerID*)peer error:(NSError*)error sent:(void(^)(void))sent;
 
 @end
