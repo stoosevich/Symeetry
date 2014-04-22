@@ -667,13 +667,13 @@
         
         //loop throught the current user's dictionary of interests and compare
         //each value to the other user. For each match increase the count by 1
-        for (NSDictionary* item in currUser)
-        {
-            if([currUser objectForKey:item] == [otherUser objectForKey:item])
-            {
-                similarity++;
-            }
-        }
+//        for (NSDictionary* item in currUser)
+//        {
+//            if([currUser objectForKey:item] == [otherUser objectForKey:item])
+//            {
+//                similarity++;
+//            }
+//        }
         return similarity;
     };
     
