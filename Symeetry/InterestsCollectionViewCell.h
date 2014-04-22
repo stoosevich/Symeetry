@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UISlider *interestSlider;
 @property (strong, nonatomic) IBOutlet UILabel *rankTestLabel;
 @property NSMutableDictionary* chosenInterests;
+@property (strong, nonatomic) IBOutlet UIView *backgroundView;
 
 
 @end
