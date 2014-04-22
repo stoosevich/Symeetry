@@ -9,6 +9,7 @@
 #import <MapKit/MapKit.h>
 #import "MapViewController.h"
 #import "ParseManager.h"
+#import "SymeetryPointAnnotation.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 
@@ -26,8 +27,11 @@
 {
     [super viewDidLoad];
     
-    self.nearbyUsers = [ParseManager retrieveSymeetryUsersNearCurrentUser];
+    //make sure we are the delegate of the map view
     
+    self.mapView.delegate = self;
+    self.nearbyUsers = [ParseManager retrieveSymeetryUsersNearCurrentUser];
+
     //allow the user's location to be shown
     self.mapView.showsUserLocation = YES;
     
@@ -58,17 +62,27 @@
     for (PFUser* user in self.nearbyUsers)
     {
         //create a pin for the map
-        MKPointAnnotation* symeetryAnnotation =[MKPointAnnotation new];
+        //MKPointAnnotation* symeetryAnnotation =[MKPointAnnotation new];
+        
+        SymeetryPointAnnotation* symeetryAnnotation = [SymeetryPointAnnotation new];
         
         PFGeoPoint* geopoint  = user[@"location"];
         NSLog(@"geopoint lat:%f long:%f", geopoint.longitude, geopoint.longitude);
         
         CLLocationCoordinate2D userCoordinate =  CLLocationCoordinate2DMake(geopoint.latitude, geopoint.longitude);
         
+        //get the users photo and create an image view for the pin annotation
+        PFFile* file = user[@"photo"];
+        NSData* imageData = [file getData];
+        UIImage* image = [UIImage imageWithData:imageData];
+        UIImage* resizedImage = [self resizeImage:image toWidth:20.0f andHeight:30.0f];
+        UIImageView* iconImage = [[UIImageView alloc]initWithImage:resizedImage];
+        
         //set the coordinate and title of the pin
         symeetryAnnotation.coordinate =  userCoordinate;
         symeetryAnnotation.title  = user[@"username"];
         symeetryAnnotation.subtitle = @"interest";
+        symeetryAnnotation.imageView = iconImage;
         
         //update map with pin
         [self.mapView addAnnotation:symeetryAnnotation];
@@ -77,44 +91,44 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
- 
-    //create a PinAnnotationView
-    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:nil];
+    NSLog(@"class is %@",[annotation class]);
     
-    //set the pin's image
-    //pin.image = [UIImage imageNamed:@"mobilemakers"];
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+    {
+        return nil;
+    }
     
-    //set call to true (required in the delegate method)
-    pin.canShowCallout = YES;
-    
-    PFUser* user = self.nearbyUsers.lastObject;
-    PFFile* file = user[@"photo"];
-    NSData* imageData = [file getData];
-    UIImage* image = [UIImage imageWithData:imageData];
-    UIImage* resizedImage = [self resizeImage:image toWidth:20.0f andHeight:30.0f];
-    
-    UIImageView* iconImage = [[UIImageView alloc]initWithImage:resizedImage];
-    
-    pin.leftCalloutAccessoryView = iconImage;
-    
-    //add an info button to the callout
-    //pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-
-    return pin;
-
+    if ([annotation isKindOfClass:[SymeetryPointAnnotation class]])
+    {
+        static NSString *annotationIdentifier = @"SymeetryAnnotation";
+        
+        MKPinAnnotationView *annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+        
+        if (!annotationView)
+        {
+            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+            annotationView.canShowCallout = YES;
+            annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            UIImage* image = [UIImage imageNamed:@"SymeetryNear"];
+            annotationView.leftCalloutAccessoryView = [[UIImageView alloc ] initWithImage:image];
+        }
+        else
+        {
+            //pin.annotation = annotation;
+            annotationView.annotation =  annotation;
+        }
+        return annotationView;
+    }
+    return nil;
 }
+
+
+
+
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     NSLog(@"view is %@", view);
-    
-//    PFUser* user = self.nearbyUsers.lastObject;
-//    PFFile* file = user[@"photo"];
-//    NSData* imageData = [file getData];
-//    UIImage* image = [UIImage imageWithData:imageData];
-//    UIImage* resizedImage = [self resizeImage:image toWidth:40.0f andHeight:60.0f];
-//    view.image = resizedImage;
-
 }
 
 

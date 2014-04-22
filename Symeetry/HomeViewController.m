@@ -140,13 +140,7 @@
     [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
     
     // Start ranging when the view appears
-//    for (CLBeaconRegion *region in self.rangedRegions)
-//    {
-//        [self.locationManager startRangingBeaconsInRegion:region];
-//    }
-//    
-    //instead only range beacons for regions which are active
-    for (CLBeaconRegion *region in self.activeRegions)
+    for (CLBeaconRegion *region in self.rangedRegions)
     {
         [self.locationManager startRangingBeaconsInRegion:region];
     }
@@ -204,8 +198,9 @@
         //ranged for that region.
         self.rangedRegions[region] = [NSArray array];
         
-        //
+        //start monitoring all known regions
         [self.locationManager startMonitoringForRegion:region];
+        NSLog(@"monitoring region %@",region.identifier);
     }
 }
 
@@ -321,7 +316,7 @@
     {
         //if the user is already checkedin, then add the new region entered
         //and update the list of user available
-        [self.activeRegions addObject:region.identifier];
+        [self.activeRegions addObject:region];
         [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
         [self.homeTableView reloadData];
         
@@ -339,16 +334,8 @@
     NSString* formatString = [NSString stringWithFormat:@"region\n%@",region.identifier];
     [self showRegionStateAlertScreen:formatString];
     
-    //stop ranging beacons for region exited
-    for (CLBeaconRegion *region in self.rangedRegions)
-    {
-        [self.locationManager stopRangingBeaconsInRegion:region];
-    }
-    
     [ParseManager setUsersPFGeoPointLocation];
     [self.activeRegions removeObject:region];
-    
-
 
     //update the list of available users
     [self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
@@ -389,8 +376,6 @@
     //this will put the beacons in numeric order of proximity
     for (NSNumber *range in @[ @(CLProximityUnknown), @(CLProximityImmediate), @(CLProximityNear), @(CLProximityFar)])
     {
-        
-        
         //create an array to hold the beacons orderd proximity
         NSArray *proximityBeacons = [allBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", [range intValue]]];
         
@@ -400,35 +385,83 @@
             //store the beacons by proximity for each range in the beacon dictionary.
             //The dictionary holds an array of beacons by their proximity
             self.beacons[range] = proximityBeacons;
+            //NSLog(@"beacons %@",self.beacons[range]);
+            [self determineNearestBeaconToUser];
         }
     }
     
     [self.homeTableView reloadData];
-    [self determineNearestBeaconToUser];
+    
+    //NSLog(@"didRangeRegion %@",region.identifier);
 }
 
 
 
 - (void)determineNearestBeaconToUser
 {
-    NSLog(@"beacons %@",self.beacons);
-    //search the beacons dictionary for entries
-    [self.beacons enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
+    
+    
+//    for (NSNumber *range in @[@(CLProximityImmediate), @(CLProximityNear), @(CLProximityFar)])
+//    {
+//        if(self.beacons[range])
+//        {
+//            self.nearestBeacon = self.beacons[range];
+//        }
+//    }
+    
+    
+    
+    if( self.beacons.count > 0)
     {
-        NSLog(@"key %@", key);
-        NSLog(@"obj %@", obj);
-    }];
-    
-    
-    //the first
-    self.nearestBeacon = nil;
-    
-    //change the color of the navbar based on the closest beacon
-    //[self updateNavigationBarColorBasedOnProximity:self.nearestBeacon];
-    
-    //update the user with the beacon they are nearest too
-    //[ParseManager updateUserNearestBeacon:self.nearestBeacon.proximityUUID];
-    
+        
+        CLBeacon* currentBeacon = nil;
+        NSArray* beacons = nil;
+        
+        if (self.beacons[@(CLProximityImmediate)])
+        {
+            beacons = self.beacons[@(CLProximityImmediate)];
+            //self.nearestBeacon = beacons.firstObject;
+            currentBeacon = beacons.firstObject;
+        }
+        else if (self.beacons[@(CLProximityNear)])
+        {
+            beacons = self.beacons[@(CLProximityNear)];
+            //self.nearestBeacon = beacons.firstObject;
+            currentBeacon = beacons.firstObject;
+
+        }
+        else if (self.beacons[@(CLProximityFar)])
+        {
+            beacons = self.beacons[@(CLProximityFar)];
+            //self.nearestBeacon = beacons.firstObject;
+            currentBeacon = beacons.firstObject;
+
+        }
+        else if (self.beacons[@(CLProximityUnknown)])
+        {
+            beacons = self.beacons[@(CLProximityUnknown)];
+            //self.nearestBeacon = beacons.firstObject;
+            currentBeacon = beacons.firstObject;
+
+        }
+
+        NSLog(@"current beacon %@", currentBeacon);
+        NSLog(@"nearest beacon %@", self.nearestBeacon);
+        
+        if (currentBeacon)
+        {
+            if (currentBeacon.proximityUUID != self.nearestBeacon.proximityUUID &&
+                currentBeacon.major != self.nearestBeacon.major &&
+                currentBeacon.minor != self.nearestBeacon.minor)
+            {
+                self.nearestBeacon =  currentBeacon;
+                //change the color of the navbar based on the closest beacon
+                [self updateNavigationBarColorBasedOnProximity:self.nearestBeacon];
+                
+                [ParseManager updateUserNearestBeacon:self.nearestBeacon.proximityUUID];
+            }
+        }
+    }
 }
 
 #pragma mark - SymeetryApplicaitonHelperMethods
@@ -541,7 +574,6 @@
      */
     void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     {
-        
         NSDictionary* currentUser = [ParseManager getInterest:[PFUser currentUser]];
         NSDictionary* otherUser = nil;
         
