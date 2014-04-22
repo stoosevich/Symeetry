@@ -9,6 +9,8 @@
 #import "ProfileViewController.h"
 #import "ProfileHeaderView.h"
 #import "ParseManager.h"
+#import "ChatManager.h"
+#import "ChatRoomViewController.h"
 
 
 
@@ -19,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property ProfileHeaderView *headerView;
 @property (weak, nonatomic) IBOutlet UIButton *changeRelationShipButton;
+@property (weak, nonatomic) IBOutlet UIButton *chatButton;
+
+@property ChatManager* chat;
 
 @end
 
@@ -36,12 +41,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.chat = [ChatManager new];
     
     if ([ParseManager isCurrentUser:self.user]) {
         self.changeRelationShipButton.hidden = NO;
+        self.chatButton.hidden = YES;
     }
     else{
         self.changeRelationShipButton.hidden = YES;
+        self.chatButton.hidden = NO;
     }
     self.homeTownTextField.text = [self.user objectForKey:@"homeTown"];
     self.emailTextField.text = [self.user objectForKey:@"email"];
@@ -77,6 +85,23 @@
     [self.view addSubview:self.headerView];
 }
 
+- (IBAction)onChatButtonPressed:(id)sender
+{
+    [self.chat inviteToChat:[self.chat findCorrectPeer:self.user] completedBlock:^{
+        [self performSegueWithIdentifier:@"ChatRoomSegue" sender:self];
+        NSLog(@"Invited %@", self.user.username);
+    }];
+    
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ChatRoomSegue"]) {
+        ChatRoomViewController* cRVC = segue.destinationViewController;
+        cRVC.peerID = [self.chat findCorrectPeer:self.user];
+    }
+    
+}
 
 
 - (IBAction)onChangeRelationShipButtonPressed:(id)sender
