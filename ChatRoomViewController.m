@@ -7,7 +7,7 @@
 //
 
 #import "ChatRoomViewController.h"
-#import "ChatManager.m"
+#import "ChatManager.h"
 
 @interface ChatRoomViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *chatRoomTextField;

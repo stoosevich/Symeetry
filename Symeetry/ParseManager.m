@@ -9,6 +9,7 @@
 #import "ParseManager.h"
 #import "HomeViewController.h"
 
+
 @interface ParseManager()
 
 @end
@@ -297,6 +298,56 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 
 #pragma mark - HELPER METHODS
+
+
++(void)getUserInterest:(PFUser*)user
+{
+
+    [ParseManager getUserInterest:user WithComplettion:^(NSArray *objects, NSError *error)
+    {
+        if (objects)
+        {
+            //NSDictionary* dict  = [self convertPFObjectToNSDictionary:objects.firstObject];
+        }
+    }];
+    
+}
+
+
++(void)saveUserInterestsByKey:(NSString*)key withValue:(int)value
+{
+    //get the current user
+    PFUser* user = [PFUser currentUser];
+    
+    [self getUserInterest:user WithComplettion:^(NSArray *objects, NSError *error)
+    {
+        //get the first object, there should only be one per user
+        PFObject* interest = objects.firstObject;
+        
+        //update the category with the new value
+        interest[key] = [NSNumber numberWithInt:value];
+        
+        [interest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+        {
+            if(error)
+            {
+                //handle error 
+            }
+        }];
+    }];
+
+}
+
++(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
+{
+    PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
+    [query whereKey:@"userid" equalTo:user.objectId];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    {
+        completion(objects,error);
+    }];
+}
 
 
 

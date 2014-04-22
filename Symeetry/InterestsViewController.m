@@ -48,7 +48,7 @@
     // Local images
    self.images = @[[UIImage imageNamed:@"music_note240x240"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"Food_crop.jpg"], [UIImage imageNamed:@"school.jpg"], [UIImage imageNamed:@"dancing.jpg"], [UIImage imageNamed:@"books.jpg"], [UIImage imageNamed:@"tv.jpg"], [UIImage imageNamed:@"art.jpg"], [UIImage imageNamed:@"technology.jpg"], [UIImage imageNamed:@"games.jpg"], [UIImage imageNamed:@"fashion.jpg"], [UIImage imageNamed:@"volunteer.jpg"]];
     
-    self.interestNames = @[@"Music", @"Movies", @"Food", @"School", @"Dancing", @"Books", @"Tv", @"Art", @"Technology", @"Games", @"Fashion", @"Volunteer"];
+    self.interestNames = @[@"music", @"movies", @"food", @"school", @"dancing", @"books", @"tv", @"art", @"technology", @"games", @"fashion", @"volunteer"];
 }
 
 // Add animation to cells
