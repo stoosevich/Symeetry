@@ -3,28 +3,28 @@
 <plist version="1.0">
 <dict>
 	<key>music</key>
-	<false/>
+	<integer>0</integer>
 	<key>movies</key>
-	<false/>
+	<integer>0</integer>
 	<key>food</key>
-	<false/>
+	<integer>0</integer>
 	<key>school</key>
-	<false/>
+	<integer>0</integer>
 	<key>dancing</key>
-	<false/>
+	<integer>0</integer>
 	<key>books</key>
-	<false/>
+	<integer>0</integer>
 	<key>tv</key>
-	<false/>
+	<integer>0</integer>
 	<key>art</key>
-	<false/>
+	<integer>0</integer>
 	<key>technology</key>
-	<false/>
+	<integer>0</integer>
 	<key>games</key>
-	<false/>
+	<integer>0</integer>
 	<key>fashion</key>
-	<false/>
+	<integer>0</integer>
 	<key>volunteer</key>
-	<false/>
+	<integer>0</integer>
 </dict>
 </plist>

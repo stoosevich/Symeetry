@@ -55,6 +55,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;
 
 +(void)setUsersPFGeoPointLocation;
++(void)saveUserInterestsByKey:(NSString*)key withValue:(int)value;
+
 
 //core location/bluetooth related methods
 +(void)addBeaconWithName:(NSString*)name withUUID:(NSUUID*)uuid;
@@ -64,5 +66,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 +(PFFile*)convertUIImageToPFFile:(UIImage*)image;
 +(NSDictionary*)convertPFObjectToNSDictionary:(PFObject*)objectToConvert;
 +(NSArray*)convertArrayOfPFObjectsToDictionaryObjects:(NSArray*)objectsToConvert;
+
+
 
 @end
