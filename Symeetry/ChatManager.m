@@ -15,6 +15,7 @@
 @property MCPeerID* userBasedPeerID;
 //@property ChatManager* chatMang;
 @property NSMutableArray* users;
+@property BOOL invited;
 
 @end
 
@@ -22,16 +23,24 @@
 
 #pragma mark -- Helper Methods
 
+-(void)setViewController:(id)viewContoller segue:(UIStoryboardSegue*)segue
+{
+    self.currentViewController = viewContoller;
+    self.segueToChatRoom = segue;
+}
+
 -(void)setPeerID
 {
     PFUser* user = [ParseManager currentUser];
     self.devicePeerID = [[MCPeerID alloc] initWithDisplayName:user.username];
     self.mySession = [[MCSession alloc] initWithPeer:self.devicePeerID];
     self.mySession.delegate = self;
-    self.advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"symeetry-txtchat" discoveryInfo:nil session:self.mySession];
+    self.advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"chat-txtchat" discoveryInfo:nil session:self.mySession];
     self.advertiserAssistant.delegate = self;
-    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.devicePeerID serviceType:@"symeetry-txtchat"];
+    [self.advertiserAssistant start];
+    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.devicePeerID serviceType:@"chat-txtchat"];
     self.browser.delegate = self;
+    [self checkinChat];
 }
 
 -(instancetype)initWithConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(NSData* data))gotMessage;
@@ -49,6 +58,7 @@
 //    MCBrowserViewController* browserVC = [[MCBrowserViewController alloc]initWithBrowser:browser session:self.mySession];
 //    browserVC.delegate = self;
     [self.browser invitePeer:peer toSession:self.mySession withContext:nil timeout:20];
+    self.invited = NO;
     completionBlock();
 }
 
@@ -96,6 +106,10 @@
     return correctPeer;
 }
 
+-(void)acceptedInvite
+{
+    [self.currentViewController performSegueWithIdentifier:self.segueToChatRoom.identifier sender:self.currentViewController];
+}
 
 #pragma mark -- Browser
 
@@ -132,6 +146,7 @@
 
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didReceiveInvitationFromPeer:(MCPeerID *)peerID withContext:(NSData *)context invitationHandler:(void (^)(BOOL, MCSession *))invitationHandler
 {
+    self.invited = YES;
     invitationHandler(YES, self.mySession);
     
 }
@@ -180,7 +195,14 @@
             
             NSLog(@"Connecting to %@", peerID.displayName);
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.connecting();
+                if (self.invited) {
+                    [self acceptedInvite];
+                    self.connecting();
+
+                }
+                else{
+                    self.connecting();
+                }
             });
             
             break;

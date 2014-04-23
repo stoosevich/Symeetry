@@ -24,19 +24,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
 
 @property ChatManager* chat;
+@property ChatRoomViewController* cRVC;
+
 
 @end
 
 @implementation ProfileViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -83,6 +76,10 @@
     self.emailTextField.enabled = [ParseManager isCurrentUser:self.user];
     
     [self.view addSubview:self.headerView];
+    self.cRVC = [ChatRoomViewController new];
+    UIStoryboardSegue* invitedSegue = [UIStoryboardSegue segueWithIdentifier:@"AcceptedInviteSegue" source:self destination:self.cRVC performHandler:^{
+    }];
+    [self.chat setViewController:self segue:invitedSegue];
 }
 
 - (IBAction)onChatButtonPressed:(id)sender
@@ -97,8 +94,8 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"ChatRoomSegue"]) {
-        ChatRoomViewController* cRVC = segue.destinationViewController;
-        cRVC.peerID = [self.chat findCorrectPeer:self.user];
+        self.cRVC = segue.destinationViewController;
+        self.cRVC.peerID = [self.chat findCorrectPeer:self.user];
     }
     
 }
