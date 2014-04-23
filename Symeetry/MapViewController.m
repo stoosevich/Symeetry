@@ -2,8 +2,8 @@
 //  MapViewController.m
 //  Symeetry
 //
-//  Created by user on 4/18/14.
-//  Copyright (c) 2014 Steve Toosevich. All rights reserved.
+//  Created by Symeetry Team on 4/18/14.
+//  Copyright (c) 2014 SSymeetry Team. All rights reserved.
 //
 
 #import <MapKit/MapKit.h>

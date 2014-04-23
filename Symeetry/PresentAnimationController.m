@@ -10,8 +10,7 @@
 
 @implementation PresentAnimationController
 
-- (NSTimeInterval)transitionDuration:
-(id <UIViewControllerContextTransitioning>)transitionContext
+- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext
 {
     return 1.5;
 }
@@ -29,7 +28,6 @@
     
     CGRect finalFrame = [transitionContext
                          finalFrameForViewController:toViewController];
-    
     
     
     // 2. obtain the container view

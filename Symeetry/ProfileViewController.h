@@ -2,8 +2,8 @@
 //  ProfileViewController.h
 //  Symeetry
 //
-//  Created by Steve Toosevich on 4/14/14.
-//  Copyright (c) 2014 Steve Toosevich. All rights reserved.
+//  Created by Symeetry Team on 4/14/14.
+//  Copyright (c) 2014 Symeetry Team. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

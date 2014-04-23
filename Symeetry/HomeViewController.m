@@ -2,8 +2,7 @@
 //  ViewController.m
 //  Symeetry
 //
-//  Created by Steve Toosevich on 4/14/14.
-//  Copyright (c) 2014 Steve Toosevich. All rights reserved.
+//  Copyright (c) 2014 Symeetry Team. All rights reserved.
 //
 
 #import <CoreLocation/CoreLocation.h>
@@ -15,8 +14,11 @@
 #import "ProfileViewController.h"
 #import "Defaults.h"
 #import "MapViewController.h"
+#import "PresentAnimationController.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
+
+@property PresentAnimationController* presentAnimationController;
 
 @property CLLocationManager* locationManager;
 @property NSMutableDictionary* beacons;
@@ -37,6 +39,24 @@
 @implementation HomeViewController
 
 
+//ensures that the custom animation controller is available when the storyboard
+//initializes the view controller
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder])
+    {
+        _presentAnimationController = [PresentAnimationController new];
+    }
+    return self;
+}
+
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:
+(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC
+toViewController:(UIViewController *)toVC
+{
+    return _presentAnimationController;
+}
 
 - (void)viewDidLoad
 {
@@ -46,6 +66,9 @@
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    
+    //required for the custom animations
+    self.navigationController.delegate = self;
     
     //initialize required data structures
     self.beacons = [NSMutableDictionary new];
@@ -302,15 +325,14 @@
     if ([[segue identifier] isEqualToString:@"showProfileView"])
     {
         NSIndexPath *indexPath = [self.homeTableView indexPathForSelectedRow];
-        ProfileViewController *viewController = segue.destinationViewController;
+        ProfileViewController* viewController = segue.destinationViewController;
         viewController.user = self.users[indexPath.row];
-        ProfileViewController *toVC = segue.destinationViewController;
-        toVC.transitioningDelegate = self;
+        viewController.transitioningDelegate = self;
     }
-    else if ([[segue identifier] isEqualToString:@"showMapView"])
+    else if ([[segue identifier] isEqualToString:@"showMapVIew"])
     {
-        MapViewController *toVC = segue.destinationViewController;
-        toVC.transitioningDelegate = self;
+        MapViewController* viewController = segue.destinationViewController;
+        viewController.transitioningDelegate = self;
     }
 }
 
