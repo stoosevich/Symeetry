@@ -302,7 +302,7 @@ toViewController:(UIViewController *)toVC
         viewController.user = self.users[indexPath.row];
         viewController.transitioningDelegate = self;
     }
-    else if ([[segue identifier] isEqualToString:@"showMapVIew"])
+    else if ([[segue identifier] isEqualToString:@"showMapView"])
     {
         MapViewController* viewController = segue.destinationViewController;
         viewController.transitioningDelegate = self;

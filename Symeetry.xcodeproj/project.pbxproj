@@ -52,6 +52,8 @@
 		81B2848A18FD9C2100A27224 /* Food_crop.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81B2848918FD9C2100A27224 /* Food_crop.jpg */; };
 		81B2848C18FD9C2D00A27224 /* movies_crop.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81B2848B18FD9C2D00A27224 /* movies_crop.jpg */; };
 		81B2848E18FD9C4100A27224 /* Music_crop.png in Resources */ = {isa = PBXBuildFile; fileRef = 81B2848D18FD9C4100A27224 /* Music_crop.png */; };
+		CE3EC3A7190803DE00DCB671 /* MapCallOutView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EC3A6190803DE00DCB671 /* MapCallOutView.m */; };
+		CE3EC3A9190806BC00DCB671 /* MapCallOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */; };
 		CE562EC718FCCF7F00DDB3D3 /* dennis.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */; };
 		CE562EC918FCD11900DDB3D3 /* charles.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC818FCD11900DDB3D3 /* charles.jpg */; };
 		CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562ECA18FCD13F00DDB3D3 /* steve.jpg */; };
@@ -137,6 +139,9 @@
 		81B2848918FD9C2100A27224 /* Food_crop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Food_crop.jpg; path = Symeetry/Food_crop.jpg; sourceTree = "<group>"; };
 		81B2848B18FD9C2D00A27224 /* movies_crop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = movies_crop.jpg; path = Symeetry/movies_crop.jpg; sourceTree = "<group>"; };
 		81B2848D18FD9C4100A27224 /* Music_crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Music_crop.png; path = Symeetry/Music_crop.png; sourceTree = "<group>"; };
+		CE3EC3A5190803DE00DCB671 /* MapCallOutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapCallOutView.h; path = Symeetry/MapCallOutView.h; sourceTree = "<group>"; };
+		CE3EC3A6190803DE00DCB671 /* MapCallOutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapCallOutView.m; path = Symeetry/MapCallOutView.m; sourceTree = "<group>"; };
+		CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapCallOutView.xib; path = ../MapCallOutView.xib; sourceTree = "<group>"; };
 		CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dennis.jpg; path = Symeetry/dennis.jpg; sourceTree = "<group>"; };
 		CE562EC818FCD11900DDB3D3 /* charles.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = charles.jpg; path = Symeetry/charles.jpg; sourceTree = "<group>"; };
 		CE562ECA18FCD13F00DDB3D3 /* steve.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = steve.jpg; path = Symeetry/steve.jpg; sourceTree = "<group>"; };
@@ -230,6 +235,8 @@
 			children = (
 				CE6748641901D58600F05121 /* Defaults.h */,
 				CE6748651901D58600F05121 /* Defaults.m */,
+				CE3EC3A5190803DE00DCB671 /* MapCallOutView.h */,
+				CE3EC3A6190803DE00DCB671 /* MapCallOutView.m */,
 				CE7D935B190725BF00F3EDC0 /* ChatManager.h */,
 				CE7D935C190725BF00F3EDC0 /* ChatManager.m */,
 				CE7D9361190729C700F3EDC0 /* PresentAnimationController.h */,
@@ -324,6 +331,7 @@
 				CE66E60C1904639900C295E0 /* Images.xcassets */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
 				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
+				CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */,
 				81AB5B0F18FC85890060B17A /* Supporting Files */,
 			);
 			path = Symeetry;
@@ -442,6 +450,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3EC3A9190806BC00DCB671 /* MapCallOutView.xib in Resources */,
 				CE65D5E8190758BC00C74DFD /* greenriver.jpg in Resources */,
 				CE562EC718FCCF7F00DDB3D3 /* dennis.jpg in Resources */,
 				CE66E60D1904639900C295E0 /* Images.xcassets in Resources */,
@@ -489,6 +498,7 @@
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
 				CE893D8919022CAF000260A4 /* MapViewController.m in Sources */,
+				CE3EC3A7190803DE00DCB671 /* MapCallOutView.m in Sources */,
 				CE6748661901D58600F05121 /* Defaults.m in Sources */,
 				818829FB18FC87F300724B79 /* ProfileViewController.m in Sources */,
 				56322D5618FF265B004EF55D /* LoginViewController.m in Sources */,

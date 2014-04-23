@@ -55,7 +55,7 @@
     if(state == CLRegionStateInside && ![self.regionsMonitored containsObject:region.identifier])
     {
         notification.alertBody = [NSString stringWithFormat:@"iBeacon found %@",region.identifier];
-        notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
+        //notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
         
         [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
         
