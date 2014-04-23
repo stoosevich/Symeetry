@@ -57,7 +57,7 @@
         notification.alertBody = [NSString stringWithFormat:@"iBeacon found %@",region.identifier];
         //notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
         
-        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+        //[[UIApplication sharedApplication] presentLocalNotificationNow:notification];
         
         //create dictionary to pass the region identifier and state
         NSDictionary* notificationInfo = @{@"identifier":region.identifier, @"state":@"CLRegionStateInside"};
