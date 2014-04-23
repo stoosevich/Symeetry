@@ -225,7 +225,7 @@
         <!--Chat Room View Controller-->
         <scene sceneID="pvU-go-2N8">
             <objects>
-                <viewController id="gon-vt-Fhm" customClass="ChatRoomViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatRoomStoryBoardID" id="gon-vt-Fhm" customClass="ChatRoomViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="87X-J2-zGp"/>
                         <viewControllerLayoutGuide type="bottom" id="nji-Fd-O4S"/>

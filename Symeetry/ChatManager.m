@@ -15,7 +15,7 @@
 
 @property MCPeerID* userBasedPeerID;
 //@property ChatManager* chatMang;
-@property NSMutableArray* users;
+@property NSMutableSet* users;
 @property BOOL invited;
 
 @end
@@ -42,7 +42,7 @@
 -(void)setPeerID
 {
     PFUser* user = [ParseManager currentUser];
-    self.users = [NSMutableArray new];
+    self.users = [NSMutableSet new];
     self.devicePeerID = [[MCPeerID alloc] initWithDisplayName:user.username];
     self.mySession = [[MCSession alloc] initWithPeer:self.devicePeerID];
     self.mySession.delegate = self;
@@ -141,7 +141,7 @@
     
     [self.users removeObject:peerID];
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.lostConnection();
+        //self.lostConnection();
     });
 }
 
@@ -200,9 +200,12 @@
             
             NSLog(@"Connected to %@", peerID.displayName);
             dispatch_async(dispatch_get_main_queue(), ^{
-                ChatRoomViewController* cRVC = [ChatRoomViewController new];
+                UIStoryboard *sb = [UIApplication sharedApplication].keyWindow.rootViewController.storyboard;
+                ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
                 cRVC.peerID = self.friendPeerID;
-                [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:cRVC animated:YES completion:^{
+                id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+                vc = [vc presentedViewController];
+                [vc presentViewController:cRVC animated:YES completion:^{
                     NSLog(@"worked");
                 }];
                 //self.connected();
@@ -213,12 +216,12 @@
             
             NSLog(@"Connecting to %@", peerID.displayName);
             dispatch_async(dispatch_get_main_queue(), ^{
-                ChatRoomViewController* cRVC = [ChatRoomViewController new];
-                cRVC.peerID = self.friendPeerID;
-                [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:cRVC animated:YES completion:^{
-                    NSLog(@"worked");
-                }];
-                self.connecting();
+//                ChatRoomViewController* cRVC = [ChatRoomViewController new];
+//                cRVC.peerID = self.friendPeerID;
+//                [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:cRVC animated:YES completion:^{
+//                    NSLog(@"worked");
+//                }];
+//                self.connecting();
             });
             
             break;
