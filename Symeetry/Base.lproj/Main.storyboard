@@ -240,7 +240,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ypA-Xb-Tqv">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatRoomCellID" id="ypA-Xb-Tqv">
                                         <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ypA-Xb-Tqv" id="yYj-3u-5d0">
@@ -249,6 +249,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="gon-vt-Fhm" id="7at-wA-gEU"/>
+                                    <outlet property="delegate" destination="gon-vt-Fhm" id="lth-4a-dk4"/>
+                                </connections>
                             </tableView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vee-NS-WyR">
                                 <rect key="frame" x="0.0" y="66" width="320" height="30"/>
@@ -264,6 +268,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="gD9-So-Dh5"/>
                     <connections>
+                        <outlet property="chatRoomTableView" destination="Qdp-Xb-MWK" id="zIk-dq-JNG"/>
                         <outlet property="chatRoomTextField" destination="vee-NS-WyR" id="9lV-EO-lFO"/>
                     </connections>
                 </viewController>

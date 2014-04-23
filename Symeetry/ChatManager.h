@@ -19,10 +19,10 @@
 @property (nonatomic, copy) void (^connected)(void);
 @property (nonatomic, copy) void (^connecting)(void);
 @property (nonatomic, copy) void (^lostConnection)(void);
-@property (nonatomic, copy) void (^gotMessage)(void);
+@property (nonatomic, copy) void (^gotMessage)(NSData* data);
 
 -(void)setPeerID;
--(instancetype)initWithConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(void))gotMessage;
+-(instancetype)initWithConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(NSData* data))gotMessage;
 -(void)inviteToChat:(MCPeerID*)peer completedBlock:(void(^)(void))completionBlock;
 -(void)checkoutChat;
 -(void)checkinChat;
