@@ -101,7 +101,7 @@
     headerView.nameTextField.text = annotation.user.username;
     headerView.nameTextField.backgroundColor = [UIColor whiteColor];
     
-    PFFile* file = annotation.user[@"photo"];
+    PFFile* file = annotation.user[@"thumbnail"];
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
     {
         UIImage* image = [UIImage imageWithData:data];
