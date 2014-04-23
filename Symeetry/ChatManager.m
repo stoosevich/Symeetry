@@ -34,7 +34,7 @@
     self.browser.delegate = self;
 }
 
--(instancetype)initWithConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(void))gotMessage;
+-(instancetype)initWithConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(NSData* data))gotMessage;
 {
     self.connected = connected;
     self.connecting = connecting;
@@ -156,7 +156,7 @@
 -(void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.gotMessage();
+        self.gotMessage(data);
     });
 }
 
