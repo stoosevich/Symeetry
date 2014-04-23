@@ -31,6 +31,9 @@
 {
     [super viewDidLoad];
     [self loadHeaderView];
+ //   self.interestsCollectionView.backgroundColor = [UIColor orangeColor];
+
+    self.interestsCollectionView.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f blue:217.f/255.f alpha:1];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"interests" ofType:@"plist"];
     NSMutableDictionary *interestNamesDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:path];
@@ -100,7 +103,10 @@
 
     cell.imageView.image = self.images[indexPath.row];
     cell.interestTextField.text = self.interestNames[indexPath.row];
-    cell.backgroundView.backgroundColor = [UIColor redColor];
+    cell.backgroundView.backgroundColor = [UIColor grayColor];
+  //  cell.backgroundColor = [UIColor blueColor];
+ //   cell.backgroundColor = [UIColor colorWithRed:186 green:228 blue:217 alpha:1];
+    
     return cell;
 }
 
