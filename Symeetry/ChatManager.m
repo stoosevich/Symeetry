@@ -32,6 +32,7 @@
     self.advertiserAssistant.delegate = self;
     self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.devicePeerID serviceType:@"symeetry-txtchat"];
     self.browser.delegate = self;
+    [self checkinChat];
 }
 
 -(instancetype)initWithConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(NSData* data))gotMessage;

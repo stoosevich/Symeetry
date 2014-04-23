@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "Parse/Parse.h"
 #import "ParseManager.h"
+#import "ChatManager.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -51,6 +52,11 @@
 {
     [textField endEditing:YES];
     return YES;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    ChatManager* chat = [ChatManager new];
+    [chat setPeerID];
 }
 
 @end
