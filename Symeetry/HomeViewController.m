@@ -226,6 +226,10 @@ toViewController:(UIViewController *)toVC
     //create a temporary region since we cannot pass the region object in the notification user info
     CLBeaconRegion* region = [[CLBeaconRegion alloc]initWithProximityUUID:uuid identifier:[uuid UUIDString]];
 
+    NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
+    
+    [self showRegionStateAlertScreen:formatString];
+    
     //make sure the region is not empty first
     if(region)
     {
@@ -276,13 +280,14 @@ toViewController:(UIViewController *)toVC
     
     
     NSString* formatString = [NSString stringWithFormat:@"%@ %@",user.username,[user[@"similarityIndex"] description]];
+    
     NSString *beaconFormatString = NSLocalizedString(@"UUID: %@ Major: %@, Minor: %@, Acc: %.2fm", @"Format string for ranging table cells.");
     
     //show user name and ranking
-    cell.detailTextLabel.text = formatString;
+    cell.detailTextLabel.text = [NSString stringWithFormat:beaconFormatString,[self.nearestBeacon.proximityUUID UUIDString], self.nearestBeacon.major, self.nearestBeacon.minor, self.nearestBeacon.accuracy];
     
     //show beacon information
-    cell.textLabel.text = [NSString stringWithFormat:beaconFormatString,[self.nearestBeacon.proximityUUID UUIDString], self.nearestBeacon.major, self.nearestBeacon.minor, self.nearestBeacon.accuracy];
+    cell.textLabel.text = formatString;
     
     //cell.detailTextLabel.text = @"likes and interests";
     PFFile* file = [user objectForKey:@"thumbnail"];
@@ -399,6 +404,12 @@ toViewController:(UIViewController *)toVC
         //if there are beacons, update our list of beacons
         if([proximityBeacons count])
         {
+            if (![self.activeRegions containsObject:region])
+            {
+                [self.activeRegions addObject:region];
+                [self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+                NSLog(@"active regions %@", self.activeRegions);
+            }
             //store the beacons by proximity for each range in the beacon dictionary.
             //The dictionary holds an array of beacons by their proximity
             self.beacons[range] = proximityBeacons;
@@ -611,10 +622,8 @@ toViewController:(UIViewController *)toVC
                 {
                     //call a block function to calculate the similarity of the two users
                     user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUserInterests,otherUserInterests)];
-                    //NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
                 }
             }
-            
         }];
     };
 
@@ -624,12 +633,12 @@ toViewController:(UIViewController *)toVC
          
          //sort the array using a block comparator
          
-         if (objects)
+         if (objects.count)
          {
              self.users = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
                            {
                                //covert each object to a PFObject and retrieve the similarity index
-                               NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
+                               NSNumber *first =  ((PFObject*) user1)[@"similarityIndex"];
                                NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
                                return [second compare:first];
                            }];
@@ -637,6 +646,21 @@ toViewController:(UIViewController *)toVC
      }];
 }
 
+//- (void)sortUsersBySimilarity:^()
+//{
+//    
+//}
+- (void)sortUserBySimilarity
+{
+    self.users = [self.users sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
+                  {
+                      //covert each object to a PFObject and retrieve the similarity index
+                      NSNumber *first =  ((PFObject*) user1)[@"similarityIndex"];
+                      NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
+                      return [second compare:first];
+                  }];
+
+}
 //
 //- (void)updateUserProfile
 //{
