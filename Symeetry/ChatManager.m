@@ -203,7 +203,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIStoryboard *sb = [UIApplication sharedApplication].keyWindow.rootViewController.storyboard;
                 ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
-                cRVC.peerID = self.friendPeerID;
+                cRVC.peerID = peerID;
                 id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
                 vc = [vc presentedViewController];
                 [vc presentViewController:cRVC animated:YES completion:^{
