@@ -37,14 +37,8 @@
 
 - (IBAction)onLoginButtonPressed:(id)sender
 {
-    [ParseManager logInOrSignUp:self.usernameTextField.text
-                       password:self.passwordTextField.text
-                     comfirming:self.comfirmPasswordTextField.text
-                          email:self.emailTextField.text
-                completionBlock:^{
-                    
+    [ParseManager logIn:self.usernameTextField.text password:self.passwordTextField.text completionBlock:^{
         [self performSegueWithIdentifier:@"LoginSegue" sender:self];
-
     }];
 }
 

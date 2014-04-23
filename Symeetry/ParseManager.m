@@ -50,26 +50,12 @@
  * Signs the user up if they are new
  * Logs the new user in
  */
-+(void)logInOrSignUp:(NSString*)username
++(void)logIn:(NSString*)username
             password:(NSString*)password
-          comfirming:(NSString*)comfirmPassword
-               email:(NSString*)email
      completionBlock:(void (^)(void))completionBlock
 {
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
         if (error) {
-            if ([password isEqualToString:comfirmPassword])
-            {
-                PFUser* newUser = [PFUser new];
-                [newUser setUsername:username];
-                [newUser setPassword:password];
-                [newUser setEmail:email];
-                [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    if (succeeded) {
-                        completionBlock();
-                    }
-                }];
-            }
             
         }
         else {
