@@ -15,6 +15,7 @@
 #import "Defaults.h"
 #import "MapViewController.h"
 #import "PresentAnimationController.h"
+#import "ChatManager.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
 
@@ -61,6 +62,7 @@ toViewController:(UIViewController *)toVC
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[ChatManager sharedChatManager] setPeerID];
     [self loadHeaderView];
     
     self.locationManager = [[CLLocationManager alloc]init];

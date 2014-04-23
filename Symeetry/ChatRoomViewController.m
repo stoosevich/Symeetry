@@ -11,7 +11,6 @@
 
 @interface ChatRoomViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *chatRoomTextField;
-@property ChatManager* chat;
 @property NSMutableArray* chatMessages;
 @property (weak, nonatomic) IBOutlet UITableView *chatRoomTableView;
 
@@ -23,7 +22,7 @@
 {
     self.chatMessages = [NSMutableArray new];
     [super viewDidLoad];
-    self.chat = [[ChatManager alloc] initWithConnectedblock:^{
+    [[ChatManager sharedChatManager] setConnectedblock:^{
         
         
         
@@ -65,7 +64,7 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     NSError* error;
-    [self.chat sendMessage:self.chatRoomTextField.text peer:self.peerID error:error sent:^{
+    [[ChatManager sharedChatManager] sendMessage:self.chatRoomTextField.text peer:self.peerID error:error sent:^{
         NSDictionary* message = @{@"sender": [[PFUser currentUser]username], @"messageText": self.chatRoomTextField.text};
         [self.chatMessages addObject:message];
         [self.chatRoomTableView reloadData];

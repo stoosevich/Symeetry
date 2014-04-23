@@ -7,6 +7,7 @@
 //
 
 #import "ChatManager.h"
+#import "ChatRoomViewController.h"
 
 
 
@@ -21,13 +22,22 @@
 
 @implementation ChatManager
 
++ (instancetype)sharedChatManager {
+    static ChatManager *manager = nil;
+    if (!manager)
+    {
+        manager = [ChatManager new];
+    }
+    return manager;
+}
+
 #pragma mark -- Helper Methods
 
--(void)setViewController:(id)viewContoller segue:(UIStoryboardSegue*)segue
-{
-    self.currentViewController = viewContoller;
-    self.segueToChatRoom = segue;
-}
+//-(void)setViewController:(id)viewContoller segue:(UIStoryboardSegue*)segue
+//{
+//    self.currentViewController = viewContoller;
+//    self.segueToChatRoom = segue;
+//}
 
 -(void)setPeerID
 {
@@ -43,13 +53,12 @@
     [self checkinChat];
 }
 
--(instancetype)initWithConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(NSData* data))gotMessage;
+-(void)setConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(NSData* data))gotMessage;
 {
     self.connected = connected;
     self.connecting = connecting;
     self.lostConnection = lostConnection;
     self.gotMessage = gotMessage;
-    return self;
 }
 
 -(void)inviteToChat:(MCPeerID*)peer completedBlock:(void(^)(void))completionBlock
@@ -96,20 +105,20 @@
 
 -(MCPeerID*)findCorrectPeer:(PFUser*)user
 {
-    MCPeerID* correctPeer;
+    //MCPeerID* correctPeer;
     for (MCPeerID*peer in self.users) {
         if ([peer.displayName isEqualToString:user.username]) {
-            correctPeer = peer;
+            self.friendPeerID = peer;
             break;
         }
     }
-    return correctPeer;
+    return self.friendPeerID;
 }
 
--(void)acceptedInvite
-{
-    [self.currentViewController performSegueWithIdentifier:self.segueToChatRoom.identifier sender:self.currentViewController];
-}
+//-(void)acceptedInvite
+//{
+//    [self.currentViewController performSegueWithIdentifier:self.segueToChatRoom.identifier sender:self.currentViewController];
+//}
 
 #pragma mark -- Browser
 
@@ -195,14 +204,12 @@
             
             NSLog(@"Connecting to %@", peerID.displayName);
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (self.invited) {
-                    [self acceptedInvite];
-                    self.connecting();
-
-                }
-                else{
-                    self.connecting();
-                }
+                ChatRoomViewController* cRVC = [ChatRoomViewController new];
+                cRVC.peerID = self.friendPeerID;
+                [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:cRVC animated:YES completion:^{
+                    NSLog(@"worked");
+                }];
+                self.connecting();
             });
             
             break;

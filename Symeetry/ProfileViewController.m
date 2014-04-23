@@ -34,7 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.chat = [ChatManager new];
     
     if ([ParseManager isCurrentUser:self.user]) {
         self.changeRelationShipButton.hidden = NO;
@@ -76,29 +75,25 @@
     self.emailTextField.enabled = [ParseManager isCurrentUser:self.user];
     
     [self.view addSubview:self.headerView];
-    self.cRVC = [ChatRoomViewController new];
-    UIStoryboardSegue* invitedSegue = [UIStoryboardSegue segueWithIdentifier:@"AcceptedInviteSegue" source:self destination:self.cRVC performHandler:^{
-    }];
-    [self.chat setViewController:self segue:invitedSegue];
 }
 
 - (IBAction)onChatButtonPressed:(id)sender
 {
-    [self.chat inviteToChat:[self.chat findCorrectPeer:self.user] completedBlock:^{
-        [self performSegueWithIdentifier:@"ChatRoomSegue" sender:self];
-        NSLog(@"Invited %@", self.user.username);
+    [[ChatManager sharedChatManager] inviteToChat:[[ChatManager sharedChatManager] findCorrectPeer:self.user] completedBlock:^{
+//        [self performSegueWithIdentifier:@"ChatRoomSegue" sender:self];
+//        NSLog(@"Invited %@", self.user.username);
     }];
     
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"ChatRoomSegue"]) {
-        self.cRVC = segue.destinationViewController;
-        self.cRVC.peerID = [self.chat findCorrectPeer:self.user];
-    }
-    
-}
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([segue.identifier isEqualToString:@"ChatRoomSegue"]) {
+//        self.cRVC = segue.destinationViewController;
+//        self.cRVC.peerID = [self.chat findCorrectPeer:self.user];
+//    }
+//    
+//}
 
 
 - (IBAction)onChangeRelationShipButtonPressed:(id)sender

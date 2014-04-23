@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kCY-ya-teT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kCY-ya-teT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -216,8 +216,6 @@
                         <outlet property="emailTextField" destination="0Df-Ri-1dW" id="Cgq-yu-uP7"/>
                         <outlet property="homeTownTextField" destination="1CV-We-u3d" id="T7d-8z-pOg"/>
                         <outlet property="relationShipLabel" destination="Hq9-un-zVm" id="fvh-5y-Xjx"/>
-                        <segue destination="gon-vt-Fhm" kind="push" identifier="ChatRoomSegue" id="NFh-9j-Kgx"/>
-                        <segue destination="gon-vt-Fhm" kind="push" identifier="AcceptedInviteSegue" id="mEQ-fC-OR5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gWp-03-FT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -242,7 +240,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatRoomCellID" id="ypA-Xb-Tqv">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ypA-Xb-Tqv" id="yYj-3u-5d0">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -571,7 +569,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="mEQ-fC-OR5"/>
-    </inferredMetricsTieBreakers>
 </document>
