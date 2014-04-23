@@ -200,7 +200,12 @@
             
             NSLog(@"Connected to %@", peerID.displayName);
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.connected();
+                ChatRoomViewController* cRVC = [ChatRoomViewController new];
+                cRVC.peerID = self.friendPeerID;
+                [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:cRVC animated:YES completion:^{
+                    NSLog(@"worked");
+                }];
+                //self.connected();
             });
             break;
             
