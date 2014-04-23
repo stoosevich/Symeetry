@@ -2,8 +2,8 @@
 //  BlueToothManager.m
 //  Symeetry
 //
-//  Created by user on 4/15/14.
-//  Copyright (c) 2014 Steve Toosevich. All rights reserved.
+//  Created by Symeetry Team on 4/15/14.
+//  Copyright (c) 2014 Symeetry Team. All rights reserved.
 //
 
 #import "BlueToothManager.h"
