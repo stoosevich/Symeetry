@@ -284,8 +284,10 @@
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
     [query whereKey:@"userid" equalTo:user.objectId];
+    
     NSArray* result = [query findObjects];
-    NSDictionary* dict  = [ParseManager convertPFObjectToNSDictionary:result.firstObject];
+    PFObject* interests = result.firstObject;
+    NSDictionary* dict  = [ParseManager convertPFObjectToNSDictionary:interests];
     return dict;
 }
 
