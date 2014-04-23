@@ -20,7 +20,10 @@
 @property (nonatomic, copy) void (^connecting)(void);
 @property (nonatomic, copy) void (^lostConnection)(void);
 @property (nonatomic, copy) void (^gotMessage)(NSData* data);
+@property id currentViewController;
+@property UIStoryboardSegue* segueToChatRoom;
 
+-(void)setViewController:(id)viewContoller segue:(UIStoryboardSegue*)segue;
 -(void)setPeerID;
 -(instancetype)initWithConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(NSData* data))gotMessage;
 -(void)inviteToChat:(MCPeerID*)peer completedBlock:(void(^)(void))completionBlock;
@@ -29,6 +32,8 @@
 -(void)sendMessage:(NSString*)message peer:(MCPeerID*)peer error:(NSError*)error sent:(void(^)(void))sent;
 -(void)disconnect:(MCPeerID*)peer;
 -(MCPeerID*)findCorrectPeer:(PFUser*)user;
+-(void)acceptedInvite;
+
 
 
 @end
