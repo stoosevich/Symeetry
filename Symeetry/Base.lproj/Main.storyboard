@@ -217,11 +217,12 @@
                         <outlet property="homeTownTextField" destination="1CV-We-u3d" id="T7d-8z-pOg"/>
                         <outlet property="relationShipLabel" destination="Hq9-un-zVm" id="fvh-5y-Xjx"/>
                         <segue destination="gon-vt-Fhm" kind="push" identifier="ChatRoomSegue" id="NFh-9j-Kgx"/>
+                        <segue destination="gon-vt-Fhm" kind="push" identifier="AcceptedInviteSegue" id="mEQ-fC-OR5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gWp-03-FT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1079" y="123"/>
+            <point key="canvasLocation" x="1291" y="-349"/>
         </scene>
         <!--Chat Room View Controller-->
         <scene sceneID="pvU-go-2N8">
@@ -274,7 +275,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jgL-fa-Xcy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1511" y="123"/>
+            <point key="canvasLocation" x="1990" y="148"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="zHu-HH-bZ5">
@@ -559,4 +560,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="mEQ-fC-OR5"/>
+    </inferredMetricsTieBreakers>
 </document>
