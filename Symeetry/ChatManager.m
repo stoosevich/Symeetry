@@ -42,6 +42,7 @@
 -(void)setPeerID
 {
     PFUser* user = [ParseManager currentUser];
+    self.users = [NSMutableArray new];
     self.devicePeerID = [[MCPeerID alloc] initWithDisplayName:user.username];
     self.mySession = [[MCSession alloc] initWithPeer:self.devicePeerID];
     self.mySession.delegate = self;
@@ -129,12 +130,15 @@
 
 -(void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
 {
-    [self.users addObject:peerID];
+    MCPeerID* foundPeer = peerID;
+    [self.users addObject:foundPeer];
     NSLog(@"%@", peerID.displayName);
+    NSLog(@"%lu", (unsigned long)self.users.count);
 }
 
 -(void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID
 {
+    
     [self.users removeObject:peerID];
     dispatch_async(dispatch_get_main_queue(), ^{
         self.lostConnection();

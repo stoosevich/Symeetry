@@ -54,9 +54,4 @@
     return YES;
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ChatManager* chat = [ChatManager new];
-    [chat setPeerID];
-}
-
 @end
