@@ -160,6 +160,7 @@
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didReceiveInvitationFromPeer:(MCPeerID *)peerID withContext:(NSData *)context invitationHandler:(void (^)(BOOL, MCSession *))invitationHandler
 {
     self.invited = YES;
+    self.friendPeerID = peerID;
     invitationHandler(YES, self.mySession);
     
 }
