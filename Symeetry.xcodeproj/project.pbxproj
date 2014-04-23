@@ -58,7 +58,6 @@
 		CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */; };
 		CE65D5E8190758BC00C74DFD /* greenriver.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5E7190758BC00C74DFD /* greenriver.jpg */; };
 		CE65D5EA1907591100C74DFD /* trainstation.JPG in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5E91907591100C74DFD /* trainstation.JPG */; };
-		CE65D5EC1907592B00C74DFD /* venus.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5EB1907592B00C74DFD /* venus.jpg */; };
 		CE65D5EE1907593E00C74DFD /* statue1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5ED1907593E00C74DFD /* statue1.jpg */; };
 		CE66E60D1904639900C295E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE66E60C1904639900C295E0 /* Images.xcassets */; };
 		CE6748661901D58600F05121 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6748651901D58600F05121 /* Defaults.m */; };
@@ -145,7 +144,6 @@
 		CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlueToothManager.m; path = Symeetry/BlueToothManager.m; sourceTree = "<group>"; };
 		CE65D5E7190758BC00C74DFD /* greenriver.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = greenriver.jpg; path = Symeetry/greenriver.jpg; sourceTree = "<group>"; };
 		CE65D5E91907591100C74DFD /* trainstation.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = trainstation.JPG; path = Symeetry/trainstation.JPG; sourceTree = "<group>"; };
-		CE65D5EB1907592B00C74DFD /* venus.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = venus.jpg; path = "/Users/user/Pictures/iPhoto Library/Previews/2014/01/25/20140125-181140/d1Im0m2bSuaPcTyiEPvK9A/venus.jpg"; sourceTree = "<absolute>"; };
 		CE65D5ED1907593E00C74DFD /* statue1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = statue1.jpg; path = Symeetry/statue1.jpg; sourceTree = "<group>"; };
 		CE66E60C1904639900C295E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE6748641901D58600F05121 /* Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defaults.h; path = Symeetry/Defaults.h; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 				CE562ECA18FCD13F00DDB3D3 /* steve.jpg */,
 				CE562EC818FCD11900DDB3D3 /* charles.jpg */,
 				CE65D5E7190758BC00C74DFD /* greenriver.jpg */,
-				CE65D5EB1907592B00C74DFD /* venus.jpg */,
 				CE65D5E91907591100C74DFD /* trainstation.JPG */,
 				CE65D5ED1907593E00C74DFD /* statue1.jpg */,
 				CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */,
@@ -457,7 +454,6 @@
 				81AB5B1C18FC85890060B17A /* Main.storyboard in Resources */,
 				81A3098A190030CB00963305 /* dancing.jpg in Resources */,
 				81B2848E18FD9C4100A27224 /* Music_crop.png in Resources */,
-				CE65D5EC1907592B00C74DFD /* venus.jpg in Resources */,
 				81A30990190030CB00963305 /* technology.jpg in Resources */,
 				81A3098B190030CB00963305 /* fashion.jpg in Resources */,
 				CE65D5EA1907591100C74DFD /* trainstation.JPG in Resources */,
