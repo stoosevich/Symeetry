@@ -574,23 +574,29 @@ toViewController:(UIViewController *)toVC
      */
     void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     {
-        NSDictionary* currentUser = [ParseManager getInterest:[PFUser currentUser]];
-        NSDictionary* otherUser = nil;
+        //NSDictionary* currentUser =
         
-        for(PFObject* user in userObjects)
+        [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
         {
-            //get the interest for each user in the list of objects returned from the search
-            otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
+            NSDictionary* currentUser = objects.firstObject;
             
-            //only calculate the similarity if there other user has intersts
-            if(otherUser)
+            NSDictionary* otherUser = nil;
+            
+            for(PFObject* user in userObjects)
             {
-                //call a block function to calculate the similarity of the two users
-                user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
-                //NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
+                //get the interest for each user in the list of objects returned from the search
+                otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
+                
+                //only calculate the similarity if there other user has intersts
+                if(otherUser)
+                {
+                    //call a block function to calculate the similarity of the two users
+                    user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
+                    //NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
+                }
             }
-        }
-        
+            
+        }];
     };
 
     [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
@@ -608,48 +614,48 @@ toViewController:(UIViewController *)toVC
      }];
 }
 
-
-- (void)updateUserProfile
-{
-    [PFUser logOut];
-    
-    PFUser *user = [PFUser logInWithUsername:@"dennis" password:@"password"];
-    
-    UIImage* image = [UIImage imageNamed:@"dennis.jpg"];
-    UIImage* resizedImage = [self resizeImage:image toWidth:40.0f andHeight:40.0f];
-    
-    NSData* imageData = UIImageJPEGRepresentation(image, 0.8);
-    NSData* thumbnailData = UIImageJPEGRepresentation(resizedImage, 0.8);
-    
-    PFFile* file = [PFFile fileWithData:imageData];
-    PFFile* thumbnailFile = [PFFile fileWithData:thumbnailData];
-    
-    //user[@"photo"] = file;
-    user[@"thumbnail"] = thumbnailFile;
-    
-    NSLog(@"image saving");
-    
-    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-        if (error) {
-            NSLog(@"%@",[error userInfo]);
-        }
-        
-        
-    }];
-    
-    
-}
-
-- (UIImage *)resizeImage:(UIImage *)image toWidth:(float)width andHeight:(float)height {
-    CGSize newSize = CGSizeMake(width, height);
-    CGRect newRectangle = CGRectMake(0, 0, width, height);
-    UIGraphicsBeginImageContext(newSize);
-    [image drawInRect:newRectangle];
-    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return resizedImage;
-}
+//
+//- (void)updateUserProfile
+//{
+//    [PFUser logOut];
+//    
+//    PFUser *user = [PFUser logInWithUsername:@"dennis" password:@"password"];
+//    
+//    UIImage* image = [UIImage imageNamed:@"dennis.jpg"];
+//    UIImage* resizedImage = [self resizeImage:image toWidth:40.0f andHeight:40.0f];
+//    
+//    NSData* imageData = UIImageJPEGRepresentation(image, 0.8);
+//    NSData* thumbnailData = UIImageJPEGRepresentation(resizedImage, 0.8);
+//    
+//    PFFile* file = [PFFile fileWithData:imageData];
+//    PFFile* thumbnailFile = [PFFile fileWithData:thumbnailData];
+//    
+//    //user[@"photo"] = file;
+//    user[@"thumbnail"] = thumbnailFile;
+//    
+//    NSLog(@"image saving");
+//    
+//    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+//    {
+//        if (error) {
+//            NSLog(@"%@",[error userInfo]);
+//        }
+//        
+//        
+//    }];
+//    
+//    
+//}
+//
+//- (UIImage *)resizeImage:(UIImage *)image toWidth:(float)width andHeight:(float)height {
+//    CGSize newSize = CGSizeMake(width, height);
+//    CGRect newRectangle = CGRectMake(0, 0, width, height);
+//    UIGraphicsBeginImageContext(newSize);
+//    [image drawInRect:newRectangle];
+//    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    return resizedImage;
+//}
 
 @end

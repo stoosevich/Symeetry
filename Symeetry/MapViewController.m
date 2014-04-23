@@ -30,34 +30,50 @@
     [super viewDidLoad];
     
     //make sure we are the delegate of the map view
-    
     self.mapView.delegate = self;
-    self.nearbyUsers = [ParseManager retrieveSymeetryUsersForMapView];
-
+    
     //allow the user's location to be shown
     self.mapView.showsUserLocation = YES;
     
-    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
-    {
-        
-        //create a 2D coordinate for the map view, centered on the current user
-        CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
-        
-        //determine the size of the map area to show around the location
-        MKCoordinateSpan coordinateSpan = MKCoordinateSpanMake(0.02,0.02);
-
-        
-        //create the region of the map that we want to show
-        MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, coordinateSpan);
-        
-        //update the map view
-        self.mapView.region = region;
-        
-        [self annotateMapWithNearByUserLocations];
-        
-    }];
-
+    //self.nearbyUsers = [ParseManager retrieveSymeetryUsersForMapView];
+    [self retrieveSymeetryUsersForMapView];
 }
+
+/*
+ * Retrieve 50 users closest to the current user based on their last known geopoint. This
+ * method uses two asynchronous blocks, one to get the users current location and a second
+ * to retrieve the users in close proximity (based on geopoint)
+ * @return void
+ */
+- (void)retrieveSymeetryUsersForMapView
+{
+    [ParseManager retrieveSymeetryUsersForMapView:^(NSArray *objects, NSError *error)
+    {
+        self.nearbyUsers = objects;
+        
+        [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
+         {
+             
+             //create a 2D coordinate for the map view, centered on the current user
+             CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
+             
+             //determine the size of the map area to show around the location
+             MKCoordinateSpan coordinateSpan = MKCoordinateSpanMake(0.02,0.02);
+             
+             
+             //create the region of the map that we want to show
+             MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, coordinateSpan);
+             
+             //update the map view
+             self.mapView.region = region;
+             
+             [self annotateMapWithNearByUserLocations];
+             
+         }];
+    }];
+}
+
+
 
 - (void)annotateMapWithNearByUserLocations
 {
