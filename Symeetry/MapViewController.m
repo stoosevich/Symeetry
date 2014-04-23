@@ -12,6 +12,7 @@
 #import "SymeetryPointAnnotation.h"
 #import "SymeetryAnnotationView.h"
 #import "ProfileHeaderView.h"
+#import "MapCallOutView.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 
@@ -29,14 +30,58 @@
 {
     [super viewDidLoad];
     
+    [self loadHeaderView];
+    
     //make sure we are the delegate of the map view
     self.mapView.delegate = self;
     
     //allow the user's location to be shown
     self.mapView.showsUserLocation = YES;
-    
+
     //self.nearbyUsers = [ParseManager retrieveSymeetryUsersForMapView];
     [self retrieveSymeetryUsersForMapView];
+}
+
+
+/*
+ * Load the custom view used for the users profile
+ */
+- (void)loadHeaderView
+{
+    //create the view from a xib file
+    ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
+    
+    //quick hack to make the view appear in the correct location
+    CGRect frame = CGRectMake(0.0, 0.60f, headerView.frame.size.width, headerView.frame.size.height);
+    
+    //set the frame
+    headerView.frame = frame;
+    
+    //update the profile header details
+    headerView.nameTextField.text = [[PFUser currentUser]username];
+    NSNumber* age  = [[PFUser currentUser]objectForKey:@"age"];
+    
+    headerView.ageTextField.text = age.description;
+    headerView.genderTextField.text = [[PFUser currentUser]objectForKey:@"gender"];
+    
+    //convert the file to a UIImage
+    PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
+    
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+     {
+         if (!error)
+         {
+             headerView.imageView.image = [UIImage imageWithData:data];
+             
+         }
+         else
+         {
+             //do something, like load a default image
+         }
+     }];
+    
+    //add the new view to the array of subviews
+    [self.view addSubview:headerView];
 }
 
 /*
@@ -92,6 +137,7 @@
         
         //set the coordinate and title of the pin
         symeetryAnnotation.coordinate =  userCoordinate;
+        //symeetryAnnotation.title = symeetryAnnotation.user.username;
 
         //update map with pin
         [self.mapView addAnnotation:symeetryAnnotation];
@@ -102,40 +148,43 @@
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
 
+    SymeetryPointAnnotation *annotation = (id)view.annotation;
+
     //create the view from a xib file
-    ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
+    MapCallOutView *annotationView =  [MapCallOutView newViewFromNib:@"MapCallOutView"];
     
-    //the view appear in the correct location
-    CGRect frame = CGRectMake(0.0, 00.0f, 30.0f, 60.0f);
+    CGRect frame = CGRectMake(0.0, 00.0f, 130.0f, 40.0f);
     
     //set the frame
-    headerView.frame = frame;
-    
-    SymeetryPointAnnotation *annotation = (id)view.annotation;
+    annotationView.frame = frame;
     
     //update the profile header details
-    headerView.nameTextField.text = annotation.user.username;
-    headerView.nameTextField.backgroundColor = [UIColor whiteColor];
+    annotationView.nameTextField.text = annotation.user.username;
+    
     
     PFFile* file = annotation.user[@"thumbnail"];
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
     {
         UIImage* image = [UIImage imageWithData:data];
         UIImage* resizedImage = [self resizeImage:image toWidth:30.0f andHeight:30.0f];
-        headerView.imageView.image = resizedImage;
+        annotationView.imageView.image = resizedImage;
     }];
 
-    
     //add custom view to pin
-   [view addSubview:headerView];
-    //addSubview:headerView.center = CGPointMake(view.bounds.size.width*0.5f, -self.visibleCalloutView.bounds.size.height*0.5f);
+   [view addSubview:annotationView];
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
 {
-    if([view.annotation isKindOfClass:[SymeetryAnnotationView class]])
+    if ([view isKindOfClass:[MKPinAnnotationView class]])
     {
-        view.canShowCallout = NO;
+        for (UIView* subview in view.subviews)
+        {
+            if([subview isKindOfClass:[MapCallOutView class]])
+            {
+                [subview removeFromSuperview];
+            }
+        }
     }
 }
 
@@ -158,7 +207,7 @@
         if (!annotationView)
         {
             annotationView = [[SymeetryAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
-            annotationView.canShowCallout = YES;
+            annotationView.canShowCallout = NO;
         }
         else
         {

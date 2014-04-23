@@ -36,10 +36,6 @@
     //view.genderTextField.keyboardAppearance = UIKeyboardAppearanceDark;
     view.ageTextField.keyboardAppearance = UIKeyboardAppearanceDark;
     
-    //set a small defaul frame size
-    CGRect frame = CGRectMake(0.0, 00.0f, 20.0f, 20.0f);
-    view.frame = frame;
-
     return view;
 }
 
