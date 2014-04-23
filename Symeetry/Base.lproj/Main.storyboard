@@ -415,9 +415,15 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rainbow_slider" translatesAutoresizingMaskIntoConstraints="NO" id="d3J-34-Rw3">
+                                                    <rect key="frame" x="18" y="251" width="214" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="owa-ce-cvb">
                                                     <rect key="frame" x="18" y="246" width="214" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="minimumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <connections>
                                                         <action selector="adjustInterest:" destination="oGa-6z-YgV" eventType="valueChanged" id="bQv-GS-XQZ"/>
                                                     </connections>
@@ -553,6 +559,7 @@
     <resources>
         <image name="interests_star" width="512" height="512"/>
         <image name="interests_star_dark" width="512" height="512"/>
+        <image name="rainbow_slider" width="214" height="20"/>
     </resources>
     <color key="tintColor" red="1" green="0.50217481019999999" blue="0.0020682545409999998" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
