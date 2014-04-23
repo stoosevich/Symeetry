@@ -35,9 +35,10 @@
     self.devicePeerID = [[MCPeerID alloc] initWithDisplayName:user.username];
     self.mySession = [[MCSession alloc] initWithPeer:self.devicePeerID];
     self.mySession.delegate = self;
-    self.advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"symeetry-txtchat" discoveryInfo:nil session:self.mySession];
+    self.advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"chat-txtchat" discoveryInfo:nil session:self.mySession];
     self.advertiserAssistant.delegate = self;
-    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.devicePeerID serviceType:@"symeetry-txtchat"];
+    [self.advertiserAssistant start];
+    self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.devicePeerID serviceType:@"chat-txtchat"];
     self.browser.delegate = self;
     [self checkinChat];
 }
