@@ -36,12 +36,10 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 
 //find users that are in the immediate vicinity based on the uuid of a beacon
-//+(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid;
-
-//find users that are in the immediate vicinity based on the uuid of a beacon
 +(void)retrieveUsersInLocalVicinityWithSimilarity:(NSArray*)regions WithComplettion:(MyCompletion)completion;
 
 //user Parse GeoPoint service to find nearby users
++ (void)retrieveSymeetryUsersForMapView:(MyCompletion)completion;
 + (NSArray*)retrieveSymeetryUsersForMapView;
 
 //handle user signon, login and logoff

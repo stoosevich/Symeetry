@@ -46,7 +46,7 @@
 -(void)setDelegates:(id)object
 {
     self.nameTextField.delegate = object;
-    //self.genderTextField.delegate = object;
+    self.genderTextField.delegate = object;
     self.ageTextField.delegate = object;
 }
 

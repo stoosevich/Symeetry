@@ -56,6 +56,10 @@
 		CE562EC918FCD11900DDB3D3 /* charles.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC818FCD11900DDB3D3 /* charles.jpg */; };
 		CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562ECA18FCD13F00DDB3D3 /* steve.jpg */; };
 		CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */; };
+		CE65D5E8190758BC00C74DFD /* greenriver.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5E7190758BC00C74DFD /* greenriver.jpg */; };
+		CE65D5EA1907591100C74DFD /* trainstation.JPG in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5E91907591100C74DFD /* trainstation.JPG */; };
+		CE65D5EC1907592B00C74DFD /* venus.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5EB1907592B00C74DFD /* venus.jpg */; };
+		CE65D5EE1907593E00C74DFD /* statue1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5ED1907593E00C74DFD /* statue1.jpg */; };
 		CE66E60D1904639900C295E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE66E60C1904639900C295E0 /* Images.xcassets */; };
 		CE6748661901D58600F05121 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6748651901D58600F05121 /* Defaults.m */; };
 		CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */; };
@@ -139,6 +143,10 @@
 		CE562ECA18FCD13F00DDB3D3 /* steve.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = steve.jpg; path = Symeetry/steve.jpg; sourceTree = "<group>"; };
 		CE5ACEE918FDED5000E91087 /* BlueToothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlueToothManager.h; path = Symeetry/BlueToothManager.h; sourceTree = "<group>"; };
 		CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlueToothManager.m; path = Symeetry/BlueToothManager.m; sourceTree = "<group>"; };
+		CE65D5E7190758BC00C74DFD /* greenriver.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = greenriver.jpg; path = Symeetry/greenriver.jpg; sourceTree = "<group>"; };
+		CE65D5E91907591100C74DFD /* trainstation.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = trainstation.JPG; path = Symeetry/trainstation.JPG; sourceTree = "<group>"; };
+		CE65D5EB1907592B00C74DFD /* venus.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = venus.jpg; path = "/Users/user/Pictures/iPhoto Library/Previews/2014/01/25/20140125-181140/d1Im0m2bSuaPcTyiEPvK9A/venus.jpg"; sourceTree = "<absolute>"; };
+		CE65D5ED1907593E00C74DFD /* statue1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = statue1.jpg; path = Symeetry/statue1.jpg; sourceTree = "<group>"; };
 		CE66E60C1904639900C295E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE6748641901D58600F05121 /* Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defaults.h; path = Symeetry/Defaults.h; sourceTree = "<group>"; };
 		CE6748651901D58600F05121 /* Defaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Defaults.m; path = Symeetry/Defaults.m; sourceTree = "<group>"; };
@@ -211,6 +219,10 @@
 				81B2848918FD9C2100A27224 /* Food_crop.jpg */,
 				CE562ECA18FCD13F00DDB3D3 /* steve.jpg */,
 				CE562EC818FCD11900DDB3D3 /* charles.jpg */,
+				CE65D5E7190758BC00C74DFD /* greenriver.jpg */,
+				CE65D5EB1907592B00C74DFD /* venus.jpg */,
+				CE65D5E91907591100C74DFD /* trainstation.JPG */,
+				CE65D5ED1907593E00C74DFD /* statue1.jpg */,
 				CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */,
 			);
 			name = Images;
@@ -397,7 +409,7 @@
 				ORGANIZATIONNAME = "Steve Toosevich";
 				TargetAttributes = {
 					81AB5B0418FC85890060B17A = {
-						DevelopmentTeam = 6EADSJP336;
+						DevelopmentTeam = S264RF7436;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -433,6 +445,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE65D5E8190758BC00C74DFD /* greenriver.jpg in Resources */,
 				CE562EC718FCCF7F00DDB3D3 /* dennis.jpg in Resources */,
 				CE66E60D1904639900C295E0 /* Images.xcassets in Resources */,
 				81A3098F190030CB00963305 /* school.jpg in Resources */,
@@ -444,11 +457,14 @@
 				81AB5B1C18FC85890060B17A /* Main.storyboard in Resources */,
 				81A3098A190030CB00963305 /* dancing.jpg in Resources */,
 				81B2848E18FD9C4100A27224 /* Music_crop.png in Resources */,
+				CE65D5EC1907592B00C74DFD /* venus.jpg in Resources */,
 				81A30990190030CB00963305 /* technology.jpg in Resources */,
 				81A3098B190030CB00963305 /* fashion.jpg in Resources */,
+				CE65D5EA1907591100C74DFD /* trainstation.JPG in Resources */,
 				81B2848C18FD9C2D00A27224 /* movies_crop.jpg in Resources */,
 				81A30988190030CB00963305 /* art.jpg in Resources */,
 				CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */,
+				CE65D5EE1907593E00C74DFD /* statue1.jpg in Resources */,
 				81A30991190030CB00963305 /* tv.jpg in Resources */,
 				81882A0E18FC923300724B79 /* ProfileHeaderView.xib in Resources */,
 				81A3098C190030CB00963305 /* games.jpg in Resources */,

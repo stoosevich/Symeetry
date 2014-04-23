@@ -80,35 +80,10 @@ toViewController:(UIViewController *)toVC
     //set flags for requesting check-in to YES, user can opt-out in settings
     self.checkedIn = YES;
     
-   
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.homeTableView addSubview:refreshControl];
 }
-
-
-//method in the calling object to pass block with weak reference
-- (void)getUsers
-{
-    //Create a weak reference to pass into the block
-    __weak HomeViewController *weakSelf = self;
-    
-    [ParseManager getUsersWithCompletion:^(NSArray *objects, NSError *error)
-    {
-        //[weakSelf doStuffWithUsers:objects];
-        weakSelf.users = objects;
-        [weakSelf.homeTableView reloadData];
-    }];
-    
-}
-
-//method in the calling object to deal with the results of the block
-- (void)doStuffWithUsers:(NSArray*)results
-{
-    self.users = results;
-    [self.homeTableView reloadData];
-}
-
 
 
 /*
@@ -161,8 +136,6 @@ toViewController:(UIViewController *)toVC
                                              selector:@selector(handleRegionBoundaryNotification:)
                                                  name:@"CLRegionStateInsideNotification" object:nil];
     
-    //[self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
-    
     [self retrieveUsersInLocalVicinityWithSimilarityTest:self.activeRegions];
     
     // Start ranging when the view appears
@@ -188,9 +161,10 @@ toViewController:(UIViewController *)toVC
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
+//
 - (void)refresh:(UIRefreshControl *)refreshControl
 {
-    //[self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
     [self retrieveUsersInLocalVicinityWithSimilarityTest:self.activeRegions];
     [refreshControl endRefreshing];
 }
@@ -273,7 +247,6 @@ toViewController:(UIViewController *)toVC
             [self.activeRegions removeObject:region];
         }
         
-        //[self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
         [self retrieveUsersInLocalVicinityWithSimilarityTest:self.activeRegions];
         [self.homeTableView reloadData];
         
@@ -307,7 +280,7 @@ toViewController:(UIViewController *)toVC
     cell.textLabel.text = [NSString stringWithFormat:beaconFormatString,[self.nearestBeacon.proximityUUID UUIDString], self.nearestBeacon.major, self.nearestBeacon.minor, self.nearestBeacon.accuracy];
     
     //cell.detailTextLabel.text = @"likes and interests";
-    PFFile* file = [user objectForKey:@"photo"];
+    PFFile* file = [user objectForKey:@"thumbnail"];
     
     //load the image asynchronously
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
@@ -353,7 +326,6 @@ toViewController:(UIViewController *)toVC
         //if the user is already checkedin, then add the new region entered
         //and update the list of user available
         [self.activeRegions addObject:region];
-        //[self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
         [self retrieveUsersInLocalVicinityWithSimilarityTest:self.activeRegions];
         [self.homeTableView reloadData];
         
@@ -375,7 +347,6 @@ toViewController:(UIViewController *)toVC
     [self.activeRegions removeObject:region];
 
     //update the list of available users
-    //[self retrieveUsersInLocalVicinityWithSimilarity:self.activeRegions];
     [self retrieveUsersInLocalVicinityWithSimilarityTest:self.activeRegions];
     [self.homeTableView reloadData];
 }
@@ -564,114 +535,6 @@ toViewController:(UIViewController *)toVC
 }
 
 
-
-
-/*
- * This method retrieves all users in the current vicinity, based on the beacon uuid
- * and assigns each user a similarity index based on the similarity to the current user.
- * the results are sorted by the user similarity index and/or by user name.
- * @ return NSArray
- */
-//- (void)retrieveUsersInLocalVicinityWithSimilarity:(NSArray*)regions
-//{
-//    NSMutableArray* uuid = [NSMutableArray new];
-//    
-//    for (CLRegion* region in regions)
-//    {
-//        [uuid addObject:region.identifier];
-//    }
-//    
-//    /*
-//     * Block to calculate the similarity between two different users. This block
-//     * compares the values between two differnet NSDictionary objects, and for every
-//     * pair of values that are the same, the similarity index is increased by 1
-//     */
-//    int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* currUser, NSDictionary* otherUser)
-//    {
-//        int similarity = 0;
-//        
-//        //loop throught the current user's dictionary of interests and compare
-//        //each value to the other user. For each match increase the count by 1
-//        for (NSDictionary* item in currUser)
-//        {
-//            if([currUser objectForKey:item] == [otherUser objectForKey:item])
-//            {
-//                similarity++;
-//            }
-//        }
-//        return similarity;
-//    };
-//    
-//    
-//    
-//    /*
-//     * Block to update the similarity index of a user based on comparision
-//     * to the current user. This blocks loops through an array of users and
-//     * call another block to calculate the actual similarity index between the
-//     * two users
-//     */
-//    void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
-//    {
-//        NSDictionary* currentUser = [ParseManager getInterest:[PFUser currentUser]];
-//        NSDictionary* otherUser = nil;
-//        
-//        for(PFObject* user in userObjects)
-//        {
-//            //get the interest for each user in the list of objects returned from the search
-//            otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
-//            
-//            //only calculate the similarity if there other user has intersts
-//            if(otherUser)
-//            {
-//                //call a block function to calculate the similarity of the two users
-//                user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
-//                //NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
-//            }
-//        }
-//        
-//    };
-//
-//    PFQuery* query = [PFUser query];
-//    
-//    //exclude the current user
-//    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-//    [query whereKey:@"nearestBeacon" containedIn:uuid];
-//    
-//    
-//    //include the actual interest objecst not just a link
-//    [query includeKey:@"interests"];
-//    
-//    //sort by by user name, this will be resorted once the similarity index is assigned
-//    [query addAscendingOrder:@"username"];
-//    
-//    
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-//    {
-//        
-//        updateUserSimilarity(objects);
-//        
-//        
-//        //sort the objects once the similarity index is updated
-//        NSArray *sortedArray;
-//        
-//        //sort the array using a block comparator
-//        sortedArray = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
-//                       {
-//                           //covert each object to a PFObject and retrieve the similarity index
-//                           NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
-//                           NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
-//                           return [second compare:first];
-//                       }];
-//        
-//        self.users = sortedArray;
-//        [self.homeTableView reloadData];
-//
-//    }];
-//
-//}
-
-
-
  /*
  * This method retrieves all users in the current vicinity, based on the beacon uuid
  * and assigns each user a similarity index based on the similarity to the current user.
@@ -711,23 +574,29 @@ toViewController:(UIViewController *)toVC
      */
     void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     {
-        NSDictionary* currentUser = [ParseManager getInterest:[PFUser currentUser]];
-        NSDictionary* otherUser = nil;
+        //NSDictionary* currentUser =
         
-        for(PFObject* user in userObjects)
+        [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
         {
-            //get the interest for each user in the list of objects returned from the search
-            otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
+            NSDictionary* currentUser = objects.firstObject;
             
-            //only calculate the similarity if there other user has intersts
-            if(otherUser)
+            NSDictionary* otherUser = nil;
+            
+            for(PFObject* user in userObjects)
             {
-                //call a block function to calculate the similarity of the two users
-                user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
-                //NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
+                //get the interest for each user in the list of objects returned from the search
+                otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
+                
+                //only calculate the similarity if there other user has intersts
+                if(otherUser)
+                {
+                    //call a block function to calculate the similarity of the two users
+                    user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
+                    //NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
+                }
             }
-        }
-        
+            
+        }];
     };
 
     [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
@@ -745,5 +614,48 @@ toViewController:(UIViewController *)toVC
      }];
 }
 
+//
+//- (void)updateUserProfile
+//{
+//    [PFUser logOut];
+//    
+//    PFUser *user = [PFUser logInWithUsername:@"dennis" password:@"password"];
+//    
+//    UIImage* image = [UIImage imageNamed:@"dennis.jpg"];
+//    UIImage* resizedImage = [self resizeImage:image toWidth:40.0f andHeight:40.0f];
+//    
+//    NSData* imageData = UIImageJPEGRepresentation(image, 0.8);
+//    NSData* thumbnailData = UIImageJPEGRepresentation(resizedImage, 0.8);
+//    
+//    PFFile* file = [PFFile fileWithData:imageData];
+//    PFFile* thumbnailFile = [PFFile fileWithData:thumbnailData];
+//    
+//    //user[@"photo"] = file;
+//    user[@"thumbnail"] = thumbnailFile;
+//    
+//    NSLog(@"image saving");
+//    
+//    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+//    {
+//        if (error) {
+//            NSLog(@"%@",[error userInfo]);
+//        }
+//        
+//        
+//    }];
+//    
+//    
+//}
+//
+//- (UIImage *)resizeImage:(UIImage *)image toWidth:(float)width andHeight:(float)height {
+//    CGSize newSize = CGSizeMake(width, height);
+//    CGRect newRectangle = CGRectMake(0, 0, width, height);
+//    UIGraphicsBeginImageContext(newSize);
+//    [image drawInRect:newRectangle];
+//    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    return resizedImage;
+//}
 
 @end

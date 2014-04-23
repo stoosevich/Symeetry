@@ -114,28 +114,6 @@
 
 #pragma mark -  USER RANKING AND RETRIEVAL RELATED METHODS
 
-/*
- * Block to calculate the similarity between two different users. This block 
- * compares the values between two differnet NSDictionary objects, and for every
- * pair of values that are the same, the similarity index is increased by 1
- */
-int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* currUser, NSDictionary* otherUser)
-{
-    int similarity = 0;
-
-    //loop throught the current user's dictionary of interests and compare
-    //each value to the other user. For each match increase the count by 1
-//    for (NSDictionary* item in currUser)
-//    {
-//        if([currUser objectForKey:item] == [otherUser objectForKey:item])
-//        {
-//            similarity++;
-//        }
-//    }
-    return similarity;
-};
-
-
 
 /*
  * Block to update the similarity index of a user based on comparision
@@ -143,27 +121,27 @@ int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* cur
  * call another block to calculate the actual similarity index between the
  * two users
  */
-void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
-{
-
-    NSDictionary* currentUser = [ParseManager getInterest:[PFUser currentUser]];
-    NSDictionary* otherUser = nil;
-    
-  for(PFObject* user in userObjects)
-  {
-      //get the interest for each user in the list of objects returned from the search
-      otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
-
-      //only calculate the similarity if there other user has intersts
-      if(otherUser)
-      {
-          //call a block function to calculate the similarity of the two users
-          user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
-          //NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
-      }
-  }
-
-};
+//void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
+//{
+//
+//    NSDictionary* currentUser = [ParseManager getInterest:[PFUser currentUser]];
+//    NSDictionary* otherUser = nil;
+//    
+//  for(PFObject* user in userObjects)
+//  {
+//      //get the interest for each user in the list of objects returned from the search
+//      otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
+//
+//      //only calculate the similarity if there other user has intersts
+//      if(otherUser)
+//      {
+//          //call a block function to calculate the similarity of the two users
+//          user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
+//          //NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
+//      }
+//  }
+//
+//};
 
 
 /*
@@ -208,27 +186,33 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 //    return sortedArray;
 //}
 
--(void)retrieveUsersInLocalVicinityWithSimilarityTest:(NSArray*)regions
-{
-    [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
-    {
-        updateUserSimilarity(objects);
-        
-        //sort the object once the similarity index is updated
-        NSArray *sortedArray;
-        
-        //sort the array using a block comparator
-        sortedArray = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
-                       {
-                           //covert each object to a PFObject and retrieve the similarity index
-                           NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
-                           NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
-                           return [second compare:first];
-                       }];
-    }];
-}
+//-(void)retrieveUsersInLocalVicinityWithSimilarityTest:(NSArray*)regions
+//{
+//    [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
+//    {
+//        updateUserSimilarity(objects);
+//        
+//        //sort the object once the similarity index is updated
+//        NSArray *sortedArray;
+//        
+//        //sort the array using a block comparator
+//        sortedArray = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
+//                       {
+//                           //covert each object to a PFObject and retrieve the similarity index
+//                           NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
+//                           NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
+//                           return [second compare:first];
+//                       }];
+//    }];
+//}
 
 
+/*
+ *
+ *@ NSArray regions
+ *@ Block completion block
+ *@ return void
+ */
 +(void)retrieveUsersInLocalVicinityWithSimilarity:(NSArray*)regions WithComplettion:(MyCompletion)completion
 {
     
@@ -259,61 +243,15 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 }
 
-#pragma mark - BEACON RETRIEVE AND UPDATE RELATED METHODS
+
 
 /*
- * Update the users reference to the nearest beacon
+ * Save/update the users interest when they are changed in the interest
+ * view controller
+ * @ param NSString key
+ * @ param int value
+ * @ return void
  */
-+(void)updateUserNearestBeacon:(CLBeacon*)beacon
-{
-    
-    NSString* uuidString = [beacon.proximityUUID UUIDString];
-    [PFUser currentUser][@"nearestBeacon"]= uuidString;
-    [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:beacon.accuracy];
-    [PFUser currentUser][@"major"] = beacon.major;
-    [PFUser currentUser][@"minor"] = beacon.minor;
-    
-    [[PFUser currentUser]saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-    {
-        if (error)
-        {
-            //handle eror
-        }
-    }];
-}
-
-/*
- * Query Parse for a list of all know beacons
- */
-+(void)getListOfAvailableBeaconIds
-{
-    PFQuery* beaconQuery = [PFQuery queryWithClassName:@"Beacon"];
-    [beaconQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
-        
-    }];
-}
-
-
-
-
-#pragma mark - HELPER METHODS
-
-
-+(void)getUserInterest:(PFUser*)user
-{
-
-    [ParseManager getUserInterest:user WithComplettion:^(NSArray *objects, NSError *error)
-    {
-        if (objects)
-        {
-            //NSDictionary* dict  = [self convertPFObjectToNSDictionary:objects.firstObject];
-        }
-    }];
-    
-}
-
-
 +(void)saveUserInterestsByKey:(NSString*)key withValue:(int)value
 {
     //get the current user
@@ -340,7 +278,6 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 
 
 /*
- * TODO: THIS QUERY NEEDS TO BE ASYNCHRONOUS
  * Query the Parse backend to find the interest of the user based on the
  * user's specific id
  * @return PFObject the Parse Interest object for the specified user
@@ -356,6 +293,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     }];
 }
 
+//
 +(NSDictionary*)getInterest:(PFUser*)user
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
@@ -364,6 +302,7 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     NSDictionary* dict  = [ParseManager convertPFObjectToNSDictionary:result.firstObject];
     return dict;
 }
+
 
 /*
  * checks to see if current user is true then modifies the object(object) at the desired key(key)
@@ -390,38 +329,47 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
 }
 
 
-/*
- *
- */
-+(void)setUsersPFGeoPointLocation
-{
-    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
-    {
-        if (!error)
-        {
-            [[PFUser currentUser] setObject:geoPoint forKey:@"location"];
-            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-            {
-                if (error)
-                {
-                    NSLog(@"error: %@",[error userInfo]);
-                }
-            }];
-        }
-        else
-        {
-            NSLog(@"error: %@",[error userInfo]);
-        }
-    }];
-}
-
 
 /*
- * This method users the Parse geopoint object to find users in close proximity 
- * to the current user. This is limited to 50 users and uses the Parse default 
+ * THIS METHOD NEEDS TO BE ASYNCHRONOUS
+ * This method users the Parse geopoint object to find users in close proximity
+ * to the current user. This is limited to 50 users and uses the Parse default
  * geopoint location query
  * @return NSArray array of users near the current users location.
  */
++ (void)retrieveSymeetryUsersForMapView:(MyCompletion)completion
+{
+    // User's location
+    PFUser* user = [PFUser currentUser];
+    
+    //get the users geopoint
+    PFGeoPoint *userGeoPoint = user[@"location"];
+    
+    if (userGeoPoint)
+    {
+        
+        
+        // Create a query for places
+        PFQuery *query = [PFUser query];
+        
+        // Interested in locations near user.
+        [query whereKey:@"location" nearGeoPoint:userGeoPoint];
+        [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+        
+        // Limit what could be a lot of points.
+        query.limit = 50;
+        
+        // Final list of objects
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+        {
+            if(!error)
+            {
+                completion(objects,error);
+            }
+        }];
+    }
+}
+
 + (NSArray*)retrieveSymeetryUsersForMapView
 {
     // User's location
@@ -449,6 +397,57 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
     }
     
     return nil;
+}
+
+/*
+ * Set the users geopoint use Parse
+ * @return void
+ */
++(void)setUsersPFGeoPointLocation
+{
+    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
+    {
+        if (!error)
+        {
+            [[PFUser currentUser] setObject:geoPoint forKey:@"location"];
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+            {
+                if (error)
+                {
+                    NSLog(@"error: %@",[error userInfo]);
+                }
+            }];
+        }
+        else
+        {
+            NSLog(@"error: %@",[error userInfo]);
+        }
+    }];
+}
+
+
+
+#pragma mark - BEACON RETRIEVE AND UPDATE RELATED METHODS
+
+/*
+ * Update the users reference to the nearest beacon
+ */
++(void)updateUserNearestBeacon:(CLBeacon*)beacon
+{
+    
+    NSString* uuidString = [beacon.proximityUUID UUIDString];
+    [PFUser currentUser][@"nearestBeacon"]= uuidString;
+    [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:beacon.accuracy];
+    [PFUser currentUser][@"major"] = beacon.major;
+    [PFUser currentUser][@"minor"] = beacon.minor;
+    
+    [[PFUser currentUser]saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+     {
+         if (error)
+         {
+             //handle eror
+         }
+     }];
 }
 
 
@@ -489,6 +488,21 @@ void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
      }];
 
 }
+
+/*
+ * Query Parse for a list of all know beacons
+ */
++(void)getListOfAvailableBeaconIds
+{
+    PFQuery* beaconQuery = [PFQuery queryWithClassName:@"Beacon"];
+    [beaconQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         
+     }];
+}
+
+#pragma mark - HELPER METHODS
+
 
 /*
  * Convert a UIImage to a PFFile object to storage on parse
