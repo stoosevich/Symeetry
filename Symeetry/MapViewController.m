@@ -148,6 +148,11 @@
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
 
+    if ([view isKindOfClass:[MKUserLocation class]])
+    {
+        return;
+    }
+    
     SymeetryPointAnnotation *annotation = (id)view.annotation;
 
     //create the view from a xib file
@@ -224,7 +229,7 @@
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    NSLog(@"view is %@", view);
+    
 }
 
 
