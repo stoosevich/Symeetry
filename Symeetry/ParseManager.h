@@ -20,8 +20,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 +(PFUser*)currentUser;
 +(BOOL)isCurrentUser:(PFUser*)user;
 
-//synchronous method
-+(NSDictionary*)getInterest:(PFUser*)user;
 
 //asynchronous method
 +(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion;
