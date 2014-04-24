@@ -52,29 +52,35 @@
     
     //if we enter a region, and the region has not yet been added to the set of montiored regions,
     //then create an alert and add it to the set
-    if(state == CLRegionStateInside && ![self.regionsMonitored containsObject:region.identifier])
+    
+    //&& ![self.regionsMonitored containsObject:region.identifier]
+    
+    if(state == CLRegionStateInside)
     {
-        notification.alertBody = [NSString stringWithFormat:@"iBeacon found %@",region.identifier];
-        //notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
         
-        //[[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+        
+        notification.alertBody = [NSString stringWithFormat:@"iBeacon found %@",region.identifier];
+        notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
+        
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
         
         //create dictionary to pass the region identifier and state
         NSDictionary* notificationInfo = @{@"identifier":region.identifier, @"state":@"CLRegionStateInside"};
-        notification.userInfo = notificationInfo;
+        
+        //notification.userInfo = notificationInfo;
 
         //post the local notifcation to the notification center so the appropiate observer can respond
         [[NSNotificationCenter defaultCenter]postNotificationName:@"CLRegionStateInsideNotification" object:self userInfo:notificationInfo];
         
         //add region to list of notified regions
-        [self.regionsMonitored addObject:region.identifier];
+        //[self.regionsMonitored addObject:region.identifier];
     }
     else if(state == CLRegionStateOutside)
     {
         //notification.alertBody = [NSString stringWithFormat:@"Symeetry: You are outside region %@", region.identifier];
         
         //when we exit a region, remove it from the set
-        [self.regionsMonitored removeObject:region.identifier];
+        //[self.regionsMonitored removeObject:region.identifier];
     }
     else
     {
