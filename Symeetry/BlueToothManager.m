@@ -84,8 +84,7 @@
     //if the perihperal has a name
     if(peripheral.name)
     {
-        NSString* beaconName = peripheral.name;
-        [ParseManager addBeaconWithName:beaconName withUUID:peripheral.identifier];
+
     }
     
     //add device to list. A device can be found more then once

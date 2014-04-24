@@ -120,8 +120,7 @@
     
     //exclude the current user
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-    //query.cachePolicy = kPFCachePolicyNetworkElseCache;
-    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    //query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query whereKey:@"nearestBeacon" containedIn:uuids];
     
     //include the actual interest objecst not just a link
@@ -180,7 +179,7 @@
 +(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
-    query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    //query.cachePolicy = kPFCachePolicyNetworkElseCache;
     [query whereKey:@"userid" equalTo:user.objectId];
     
     
@@ -358,18 +357,18 @@
  * @param NSString uuid the uuid of the beacon that was found
  * @return void
  */
-+(void)addBeaconWithName:(NSString*)name withUUID:(NSUUID*)uuid
++(void)addBeaconWithName:(CLBeacon*)beacon
 {
     
-    //convert the beacon object into a parse object
-    NSString* uuidString = [uuid UUIDString];
-    
+
     PFObject* parseBeacon = [PFObject objectWithClassName:@"Beacon"];
     
     //if we have not see this beacon before add it to the list of beacons
     PFQuery *query = [PFQuery queryWithClassName:@"Beacon"];
-    [query whereKey:@"uuid" equalTo:uuidString];
-    [query whereKey:@"name" equalTo:name];
+    [query whereKey:@"uuid" equalTo:[beacon.proximityUUID UUIDString]];
+    [query whereKey:@"major" equalTo:beacon.major];
+    [query whereKey:@"minor" equalTo:beacon.minor];
+    
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {

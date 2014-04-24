@@ -293,9 +293,9 @@ toViewController:(UIViewController *)toVC
     NSString* formatString = [NSString stringWithFormat:@"%@ %@",user.username,[user[@"similarityIndex"] description]];
     
     NSString *beaconFormatString = NSLocalizedString(@"UUID: %@ Major: %@, Minor: %@, Acc: %.2fm", @"Format string for ranging table cells.");
-    
-    //show user name and ranking
-    cell.detailTextLabel.text = [NSString stringWithFormat:beaconFormatString,[self.nearestBeacon.proximityUUID UUIDString], self.nearestBeacon.major, self.nearestBeacon.minor, self.nearestBeacon.accuracy];
+
+    //display the beacon information in the detail line for now
+    cell.detailTextLabel.text = [NSString stringWithFormat:beaconFormatString, user[@"nearestBeacon"],user[@"major"],user[@"minor"], user[@"Accuracy"]];
     
     //show beacon information
     cell.textLabel.text = formatString;
@@ -305,7 +305,6 @@ toViewController:(UIViewController *)toVC
     //load the image asynchronously
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
     {
-        cell.imageView.image = nil;
         cell.imageView.image = [UIImage imageWithData:data];
     }];
     
