@@ -79,13 +79,13 @@
         [self.chatMessages addObject:message];
         [self.chatRoomTableView reloadData];
         self.chatRoomTextField.text = @"";
-        [self.chatRoomTextField endEditing:YES];
+       // [self.chatRoomTextField endEditing:YES];
         self.chatRoomTableView.frame = CGRectMake(0, 50, self.chatRoomTableView.frame.size.width, self.chatRoomTableView.frame.size.height + 216);
         self.chatRoomTextField.frame = CGRectMake(0, self.chatRoomTextField.frame.origin.y + 216, self.chatRoomTextField.frame.size.width, self.chatRoomTextField.frame.size.height);
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.chatMessages.count -1 inSection:0];
         [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }];
-    return YES;
+    return NO;
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
