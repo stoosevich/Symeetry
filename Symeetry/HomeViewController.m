@@ -305,7 +305,10 @@ toViewController:(UIViewController *)toVC
     //load the image asynchronously
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
     {
-        cell.imageView.image = [UIImage imageWithData:data];
+        dispatch_async(dispatch_get_main_queue(), ^{
+             cell.imageView.image = [UIImage imageWithData:data];
+        });
+       
     }];
     
     return cell;
@@ -734,7 +737,12 @@ toViewController:(UIViewController *)toVC
                           NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
                           return [second compare:first];
                       }];
-        [self.homeTableView reloadData];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.homeTableView reloadData];
+        });
+        
     }];
     
 }
