@@ -230,6 +230,7 @@
         } case MCSessionStateNotConnected: {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"Not Connected to %@", peerID.displayName);
+                [[ChatManager sharedChatManager] disconnect:peerID];
                 //[self disconnect:peerID];
             });
             
