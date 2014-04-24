@@ -53,7 +53,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 
 //core location/bluetooth related methods
-+(void)addBeaconWithName:(CLBeacon*)beacon;
++(void)addBeacon:(CLBeacon*)beacon;
 +(void)getListOfAvailableBeaconIds;
 
 //helper method

@@ -458,35 +458,29 @@ toViewController:(UIViewController *)toVC
         if (self.beacons[@(CLProximityImmediate)])
         {
             beacons = self.beacons[@(CLProximityImmediate)];
-            //self.nearestBeacon = beacons.firstObject;
             currentBeacon = beacons.firstObject;
+            //send information to parse
         }
         else if (self.beacons[@(CLProximityNear)])
         {
             beacons = self.beacons[@(CLProximityNear)];
-            //self.nearestBeacon = beacons.firstObject;
             currentBeacon = beacons.firstObject;
-
         }
         else if (self.beacons[@(CLProximityFar)])
         {
             beacons = self.beacons[@(CLProximityFar)];
-            //self.nearestBeacon = beacons.firstObject;
             currentBeacon = beacons.firstObject;
-
         }
         else if (self.beacons[@(CLProximityUnknown)])
         {
             beacons = self.beacons[@(CLProximityUnknown)];
-            //self.nearestBeacon = beacons.firstObject;
             currentBeacon = beacons.firstObject;
-
         }
 
         
         if (currentBeacon)
         {
-            //only udpate database if the beacon actually changed
+            //only update navbar/database if the beacon actually changed
             if (currentBeacon.proximityUUID != self.nearestBeacon.proximityUUID &&
                 currentBeacon.major != self.nearestBeacon.major &&
                 currentBeacon.minor != self.nearestBeacon.minor)
@@ -495,6 +489,7 @@ toViewController:(UIViewController *)toVC
                 //change the color of the navbar based on the closest beacon
                 [self updateNavigationBarColorBasedOnProximity:self.nearestBeacon];
                 
+                //[ParseManager addBeacon:currentBeacon];
                 [ParseManager updateUserNearestBeacon:self.nearestBeacon];
             }
         }
@@ -765,6 +760,14 @@ toViewController:(UIViewController *)toVC
      }];
 
 }
+
+
+
+
+
+
+
+
 
 
 
