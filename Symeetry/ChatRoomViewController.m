@@ -44,6 +44,8 @@
                     NSDictionary* message = @{@"sender": self.peerID.displayName, @"messageText": messageString};
                     [self.chatMessages addObject:message];
                     [self.chatRoomTableView reloadData];
+                    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.chatMessages.count -1 inSection:0];
+                    [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
                 }];
     
     self.chatRoomTextField.delegate = self;
@@ -58,6 +60,14 @@
 {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellID"];
     cell.textLabel.text = [NSString stringWithFormat:@"%@:%@", self.chatMessages[indexPath.row][@"sender"], self.chatMessages[indexPath.row][@"messageText"]];
+    if (![self.chatMessages[indexPath.row][@"sender"] isEqualToString:[[PFUser currentUser]username]]) {
+        cell.backgroundColor = [UIColor yellowColor];
+        cell.textLabel.textColor = [UIColor redColor];
+    }
+    else
+    {
+        cell.textLabel.textColor = [UIColor orangeColor];
+    }
     return cell;
 }
 
@@ -70,8 +80,24 @@
         [self.chatRoomTableView reloadData];
         self.chatRoomTextField.text = @"";
         [self.chatRoomTextField endEditing:YES];
+        self.chatRoomTableView.frame = CGRectMake(0, 50, self.chatRoomTableView.frame.size.width, self.chatRoomTableView.frame.size.height + 216);
+        self.chatRoomTextField.frame = CGRectMake(0, self.chatRoomTextField.frame.origin.y + 216, self.chatRoomTextField.frame.size.width, self.chatRoomTextField.frame.size.height);
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.chatMessages.count -1 inSection:0];
+        [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }];
     return YES;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.chatRoomTableView.frame = CGRectMake(0, 50, self.chatRoomTableView.frame.size.width, self.chatRoomTableView.frame.size.height - 216);
+    self.chatRoomTextField.frame = CGRectMake(0, self.chatRoomTextField.frame.origin.y - 216, self.chatRoomTextField.frame.size.width, self.chatRoomTextField.frame.size.height);
+    
+}
+
+- (IBAction)onLeaveChatButtonPressed:(id)sender
+{
+    [[ChatManager sharedChatManager] disconnect:self.peerID];
 }
 
 @end

@@ -231,7 +231,17 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"Not Connected to %@", peerID.displayName);
                 [[ChatManager sharedChatManager] disconnect:peerID];
-                //[self disconnect:peerID];
+                UIStoryboard *sb = [UIApplication sharedApplication].keyWindow.rootViewController.storyboard;
+                ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
+                cRVC.peerID = peerID;
+                id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+                vc = [vc presentedViewController];
+                [vc dismissModalViewControllerAnimated:YES];
+//                [vc presentViewController:cRVC animated:YES completion:^{
+//                    NSLog(@"worked");
+//                    NSLog(@"%@", cRVC.peerID.displayName);
+//                }];
+//                //[self disconnect:peerID];
             });
             
             break;
