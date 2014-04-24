@@ -392,19 +392,6 @@ toViewController:(UIViewController *)toVC
  */
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-
-    if (beacons.count)
-    {
-        if (![self.activeRegions containsObject:region])
-        {
-            [self.activeRegions addObject:region];
-
-            //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
-            //[self.homeTableView reloadData];
-            NSLog(@"active regions %@", self.activeRegions);
-        }
-
-    }
     
     /*
      Per Apple -  CoreLocation will call this delegate method at 1 Hz with updated range information.
@@ -680,7 +667,7 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)currentUserInterests
 {
     
-    NSLog(@"begin user fetch for similarityCalculation");
+    //NSLog(@"begin user fetch for similarityCalculation");
     [self calculateSimilarity:currentUserInterests forRegions:self.activeRegions withCompletion:^(NSArray *objects, NSError *error)
     {
 
@@ -709,8 +696,6 @@ toViewController:(UIViewController *)toVC
                     int count = 0;
                     for (NSDictionary* item in currUser)
                     {
-                        NSLog(@"begin similarityCalculation");
-                        
                         count++;
                         if (![item isEqual:@"userid"])
                         {
@@ -726,11 +711,8 @@ toViewController:(UIViewController *)toVC
                                 similarity += categoryValue;
                             }
                         }
-                        NSLog(@"end similarityCalculation");
-                        
+
                     }
-                    
-                     NSLog(@"loop done similarityCalculation");
                     return similarity;
                 };
                 
@@ -750,6 +732,7 @@ toViewController:(UIViewController *)toVC
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.homeTableView reloadData];
+            NSLog(@"user retrieval complete");
         });
         
     }];
@@ -760,7 +743,6 @@ toViewController:(UIViewController *)toVC
 //get the list of user by region asyncronously from parse
 - (void)calculateSimilarity:(NSDictionary*)interest forRegions:(NSArray*)regions withCompletion:(MyCompletion)completion
 {
-    NSLog(@"initiate call  to get user by regions");
     [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
      {
          completion(objects,error);
@@ -771,7 +753,6 @@ toViewController:(UIViewController *)toVC
 //get the current user interest from parse
 - (void)getCurrentUserInterestWithComplettion:(MyCompletion)completion
 {
-    NSLog(@"fetch user interest for similarityCalculation");
     [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
      {
          completion(objects,error);
