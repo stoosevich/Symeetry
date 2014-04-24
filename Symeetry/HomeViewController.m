@@ -15,6 +15,7 @@
 #import "Defaults.h"
 #import "MapViewController.h"
 #import "PresentAnimationController.h"
+#import "InterestsViewController.h"
 #import "ChatManager.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
@@ -60,6 +61,21 @@ toViewController:(UIViewController *)toVC
     return _presentAnimationController;
 }
 
+- (IBAction)segmentedControl:(UISegmentedControl *)sender
+{
+    if (sender.selectedSegmentIndex == 0)
+    {
+        [self performSegueWithIdentifier:@"showInterestView" sender:self];
+    }
+    else if (sender.selectedSegmentIndex == 1)
+    {
+        [self performSegueWithIdentifier:@"showMapView" sender:self];
+    }
+    else if (sender.selectedSegmentIndex == 2)
+    {
+        
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -318,6 +334,11 @@ toViewController:(UIViewController *)toVC
     else if ([[segue identifier] isEqualToString:@"showMapView"])
     {
         MapViewController* viewController = segue.destinationViewController;
+        viewController.transitioningDelegate = self;
+    }
+    else if ([[segue identifier]  isEqualToString:@"showInterestView"])
+    {
+        InterestsViewController* viewController = segue.destinationViewController;
         viewController.transitioningDelegate = self;
     }
 }
@@ -635,32 +656,23 @@ toViewController:(UIViewController *)toVC
          
          if (objects.count)
          {
-             self.users = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
-                           {
-                               //covert each object to a PFObject and retrieve the similarity index
-                               NSNumber *first =  ((PFObject*) user1)[@"similarityIndex"];
-                               NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
-                               return [second compare:first];
-                           }];
+             self.users = objects;
+             [self.homeTableView reloadData];
+             
+//             self.users = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
+//                           {
+//                               //covert each object to a PFObject and retrieve the similarity index
+//                               NSNumber *first =  ((PFObject*) user1)[@"similarityIndex"];
+//                               NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
+//                               return [second compare:first];
+//                           }];
          }
      }];
 }
 
-//- (void)sortUsersBySimilarity:^()
-//{
-//    
-//}
-- (void)sortUserBySimilarity
-{
-    self.users = [self.users sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
-                  {
-                      //covert each object to a PFObject and retrieve the similarity index
-                      NSNumber *first =  ((PFObject*) user1)[@"similarityIndex"];
-                      NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
-                      return [second compare:first];
-                  }];
 
-}
+
+
 //
 //- (void)updateUserProfile
 //{

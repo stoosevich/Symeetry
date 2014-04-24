@@ -12,7 +12,7 @@
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext
 {
-    return 1.5;
+    return 0.5;
 }
 
 
@@ -35,16 +35,15 @@
     
     // 3. set initial state
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    toViewController.view.frame =
-    CGRectOffset(finalFrame, 0, screenBounds.size.height);
+    
+    toViewController.view.frame = CGRectOffset(finalFrame, 0, screenBounds.size.height);
     
     // 4. add the view
     [containerView addSubview:toViewController.view];
     
     
     // 5. animate
-    NSTimeInterval duration =
-    [self transitionDuration:transitionContext];
+    NSTimeInterval duration = [self transitionDuration:transitionContext];
     
     [UIView animateWithDuration:duration
                           delay:0.0
@@ -54,13 +53,15 @@
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
                          // set the state to animate to
-                         fromViewController.view.alpha = 0.5;
-                         toViewController.view.frame = finalFrame;
-                     } completion:^(BOOL finished) {
-                         // inform the context of completion
                          fromViewController.view.alpha = 1.0;
-                         [transitionContext completeTransition:YES];
-                     }];
+                         toViewController.view.frame = finalFrame;
+                     }
+                     completion:^(BOOL finished)
+     {
+         // inform the context of completion
+         fromViewController.view.alpha = 1.0;
+         [transitionContext completeTransition:YES];
+     }];
     
 }
 
