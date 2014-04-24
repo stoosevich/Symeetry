@@ -37,5 +37,9 @@
 
 
 }
+- (IBAction)onLoginButtonPressed:(id)sender
+{
+    [self performSegueWithIdentifier:@"GoToLoginScreen" sender:self];
+}
 
 @end
