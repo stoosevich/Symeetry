@@ -85,7 +85,7 @@
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.chatMessages.count -1 inSection:0];
         [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }];
-    return YES;
+    return NO;
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
