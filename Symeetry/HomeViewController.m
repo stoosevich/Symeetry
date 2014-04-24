@@ -18,6 +18,9 @@
 #import "InterestsViewController.h"
 #import "ChatManager.h"
 
+//define a block for the call back
+typedef void (^MyCompletion)(NSArray *objects, NSError *error);
+
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
 
 @property PresentAnimationController* presentAnimationController;
@@ -61,21 +64,6 @@ toViewController:(UIViewController *)toVC
     return _presentAnimationController;
 }
 
-- (IBAction)segmentedControl:(UISegmentedControl *)sender
-{
-    if (sender.selectedSegmentIndex == 0)
-    {
-        [self performSegueWithIdentifier:@"showInterestView" sender:self];
-    }
-    else if (sender.selectedSegmentIndex == 1)
-    {
-        [self performSegueWithIdentifier:@"showMapView" sender:self];
-    }
-    else if (sender.selectedSegmentIndex == 2)
-    {
-        
-    }
-}
 
 - (void)viewDidLoad
 {
@@ -103,6 +91,7 @@ toViewController:(UIViewController *)toVC
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.homeTableView addSubview:refreshControl];
+
 }
 
 
@@ -162,7 +151,12 @@ toViewController:(UIViewController *)toVC
         [self.locationManager startRangingBeaconsInRegion:region];
     }
     
-    [self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+    if (self.activeRegions)
+    {
+        //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+        [self getUserWithSimlarityRank];
+    }
+    
 }
 
 
@@ -185,7 +179,8 @@ toViewController:(UIViewController *)toVC
 //
 - (void)refresh:(UIRefreshControl *)refreshControl
 {
-    [self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+    //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+    [self getUserWithSimlarityRank];
     [refreshControl endRefreshing];
 }
 
@@ -217,10 +212,10 @@ toViewController:(UIViewController *)toVC
         
         //initialize the dictionary for ranged regions with an empty array. Each region array will contain the ibeacons ranged for that region.
         self.rangedRegions[region] = [NSArray array];
-        
+ 
         //start monitoring all known regions
         [self.locationManager startMonitoringForRegion:region];
-        NSLog(@"monitoring region %@",region.identifier);
+        //NSLog(@"monitoring region %@",region.identifier);
     }
 }
 
@@ -242,9 +237,9 @@ toViewController:(UIViewController *)toVC
     //create a temporary region since we cannot pass the region object in the notification user info
     CLBeaconRegion* region = [[CLBeaconRegion alloc]initWithProximityUUID:uuid identifier:[uuid UUIDString]];
 
-    NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
+    //NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
     
-    [self showRegionStateAlertScreen:formatString];
+    //[self showRegionStateAlertScreen:formatString];
     
     //make sure the region is not empty first
     if(region)
@@ -252,8 +247,8 @@ toViewController:(UIViewController *)toVC
         //check if we enterd a new region
         if ([state isEqualToString:@"CLRegionStateInside"])
         {
-            NSString* formatString = [NSString stringWithFormat:@"App exited region:%@",region.identifier];
-            [self showRegionStateAlertScreen:formatString];
+            //NSString* formatString = [NSString stringWithFormat:@"App exited region:%@",region.identifier];
+            //[self showRegionStateAlertScreen:formatString];
             
             //if we are notified that we entered a new region, add it to the active list
             if (![self.activeRegions containsObject:region])
@@ -263,15 +258,15 @@ toViewController:(UIViewController *)toVC
         }
         else if ([state isEqualToString:@"CLRegionStateOutside"])
         {
-            NSString* formatString = [NSString stringWithFormat:@"App exited region:%@",region.identifier];
-            [self showRegionStateAlertScreen:formatString];
+            //NSString* formatString = [NSString stringWithFormat:@"App exited region:%@",region.identifier];
+            //[self showRegionStateAlertScreen:formatString];
             
             //if we are notified that we left a region
             [self.activeRegions removeObject:region];
         }
         
-        [self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
-        [self.homeTableView reloadData];
+        //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+        [self getUserWithSimlarityRank];
         
         //whenever a user enters a new region, update their location
         [ParseManager setUsersPFGeoPointLocation];
@@ -305,7 +300,6 @@ toViewController:(UIViewController *)toVC
     //show beacon information
     cell.textLabel.text = formatString;
     
-    //cell.detailTextLabel.text = @"likes and interests";
     PFFile* file = [user objectForKey:@"thumbnail"];
     
     //load the image asynchronously
@@ -360,9 +354,9 @@ toViewController:(UIViewController *)toVC
         //if the user is already checkedin, then add the new region entered
         //and update the list of user available
         [self.activeRegions addObject:region];
-        [self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
-        //[self.homeTableView reloadData];
-        
+        [self getUserWithSimlarityRank];
+        //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+
         //whenever a user enters a new region, update their location
         [ParseManager setUsersPFGeoPointLocation];
     }
@@ -377,12 +371,17 @@ toViewController:(UIViewController *)toVC
     NSString* formatString = [NSString stringWithFormat:@"region\n%@",region.identifier];
     [self showRegionStateAlertScreen:formatString];
     
-    [ParseManager setUsersPFGeoPointLocation];
-    [self.activeRegions removeObject:region];
+    if ([self.activeRegions containsObject:region])
+    {
 
-    //update the list of available users
-    [self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
-    [self.homeTableView reloadData];
+        [ParseManager setUsersPFGeoPointLocation];
+        [self.activeRegions removeObject:region];
+        
+        //update the list of available users
+        //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+        [self getUserWithSimlarityRank];
+    }
+ 
 }
 
 
@@ -391,6 +390,19 @@ toViewController:(UIViewController *)toVC
  */
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
+
+    if (beacons.count)
+    {
+        if (![self.activeRegions containsObject:region])
+        {
+            [self.activeRegions addObject:region];
+
+            //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+            //[self.homeTableView reloadData];
+            NSLog(@"active regions %@", self.activeRegions);
+        }
+
+    }
     
     /*
      Per Apple -  CoreLocation will call this delegate method at 1 Hz with updated range information.
@@ -423,43 +435,21 @@ toViewController:(UIViewController *)toVC
         NSArray *proximityBeacons = [allBeacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity = %d", [range intValue]]];
         
         //if there are beacons, update our list of beacons
-        if([proximityBeacons count])
+        if(proximityBeacons.count)
         {
-            if (![self.activeRegions containsObject:region])
-            {
-                [self.activeRegions addObject:region];
-                [self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
-                NSLog(@"active regions %@", self.activeRegions);
-            }
             //store the beacons by proximity for each range in the beacon dictionary.
             //The dictionary holds an array of beacons by their proximity
             self.beacons[range] = proximityBeacons;
-            //NSLog(@"beacons %@",self.beacons[range]);
             [self determineNearestBeaconToUser];
         }
     }
-    
-    [self.homeTableView reloadData];
-    
-    //NSLog(@"didRangeRegion %@",region.identifier);
 }
 
 
 
 - (void)determineNearestBeaconToUser
 {
-    
-    
-//    for (NSNumber *range in @[@(CLProximityImmediate), @(CLProximityNear), @(CLProximityFar)])
-//    {
-//        if(self.beacons[range])
-//        {
-//            self.nearestBeacon = self.beacons[range];
-//        }
-//    }
-    
-    
-    
+
     if( self.beacons.count > 0)
     {
         
@@ -494,11 +484,10 @@ toViewController:(UIViewController *)toVC
 
         }
 
-//        NSLog(@"current beacon %@", currentBeacon);
-//        NSLog(@"nearest beacon %@", self.nearestBeacon);
         
         if (currentBeacon)
         {
+            //only udpate database if the beacon actually changed
             if (currentBeacon.proximityUUID != self.nearestBeacon.proximityUUID &&
                 currentBeacon.major != self.nearestBeacon.major &&
                 currentBeacon.minor != self.nearestBeacon.minor)
@@ -580,85 +569,85 @@ toViewController:(UIViewController *)toVC
  * and assigns each user a similarity index based on the similarity to the current user.
  * the results are sorted by the user similarity index and/or by user name
  */
--(void)retrieveUsersInLocalVicinityWithSimilarityRank:(NSArray*)regions
-{
-    
-    /*
-     * Block to calculate the similarity between two different users. This block
-     * compares the values between two differnet NSDictionary objects, and for every
-     * pair of values that are the same, the similarity index is increased by 1
-     */
-    int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* currUser, NSDictionary* otherUser)
-    {
-        int similarity = 0;
-
-        //loop throught the current user's dictionary of interests and compare
-        //each value to the other user. For each match increase the count by 1
-        int count = 0;
-        for (NSDictionary* item in currUser)
-        {
-            count++;
-            if (![item isEqual:@"userid"])
-            {
-                //both users need to have interest presents to avoid nil objects, and we
-                //need to skip the user Id in the dictionary object
-                if([currUser objectForKey:item] != nil && [otherUser objectForKey:item] != nil
-                   )
-                {
-                    int currentUserCategoryValue = [[currUser objectForKey:item] intValue];
-                    int otherUserCategoryValue = [[otherUser objectForKey:item] intValue];
-                    
-                    int categoryValue  = abs( abs(currentUserCategoryValue - otherUserCategoryValue) - 5);
-                    similarity += categoryValue;
-                }
-            }
-            
-        }
-        return similarity;
-    };
-    
-    
-    
-    /*
-     * Block to update the similarity index of a user based on comparision
-     * to the current user. This blocks loops through an array of users and
-     * calls another block to calculate the actual similarity index between the
-     * two users
-     */
-    void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
-    {
-        [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
-        {
-            NSDictionary* currentUserInterests =  [ParseManager convertPFObjectToNSDictionary:objects.firstObject];
-            
-            NSDictionary* otherUserInterests = nil;
-            
-            for(PFObject* user in userObjects)
-            {
-                //get the interest for each user in the list of objects returned from the search
-                otherUserInterests = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
-                
-                //only calculate the similarity if there other user has intersts
-                if(otherUserInterests)
-                {
-                    //call a block function to calculate the similarity of the two users
-                    user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUserInterests,otherUserInterests)];
-                }
-            }
-        }];
-    };
-
-    [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
-     {
-         updateUserSimilarity(objects);
-         
-         //sort the array using a block comparator
-         
-         if (objects.count)
-         {
-             self.users = objects;
-             [self.homeTableView reloadData];
-             
+//-(void)retrieveUsersInLocalVicinityWithSimilarityRank:(NSArray*)regions
+//{
+//    
+//    /*
+//     * Block to calculate the similarity between two different users. This block
+//     * compares the values between two differnet NSDictionary objects, and for every
+//     * pair of values that are the same, the similarity index is increased by 1
+//     */
+//    int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* currUser, NSDictionary* otherUser)
+//    {
+//        int similarity = 0;
+//
+//        //loop throught the current user's dictionary of interests and compare
+//        //each value to the other user. For each match increase the count by 1
+//        int count = 0;
+//        for (NSDictionary* item in currUser)
+//        {
+//            count++;
+//            if (![item isEqual:@"userid"])
+//            {
+//                //both users need to have interest presents to avoid nil objects, and we
+//                //need to skip the user Id in the dictionary object
+//                if([currUser objectForKey:item] != nil && [otherUser objectForKey:item] != nil
+//                   )
+//                {
+//                    int currentUserCategoryValue = [[currUser objectForKey:item] intValue];
+//                    int otherUserCategoryValue = [[otherUser objectForKey:item] intValue];
+//                    
+//                    int categoryValue  = abs( abs(currentUserCategoryValue - otherUserCategoryValue) - 5);
+//                    similarity += categoryValue;
+//                }
+//            }
+//            
+//        }
+//        return similarity;
+//    };
+//    
+//    
+//    
+//    /*
+//     * Block to update the similarity index of a user based on comparision
+//     * to the current user. This blocks loops through an array of users and
+//     * calls another block to calculate the actual similarity index between the
+//     * two users
+//     */
+//    void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
+//    {
+//        [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
+//        {
+//            NSDictionary* currentUserInterests =  [ParseManager convertPFObjectToNSDictionary:objects.firstObject];
+//            
+//            NSDictionary* otherUserInterests = nil;
+//            
+//            for(PFObject* user in userObjects)
+//            {
+//                //get the interest for each user in the list of objects returned from the search
+//                otherUserInterests = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
+//                
+//                //only calculate the similarity if there other user has intersts
+//                if(otherUserInterests)
+//                {
+//                    //call a block function to calculate the similarity of the two users
+//                    user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUserInterests,otherUserInterests)];
+//                }
+//            }
+//        }];
+//    };
+//
+//    [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
+//     {
+//         updateUserSimilarity(objects);
+//         
+//         //sort the array using a block comparator
+//         
+//         if (objects.count)
+//         {
+//             self.users = objects;
+//             
+//             
 //             self.users = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
 //                           {
 //                               //covert each object to a PFObject and retrieve the similarity index
@@ -666,9 +655,120 @@ toViewController:(UIViewController *)toVC
 //                               NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
 //                               return [second compare:first];
 //                           }];
-         }
+//             [self.homeTableView reloadData];
+//         }
+//     }];
+//}
+
+
+
+- (void)getUserWithSimlarityRank
+{
+    
+    [self getCurrentUserInterestWithComplettion:^(NSArray *objects, NSError *error)
+    {
+         NSDictionary* currentUserInterests =  [ParseManager convertPFObjectToNSDictionary:objects.firstObject];
+        [self calculateSimilarity:currentUserInterests];
+    }];
+}
+
+
+/*
+ *
+ *
+ */
+- (void)calculateSimilarity:(NSDictionary*)currentUserInterests
+{
+    
+    [self calculateSimilarity:currentUserInterests forRegions:self.activeRegions withCompletion:^(NSArray *objects, NSError *error)
+    {
+
+        NSDictionary* otherUserInterests = nil;
+        
+        for(PFObject* user in objects)
+        {
+            //get the interest for each user in the list of objects returned from the search
+            otherUserInterests = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
+            
+            //only calculate the similarity if there other user has intersts
+            if(otherUserInterests)
+            {
+                
+                /*
+                 * Block to calculate the similarity between two different users. This block
+                 * compares the values between two differnet NSDictionary objects, and for every
+                 * pair of values that are the same, the similarity index is increased by 1
+                 */
+                int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* currUser, NSDictionary* otherUser)
+                {
+                    int similarity = 0;
+                    
+                    //loop throught the current user's dictionary of interests and compare
+                    //each value to the other user. For each match increase the count by 1
+                    int count = 0;
+                    for (NSDictionary* item in currUser)
+                    {
+                        count++;
+                        if (![item isEqual:@"userid"])
+                        {
+                            //both users need to have interest presents to avoid nil objects, and we
+                            //need to skip the user Id in the dictionary object
+                            if([currUser objectForKey:item] != nil && [otherUser objectForKey:item] != nil
+                               )
+                            {
+                                int currentUserCategoryValue = [[currUser objectForKey:item] intValue];
+                                int otherUserCategoryValue = [[otherUser objectForKey:item] intValue];
+                                
+                                int categoryValue  = abs( abs(currentUserCategoryValue - otherUserCategoryValue) - 5);
+                                similarity += categoryValue;
+                            }
+                        }
+                        
+                    }
+                    return similarity;
+                };
+                
+                //call a block function to calculate the similarity of the two users
+                user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUserInterests,otherUserInterests)];
+            }
+        }
+        
+        self.users = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
+                      {
+                          //covert each object to a PFObject and retrieve the similarity index
+                          NSNumber *first =  ((PFObject*) user1)[@"similarityIndex"];
+                          NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
+                          return [second compare:first];
+                      }];
+        [self.homeTableView reloadData];
+    }];
+    
+}
+
+
+//get the list of user by region asyncronously from parse
+- (void)calculateSimilarity:(NSDictionary*)interest forRegions:(NSArray*)regions withCompletion:(MyCompletion)completion
+{
+    [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
+     {
+         completion(objects,error);
      }];
 }
+
+
+//get the current user interest from parse
+- (void)getCurrentUserInterestWithComplettion:(MyCompletion)completion
+{
+    
+    [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
+     {
+         completion(objects,error);
+     }];
+
+}
+
+
+
 
 
 

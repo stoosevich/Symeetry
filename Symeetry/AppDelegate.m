@@ -37,7 +37,9 @@
     //elapse before another background fetch is initiated
     [[UIApplication sharedApplication]setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
-    [self validateApplicationServicesFunctionalityIsEnabled];
+    //[self validateApplicationServicesFunctionalityIsEnabled];
+    
+    //[PFUser logInWithUsername:@"dennis" password:@"password"];
     
     return YES;
 }
@@ -60,9 +62,9 @@
         
         
         notification.alertBody = [NSString stringWithFormat:@"iBeacon found %@",region.identifier];
-        notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
+        //notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
         
-        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+        //[[UIApplication sharedApplication] presentLocalNotificationNow:notification];
         
         //create dictionary to pass the region identifier and state
         NSDictionary* notificationInfo = @{@"identifier":region.identifier, @"state":@"CLRegionStateInside"};
@@ -77,10 +79,7 @@
     }
     else if(state == CLRegionStateOutside)
     {
-        //notification.alertBody = [NSString stringWithFormat:@"Symeetry: You are outside region %@", region.identifier];
-        
-        //when we exit a region, remove it from the set
-        //[self.regionsMonitored removeObject:region.identifier];
+        return;
     }
     else
     {

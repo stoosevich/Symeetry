@@ -100,99 +100,6 @@
 
 #pragma mark -  USER RANKING AND RETRIEVAL RELATED METHODS
 
-
-/*
- * Block to update the similarity index of a user based on comparision
- * to the current user. This blocks loops through an array of users and
- * call another block to calculate the actual similarity index between the
- * two users
- */
-//void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
-//{
-//
-//    NSDictionary* currentUser = [ParseManager getInterest:[PFUser currentUser]];
-//    NSDictionary* otherUser = nil;
-//    
-//  for(PFObject* user in userObjects)
-//  {
-//      //get the interest for each user in the list of objects returned from the search
-//      otherUser = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
-//
-//      //only calculate the similarity if there other user has intersts
-//      if(otherUser)
-//      {
-//          //call a block function to calculate the similarity of the two users
-//          user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUser,otherUser)];
-//          //NSLog(@"similarityIndex %@",user[@"similarityIndex"]);
-//      }
-//  }
-//
-//};
-
-
-/*
- * This synchronous method retrieves all users in the current vicinity, based on the beacon uuid
- * and assigns each user a similarity index based on the similarity to the current user.
- * the results are sorted by the user similarity index and/or by user name.
- * @ return NSArray
- */
-//+(NSArray*)retrieveUsersInLocalVicinityWithSimilarity:(NSUUID*)uuid
-//{
-//    PFQuery* query = [PFUser query];
-//    
-//    //exclude the current user
-//    [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-//    //[query whereKey:@"uuid" equalTo:uuidString];
-//    
-//    
-//    //include the actual interest objecst not just a link
-//    [query includeKey:@"interests"];
-//    
-//    //sort by by user name, this will be resorted once the similarity index is assigned
-//    [query addAscendingOrder:@"username"];
-//
-//    
-//    NSArray* users = [query findObjects];
-//    
-//    updateUserSimilarity(users);
-//    
-//    
-//    //sort the object once the similarity index is updated
-//    NSArray *sortedArray;
-//    
-//    //sort the array using a block comparator
-//    sortedArray = [users sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
-//    {
-//        //covert each object to a PFObject and retrieve the similarity index
-//        NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
-//        NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
-//        return [second compare:first];
-//    }];
-//    
-//    return sortedArray;
-//}
-
-//-(void)retrieveUsersInLocalVicinityWithSimilarityTest:(NSArray*)regions
-//{
-//    [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
-//    {
-//        updateUserSimilarity(objects);
-//        
-//        //sort the object once the similarity index is updated
-//        NSArray *sortedArray;
-//        
-//        //sort the array using a block comparator
-//        sortedArray = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
-//                       {
-//                           //covert each object to a PFObject and retrieve the similarity index
-//                           NSNumber *first =  ((PFObject*)user1)[@"similarityIndex"];
-//                           NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
-//                           return [second compare:first];
-//                       }];
-//    }];
-//}
-
-
 /*
  *
  *@ NSArray regions
@@ -213,6 +120,8 @@
     
     //exclude the current user
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    //query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query whereKey:@"nearestBeacon" containedIn:uuids];
     
     //include the actual interest objecst not just a link
@@ -271,7 +180,9 @@
 +(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
     [query whereKey:@"userid" equalTo:user.objectId];
+    
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
@@ -283,6 +194,7 @@
 +(NSDictionary*)getInterest:(PFUser*)user
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
     [query whereKey:@"userid" equalTo:user.objectId];
     
     NSArray* result = [query findObjects];
