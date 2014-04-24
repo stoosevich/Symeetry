@@ -664,7 +664,10 @@ toViewController:(UIViewController *)toVC
     NSLog(@"begin asynch call for similarity");
     [self getCurrentUserInterestWithComplettion:^(NSArray *objects, NSError *error)
     {
-         NSDictionary* currentUserInterests =  [ParseManager convertPFObjectToNSDictionary:objects.firstObject];
+        PFUser* user = objects.firstObject;
+        NSDictionary* currentUserInterests = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
+        
+        //NSDictionary* currentUserInterests =  [ParseManager convertPFObjectToNSDictionary:objects.firstObject];
         [self calculateSimilarity:currentUserInterests];
     }];
 }
@@ -677,6 +680,7 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)currentUserInterests
 {
     
+    NSLog(@"begin user fetch for similarityCalculation");
     [self calculateSimilarity:currentUserInterests forRegions:self.activeRegions withCompletion:^(NSArray *objects, NSError *error)
     {
 
@@ -725,6 +729,8 @@ toViewController:(UIViewController *)toVC
                         NSLog(@"end similarityCalculation");
                         
                     }
+                    
+                     NSLog(@"loop done similarityCalculation");
                     return similarity;
                 };
                 
@@ -754,6 +760,7 @@ toViewController:(UIViewController *)toVC
 //get the list of user by region asyncronously from parse
 - (void)calculateSimilarity:(NSDictionary*)interest forRegions:(NSArray*)regions withCompletion:(MyCompletion)completion
 {
+    NSLog(@"initiate call  to get user by regions");
     [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
      {
          completion(objects,error);
@@ -764,7 +771,7 @@ toViewController:(UIViewController *)toVC
 //get the current user interest from parse
 - (void)getCurrentUserInterestWithComplettion:(MyCompletion)completion
 {
-    
+    NSLog(@"fetch user interest for similarityCalculation");
     [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
      {
          completion(objects,error);
