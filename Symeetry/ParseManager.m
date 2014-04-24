@@ -173,33 +173,21 @@
 
 /*
  * Query the Parse backend to find the interest of the user based on the
- * user's specific id
+ * user's specific id. This uses the PFUser query as performance using the
+ * query on the interest class itself is inefficient (slow!)
  * @return PFObject the Parse Interest object for the specified user
  */
 +(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
 {
-    PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
-    //query.cachePolicy = kPFCachePolicyNetworkElseCache;
-    [query whereKey:@"userid" equalTo:user.objectId];
-    
+
+    PFQuery* query = [PFUser query];
+    [query whereKey:@"objectId" equalTo:user.objectId];
+    [query includeKey:@"interests"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
         completion(objects,error);
     }];
-}
-
-//
-+(NSDictionary*)getInterest:(PFUser*)user
-{
-    PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
-    query.cachePolicy = kPFCachePolicyNetworkElseCache;
-    [query whereKey:@"userid" equalTo:user.objectId];
-    
-    NSArray* result = [query findObjects];
-    PFObject* interests = result.firstObject;
-    NSDictionary* dict  = [ParseManager convertPFObjectToNSDictionary:interests];
-    return dict;
 }
 
 
@@ -357,9 +345,8 @@
  * @param NSString uuid the uuid of the beacon that was found
  * @return void
  */
-+(void)addBeaconWithName:(CLBeacon*)beacon
++(void)addBeacon:(CLBeacon*)beacon
 {
-    
 
     PFObject* parseBeacon = [PFObject objectWithClassName:@"Beacon"];
     
@@ -372,17 +359,44 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
-         //first check if the beacon is in Parse, if not then add it
+         
+         NSLog(@"objects %@ %lu", objects, (unsigned long)objects.count);
+         //first check if the beacon is in Parse, if not add it, otherwise update it
          if (objects.count == 0)
          {
+//             [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
+//              {
+//                  [parseBeacon saveEventually:^(BOOL succeeded, NSError *error)
+//                   {
+//                       if (error)
+//                       {
+//                           //if the beacon is not added to parse
+//                       }
+//                   }];
+//              }];
+         }
+         else if (objects.count > 0)
+         {
+             NSLog(@"Saving beacon");
              
-             [parseBeacon saveEventually:^(BOOL succeeded, NSError *error)
+             [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
               {
-                  if (error)
+                  if (geoPoint)
                   {
-                      //if the beacon is not added to parse
+                      PFObject* beacon = objects.firstObject;
+                      beacon[@"location"] = geoPoint;
+                      
+                      [parseBeacon saveEventually:^(BOOL succeeded, NSError *error)
+                       {
+                           if (error)
+                           {
+                               //if the beacon is not added to parse
+                           }
+                       }];
                   }
+                  
               }];
+
          }
      }];
 

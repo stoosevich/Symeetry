@@ -305,7 +305,10 @@ toViewController:(UIViewController *)toVC
     //load the image asynchronously
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
     {
-        cell.imageView.image = [UIImage imageWithData:data];
+        dispatch_async(dispatch_get_main_queue(), ^{
+             cell.imageView.image = [UIImage imageWithData:data];
+        });
+       
     }];
     
     return cell;
@@ -389,19 +392,6 @@ toViewController:(UIViewController *)toVC
  */
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-
-    if (beacons.count)
-    {
-        if (![self.activeRegions containsObject:region])
-        {
-            [self.activeRegions addObject:region];
-
-            //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
-            //[self.homeTableView reloadData];
-            NSLog(@"active regions %@", self.activeRegions);
-        }
-
-    }
     
     /*
      Per Apple -  CoreLocation will call this delegate method at 1 Hz with updated range information.
@@ -458,35 +448,29 @@ toViewController:(UIViewController *)toVC
         if (self.beacons[@(CLProximityImmediate)])
         {
             beacons = self.beacons[@(CLProximityImmediate)];
-            //self.nearestBeacon = beacons.firstObject;
             currentBeacon = beacons.firstObject;
+            //send information to parse
         }
         else if (self.beacons[@(CLProximityNear)])
         {
             beacons = self.beacons[@(CLProximityNear)];
-            //self.nearestBeacon = beacons.firstObject;
             currentBeacon = beacons.firstObject;
-
         }
         else if (self.beacons[@(CLProximityFar)])
         {
             beacons = self.beacons[@(CLProximityFar)];
-            //self.nearestBeacon = beacons.firstObject;
             currentBeacon = beacons.firstObject;
-
         }
         else if (self.beacons[@(CLProximityUnknown)])
         {
             beacons = self.beacons[@(CLProximityUnknown)];
-            //self.nearestBeacon = beacons.firstObject;
             currentBeacon = beacons.firstObject;
-
         }
 
         
         if (currentBeacon)
         {
-            //only udpate database if the beacon actually changed
+            //only update navbar/database if the beacon actually changed
             if (currentBeacon.proximityUUID != self.nearestBeacon.proximityUUID &&
                 currentBeacon.major != self.nearestBeacon.major &&
                 currentBeacon.minor != self.nearestBeacon.minor)
@@ -495,6 +479,7 @@ toViewController:(UIViewController *)toVC
                 //change the color of the navbar based on the closest beacon
                 [self updateNavigationBarColorBasedOnProximity:self.nearestBeacon];
                 
+                //[ParseManager addBeacon:currentBeacon];
                 [ParseManager updateUserNearestBeacon:self.nearestBeacon];
             }
         }
@@ -663,10 +648,13 @@ toViewController:(UIViewController *)toVC
 
 - (void)getUserWithSimlarityRank
 {
-    
+    NSLog(@"begin asynch call for similarity");
     [self getCurrentUserInterestWithComplettion:^(NSArray *objects, NSError *error)
     {
-         NSDictionary* currentUserInterests =  [ParseManager convertPFObjectToNSDictionary:objects.firstObject];
+        PFUser* user = objects.firstObject;
+        NSDictionary* currentUserInterests = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
+        
+        //NSDictionary* currentUserInterests =  [ParseManager convertPFObjectToNSDictionary:objects.firstObject];
         [self calculateSimilarity:currentUserInterests];
     }];
 }
@@ -679,6 +667,7 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)currentUserInterests
 {
     
+    //NSLog(@"begin user fetch for similarityCalculation");
     [self calculateSimilarity:currentUserInterests forRegions:self.activeRegions withCompletion:^(NSArray *objects, NSError *error)
     {
 
@@ -722,7 +711,7 @@ toViewController:(UIViewController *)toVC
                                 similarity += categoryValue;
                             }
                         }
-                        
+
                     }
                     return similarity;
                 };
@@ -739,7 +728,13 @@ toViewController:(UIViewController *)toVC
                           NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
                           return [second compare:first];
                       }];
-        [self.homeTableView reloadData];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.homeTableView reloadData];
+            NSLog(@"user retrieval complete");
+        });
+        
     }];
     
 }
@@ -758,13 +753,20 @@ toViewController:(UIViewController *)toVC
 //get the current user interest from parse
 - (void)getCurrentUserInterestWithComplettion:(MyCompletion)completion
 {
-    
     [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
      {
          completion(objects,error);
      }];
 
 }
+
+
+
+
+
+
+
+
 
 
 
