@@ -661,7 +661,7 @@ toViewController:(UIViewController *)toVC
 
 - (void)getUserWithSimlarityRank
 {
-    
+    NSLog(@"begin asynch call for similarity");
     [self getCurrentUserInterestWithComplettion:^(NSArray *objects, NSError *error)
     {
          NSDictionary* currentUserInterests =  [ParseManager convertPFObjectToNSDictionary:objects.firstObject];
@@ -705,6 +705,8 @@ toViewController:(UIViewController *)toVC
                     int count = 0;
                     for (NSDictionary* item in currUser)
                     {
+                        NSLog(@"begin similarityCalculation");
+                        
                         count++;
                         if (![item isEqual:@"userid"])
                         {
@@ -720,6 +722,7 @@ toViewController:(UIViewController *)toVC
                                 similarity += categoryValue;
                             }
                         }
+                        NSLog(@"end similarityCalculation");
                         
                     }
                     return similarity;
