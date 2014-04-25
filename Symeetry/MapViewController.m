@@ -306,7 +306,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         {
             minLatitude = point.latitude;
         }
-        if (point.latitude > maxLatitude)
+        else if (point.latitude > maxLatitude)
         {
             maxLatitude = point.latitude;
         }
@@ -315,7 +315,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         {
             minLongitude = point.longitude;
         }
-        if (point.longitude > maxLongitude)
+        else if (point.longitude > maxLongitude)
         {
             maxLongitude = point.longitude;
         }
