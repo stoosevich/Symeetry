@@ -55,8 +55,7 @@
 {
    
     
-    //if we enter a region, and the region has not yet been added to the set of montiored regions,
-    //then create an alert and add it to the set
+    //if we enter a region, and we have not been notified about that region in the last 24 hours, post a notication
     if(state == CLRegionStateInside)
     {
         
@@ -73,11 +72,7 @@
             
             //check if the timestamp is more then 24 hours old
             NSDate* entryDate =[self.standardDefaults objectForKey:region.identifier][@"date"];
-            
-            NSTimeInterval elapsedTime = [entryDate timeIntervalSinceNow];
-            
-            
-            if (elapsedTime < -86400.00f)
+            if ([entryDate timeIntervalSinceNow] < -86400.00f)
             {
                 [self postNotificationOfRegionEntry:region withState:state];
                 
@@ -109,9 +104,7 @@
     
     //create dictionary to pass the region identifier and state
     NSDictionary* notificationInfo = @{@"identifier":region.identifier, @"state":@"CLRegionStateInside"};
-    
-    //notification.userInfo = notificationInfo;
-    
+
     //post the local notifcation to the notification center so the appropiate observer can respond
     [[NSNotificationCenter defaultCenter]postNotificationName:@"CLRegionStateInsideNotification" object:self userInfo:notificationInfo];
 }
@@ -121,21 +114,14 @@
     //add region to list of notified regions
     NSDate* currentDate = [NSDate date];
     NSDictionary* defaults = @{@"region":region.identifier , @"date":currentDate};
-    [self.standardDefaults setObject:defaults forKey:region.identifier]; //store the date encountered
+    [self.standardDefaults setObject:defaults forKey:region.identifier]; //store the data encountered
     [self.standardDefaults synchronize];
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
     
-    // If the application is in the foreground, we will notify the user of the region's state via an alert.
-//    NSString *cancelButtonTitle = NSLocalizedString(@"OK", @"Title for cancel button in local notification");
-//    NSString *checkinButtonTitle = NSLocalizedString(@"Checkin", @"Title for checkin button in local notification");
-//    
-//    //the main view controller needs to be the delegate for the notification
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:notification.alertBody message:notification.alertAction delegate:nil cancelButtonTitle:cancelButtonTitle otherButtonTitles:checkinButtonTitle,nil];
-//    [alert show];
-    
+    // If the application is in the foreground, we could notify the user of the region's state via an alert.
 }
 
 
@@ -143,8 +129,6 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     [[ChatManager sharedChatManager] checkoutChat];
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -161,8 +145,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    
-    application.applicationIconBadgeNumber = 0;
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
