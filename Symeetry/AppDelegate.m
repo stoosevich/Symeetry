@@ -35,10 +35,6 @@
     //initialize the set of regions we have seen
     self.regionsMonitored = [NSMutableSet new];
     
-    
-    //create a bluetooth manager to check if bluetooth services are available
-    self.centralManager = [[CBCentralManager alloc]init];
-    
     //determines how often the app receives updates. This is the minimum number of seconds that must
     //elapse before another background fetch is initiated
     [[UIApplication sharedApplication]setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
