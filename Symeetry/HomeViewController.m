@@ -5,6 +5,7 @@
 //  Copyright (c) 2014 Symeetry Team. All rights reserved.
 //
 
+
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Parse/Parse.h>
@@ -36,7 +37,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 //local data source
 @property NSArray* users;
-@property NSArray* images;
 @property CLBeacon* nearestBeacon;
 
 @end
@@ -359,8 +359,7 @@ toViewController:(UIViewController *)toVC
         //and update the list of user available
         [self.activeRegions addObject:region];
         [self getUserWithSimlarityRank];
-        //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
-
+ 
         //whenever a user enters a new region, update their location
         [ParseManager setUsersPFGeoPointLocation];
     }
@@ -381,8 +380,7 @@ toViewController:(UIViewController *)toVC
         [ParseManager setUsersPFGeoPointLocation];
         [self.activeRegions removeObject:region];
         
-        //update the list of available users
-        //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+        //update the list of available
         [self getUserWithSimlarityRank];
     }
  
