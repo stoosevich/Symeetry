@@ -107,8 +107,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
      {
-         //completion(geoPoint,error);
-         
          //create a 2D coordinate for the map view, centered on the current user
          CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
          
@@ -123,7 +121,11 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
          //update the map view
          self.mapView.region = region;
          
-         [self annotateMapWithNearByUserLocations];
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self annotateMapWithNearByUserLocations];
+         });
+         
+         
      }];
 
 }
@@ -183,25 +185,26 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     //create the view from a xib file
     MapCallOutView *annotationView =  [MapCallOutView newViewFromNib:@"MapCallOutView"];
     
-    CGRect frame = CGRectMake(0.0, 00.0f, 130.0f, 40.0f);
+    CGRect frame = CGRectMake(20.0, -20.0f, 130.0f, 40.0f);
     
     //set the frame
     annotationView.frame = frame;
     
-    //update the profile header details
-    annotationView.nameTextField.text = annotation.user.username;
-    
-    
-    PFFile* file = annotation.user[@"thumbnail"];
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+    if (annotation.user)
     {
-        UIImage* image = [UIImage imageWithData:data];
-        UIImage* resizedImage = [self resizeImage:image toWidth:30.0f andHeight:30.0f];
-        annotationView.imageView.image = resizedImage;
-    }];
+        annotationView.nameTextField.text = annotation.user.username;
+        PFFile* file = annotation.user[@"thumbnail"];
+        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+         {
+             UIImage* image = [UIImage imageWithData:data];
+             UIImage* resizedImage = [self resizeImage:image toWidth:30.0f andHeight:30.0f];
+             annotationView.imageView.image = resizedImage;
+         }];
+        
+        //add custom view above pin
+        [view addSubview:annotationView];
+    }
 
-    //add custom view to pin
-   [view addSubview:annotationView];
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
