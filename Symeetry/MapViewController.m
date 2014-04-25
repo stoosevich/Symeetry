@@ -24,7 +24,8 @@
 
 @implementation MapViewController
 
-
+//define a block for the call back
+typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 - (void)viewDidLoad
 {
@@ -38,7 +39,6 @@
     //allow the user's location to be shown
     self.mapView.showsUserLocation = YES;
 
-    //self.nearbyUsers = [ParseManager retrieveSymeetryUsersForMapView];
     [self retrieveSymeetryUsersForMapView];
 }
 
@@ -84,6 +84,7 @@
     [self.view addSubview:headerView];
 }
 
+
 /*
  * Retrieve 50 users closest to the current user based on their last known geopoint. This
  * method uses two asynchronous blocks, one to get the users current location and a second
@@ -92,29 +93,55 @@
  */
 - (void)retrieveSymeetryUsersForMapView
 {
-    [ParseManager retrieveSymeetryUsersForMapView:^(NSArray *objects, NSError *error)
+    
+    [self retrieveSymeetryUsersForMapView:^(NSArray *objects, NSError *error)
     {
         self.nearbyUsers = objects;
-        
-        [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
-         {
-             
-             //create a 2D coordinate for the map view, centered on the current user
-             CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
-             
-             //determine the size of the map area to show around the location
-             MKCoordinateSpan coordinateSpan = MKCoordinateSpanMake(0.02,0.02);
-             
-             
-             //create the region of the map that we want to show
-             MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, coordinateSpan);
-             
-             //update the map view
-             self.mapView.region = region;
-             
+        [self getUsersCurrentLocation];
+    }];
+}
+
+
+-(void)getUsersCurrentLocation
+{
+    
+    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
+     {
+         //create a 2D coordinate for the map view, centered on the current user
+         CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
+         
+         
+         //determine the size of the map area to show around the location
+         MKCoordinateSpan coordinateSpan = [self calculateTheSpanOfTheUserCoordinates];
+         
+         
+         //create the region of the map that we want to show
+         MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, coordinateSpan);
+         
+         //update the map view
+         self.mapView.region = region;
+         
+         dispatch_async(dispatch_get_main_queue(), ^{
              [self annotateMapWithNearByUserLocations];
-             
-         }];
+         });
+         
+         
+     }];
+
+}
+
+
+/*
+ * Retrieve 50 users using Parse geopoint location query. This process uses an
+ * asynchronous block to retrive the users
+ * @param MyCompletion block
+ * @return void
+ */
+- (void)retrieveSymeetryUsersForMapView:(MyCompletion)completion
+{
+    [ParseManager retrieveSymeetryUsersForMapView:^(NSArray *objects, NSError *error)
+    {
+        completion(objects,error);
     }];
 }
 
@@ -158,25 +185,26 @@
     //create the view from a xib file
     MapCallOutView *annotationView =  [MapCallOutView newViewFromNib:@"MapCallOutView"];
     
-    CGRect frame = CGRectMake(0.0, 00.0f, 130.0f, 40.0f);
+    CGRect frame = CGRectMake(20.0, -20.0f, 130.0f, 40.0f);
     
     //set the frame
     annotationView.frame = frame;
     
-    //update the profile header details
-    annotationView.nameTextField.text = annotation.user.username;
-    
-    
-    PFFile* file = annotation.user[@"thumbnail"];
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+    if (annotation.user)
     {
-        UIImage* image = [UIImage imageWithData:data];
-        UIImage* resizedImage = [self resizeImage:image toWidth:30.0f andHeight:30.0f];
-        annotationView.imageView.image = resizedImage;
-    }];
+        annotationView.nameTextField.text = annotation.user.username;
+        PFFile* file = annotation.user[@"thumbnail"];
+        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+         {
+             UIImage* image = [UIImage imageWithData:data];
+             UIImage* resizedImage = [self resizeImage:image toWidth:30.0f andHeight:30.0f];
+             annotationView.imageView.image = resizedImage;
+         }];
+        
+        //add custom view above pin
+        [view addSubview:annotationView];
+    }
 
-    //add custom view to pin
-   [view addSubview:annotationView];
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
@@ -265,35 +293,39 @@
 {
     MKCoordinateSpan corrdinateSpan = MKCoordinateSpanMake(0.0, 0.0);
 
-    float minLatitude = -10000.0f;
-    float minLongitude = -10000.0f;
+    float minLatitude = MAXFLOAT;
+    float minLongitude = MAXFLOAT;
     
-    float maxLatitude = 10000.0f;
-    float maxLongitude = -10000.0f;
+    float maxLatitude = -200;
+    float maxLongitude = -200;
+    
+    PFGeoPoint *point = nil;
     
     for (PFUser *user in self.nearbyUsers)
     {
-        if (((PFGeoPoint*)user[@"location"]).latitude < minLatitude)
+        point = ((PFGeoPoint*)user[@"location"]);
+
+        if (point.latitude < minLatitude)
         {
-            minLatitude = ((PFGeoPoint*)user[@"location"]).latitude;
+            minLatitude = point.latitude;
         }
-        else if (((PFGeoPoint*)user[@"location"]).latitude > maxLatitude)
+        else if (point.latitude > maxLatitude)
         {
-            maxLatitude = ((PFGeoPoint*)user[@"location"]).latitude;
+            maxLatitude = point.latitude;
         }
         
-        if (((PFGeoPoint*)user[@"location"]).longitude < minLongitude)
+        if (point.longitude < minLongitude)
         {
-            minLongitude = ((PFGeoPoint*)user[@"location"]).longitude;
+            minLongitude = point.longitude;
         }
-        else if (((PFGeoPoint*)user[@"location"]).longitude > maxLongitude)
+        else if (point.longitude > maxLongitude)
         {
-            maxLatitude = ((PFGeoPoint*)user[@"location"]).longitude;
+            maxLongitude = point.longitude;
         }
     }
     
-    float latitudeRange = maxLatitude - minLatitude;
-    float longitudeRange = maxLongitude - minLongitude;
+    float latitudeRange = maxLatitude - minLatitude + 0.005;
+    float longitudeRange = maxLongitude - minLongitude + 0.005;
     
     corrdinateSpan.latitudeDelta = latitudeRange;
     corrdinateSpan.longitudeDelta = longitudeRange;

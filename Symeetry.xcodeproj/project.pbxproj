@@ -432,7 +432,7 @@
 				ORGANIZATIONNAME = "Steve Toosevich";
 				TargetAttributes = {
 					81AB5B0418FC85890060B17A = {
-						DevelopmentTeam = 6EADSJP336;
+						DevelopmentTeam = C2MJ53WM9P;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;

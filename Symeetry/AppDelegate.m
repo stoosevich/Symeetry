@@ -11,6 +11,11 @@
 #import "HomeViewController.h"
 #import "ChatManager.h"
 
+@interface AppDelegate()
+
+@property (nonatomic) NSUserDefaults *standardDefaults;
+@end
+
 
 @implementation AppDelegate
 
@@ -30,17 +35,14 @@
     //initialize the set of regions we have seen
     self.regionsMonitored = [NSMutableSet new];
     
-    
-    //create a bluetooth manager to check if bluetooth services are available
-    self.centralManager = [[CBCentralManager alloc]init];
-    
     //determines how often the app receives updates. This is the minimum number of seconds that must
     //elapse before another background fetch is initiated
     [[UIApplication sharedApplication]setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-    
-    //[self validateApplicationServicesFunctionalityIsEnabled];
+
     
     //[PFUser logInWithUsername:@"dennis" password:@"password"];
+    
+    self.standardDefaults = [NSUserDefaults standardUserDefaults];
     
     return YES;
 }
@@ -51,32 +53,39 @@
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
+   
     
     //if we enter a region, and the region has not yet been added to the set of montiored regions,
     //then create an alert and add it to the set
-    
-    //&& ![self.regionsMonitored containsObject:region.identifier]
-    
     if(state == CLRegionStateInside)
     {
         
-        
-        notification.alertBody = [NSString stringWithFormat:@"iBeacon found %@",region.identifier];
-        //notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
-        
-        //[[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-        
-        //create dictionary to pass the region identifier and state
-        NSDictionary* notificationInfo = @{@"identifier":region.identifier, @"state":@"CLRegionStateInside"};
-        
-        //notification.userInfo = notificationInfo;
+        NSDictionary* regionFound = [self.standardDefaults objectForKey:region.identifier];
 
-        //post the local notifcation to the notification center so the appropiate observer can respond
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"CLRegionStateInsideNotification" object:self userInfo:notificationInfo];
-        
-        //add region to list of notified regions
-        //[self.regionsMonitored addObject:region.identifier];
+        //if we have not stored this region already,then show a notifcation
+        if (!regionFound)
+        {
+            [self postNotificationOfRegionEntry:region withState:state];
+            [self addRegionToUserDefaults:region];
+        }
+        else if(regionFound)
+        {
+            
+            //check if the timestamp is more then 24 hours old
+            NSDate* entryDate =[self.standardDefaults objectForKey:region.identifier][@"date"];
+            
+            NSTimeInterval elapsedTime = [entryDate timeIntervalSinceNow];
+            
+            
+            if (elapsedTime < -86400.00f)
+            {
+                [self postNotificationOfRegionEntry:region withState:state];
+                
+                //add region to list of notified regions
+                [self addRegionToUserDefaults:region];
+            }
+        }
+
     }
     else if(state == CLRegionStateOutside)
     {
@@ -88,6 +97,33 @@
     }
 }
 
+- (void)postNotificationOfRegionEntry:(CLRegion*)region withState:(CLRegionState)state
+{
+    
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    
+    notification.alertBody = [NSString stringWithFormat:@"iBeacon found"];
+    //notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
+    
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    
+    //create dictionary to pass the region identifier and state
+    NSDictionary* notificationInfo = @{@"identifier":region.identifier, @"state":@"CLRegionStateInside"};
+    
+    //notification.userInfo = notificationInfo;
+    
+    //post the local notifcation to the notification center so the appropiate observer can respond
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"CLRegionStateInsideNotification" object:self userInfo:notificationInfo];
+}
+
+- (void)addRegionToUserDefaults:(CLRegion*)region
+{
+    //add region to list of notified regions
+    NSDate* currentDate = [NSDate date];
+    NSDictionary* defaults = @{@"region":region.identifier , @"date":currentDate};
+    [self.standardDefaults setObject:defaults forKey:region.identifier]; //store the date encountered
+    [self.standardDefaults synchronize];
+}
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
@@ -103,98 +139,6 @@
 }
 
 
-/*
- * Validate all required services are active and notify user via AlertView if they are
- * not active.
- */
--(void)validateApplicationServicesFunctionalityIsEnabled
-{
-    //check background refesh is avaiable, otherwise notifications will not be recieved
-    if([[UIApplication sharedApplication]backgroundRefreshStatus] != UIBackgroundRefreshStatusAvailable)
-    {
-        [self notifyUserBackgroundRefeshIsDisabled:[[UIApplication sharedApplication]backgroundRefreshStatus]];
-    }
-    
-    //check location services are enabled
-    if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
-    {
-        [self notifyUserLocationServicesAreDisabled:[CLLocationManager authorizationStatus]];
-    }
-    
-    //check core bluetooth is enabled
-    if (self.centralManager.state != CBCentralManagerStatePoweredOn)
-    {
-        [self notifyUserBluetoohIsDisabled: self.centralManager.state];
-    }
-}
-
-/*
- * Check the corelocation manager to ensure location services are active
- */
-- (void)notifyUserLocationServicesAreDisabled:(NSUInteger)status
-{
-    if (status == kCLAuthorizationStatusRestricted )
-    {
-        [self showApplicationServicesAlertView:@"Location services are restricted"];
-    }
-    else if (status == kCLAuthorizationStatusDenied)
-    {
-        [self showApplicationServicesAlertView:@"Location services are disabled, please enable in Settings"];
-    }
-    else if (status == kCLAuthorizationStatusNotDetermined)
-    {
-        [self showApplicationServicesAlertView:@"Location services error, please try again later"];
-    }
-}
-
-/*
- * If the background refresh service is not active the user will notifications
- * about beacons when the app is not active
- */
-- (void)notifyUserBackgroundRefeshIsDisabled:(NSUInteger)status
-{
-    if (status == UIBackgroundRefreshStatusDenied)
-    {
-        [self showApplicationServicesAlertView:@"Background resresh disabled, please enable in Settings"];
-    }
-    else if (status == UIBackgroundRefreshStatusRestricted)
-    {
-        [self showApplicationServicesAlertView:@"Background refesh is restricted"];
-    }
-    
-}
-
-
-- (void)notifyUserBluetoohIsDisabled:(NSUInteger)status
-{
-    if (self.centralManager.state == CBCentralManagerStatePoweredOff)
-    {
-        //bluetooth is off we need to tell the user to turn on the service
-        [self showApplicationServicesAlertView:@"Bluetooth if off, please enable in settings"];
-    }
-    else if (self.centralManager.state == CBCentralManagerStateUnauthorized)
-    {
-        //bluetooth is not authorized for this app, we need to tell the user to adjust settings
-        [self showApplicationServicesAlertView:@"Bluetooth is restricted"];
-    }
-    else if (self.centralManager.state == CBCentralManagerStateUnsupported)
-    {
-        //we need to tell the user that the device does not support this action
-        [self showApplicationServicesAlertView:@"Bluetooth is not avialable on this device"];
-    }
-    else if (self.centralManager.state == CBCentralManagerStateUnknown)
-    {
-        
-    }
-}
-
-
-- (void)showApplicationServicesAlertView:(NSString*)message
-{
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Required Application Service Disabled" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    
-    [alertView show];
-}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

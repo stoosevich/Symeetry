@@ -5,6 +5,7 @@
 //  Copyright (c) 2014 Symeetry Team. All rights reserved.
 //
 
+
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Parse/Parse.h>
@@ -36,7 +37,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 //local data source
 @property NSArray* users;
-@property NSArray* images;
 @property CLBeacon* nearestBeacon;
 
 @end
@@ -69,6 +69,7 @@ toViewController:(UIViewController *)toVC
 {
     [super viewDidLoad];
     [[ChatManager sharedChatManager] setPeerID];
+    
     [self loadHeaderView];
     
     self.locationManager = [[CLLocationManager alloc]init];
@@ -357,8 +358,7 @@ toViewController:(UIViewController *)toVC
         //and update the list of user available
         [self.activeRegions addObject:region];
         [self getUserWithSimlarityRank];
-        //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
-
+ 
         //whenever a user enters a new region, update their location
         [ParseManager setUsersPFGeoPointLocation];
     }
@@ -379,8 +379,7 @@ toViewController:(UIViewController *)toVC
         [ParseManager setUsersPFGeoPointLocation];
         [self.activeRegions removeObject:region];
         
-        //update the list of available users
-        //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
+        //update the list of available
         [self getUserWithSimlarityRank];
     }
  
@@ -544,7 +543,11 @@ toViewController:(UIViewController *)toVC
 {
     [PFUser logOut];
     PFUser *currentUser = [PFUser currentUser];
+    [[ChatManager sharedChatManager] checkoutChat];
     NSLog(@"%@",currentUser);
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 
@@ -761,16 +764,94 @@ toViewController:(UIViewController *)toVC
 }
 
 
+#pragma mark - ApplicationServicesRelated Method
+
+/*
+ * Validate all required services are active and notify user via AlertView if they are
+ * not active.
+ */
+-(void)validateApplicationServicesFunctionalityIsEnabled
+{
+    //check background refesh is avaiable, otherwise notifications will not be recieved
+    if([[UIApplication sharedApplication]backgroundRefreshStatus] != UIBackgroundRefreshStatusAvailable)
+    {
+        [self notifyUserBackgroundRefeshIsDisabled:[[UIApplication sharedApplication]backgroundRefreshStatus]];
+    }
+    
+    //check location services are enabled
+    if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
+    {
+        [self notifyUserLocationServicesAreDisabled:[CLLocationManager authorizationStatus]];
+    }
+}
+
+/*
+ * Check the corelocation manager to ensure location services are active
+ */
+- (void)notifyUserLocationServicesAreDisabled:(NSUInteger)status
+{
+    if (status == kCLAuthorizationStatusRestricted )
+    {
+        [self showApplicationServicesAlertView:@"Location services are restricted"];
+    }
+    else if (status == kCLAuthorizationStatusDenied)
+    {
+        [self showApplicationServicesAlertView:@"Location services are disabled, please enable in Settings"];
+    }
+    else if (status == kCLAuthorizationStatusNotDetermined)
+    {
+        [self showApplicationServicesAlertView:@"Location services error, please try again later"];
+    }
+}
+
+/*
+ * If the background refresh service is not active the user will notifications
+ * about beacons when the app is not active
+ */
+- (void)notifyUserBackgroundRefeshIsDisabled:(NSUInteger)status
+{
+    if (status == UIBackgroundRefreshStatusDenied)
+    {
+        [self showApplicationServicesAlertView:@"Background resresh disabled, please enable in Settings"];
+    }
+    else if (status == UIBackgroundRefreshStatusRestricted)
+    {
+        [self showApplicationServicesAlertView:@"Background refesh is restricted"];
+    }
+    
+}
 
 
+//- (void)notifyUserBluetoohIsDisabled:(NSUInteger)status
+//{
+//    if (self.centralManager.state == CBCentralManagerStatePoweredOff)
+//    {
+//        //bluetooth is off we need to tell the user to turn on the service
+//        [self showApplicationServicesAlertView:@"Bluetooth if off, please enable in settings"];
+//    }
+//    else if (self.centralManager.state == CBCentralManagerStateUnauthorized)
+//    {
+//        //bluetooth is not authorized for this app, we need to tell the user to adjust settings
+//        [self showApplicationServicesAlertView:@"Bluetooth is restricted"];
+//    }
+//    else if (self.centralManager.state == CBCentralManagerStateUnsupported)
+//    {
+//        //we need to tell the user that the device does not support this action
+//        [self showApplicationServicesAlertView:@"Bluetooth is not avialable on this device"];
+//    }
+//    else if (self.centralManager.state == CBCentralManagerStateUnknown)
+//    {
+//        
+//    }
+//}
 
 
-
-
-
-
-
-
+- (void)showApplicationServicesAlertView:(NSString*)message
+{
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Required Application Service Disabled" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [alertView show];
+}
 
 
 

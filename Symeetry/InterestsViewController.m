@@ -103,7 +103,7 @@
 
     cell.imageView.image = self.images[indexPath.row];
     cell.interestTextField.text = self.interestNames[indexPath.row];
-    cell.backgroundView.backgroundColor = [UIColor grayColor];
+    cell.backgroundView.backgroundColor = [UIColor whiteColor];
   //  cell.backgroundColor = [UIColor blueColor];
  //   cell.backgroundColor = [UIColor colorWithRed:186 green:228 blue:217 alpha:1];
     

@@ -38,7 +38,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 //user Parse GeoPoint service to find nearby users
 + (void)retrieveSymeetryUsersForMapView:(MyCompletion)completion;
-+ (NSArray*)retrieveSymeetryUsersForMapView;
 
 //handle user signon, login and logoff
 +(void)logIn:(NSString*)username password:(NSString*)password completionBlock:(void (^)(void))completionBlock;
