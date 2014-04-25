@@ -69,7 +69,6 @@ toViewController:(UIViewController *)toVC
 {
     [super viewDidLoad];
     [[ChatManager sharedChatManager] setPeerID];
-    [self validateApplicationServicesFunctionalityIsEnabled];
     
     [self loadHeaderView];
     
