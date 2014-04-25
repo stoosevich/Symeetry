@@ -301,10 +301,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     for (PFUser *user in self.nearbyUsers)
     {
         point = ((PFGeoPoint*)user[@"location"]);
-        
-        NSLog(@"point let: %f long:%f",point.latitude,point.longitude);
-        
-        
+
         if (point.latitude < minLatitude)
         {
             minLatitude = point.latitude;
