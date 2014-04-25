@@ -124,8 +124,9 @@ toViewController:(UIViewController *)toVC
     {
         if (!error)
         {
-            headerView.imageView.image = [UIImage imageWithData:data];
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                headerView.imageView.image = [UIImage imageWithData:data];
+            });
         }
         else
         {
@@ -154,7 +155,6 @@ toViewController:(UIViewController *)toVC
     
     if (self.activeRegions)
     {
-        //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
         [self getUserWithSimlarityRank];
     }
     
@@ -180,7 +180,6 @@ toViewController:(UIViewController *)toVC
 //
 - (void)refresh:(UIRefreshControl *)refreshControl
 {
-    //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
     [self getUserWithSimlarityRank];
     [refreshControl endRefreshing];
 }
@@ -266,7 +265,6 @@ toViewController:(UIViewController *)toVC
             [self.activeRegions removeObject:region];
         }
         
-        //[self retrieveUsersInLocalVicinityWithSimilarityRank:self.activeRegions];
         [self getUserWithSimlarityRank];
         
         //whenever a user enters a new region, update their location
@@ -399,8 +397,7 @@ toViewController:(UIViewController *)toVC
      use a set instead of an array.
      */
     
-    //update the dictionary for ranged regions with the array of beacons which the location manager reported to us
-    //for the processed region
+    //update the dictionary for ranged regions with the array of beacons which the location manager reported to us for the processed region
     self.rangedRegions[region] = beacons;
     
     //clear the entries currently in the beacons dictionary
@@ -415,8 +412,7 @@ toViewController:(UIViewController *)toVC
         [allBeacons addObjectsFromArray:regionResult];
     }
     
-    //for each possible range value (0,1,2,3), find beacons matching the respective range, and add them to a new array,
-    //this will put the beacons in numeric order of proximity
+    //for each possible range value (0,1,2,3), find beacons matching the respective range, and add them to a new array, this will put the beacons in numeric order of proximity
     for (NSNumber *range in @[ @(CLProximityUnknown), @(CLProximityImmediate), @(CLProximityNear), @(CLProximityFar)])
     {
         //create an array to hold the beacons orderd proximity
@@ -488,7 +484,7 @@ toViewController:(UIViewController *)toVC
 #pragma mark - SymeetryApplicaitonHelperMethods
 
 /*
- * Change the
+ * Change the Navigation bar color based on proximity to beacon
  * @param CLBeacon the nearest beacon to the current user
  * @return void
  */
@@ -499,23 +495,18 @@ toViewController:(UIViewController *)toVC
     //change the background color and image of the view
     if (beacon.proximity == CLProximityImmediate)
     {
-        //NSLog(@"immed %ld", beacon.proximity);
         navBar.backgroundColor =[UIColor redColor];
     }
     else if (beacon.proximity == CLProximityNear)
     {
-        //NSLog(@"near %ld", beacon.proximity);
         navBar.backgroundColor = [UIColor blueColor];
-        
     }
     else if (beacon.proximity == CLProximityFar)
     {
-        //NSLog(@"far %ld", beacon.proximity);
         navBar.backgroundColor = [UIColor greenColor];
     }
     else if (beacon.proximity == CLProximityUnknown)
     {
-        //NSLog(@"unknown %ld", beacon.proximity);
         navBar.backgroundColor = [UIColor clearColor];
     }
 
@@ -533,11 +524,6 @@ toViewController:(UIViewController *)toVC
 }
 
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-
-}
-
 //temporary method to handle user logot
 - (IBAction)logoutButton:(UIBarButtonItem *)sender
 {
@@ -551,104 +537,10 @@ toViewController:(UIViewController *)toVC
 }
 
 
- /*
- * This method retrieves all users in the current vicinity, based on the beacon uuid
- * and assigns each user a similarity index based on the similarity to the current user.
- * the results are sorted by the user similarity index and/or by user name
+/*
+ *
+ *@return void
  */
-//-(void)retrieveUsersInLocalVicinityWithSimilarityRank:(NSArray*)regions
-//{
-//    
-//    /*
-//     * Block to calculate the similarity between two different users. This block
-//     * compares the values between two differnet NSDictionary objects, and for every
-//     * pair of values that are the same, the similarity index is increased by 1
-//     */
-//    int (^similarityCalculation)(NSDictionary*, NSDictionary*) = ^(NSDictionary* currUser, NSDictionary* otherUser)
-//    {
-//        int similarity = 0;
-//
-//        //loop throught the current user's dictionary of interests and compare
-//        //each value to the other user. For each match increase the count by 1
-//        int count = 0;
-//        for (NSDictionary* item in currUser)
-//        {
-//            count++;
-//            if (![item isEqual:@"userid"])
-//            {
-//                //both users need to have interest presents to avoid nil objects, and we
-//                //need to skip the user Id in the dictionary object
-//                if([currUser objectForKey:item] != nil && [otherUser objectForKey:item] != nil
-//                   )
-//                {
-//                    int currentUserCategoryValue = [[currUser objectForKey:item] intValue];
-//                    int otherUserCategoryValue = [[otherUser objectForKey:item] intValue];
-//                    
-//                    int categoryValue  = abs( abs(currentUserCategoryValue - otherUserCategoryValue) - 5);
-//                    similarity += categoryValue;
-//                }
-//            }
-//            
-//        }
-//        return similarity;
-//    };
-//    
-//    
-//    
-//    /*
-//     * Block to update the similarity index of a user based on comparision
-//     * to the current user. This blocks loops through an array of users and
-//     * calls another block to calculate the actual similarity index between the
-//     * two users
-//     */
-//    void (^updateUserSimilarity)(NSArray*) = ^(NSArray* userObjects)
-//    {
-//        [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
-//        {
-//            NSDictionary* currentUserInterests =  [ParseManager convertPFObjectToNSDictionary:objects.firstObject];
-//            
-//            NSDictionary* otherUserInterests = nil;
-//            
-//            for(PFObject* user in userObjects)
-//            {
-//                //get the interest for each user in the list of objects returned from the search
-//                otherUserInterests = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
-//                
-//                //only calculate the similarity if there other user has intersts
-//                if(otherUserInterests)
-//                {
-//                    //call a block function to calculate the similarity of the two users
-//                    user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUserInterests,otherUserInterests)];
-//                }
-//            }
-//        }];
-//    };
-//
-//    [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
-//     {
-//         updateUserSimilarity(objects);
-//         
-//         //sort the array using a block comparator
-//         
-//         if (objects.count)
-//         {
-//             self.users = objects;
-//             
-//             
-//             self.users = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
-//                           {
-//                               //covert each object to a PFObject and retrieve the similarity index
-//                               NSNumber *first =  ((PFObject*) user1)[@"similarityIndex"];
-//                               NSNumber *second = ((PFObject*) user2)[@"similarityIndex"];
-//                               return [second compare:first];
-//                           }];
-//             [self.homeTableView reloadData];
-//         }
-//     }];
-//}
-
-
-
 - (void)getUserWithSimlarityRank
 {
     NSLog(@"begin asynch call for similarity");
@@ -656,16 +548,14 @@ toViewController:(UIViewController *)toVC
     {
         PFUser* user = objects.firstObject;
         NSDictionary* currentUserInterests = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
-        
-        //NSDictionary* currentUserInterests =  [ParseManager convertPFObjectToNSDictionary:objects.firstObject];
         [self calculateSimilarity:currentUserInterests];
     }];
 }
 
 
 /*
- *
- *
+ *@param NSDictionary
+ *@return void
  */
 - (void)calculateSimilarity:(NSDictionary*)currentUserInterests
 {
