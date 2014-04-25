@@ -34,6 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"%@", self.user.username);
     
     if ([ParseManager isCurrentUser:self.user]) {
         self.changeRelationShipButton.hidden = NO;

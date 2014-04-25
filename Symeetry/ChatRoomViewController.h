@@ -12,5 +12,7 @@
 @interface ChatRoomViewController : UIViewController
 
 @property MCPeerID* peerID;
+@property UIImage* myPicture;
+@property UIImage* theirPicture;
 
 @end
