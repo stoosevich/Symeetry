@@ -75,6 +75,7 @@
 {
     PFQuery* query = [PFUser query];
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    [query whereKey:@"hidden" equalTo:@NO];
     [query findObjects];
 }
 
@@ -90,6 +91,7 @@
 {
     PFQuery* query = [PFUser query];
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+    [query whereKey:@"hidden" equalTo:@NO];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
@@ -120,8 +122,9 @@
     
     //exclude the current user
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-    //query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query whereKey:@"nearestBeacon" containedIn:uuids];
+    [query whereKey:@"hidden" equalTo:@NO];
     
     //include the actual interest objecst not just a link
     [query includeKey:@"interests"];
@@ -242,6 +245,7 @@
         // Interested in locations near user.
         [query whereKey:@"location" nearGeoPoint:userGeoPoint];
         [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+        [query whereKey:@"hidden" equalTo:@NO];
         
         // Limit what could be a lot of points.
         query.limit = 50;
@@ -257,34 +261,6 @@
     }
 }
 
-+ (NSArray*)retrieveSymeetryUsersForMapView
-{
-    // User's location
-    PFUser* user = [PFUser currentUser];
-    
-    //get the users geopoint
-    PFGeoPoint *userGeoPoint = user[@"location"];
-    
-    if (userGeoPoint)
-    {
-        
-        
-        // Create a query for places
-        PFQuery *query = [PFUser query];
-        
-        // Interested in locations near user.
-        [query whereKey:@"location" nearGeoPoint:userGeoPoint];
-        [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-        
-        // Limit what could be a lot of points.
-        query.limit = 50;
-        
-        // Final list of objects
-        return [query findObjects];
-    }
-    
-    return nil;
-}
 
 /*
  * Set the users geopoint use Parse
@@ -418,7 +394,7 @@
 
 
 /*
- * Convert a UIImage to a PFFile object to storage on parse
+ * Convert a UIImage to a PFFile object for storage on parse
  * @param UIImage image the UIImage to be converted to a Parse file
  * @return PFFile file the file created from the UIImage object
  */
