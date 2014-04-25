@@ -57,16 +57,15 @@
     
     //if we enter a region, and the region has not yet been added to the set of montiored regions,
     //then create an alert and add it to the set
-
     if(state == CLRegionStateInside)
     {
         
-        NSString* defaultRegion = [self.standardDefaults stringForKey:region];
+        NSString* defaultRegion = [self.standardDefaults stringForKey:region.identifier];
         
         //if we have not stored this region already,then show a notifcation
         if (![defaultRegion isEqualToString:region.identifier])
         {
-            notification.alertBody = [NSString stringWithFormat:@"iBeacon found %@",region.identifier];
+            notification.alertBody = [NSString stringWithFormat:@"iBeacon Site"];
             //notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
             
             [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
