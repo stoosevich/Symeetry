@@ -544,7 +544,11 @@ toViewController:(UIViewController *)toVC
 {
     [PFUser logOut];
     PFUser *currentUser = [PFUser currentUser];
+    [[ChatManager sharedChatManager] checkoutChat];
     NSLog(@"%@",currentUser);
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 

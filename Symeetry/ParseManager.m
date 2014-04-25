@@ -154,12 +154,15 @@
     [self getUserInterest:user WithComplettion:^(NSArray *objects, NSError *error)
     {
         //get the first object, there should only be one per user
-        PFObject* interest = objects.firstObject;
+        PFUser* user = objects.firstObject;
         
         //update the category with the new value
-        interest[key] = [NSNumber numberWithInt:value];
         
-        [interest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+        PFObject* interests = user[@"interests"];
+        
+        interests[key] = [NSNumber numberWithInt:value];
+        
+        [interests saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
         {
             if(error)
             {

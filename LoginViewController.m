@@ -31,6 +31,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     if ([PFUser currentUser] != nil) {
+        
         [self performSegueWithIdentifier:@"LoginSegue" sender:self];
     }
 }
@@ -38,6 +39,8 @@
 - (IBAction)onLoginButtonPressed:(id)sender
 {
     [ParseManager logIn:self.usernameTextField.text password:self.passwordTextField.text completionBlock:^{
+        self.passwordTextField.text = @"";
+        self.usernameTextField.text = @"";
         [self performSegueWithIdentifier:@"LoginSegue" sender:self];
     }];
 }
