@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5608DB241906D80A002BE613 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608DB231906D80A002BE613 /* MultipeerConnectivity.framework */; };
 		56322D5618FF265B004EF55D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56322D5518FF265B004EF55D /* LoginViewController.m */; };
+		563A1C4E190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1C4D190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m */; };
 		5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695430F18FD8C8F00A101F4 /* ParseManager.m */; };
 		56A6548919085D15001B17AE /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548819085D15001B17AE /* RootViewController.m */; };
 		56A6548C19085E9C001B17AE /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548B19085E9C001B17AE /* SignUpViewController.m */; };
@@ -89,6 +90,8 @@
 		5608DB231906D80A002BE613 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		56322D5418FF265B004EF55D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		56322D5518FF265B004EF55D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		563A1C4C190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewPrototypeCellTableViewCell.h; path = Symeetry/MessageTableViewPrototypeCellTableViewCell.h; sourceTree = "<group>"; };
+		563A1C4D190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageTableViewPrototypeCellTableViewCell.m; path = Symeetry/MessageTableViewPrototypeCellTableViewCell.m; sourceTree = "<group>"; };
 		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseManager.h; path = Symeetry/ParseManager.h; sourceTree = "<group>"; };
 		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseManager.m; path = Symeetry/ParseManager.m; sourceTree = "<group>"; };
 		56A6548719085D15001B17AE /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 		818829FC18FC881100724B79 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				563A1C4C190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.h */,
+				563A1C4D190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m */,
 				CE6748641901D58600F05121 /* Defaults.h */,
 				CE6748651901D58600F05121 /* Defaults.m */,
 				CE3EC3A5190803DE00DCB671 /* MapCallOutView.h */,
@@ -511,6 +516,7 @@
 				CE7D9363190729C700F3EDC0 /* PresentAnimationController.m in Sources */,
 				CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */,
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
+				563A1C4E190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
 				56A6548C19085E9C001B17AE /* SignUpViewController.m in Sources */,
 				CE893D8919022CAF000260A4 /* MapViewController.m in Sources */,
