@@ -86,7 +86,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="NeW-jG-8jf" kind="push" identifier="showProfileView" id="EZl-hx-yyJ"/>
+                                            <segue destination="NeW-jG-8jf" kind="modal" identifier="showProfileView" modalTransitionStyle="coverVertical" id="EZl-hx-yyJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -133,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1499" y="463"/>
+            <point key="canvasLocation" x="1499" y="482"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="9Ix-yJ-YAe">
@@ -164,7 +164,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qBn-cm-8Lx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1013" y="-202"/>
+            <point key="canvasLocation" x="1499" y="-214"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="ux3-2i-2Oh">
@@ -179,20 +179,20 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="HomeTown:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YgP-aN-BVw">
-                                <rect key="frame" x="18" y="243" width="91" height="21"/>
+                                <rect key="frame" x="20" y="346" width="91" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Relationship Status:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ebe-kH-QcJ">
-                                <rect key="frame" x="18" y="272" width="154" height="21"/>
+                                <rect key="frame" x="20" y="375" width="154" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1CV-We-u3d">
-                                <rect key="frame" x="110" y="240" width="97" height="30"/>
+                                <rect key="frame" x="112" y="343" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
@@ -201,19 +201,19 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hq9-un-zVm">
-                                <rect key="frame" x="173" y="272" width="42" height="21"/>
+                                <rect key="frame" x="175" y="375" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Email:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qhw-le-nvI">
-                                <rect key="frame" x="20" y="214" width="47" height="21"/>
+                                <rect key="frame" x="22" y="317" width="47" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Df-Ri-1dW">
-                                <rect key="frame" x="68" y="211" width="97" height="30"/>
+                                <rect key="frame" x="70" y="314" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" keyboardAppearance="alert"/>
@@ -222,7 +222,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HnL-dX-i57">
-                                <rect key="frame" x="223" y="266" width="61" height="30"/>
+                                <rect key="frame" x="225" y="369" width="61" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Change">
@@ -233,13 +233,27 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Qq-Re-F3z">
-                                <rect key="frame" x="110" y="323" width="46" height="30"/>
+                                <rect key="frame" x="112" y="426" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Chat">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="onChatButtonPressed:" destination="NeW-jG-8jf" eventType="touchUpInside" id="d1r-AG-VJC"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-M5-lt4">
+                                <rect key="frame" x="35" y="40" width="250" height="250"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4za-sq-8hc">
+                                <rect key="frame" x="22" y="426" width="41" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Leave">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="GZ1-9e-IQe" kind="unwind" unwindAction="unwindFromDetailView:" id="HXP-04-093"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -260,12 +274,14 @@
                         <outlet property="chatButton" destination="9Qq-Re-F3z" id="CY2-QU-5KL"/>
                         <outlet property="emailTextField" destination="0Df-Ri-1dW" id="Cgq-yu-uP7"/>
                         <outlet property="homeTownTextField" destination="1CV-We-u3d" id="T7d-8z-pOg"/>
+                        <outlet property="imageView" destination="Tg1-M5-lt4" id="cfn-Lu-hzi"/>
                         <outlet property="relationShipLabel" destination="Hq9-un-zVm" id="fvh-5y-Xjx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gWp-03-FT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="GZ1-9e-IQe" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1493" y="-214"/>
+            <point key="canvasLocation" x="1983" y="482"/>
         </scene>
         <!--Chat Room View Controller-->
         <scene sceneID="pvU-go-2N8">
@@ -406,7 +422,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jgL-fa-Xcy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1945" y="-208"/>
+            <point key="canvasLocation" x="2563" y="-242"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="j0x-bx-j8o">
@@ -522,7 +538,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V9Y-ou-Y7u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="622" y="463"/>
+            <point key="canvasLocation" x="568" y="470"/>
         </scene>
         <!--Interests View Controller-->
         <scene sceneID="SX9-IO-Ue2">
@@ -620,7 +636,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FEn-ld-tui" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2019" y="463"/>
+            <point key="canvasLocation" x="2527" y="491"/>
         </scene>
         <!--Interests Test View Controller-->
         <scene sceneID="Are-5k-RuX">
@@ -710,7 +726,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXo-13-cBS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2471" y="470"/>
+            <point key="canvasLocation" x="3523" y="470"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3eg-QY-2s3">

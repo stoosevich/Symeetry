@@ -19,6 +19,14 @@
 #import "InterestsViewController.h"
 #import "ChatManager.h"
 
+
+#define RED [UIColor redColor]
+#define ORANGE [UIColor orangeColor]
+#define YELLOW [UIColor yellowColor]
+#define GREEN [UIColor greenColor
+#define BLUE [UIColor blueColor]
+
+
 //define a block for the call back
 typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
@@ -70,6 +78,7 @@ toViewController:(UIViewController *)toVC
     [super viewDidLoad];
     [[ChatManager sharedChatManager] setPeerID];
     
+
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
@@ -110,9 +119,10 @@ toViewController:(UIViewController *)toVC
     
     //update the profile header details
     headerView.nameTextField.text = [[PFUser currentUser]username];
-    NSNumber* age  = [[PFUser currentUser]objectForKey:@"age"];
     
+    NSNumber* age  = [[PFUser currentUser]objectForKey:@"age"];
     headerView.ageTextField.text = age.description;
+    
     headerView.genderTextField.text = [[PFUser currentUser]objectForKey:@"gender"];
     
     //convert the file to a UIImage
@@ -151,7 +161,7 @@ toViewController:(UIViewController *)toVC
         [self.locationManager startRangingBeaconsInRegion:region];
     }
     
-    if (self.activeRegions)
+    if (self.activeRegions.count)
     {
         [self getUserWithSimlarityRank];
     }
@@ -235,9 +245,9 @@ toViewController:(UIViewController *)toVC
     //create a temporary region since we cannot pass the region object in the notification user info
     CLBeaconRegion* region = [[CLBeaconRegion alloc]initWithProximityUUID:uuid identifier:[uuid UUIDString]];
 
-    //NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
+    NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
     
-    //[self showRegionStateAlertScreen:formatString];
+    [self showRegionStateAlertScreen:formatString];
     
     //make sure the region is not empty first
     if(region)
@@ -303,6 +313,13 @@ toViewController:(UIViewController *)toVC
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+            CALayer *imageLayer = cell.imageView.layer;
+            [imageLayer setCornerRadius: cell.imageView.frame.size.width/2];
+            [imageLayer setBorderWidth:5.0f];
+            [imageLayer setBorderColor:[[UIColor redColor]CGColor]];
+            [imageLayer setMasksToBounds:YES];
+
              cell.imageView.image = [UIImage imageWithData:data];
         });
        
@@ -324,16 +341,6 @@ toViewController:(UIViewController *)toVC
         viewController.user = self.users[indexPath.row];
         viewController.transitioningDelegate = self;
     }
-    else if ([[segue identifier] isEqualToString:@"showMapView"])
-    {
-        MapViewController* viewController = segue.destinationViewController;
-        viewController.transitioningDelegate = self;
-    }
-    else if ([[segue identifier]  isEqualToString:@"showInterestView"])
-    {
-        InterestsViewController* viewController = segue.destinationViewController;
-        viewController.transitioningDelegate = self;
-    }
 }
 
 #pragma mark - CLLocationManager Delegate Methods
@@ -346,7 +353,7 @@ toViewController:(UIViewController *)toVC
 {
     NSString* formatString = [NSString stringWithFormat:@"local entered region:%@",region.identifier];
     
-    [self showRegionStateAlertScreen:formatString];
+    //[self showRegionStateAlertScreen:formatString];
     
     if (![self.activeRegions containsObject:region])
     {
@@ -367,7 +374,8 @@ toViewController:(UIViewController *)toVC
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     NSString* formatString = [NSString stringWithFormat:@"region\n%@",region.identifier];
-    [self showRegionStateAlertScreen:formatString];
+    
+    //[self showRegionStateAlertScreen:formatString];
     
     if ([self.activeRegions containsObject:region])
     {
@@ -387,6 +395,13 @@ toViewController:(UIViewController *)toVC
  */
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
+    if (![self.activeRegions containsObject:region] && beacons.count)
+    {
+        [self.activeRegions addObject:region];
+        [self getUserWithSimlarityRank];
+        //NSLog(@"didRangeBeacons: active regions %@", self.activeRegions);
+    }
+    
     
     /*
      Per Apple -  CoreLocation will call this delegate method at 1 Hz with updated range information.
@@ -541,7 +556,7 @@ toViewController:(UIViewController *)toVC
  */
 - (void)getUserWithSimlarityRank
 {
-    NSLog(@"begin asynch call for similarity");
+    //NSLog(@"begin asynch call for similarity");
     [self getCurrentUserInterestWithComplettion:^(NSArray *objects, NSError *error)
     {
         PFUser* user = objects.firstObject;
@@ -623,7 +638,7 @@ toViewController:(UIViewController *)toVC
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.availableUsersTableView reloadData];
-            NSLog(@"user retrieval complete");
+            //NSLog(@"user retrieval complete");
         });
         
     }];
@@ -635,7 +650,7 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)interest forRegions:(NSArray*)regions withCompletion:(MyCompletion)completion
 {
     
-    NSLog(@"regions value %@", self.activeRegions);
+    //NSLog(@"regions value %@", self.activeRegions);
     
     if (regions.count)//if there are no regions, then stop
     {
@@ -715,29 +730,10 @@ toViewController:(UIViewController *)toVC
     
 }
 
-
-//- (void)notifyUserBluetoohIsDisabled:(NSUInteger)status
-//{
-//    if (self.centralManager.state == CBCentralManagerStatePoweredOff)
-//    {
-//        //bluetooth is off we need to tell the user to turn on the service
-//        [self showApplicationServicesAlertView:@"Bluetooth if off, please enable in settings"];
-//    }
-//    else if (self.centralManager.state == CBCentralManagerStateUnauthorized)
-//    {
-//        //bluetooth is not authorized for this app, we need to tell the user to adjust settings
-//        [self showApplicationServicesAlertView:@"Bluetooth is restricted"];
-//    }
-//    else if (self.centralManager.state == CBCentralManagerStateUnsupported)
-//    {
-//        //we need to tell the user that the device does not support this action
-//        [self showApplicationServicesAlertView:@"Bluetooth is not avialable on this device"];
-//    }
-//    else if (self.centralManager.state == CBCentralManagerStateUnknown)
-//    {
-//        
-//    }
-//}
+-(IBAction)unwindFromDetailView:(UIStoryboardSegue*)sender
+{
+    
+}
 
 
 - (void)showApplicationServicesAlertView:(NSString*)message

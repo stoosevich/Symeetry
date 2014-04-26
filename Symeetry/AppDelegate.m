@@ -55,14 +55,17 @@
 {
    
     
-    //if we enter a region, and we have not been notified about that region in the last 24 hours, post a notication
+    //if we enter a region, and we have not been notified about that region in the last 24 hours, post a local notication
     if(state == CLRegionStateInside)
     {
-        
-        NSDictionary* regionFound = [self.standardDefaults objectForKey:region.identifier];
+\
+        //always post a global notification for the app to respond too
         [self postGlobalNotificationOnRegionEntry:region withState:state];
+        
+        //get the region from the user defaults
+        NSDictionary* regionFound = [self.standardDefaults objectForKey:region.identifier];
 
-        //if we have not stored this region already,then show a notifcation
+        //if we have not stored this region already,then show a local notifcation
         if (!regionFound)
         {
             [self postLocalNotificationOnRegionEntry:region withState:state];
