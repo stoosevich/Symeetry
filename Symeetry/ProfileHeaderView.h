@@ -13,8 +13,7 @@
 @property IBOutlet UIImageView* imageView;
 @property (weak, nonatomic) IBOutlet UITextField *ageTextField;
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
-
-
+@property (weak, nonatomic) IBOutlet UITextView *bioTextField;
 
 -(void)setDelegates:(id)object;
 

@@ -32,7 +32,8 @@
 {
     if ([PFUser currentUser] != nil) {
         
-        [self performSegueWithIdentifier:@"LoginSegue" sender:self];
+        //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
+        [self performSegueWithIdentifier:@"ShowContainerViewController" sender:self];
     }
 }
 

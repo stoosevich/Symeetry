@@ -31,8 +31,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 {
     [super viewDidLoad];
     
-    [self loadHeaderView];
-    
     //make sure we are the delegate of the map view
     self.mapView.delegate = self;
     
@@ -43,45 +41,10 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 }
 
 
-/*
- * Load the custom view used for the users profile
- */
-- (void)loadHeaderView
+
+- (void)viewWillAppear:(BOOL)animated
 {
-    //create the view from a xib file
-    ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
-    
-    //quick hack to make the view appear in the correct location
-    CGRect frame = CGRectMake(0.0, 0.60f, headerView.frame.size.width, headerView.frame.size.height);
-    
-    //set the frame
-    headerView.frame = frame;
-    
-    //update the profile header details
-    headerView.nameTextField.text = [[PFUser currentUser]username];
-    NSNumber* age  = [[PFUser currentUser]objectForKey:@"age"];
-    
-    headerView.ageTextField.text = age.description;
-    headerView.genderTextField.text = [[PFUser currentUser]objectForKey:@"gender"];
-    
-    //convert the file to a UIImage
-    PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
-    
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-     {
-         if (!error)
-         {
-             headerView.imageView.image = [UIImage imageWithData:data];
-             
-         }
-         else
-         {
-             //do something, like load a default image
-         }
-     }];
-    
-    //add the new view to the array of subviews
-    [self.view addSubview:headerView];
+    [self retrieveSymeetryUsersForMapView];
 }
 
 
