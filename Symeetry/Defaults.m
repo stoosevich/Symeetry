@@ -36,6 +36,8 @@ NSString *BeaconIdentifier = @"com.Symeetry.beacon";
                                          [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"],
                                          [[NSUUID alloc] initWithUUIDString:@"08D4A950-80F0-4D42-A14B-D53E063516E6"],
                                          [[NSUUID alloc] initWithUUIDString:@"8492E75F-4FD6-469D-B132-043FE94921D8"],
+                                         [[NSUUID alloc] initWithUUIDString:@"C77581A3-D1C6-4648-A9AC-F8F85F361D54"],
+                                         [[NSUUID alloc] initWithUUIDString:@"8AEFB031-6C32-486F-825B-E26FA193487D"],
                                          [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"]
                                          ];
 
