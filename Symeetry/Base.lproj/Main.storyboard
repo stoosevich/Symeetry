@@ -45,10 +45,10 @@
             </objects>
             <point key="canvasLocation" x="1013" y="470"/>
         </scene>
-        <!--Home View Controller-->
+        <!--Available Users View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" id="vXZ-lx-hvc" customClass="HomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="vXZ-lx-hvc" customClass="AvailableUsersViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -128,7 +128,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="homeTableView" destination="Nxc-4k-Mwc" id="7P5-dO-La7"/>
+                        <outlet property="availableUsersTableView" destination="Nxc-4k-Mwc" id="aCb-KX-xe7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -148,7 +148,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="doJ-cD-k6q">
-                                <rect key="frame" x="0.0" y="-6" width="320" height="574"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="xNL-zN-uD9" id="gLa-oH-Dbp"/>

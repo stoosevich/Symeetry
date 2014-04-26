@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
-#import "HomeViewController.h"
+#import "AvailableUsersViewController.h"
 #import "ChatManager.h"
 
 @interface AppDelegate()

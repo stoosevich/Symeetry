@@ -9,7 +9,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Parse/Parse.h>
-#import "HomeViewController.h"
+#import "AvailableUsersViewController.h"
 #import "ProfileHeaderView.h"
 #import "ParseManager.h"
 #import "ProfileViewController.h"
@@ -22,7 +22,7 @@
 //define a block for the call back
 typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
+@interface AvailableUsersViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UIAlertViewDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
 
 @property PresentAnimationController* presentAnimationController;
 
@@ -41,7 +41,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 @end
 
-@implementation HomeViewController
+@implementation AvailableUsersViewController
 
 
 //ensures that the custom animation controller is available when the storyboard
@@ -89,7 +89,7 @@ toViewController:(UIViewController *)toVC
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    [self.homeTableView addSubview:refreshControl];
+    [self.availableUsersTableView addSubview:refreshControl];
 
 }
 
@@ -319,7 +319,7 @@ toViewController:(UIViewController *)toVC
 {
     if ([[segue identifier] isEqualToString:@"showProfileView"])
     {
-        NSIndexPath *indexPath = [self.homeTableView indexPathForSelectedRow];
+        NSIndexPath *indexPath = [self.availableUsersTableView indexPathForSelectedRow];
         ProfileViewController* viewController = segue.destinationViewController;
         viewController.user = self.users[indexPath.row];
         viewController.transitioningDelegate = self;
@@ -622,7 +622,7 @@ toViewController:(UIViewController *)toVC
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.homeTableView reloadData];
+            [self.availableUsersTableView reloadData];
             NSLog(@"user retrieval complete");
         });
         

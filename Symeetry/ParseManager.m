@@ -7,7 +7,7 @@
 //
 
 #import "ParseManager.h"
-#import "HomeViewController.h"
+#import "AvailableUsersViewController.h"
 
 
 @interface ParseManager()

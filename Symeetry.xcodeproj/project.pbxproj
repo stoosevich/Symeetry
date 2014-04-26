@@ -46,7 +46,7 @@
 		81AB5B1518FC85890060B17A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AB5B1418FC85890060B17A /* main.m */; };
 		81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AB5B1818FC85890060B17A /* AppDelegate.m */; };
 		81AB5B1C18FC85890060B17A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB5B1A18FC85890060B17A /* Main.storyboard */; };
-		81AB5B1F18FC85890060B17A /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AB5B1E18FC85890060B17A /* HomeViewController.m */; };
+		81AB5B1F18FC85890060B17A /* AvailableUsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AB5B1E18FC85890060B17A /* AvailableUsersViewController.m */; };
 		81AB5B2818FC85890060B17A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B2718FC85890060B17A /* XCTest.framework */; };
 		81AB5B2918FC85890060B17A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0818FC85890060B17A /* Foundation.framework */; };
 		81AB5B2A18FC858A0060B17A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0C18FC85890060B17A /* UIKit.framework */; };
@@ -140,8 +140,8 @@
 		81AB5B1718FC85890060B17A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		81AB5B1818FC85890060B17A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		81AB5B1B18FC85890060B17A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		81AB5B1D18FC85890060B17A /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = Symeetry/HomeViewController.h; sourceTree = "<group>"; };
-		81AB5B1E18FC85890060B17A /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = Symeetry/HomeViewController.m; sourceTree = "<group>"; };
+		81AB5B1D18FC85890060B17A /* AvailableUsersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AvailableUsersViewController.h; path = Symeetry/AvailableUsersViewController.h; sourceTree = "<group>"; };
+		81AB5B1E18FC85890060B17A /* AvailableUsersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AvailableUsersViewController.m; path = Symeetry/AvailableUsersViewController.m; sourceTree = "<group>"; };
 		81AB5B2618FC85890060B17A /* SymeetryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SymeetryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB5B2718FC85890060B17A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		81AB5B2F18FC858A0060B17A /* SymeetryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SymeetryTests-Info.plist"; sourceTree = "<group>"; };
@@ -287,8 +287,8 @@
 				CE7D935E190725BF00F3EDC0 /* ChatRoomViewController.m */,
 				CE893D8719022CAF000260A4 /* MapViewController.h */,
 				CE893D8819022CAF000260A4 /* MapViewController.m */,
-				81AB5B1D18FC85890060B17A /* HomeViewController.h */,
-				81AB5B1E18FC85890060B17A /* HomeViewController.m */,
+				81AB5B1D18FC85890060B17A /* AvailableUsersViewController.h */,
+				81AB5B1E18FC85890060B17A /* AvailableUsersViewController.m */,
 				818829F918FC87F300724B79 /* ProfileViewController.h */,
 				818829FA18FC87F300724B79 /* ProfileViewController.m */,
 				56322D5418FF265B004EF55D /* LoginViewController.h */,
@@ -516,7 +516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB5B1F18FC85890060B17A /* HomeViewController.m in Sources */,
+				81AB5B1F18FC85890060B17A /* AvailableUsersViewController.m in Sources */,
 				56A6548919085D15001B17AE /* RootViewController.m in Sources */,
 				CE7D9363190729C700F3EDC0 /* PresentAnimationController.m in Sources */,
 				CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */,

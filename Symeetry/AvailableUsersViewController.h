@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HomeViewController : UIViewController
+@interface AvailableUsersViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UITableView *homeTableView;
+@property (strong, nonatomic) IBOutlet UITableView *availableUsersTableView;
 @property NSMutableArray* activeRegions;
 
 @end
