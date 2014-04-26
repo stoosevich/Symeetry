@@ -31,8 +31,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 {
     [super viewDidLoad];
     
-    [self loadHeaderView];
-    
     //make sure we are the delegate of the map view
     self.mapView.delegate = self;
     
@@ -41,6 +39,14 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
     [self retrieveSymeetryUsersForMapView];
 }
+
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self retrieveSymeetryUsersForMapView];
+}
+
 
 
 /*

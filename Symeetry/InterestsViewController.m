@@ -30,7 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadHeaderView];
+    
  //   self.interestsCollectionView.backgroundColor = [UIColor orangeColor];
 
     self.interestsCollectionView.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f blue:217.f/255.f alpha:1];
@@ -39,15 +39,6 @@
     NSMutableDictionary *interestNamesDictionary = [NSMutableDictionary dictionaryWithContentsOfFile:path];
     interestNamesDictionary = [[NSMutableDictionary alloc]initWithDictionary:interestNamesDictionary copyItems:YES];
    // NSLog(@"contents %@", interestNamesDictionary);
-    
- //   self.chosenInterests = [NSMutableDictionary new];
-    UIView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
-    
-    //quick hack to make the view appear in the correct location
-    CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
-    headerView.frame = frame;
-    
-    [self.view addSubview:headerView];
     
     // Local images
    self.images = @[[UIImage imageNamed:@"music_note240x240"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"Food_crop.jpg"], [UIImage imageNamed:@"school.jpg"], [UIImage imageNamed:@"dancing.jpg"], [UIImage imageNamed:@"books.jpg"], [UIImage imageNamed:@"tv.jpg"], [UIImage imageNamed:@"art.jpg"], [UIImage imageNamed:@"technology.jpg"], [UIImage imageNamed:@"games.jpg"], [UIImage imageNamed:@"fashion.jpg"], [UIImage imageNamed:@"volunteer.jpg"]];

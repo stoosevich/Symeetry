@@ -70,8 +70,6 @@ toViewController:(UIViewController *)toVC
     [super viewDidLoad];
     [[ChatManager sharedChatManager] setPeerID];
     
-    [self loadHeaderView];
-    
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
