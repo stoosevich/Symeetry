@@ -63,40 +63,53 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (![self.chatMessages[indexPath.row][@"sender"] isEqualToString:[[PFUser currentUser]username]]) {
-        MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MyMessageCellID"];
-        cell.myTextView.text = [NSString stringWithFormat:@"%@:%@", self.chatMessages[indexPath.row][@"sender"], self.chatMessages[indexPath.row][@"messageText"]];
-//        cell.textLabel.numberOfLines = 0;
-//        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.myPicture.image = self.myPicture;
+        MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"TheirMessageCellID"];
+        cell.theirTextView.text = [NSString stringWithFormat:@"%@:%@", self.chatMessages[indexPath.row][@"sender"], self.chatMessages[indexPath.row][@"messageText"]];
+        cell.theirPicture.image = self.theirPicture;
+//        cell.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, 67);
         return cell;
     }
     else
     {
-        MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"TheirMessageCellID"];
-        cell.theirTextView.text = [NSString stringWithFormat:@"%@:%@", self.chatMessages[indexPath.row][@"sender"], self.chatMessages[indexPath.row][@"messageText"]];
-//        cell.textLabel.textColor = [UIColor orangeColor];
-//        cell.textLabel.numberOfLines = 0;
-//        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.theirPicture.image = self.theirPicture;
+        MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MyMessageCellID"];
+        cell.myTextView.textAlignment = NSTextAlignmentLeft;
+        cell.myTextView.text = [NSString stringWithFormat:@"%@:%@", self.chatMessages[indexPath.row][@"sender"], self.chatMessages[indexPath.row][@"messageText"]];
+//        cell.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, 67);
+        cell.myPicture.image = self.myPicture;
         return cell;
     }
 }
 
-//-(BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    NSError* error;
-//    [[ChatManager sharedChatManager] sendMessage:self.chatRoomTextField.text peer:self.peerID error:error sent:^{
-//        NSDictionary* message = @{@"sender": [[PFUser currentUser]username], @"messageText": self.chatRoomTextView.text};
-//        [self.chatMessages addObject:message];
-//        [self.chatRoomTableView reloadData];
-//        self.chatRoomTextView.text = @"";
-//        self.chatRoomTableView.frame = CGRectMake(0, 50, self.chatRoomTableView.frame.size.width, self.chatRoomTableView.frame.size.height + 216);
-//        self.chatRoomTextView.frame = CGRectMake(0, self.chatRoomTextView.frame.origin.y + 216, self.chatRoomTextView.frame.size.width, self.chatRoomTextView.frame.size.height);
-//        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.chatMessages.count -1 inSection:0];
-//        [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-//    }];
-//    return NO;
-//}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MessageTableViewPrototypeCellTableViewCell* cell = (MessageTableViewPrototypeCellTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+    if ([cell.reuseIdentifier isEqualToString:@"MyMessageCellID"])
+    {
+        float height = cell.myTextView.contentSize.height;
+        if (height > 79)
+        {
+            return height;
+        }
+        else
+        {
+            return 67;
+        }
+    }
+    else
+    {
+        float height = cell.theirTextView.contentSize.height;
+        if (height > 79)
+        {
+            return height;
+        }
+        else
+        {
+            return 67;
+        }
+    }
+}
+
+
 - (IBAction)sendButtonPressed:(id)sender
 {
     NSError* error;
@@ -105,9 +118,6 @@
         [self.chatMessages addObject:message];
         [self.chatRoomTableView reloadData];
         self.chatRoomTextView.text = @"";
-        self.chatRoomTableView.frame = CGRectMake(0, 50, self.chatRoomTableView.frame.size.width, self.chatRoomTableView.frame.size.height + 216);
-        self.chatRoomTextView.frame = CGRectMake(0, self.chatRoomTextView.frame.origin.y + 216, self.chatRoomTextView.frame.size.width, self.chatRoomTextView.frame.size.height);
-        self.sendButtonPressed.frame = CGRectMake(self.sendButtonPressed.frame.origin.x, self.sendButtonPressed.frame.origin.y - 216, self.sendButtonPressed.frame.size.width, self.sendButtonPressed.frame.size.height);
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.chatMessages.count -1 inSection:0];
         [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }];
@@ -121,12 +131,6 @@
     
 }
 
-//-(void)textFieldDidBeginEditing:(UITextField *)textField
-//{
-//    self.chatRoomTableView.frame = CGRectMake(0, 50, self.chatRoomTableView.frame.size.width, self.chatRoomTableView.frame.size.height - 216);
-//    self.chatRoomTextView.frame = CGRectMake(0, self.chatRoomTextView.frame.origin.y - 216, self.chatRoomTextView.frame.size.width, self.chatRoomTextView.frame.size.height);
-//    
-//}
 
 - (IBAction)onLeaveChatButtonPressed:(id)sender
 {
