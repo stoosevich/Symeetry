@@ -60,24 +60,25 @@
     {
         
         NSDictionary* regionFound = [self.standardDefaults objectForKey:region.identifier];
+        [self postGlobalNotificationOnRegionEntry:region withState:state];
 
         //if we have not stored this region already,then show a notifcation
         if (!regionFound)
         {
-            [self postNotificationOfRegionEntry:region withState:state];
-            [self addRegionToUserDefaults:region];
+            [self postLocalNotificationOnRegionEntry:region withState:state];
+            //[self addRegionToUserDefaults:region];
         }
         else if(regionFound)
         {
-            
+
             //check if the timestamp is more then 24 hours old
             NSDate* entryDate =[self.standardDefaults objectForKey:region.identifier][@"date"];
             if ([entryDate timeIntervalSinceNow] < -86400.00f)
             {
-                [self postNotificationOfRegionEntry:region withState:state];
+                [self postLocalNotificationOnRegionEntry:region withState:state];
                 
                 //add region to list of notified regions
-                [self addRegionToUserDefaults:region];
+                //[self addRegionToUserDefaults:region];
             }
         }
 
@@ -92,21 +93,27 @@
     }
 }
 
-- (void)postNotificationOfRegionEntry:(CLRegion*)region withState:(CLRegionState)state
+- (void)postLocalNotificationOnRegionEntry:(CLRegion*)region withState:(CLRegionState)state
 {
-    
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     
     notification.alertBody = [NSString stringWithFormat:@"iBeacon found"];
     //notification.soundName = UILocalNotificationDefaultSoundName;  //play a chime sound
     
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+}
+
+
+- (void)postGlobalNotificationOnRegionEntry:(CLRegion*)region withState:(CLRegionState)state
+{
     
     //create dictionary to pass the region identifier and state
     NSDictionary* notificationInfo = @{@"identifier":region.identifier, @"state":@"CLRegionStateInside"};
-
+    
     //post the local notifcation to the notification center so the appropiate observer can respond
     [[NSNotificationCenter defaultCenter]postNotificationName:@"CLRegionStateInsideNotification" object:self userInfo:notificationInfo];
+    
+
 }
 
 - (void)addRegionToUserDefaults:(CLRegion*)region

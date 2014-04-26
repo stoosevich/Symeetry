@@ -560,7 +560,7 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)currentUserInterests
 {
     
-    //NSLog(@"begin user fetch for similarityCalculation");
+    NSLog(@"begin user fetch for similarityCalculation");
     [self calculateSimilarity:currentUserInterests forRegions:self.activeRegions withCompletion:^(NSArray *objects, NSError *error)
     {
 
@@ -590,7 +590,7 @@ toViewController:(UIViewController *)toVC
                     for (NSDictionary* item in currUser)
                     {
                         count++;
-                        if (![item isEqual:@"userid"])
+                        if (![item isEqual:@"userid"] && ![item isEqual:@"user"])
                         {
                             //both users need to have interest presents to avoid nil objects, and we
                             //need to skip the user Id in the dictionary object
@@ -636,10 +636,16 @@ toViewController:(UIViewController *)toVC
 //get the list of user by region asyncronously from parse
 - (void)calculateSimilarity:(NSDictionary*)interest forRegions:(NSArray*)regions withCompletion:(MyCompletion)completion
 {
-    [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
-     {
-         completion(objects,error);
-     }];
+    
+    NSLog(@"regions value %@", self.activeRegions);
+    
+    if (regions.count)//if there are no regions, then stop
+    {
+        [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
+         {
+             completion(objects,error);
+         }];
+    }
 }
 
 

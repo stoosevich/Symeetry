@@ -122,9 +122,9 @@
     
     //exclude the current user
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    //query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query whereKey:@"nearestBeacon" containedIn:uuids];
-    [query whereKey:@"hidden" equalTo:@NO];
+    //[query whereKey:@"hidden" equalTo:@NO];
     
     //include the actual interest objecst not just a link
     [query includeKey:@"interests"];
