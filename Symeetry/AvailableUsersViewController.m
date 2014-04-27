@@ -304,16 +304,7 @@ toViewController:(UIViewController *)toVC
     
     //show beacon information
     cell.textLabel.text = formatString;
-    
-    CALayer *imageLayer = cell.imageView.layer;
-    [imageLayer setCornerRadius: cell.imageView.frame.size.width/2];
-    [imageLayer setBorderWidth:5.0f];
-    
-    NSNumber* index = (NSNumber*)user[@"similarityIndex"];
 
-    [imageLayer setBorderColor:[Utilities colorBasedOnSimilarity:[index intValue]]];
-     [imageLayer setMasksToBounds:YES];
-    
     PFFile* file = [user objectForKey:@"thumbnail"];
     
     //load the image asynchronously
@@ -321,7 +312,13 @@ toViewController:(UIViewController *)toVC
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             
-
+            
+            CALayer *imageLayer = cell.imageView.layer;
+            [imageLayer setCornerRadius: cell.imageView.frame.size.width/2];
+            [imageLayer setBorderWidth:5.0f];
+            NSNumber* index = (NSNumber*)user[@"similarityIndex"];
+            [imageLayer setBorderColor:[Utilities colorBasedOnSimilarity:[index intValue]]];
+            [imageLayer setMasksToBounds:YES];
              cell.imageView.image = [UIImage imageWithData:data];
         });
        
