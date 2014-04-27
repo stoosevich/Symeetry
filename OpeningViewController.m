@@ -10,7 +10,7 @@
 
 @interface OpeningViewController ()
 @property (nonatomic) NSNumber *number;
-@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+
 
 @end
 
@@ -27,8 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor redColor];
-    // Do any additional setup after loading the view.
+    //self.view.backgroundColor = [UIColor redColor];
+    self.imageView.image = [UIImage imageNamed:@"SymeetryFar"];
 }
 
 - (CGFloat)randomFloat:(CGFloat)floatMaximum;

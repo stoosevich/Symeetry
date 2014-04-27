@@ -10,6 +10,7 @@
 
 @interface OpeningViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 - (instancetype)initWithNumber:(NSNumber *)number;
 
 @end

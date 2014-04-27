@@ -52,11 +52,23 @@
     self.standardDefaults = [NSUserDefaults standardUserDefaults];
     
     //PageView Controller
-//    NSMutableArray *viewControllers = NSMutableArray.new;
+      NSMutableArray *viewControllers = NSMutableArray.new;
 //    for (int i = 1; i <= 10; i++) {
 //       [viewControllers addObject:[NumberedViewController.alloc initWithNumber:@(i)]];
 //    }
-//    
+    
+    //get a reference to the storyboard
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+
+    OpeningViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"OpeningViewController"];
+    
+    [viewControllers addObject:vc];
+    
+    
+    PageViewController* pvc = [[PageViewController alloc]initWithViewControllers:viewControllers transitionStyle:UIPageViewControllerTransitionStyleScroll];
+    
+    self.window.rootViewController = pvc;
+    
 //    self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
 //    self.window.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f blue:217.f/255.f alpha:1];
 //    self.window.rootViewController = [PageViewController.alloc initWithViewControllerClassNames:@[@"OpeningViewController", @"StoryViewController", @"CreateNewUserViewController", @"CameraViewController",@"InterestDemoViewController"] transitionStyle:UIPageViewControllerTransitionStyleScroll];
