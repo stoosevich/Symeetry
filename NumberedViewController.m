@@ -7,6 +7,12 @@
 //
 
 #import "NumberedViewController.h"
+#import "NumberedViewController.h"
+#import "OpeningViewController.h"
+#import "StoryViewController.h"
+#import "CreateNewUserViewController.h"
+#import "CameraViewController.h"
+#import "InterestDemoViewController.h"
 
 @interface NumberedViewController ()
 @property (nonatomic) NSNumber *number;

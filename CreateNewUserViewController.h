@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CreateNewUserViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UITextField *textField;
 
 @end
