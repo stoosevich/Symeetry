@@ -99,50 +99,6 @@ toViewController:(UIViewController *)toVC
 }
 
 
-/*
- * Load the custom view used for the users profile
- */
-- (void)loadHeaderView
-{
-    //create the view from a xib file
-    ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
-    
-    //quick hack to make the view appear in the correct location
-    CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
-
-    //set the frame
-    headerView.frame = frame;
-    
-    //update the profile header details
-    headerView.nameTextField.text = [[PFUser currentUser]username];
-    
-    NSNumber* age  = [[PFUser currentUser]objectForKey:@"age"];
-    headerView.ageTextField.text = age.description;
-    
-    headerView.genderTextField.text = [[PFUser currentUser]objectForKey:@"gender"];
-    
-    //convert the file to a UIImage
-    PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
-    
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-    {
-        if (!error)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                headerView.imageView.image = [UIImage imageWithData:data];
-            });
-        }
-        else
-        {
-            //do something, like load a default image
-        }
-    }];
-    
-    //add the new view to the array of subviews
-    [self.view addSubview:headerView];
-}
-
-
 - (void)viewWillAppear:(BOOL)animated
 {
     
