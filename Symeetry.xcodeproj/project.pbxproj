@@ -14,6 +14,13 @@
 		56A6548919085D15001B17AE /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548819085D15001B17AE /* RootViewController.m */; };
 		56A6548C19085E9C001B17AE /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548B19085E9C001B17AE /* SignUpViewController.m */; };
 		8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8114069218FE0CD8004E578F /* ProfileHeaderView.m */; };
+		815C10D4190C9A9700679DD2 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C10D3190C9A9700679DD2 /* PageViewController.m */; };
+		815C10D8190C9E9700679DD2 /* OpeningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C10D7190C9E9700679DD2 /* OpeningViewController.m */; };
+		815C10DB190CA0E500679DD2 /* StoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C10DA190CA0E500679DD2 /* StoryViewController.m */; };
+		815C10DE190CA6A500679DD2 /* CreateNewUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C10DD190CA6A500679DD2 /* CreateNewUserViewController.m */; };
+		815C10E1190CA6BC00679DD2 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C10E0190CA6BC00679DD2 /* CameraViewController.m */; };
+		815C10E4190CA6D400679DD2 /* InterestDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C10E3190CA6D400679DD2 /* InterestDemoViewController.m */; };
+		815C10E7190CBE7900679DD2 /* NumberedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C10E6190CBE7900679DD2 /* NumberedViewController.m */; };
 		818829FB18FC87F300724B79 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818829FA18FC87F300724B79 /* ProfileViewController.m */; };
 		81882A0018FC88BD00724B79 /* InterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818829FF18FC88BD00724B79 /* InterestsViewController.m */; };
 		81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81882A0218FC8AEE00724B79 /* InterestsCollectionViewCell.m */; };
@@ -101,6 +108,20 @@
 		56A6548B19085E9C001B17AE /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		8114069118FE0CD8004E578F /* ProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileHeaderView.h; path = Symeetry/ProfileHeaderView.h; sourceTree = "<group>"; };
 		8114069218FE0CD8004E578F /* ProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileHeaderView.m; path = Symeetry/ProfileHeaderView.m; sourceTree = "<group>"; };
+		815C10D2190C9A9700679DD2 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageViewController.h; path = Symeetry/PageViewController.h; sourceTree = "<group>"; };
+		815C10D3190C9A9700679DD2 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageViewController.m; path = Symeetry/PageViewController.m; sourceTree = "<group>"; };
+		815C10D6190C9E9700679DD2 /* OpeningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpeningViewController.h; sourceTree = "<group>"; };
+		815C10D7190C9E9700679DD2 /* OpeningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpeningViewController.m; sourceTree = "<group>"; };
+		815C10D9190CA0E500679DD2 /* StoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryViewController.h; sourceTree = "<group>"; };
+		815C10DA190CA0E500679DD2 /* StoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoryViewController.m; sourceTree = "<group>"; };
+		815C10DC190CA6A500679DD2 /* CreateNewUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNewUserViewController.h; sourceTree = "<group>"; };
+		815C10DD190CA6A500679DD2 /* CreateNewUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateNewUserViewController.m; sourceTree = "<group>"; };
+		815C10DF190CA6BC00679DD2 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		815C10E0190CA6BC00679DD2 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		815C10E2190CA6D400679DD2 /* InterestDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestDemoViewController.h; sourceTree = "<group>"; };
+		815C10E3190CA6D400679DD2 /* InterestDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestDemoViewController.m; sourceTree = "<group>"; };
+		815C10E5190CBE7900679DD2 /* NumberedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberedViewController.h; sourceTree = "<group>"; };
+		815C10E6190CBE7900679DD2 /* NumberedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberedViewController.m; sourceTree = "<group>"; };
 		818829F918FC87F300724B79 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = Symeetry/ProfileViewController.h; sourceTree = "<group>"; };
 		818829FA18FC87F300724B79 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = Symeetry/ProfileViewController.m; sourceTree = "<group>"; };
 		818829FE18FC88BD00724B79 /* InterestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InterestsViewController.h; path = Symeetry/InterestsViewController.h; sourceTree = "<group>"; };
@@ -245,6 +266,27 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		815C10D5190C9E5E00679DD2 /* On-Boarding */ = {
+			isa = PBXGroup;
+			children = (
+				815C10D2190C9A9700679DD2 /* PageViewController.h */,
+				815C10D3190C9A9700679DD2 /* PageViewController.m */,
+				815C10D6190C9E9700679DD2 /* OpeningViewController.h */,
+				815C10D7190C9E9700679DD2 /* OpeningViewController.m */,
+				815C10D9190CA0E500679DD2 /* StoryViewController.h */,
+				815C10DA190CA0E500679DD2 /* StoryViewController.m */,
+				815C10DC190CA6A500679DD2 /* CreateNewUserViewController.h */,
+				815C10DD190CA6A500679DD2 /* CreateNewUserViewController.m */,
+				815C10DF190CA6BC00679DD2 /* CameraViewController.h */,
+				815C10E0190CA6BC00679DD2 /* CameraViewController.m */,
+				815C10E2190CA6D400679DD2 /* InterestDemoViewController.h */,
+				815C10E3190CA6D400679DD2 /* InterestDemoViewController.m */,
+				815C10E5190CBE7900679DD2 /* NumberedViewController.h */,
+				815C10E6190CBE7900679DD2 /* NumberedViewController.m */,
+			);
+			name = "On-Boarding";
+			sourceTree = "<group>";
+		};
 		818829FC18FC881100724B79 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +319,7 @@
 		818829FD18FC883000724B79 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				815C10D5190C9E5E00679DD2 /* On-Boarding */,
 				56A6548719085D15001B17AE /* RootViewController.h */,
 				56A6548819085D15001B17AE /* RootViewController.m */,
 				CE5A1E6A190C4B4700658E4D /* ContainerViewController.h */,
@@ -516,9 +559,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				815C10DE190CA6A500679DD2 /* CreateNewUserViewController.m in Sources */,
 				81AB5B1F18FC85890060B17A /* AvailableUsersViewController.m in Sources */,
+				815C10D8190C9E9700679DD2 /* OpeningViewController.m in Sources */,
+				815C10DB190CA0E500679DD2 /* StoryViewController.m in Sources */,
 				56A6548919085D15001B17AE /* RootViewController.m in Sources */,
+				815C10E4190CA6D400679DD2 /* InterestDemoViewController.m in Sources */,
 				CE7D9363190729C700F3EDC0 /* PresentAnimationController.m in Sources */,
+				815C10D4190C9A9700679DD2 /* PageViewController.m in Sources */,
 				CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */,
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				563A1C4E190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m in Sources */,
@@ -536,6 +584,8 @@
 				81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */,
 				CE5A1E6C190C4B4700658E4D /* ContainerViewController.m in Sources */,
 				81882A0018FC88BD00724B79 /* InterestsViewController.m in Sources */,
+				815C10E7190CBE7900679DD2 /* NumberedViewController.m in Sources */,
+				815C10E1190CA6BC00679DD2 /* CameraViewController.m in Sources */,
 				5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */,
 				8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */,
 			);

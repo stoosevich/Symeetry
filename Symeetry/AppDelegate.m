@@ -10,6 +10,13 @@
 #import <Parse/Parse.h>
 #import "AvailableUsersViewController.h"
 #import "ChatManager.h"
+#import "PageViewController.h"
+#import "NumberedViewController.h"
+#import "OpeningViewController.h"
+#import "StoryViewController.h"
+#import "CreateNewUserViewController.h"
+#import "CameraViewController.h"
+#import "InterestDemoViewController.h"
 
 @interface AppDelegate()
 
@@ -43,6 +50,18 @@
     //[PFUser logInWithUsername:@"dennis" password:@"password"];
     
     self.standardDefaults = [NSUserDefaults standardUserDefaults];
+    
+    //PageView Controller
+//    NSMutableArray *viewControllers = NSMutableArray.new;
+//    for (int i = 1; i <= 10; i++) {
+//       [viewControllers addObject:[NumberedViewController.alloc initWithNumber:@(i)]];
+//    }
+//    
+//    self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
+//    self.window.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f blue:217.f/255.f alpha:1];
+//    self.window.rootViewController = [PageViewController.alloc initWithViewControllerClassNames:@[@"OpeningViewController", @"StoryViewController", @"CreateNewUserViewController", @"CameraViewController",@"InterestDemoViewController"] transitionStyle:UIPageViewControllerTransitionStyleScroll];
+//    [self.window makeKeyAndVisible];
+    
     
     return YES;
 }
