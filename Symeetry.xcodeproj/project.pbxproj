@@ -70,6 +70,7 @@
 		CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562ECA18FCD13F00DDB3D3 /* steve.jpg */; };
 		CE5A1E6C190C4B4700658E4D /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5A1E6B190C4B4700658E4D /* ContainerViewController.m */; };
 		CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */; };
+		CE63C866190DA19300460C31 /* UIView+Circlify.m in Sources */ = {isa = PBXBuildFile; fileRef = CE63C865190DA19300460C31 /* UIView+Circlify.m */; };
 		CE65D5E8190758BC00C74DFD /* greenriver.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5E7190758BC00C74DFD /* greenriver.jpg */; };
 		CE65D5EA1907591100C74DFD /* trainstation.JPG in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5E91907591100C74DFD /* trainstation.JPG */; };
 		CE65D5EE1907593E00C74DFD /* statue1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5ED1907593E00C74DFD /* statue1.jpg */; };
@@ -183,6 +184,8 @@
 		CE5A1E6B190C4B4700658E4D /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContainerViewController.m; path = Symeetry/ContainerViewController.m; sourceTree = "<group>"; };
 		CE5ACEE918FDED5000E91087 /* BlueToothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlueToothManager.h; path = Symeetry/BlueToothManager.h; sourceTree = "<group>"; };
 		CE5ACEEA18FDED5000E91087 /* BlueToothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlueToothManager.m; path = Symeetry/BlueToothManager.m; sourceTree = "<group>"; };
+		CE63C864190DA19300460C31 /* UIView+Circlify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Circlify.h"; sourceTree = "<group>"; };
+		CE63C865190DA19300460C31 /* UIView+Circlify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Circlify.m"; sourceTree = "<group>"; };
 		CE65D5E7190758BC00C74DFD /* greenriver.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = greenriver.jpg; path = Symeetry/greenriver.jpg; sourceTree = "<group>"; };
 		CE65D5E91907591100C74DFD /* trainstation.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = trainstation.JPG; path = Symeetry/trainstation.JPG; sourceTree = "<group>"; };
 		CE65D5ED1907593E00C74DFD /* statue1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = statue1.jpg; path = Symeetry/statue1.jpg; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 		818829FC18FC881100724B79 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CE63C864190DA19300460C31 /* UIView+Circlify.h */,
+				CE63C865190DA19300460C31 /* UIView+Circlify.m */,
 				CE77AD82190CCBE60028B91D /* Utilities.h */,
 				CE77AD83190CCBE60028B91D /* Utilities.m */,
 				563A1C4C190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.h */,
@@ -573,6 +578,7 @@
 				CE7D9363190729C700F3EDC0 /* PresentAnimationController.m in Sources */,
 				815C10D4190C9A9700679DD2 /* PageViewController.m in Sources */,
 				CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */,
+				CE63C866190DA19300460C31 /* UIView+Circlify.m in Sources */,
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				563A1C4E190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m in Sources */,
 				CE77AD84190CCBE60028B91D /* Utilities.m in Sources */,

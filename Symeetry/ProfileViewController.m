@@ -11,8 +11,8 @@
 #import "ParseManager.h"
 #import "ChatManager.h"
 #import "ChatRoomViewController.h"
-
-
+#import "UIView+Circlify.h"
+#import "Utilities.h"
 
 @interface ProfileViewController () <UITextFieldDelegate>
 
@@ -60,6 +60,9 @@
     //load the picture asynchronously
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
     {
+        [self.imageView circlify];
+        NSNumber* index = (NSNumber*) self.user[@"similarityIndex"];
+        [self.imageView.layer setBorderColor:[Utilities colorBasedOnSimilarity:[index intValue]]];
          self.imageView.image = [UIImage imageWithData:data];
     }];
    

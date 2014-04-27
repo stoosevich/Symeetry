@@ -12,6 +12,7 @@
 #import "MapViewController.h"
 #import "AvailableUsersViewController.h"
 #import "ParseManager.h"
+#import "UIView+Circlify.h"
 
 @interface ContainerViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -61,11 +62,13 @@
     //set the frame
     headerView.frame = frame;
     
-    CALayer *imageLayer = headerView.imageView.layer;
-    [imageLayer setCornerRadius: headerView.imageView.frame.size.width/2];
-    [imageLayer setBorderWidth:5.0f];
-    [imageLayer setBorderColor:[[UIColor redColor]CGColor]];
-    [imageLayer setMasksToBounds:YES];
+    [headerView.imageView circlify];
+    
+//    CALayer *imageLayer = headerView.imageView.layer;
+//    [imageLayer setCornerRadius: headerView.imageView.frame.size.width/2];
+//    [imageLayer setBorderWidth:5.0f];
+//    [imageLayer setBorderColor:[[UIColor redColor]CGColor]];
+//    [imageLayer setMasksToBounds:YES];
     
     //get the user's image from Parse
     PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];

@@ -19,7 +19,7 @@
 #import "InterestsViewController.h"
 #import "ChatManager.h"
 #import "Utilities.h"
-
+#import "UIView+Circlify.h"
 
 
 
@@ -311,14 +311,11 @@ toViewController:(UIViewController *)toVC
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
+        
             
-            
-            CALayer *imageLayer = cell.imageView.layer;
-            [imageLayer setCornerRadius: cell.imageView.frame.size.width/2];
-            [imageLayer setBorderWidth:5.0f];
+            [cell.imageView circlify];
             NSNumber* index = (NSNumber*)user[@"similarityIndex"];
-            [imageLayer setBorderColor:[Utilities colorBasedOnSimilarity:[index intValue]]];
-            [imageLayer setMasksToBounds:YES];
+            [cell.imageView.layer setBorderColor:[Utilities colorBasedOnSimilarity:[index intValue]]];
              cell.imageView.image = [UIImage imageWithData:data];
         });
        
