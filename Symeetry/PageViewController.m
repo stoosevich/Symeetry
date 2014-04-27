@@ -7,6 +7,12 @@
 //
 
 #import "PageViewController.h"
+#import "NumberedViewController.h"
+#import "OpeningViewController.h"
+#import "StoryViewController.h"
+#import "CreateNewUserViewController.h"
+#import "CameraViewController.h"
+#import "InterestDemoViewController.h"
 
 static const CGFloat kUIPageControlHeight = 36.f;
 
@@ -38,9 +44,12 @@ static const CGFloat kUIPageControlHeight = 36.f;
     return self;
 }
 
+
+
 - (id)initWithViewControllerClassNames:(NSArray *)classNames transitionStyle:(UIPageViewControllerTransitionStyle)style;
 
 {
+  //  return [self.storyboard instantiateViewControllerWithIdentifier:[self.controllers objectAtIndex:];
     return [self initWithViewControllers:[self createViewControllersWithClassNames:classNames]
                          transitionStyle:style];
 }
