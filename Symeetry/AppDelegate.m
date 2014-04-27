@@ -88,7 +88,7 @@
         if (!regionFound)
         {
             [self postLocalNotificationOnRegionEntry:region withState:state];
-            //[self addRegionToUserDefaults:region];
+            [self addRegionToUserDefaults:region];
         }
         else if(regionFound)
         {
@@ -100,7 +100,7 @@
                 [self postLocalNotificationOnRegionEntry:region withState:state];
                 
                 //add region to list of notified regions
-                //[self addRegionToUserDefaults:region];
+                [self addRegionToUserDefaults:region];
             }
         }
 

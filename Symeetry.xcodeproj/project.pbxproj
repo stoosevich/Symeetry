@@ -77,6 +77,7 @@
 		CE6748661901D58600F05121 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6748651901D58600F05121 /* Defaults.m */; };
 		CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */; };
 		CE7561E31905ABBC00611B93 /* SymeetryPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */; };
+		CE77AD84190CCBE60028B91D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CE77AD83190CCBE60028B91D /* Utilities.m */; };
 		CE7D935F190725BF00F3EDC0 /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D935C190725BF00F3EDC0 /* ChatManager.m */; };
 		CE7D9360190725BF00F3EDC0 /* ChatRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D935E190725BF00F3EDC0 /* ChatRoomViewController.m */; };
 		CE7D9363190729C700F3EDC0 /* PresentAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D9362190729C700F3EDC0 /* PresentAnimationController.m */; };
@@ -192,6 +193,8 @@
 		CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryAnnotationView.m; path = Symeetry/SymeetryAnnotationView.m; sourceTree = "<group>"; };
 		CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryPointAnnotation.h; path = Symeetry/SymeetryPointAnnotation.h; sourceTree = "<group>"; };
 		CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryPointAnnotation.m; path = Symeetry/SymeetryPointAnnotation.m; sourceTree = "<group>"; };
+		CE77AD82190CCBE60028B91D /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = Symeetry/Utilities.h; sourceTree = "<group>"; };
+		CE77AD83190CCBE60028B91D /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utilities.m; path = Symeetry/Utilities.m; sourceTree = "<group>"; };
 		CE7D935B190725BF00F3EDC0 /* ChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatManager.h; path = Symeetry/ChatManager.h; sourceTree = "<group>"; };
 		CE7D935C190725BF00F3EDC0 /* ChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatManager.m; path = Symeetry/ChatManager.m; sourceTree = "<group>"; };
 		CE7D935D190725BF00F3EDC0 /* ChatRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatRoomViewController.h; path = Symeetry/ChatRoomViewController.h; sourceTree = "<group>"; };
@@ -290,6 +293,8 @@
 		818829FC18FC881100724B79 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CE77AD82190CCBE60028B91D /* Utilities.h */,
+				CE77AD83190CCBE60028B91D /* Utilities.m */,
 				563A1C4C190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.h */,
 				563A1C4D190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m */,
 				CE6748641901D58600F05121 /* Defaults.h */,
@@ -570,6 +575,7 @@
 				CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */,
 				CE5ACEEB18FDED5000E91087 /* BlueToothManager.m in Sources */,
 				563A1C4E190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m in Sources */,
+				CE77AD84190CCBE60028B91D /* Utilities.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
 				56A6548C19085E9C001B17AE /* SignUpViewController.m in Sources */,
 				CE893D8919022CAF000260A4 /* MapViewController.m in Sources */,

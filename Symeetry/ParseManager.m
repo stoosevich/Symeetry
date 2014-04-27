@@ -110,7 +110,7 @@
  */
 +(void)retrieveUsersInLocalVicinityWithSimilarity:(NSArray*)regions WithComplettion:(MyCompletion)completion
 {
-    
+    NSLog(@"PARSE: begin retrieveUsersInLocalVicinityWithSimilarity");
     NSMutableArray* uuids = [NSMutableArray new];
     
     for (CLRegion* region in regions)
@@ -122,9 +122,9 @@
     
     //exclude the current user
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-    //query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query whereKey:@"nearestBeacon" containedIn:uuids];
-    //[query whereKey:@"hidden" equalTo:@NO];
+    [query whereKey:@"hidden" equalTo:@NO];
     
     //include the actual interest objecst not just a link
     [query includeKey:@"interests"];
@@ -135,6 +135,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
+        NSLog(@"PARSE: retrieveUsersInLocalVicinityWithSimilarity findObjectsInBackgroundWithBlock");
         completion(objects,error);
     }];
 
@@ -163,6 +164,8 @@
         
         PFObject* interests = user[@"interests"];
         
+        NSLog(@"PARSE: key: %@  slider value %i",key, value);
+        
         interests[key] = [NSNumber numberWithInt:value];
         
         [interests saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -185,15 +188,37 @@
  */
 +(void)getUserInterest:(PFUser*)user WithComplettion:(MyCompletion)completion
 {
-
     PFQuery* query = [PFUser query];
     [query whereKey:@"objectId" equalTo:user.objectId];
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query includeKey:@"interests"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-    {
-        completion(objects,error);
+     {
+         NSLog(@"getUserInterest - findObjectsInBackgroundWithBlock");
+         completion(objects,error);
+     }];
+}
+
+
+/*
+ * Query the Parse backend to find the interest of the user based on the
+ * user's specific id. This uses the PFUser query as performance using the
+ * query on the interest class itself is inefficient (slow!)
+ * @return PFObject the Parse Interest object for the specified user
+ */
++(void)getUserInterest:(PFUser*)user WithCompletion:(InterestCompletion)completion
+{
+    NSLog(@"PARSE: begin getUserInterest WithCompletion");
+
+    PFQuery* query = [PFUser query];
+    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    [query includeKey:@"interests"];
+    
+    [query getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *object, NSError *error) {
+        completion(object,error);
     }];
+    
 }
 
 
@@ -224,7 +249,6 @@
 
 
 /*
- * THIS METHOD NEEDS TO BE ASYNCHRONOUS
  * This method users the Parse geopoint object to find users in close proximity
  * to the current user. This is limited to 50 users and uses the Parse default
  * geopoint location query
@@ -335,24 +359,26 @@
     [query whereKey:@"major" equalTo:beacon.major];
     [query whereKey:@"minor" equalTo:beacon.minor];
     
+    NSLog(@"beacon info uuid:%@  major:%@ minor:%@",beacon.proximityUUID, beacon.major, beacon.minor);
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
          
          NSLog(@"objects %@ %lu", objects, (unsigned long)objects.count);
+         
          //first check if the beacon is in Parse, if not add it, otherwise update it
          if (objects.count == 0)
          {
-//             [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
-//              {
-//                  [parseBeacon saveEventually:^(BOOL succeeded, NSError *error)
-//                   {
-//                       if (error)
-//                       {
-//                           //if the beacon is not added to parse
-//                       }
-//                   }];
-//              }];
+             [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
+              {
+                  [parseBeacon saveEventually:^(BOOL succeeded, NSError *error)
+                   {
+                       if (error)
+                       {
+                           //if the beacon is not added to parse
+                       }
+                   }];
+              }];
          }
          else if (objects.count > 0)
          {
@@ -364,6 +390,7 @@
                   {
                       PFObject* beacon = objects.firstObject;
                       beacon[@"location"] = geoPoint;
+            
                       
                       [parseBeacon saveEventually:^(BOOL succeeded, NSError *error)
                        {
@@ -387,6 +414,7 @@
 +(void)getListOfAvailableBeaconIds
 {
     PFQuery* beaconQuery = [PFQuery queryWithClassName:@"Beacon"];
+    
     [beaconQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
          
