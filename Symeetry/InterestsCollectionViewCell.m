@@ -40,10 +40,17 @@
     self.backgroundView.backgroundColor = [backgroundColors objectAtIndex:sender.value];
     
     [ParseManager saveUserInterestsByKey:self.interestTextField.text withValue:(int)self.interestSlider.value];
-     
+
+}
+
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
     
+    //set the default value of the cell for reuse
+    self.interestTextField.text = @"";
     
-    //test comment
+    //set the value of the slider to the value in Parse
 }
 
 

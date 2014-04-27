@@ -10,21 +10,17 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Parse/Parse.h>
 #import "AvailableUsersViewController.h"
-#import "ProfileHeaderView.h"
 #import "ParseManager.h"
+#import "ProfileHeaderView.h"
 #import "ProfileViewController.h"
 #import "Defaults.h"
 #import "MapViewController.h"
 #import "PresentAnimationController.h"
 #import "InterestsViewController.h"
 #import "ChatManager.h"
+#import "Utilities.h"
 
 
-#define RED [UIColor redColor]
-#define ORANGE [UIColor orangeColor]
-#define YELLOW [UIColor yellowColor]
-#define GREEN [UIColor greenColor
-#define BLUE [UIColor blueColor]
 
 
 //define a block for the call back
@@ -223,8 +219,10 @@ toViewController:(UIViewController *)toVC
  
         //start monitoring all known regions
         [self.locationManager startMonitoringForRegion:region];
+        [self.locationManager startRangingBeaconsInRegion:region];
         //NSLog(@"monitoring region %@",region.identifier);
     }
+
 }
 
 
@@ -307,6 +305,15 @@ toViewController:(UIViewController *)toVC
     //show beacon information
     cell.textLabel.text = formatString;
     
+    CALayer *imageLayer = cell.imageView.layer;
+    [imageLayer setCornerRadius: cell.imageView.frame.size.width/2];
+    [imageLayer setBorderWidth:5.0f];
+    
+    NSNumber* index = (NSNumber*)user[@"similarityIndex"];
+
+    [imageLayer setBorderColor:[Utilities colorBasedOnSimilarity:[index intValue]]];
+     [imageLayer setMasksToBounds:YES];
+    
     PFFile* file = [user objectForKey:@"thumbnail"];
     
     //load the image asynchronously
@@ -314,11 +321,6 @@ toViewController:(UIViewController *)toVC
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            CALayer *imageLayer = cell.imageView.layer;
-            [imageLayer setCornerRadius: cell.imageView.frame.size.width/2];
-            [imageLayer setBorderWidth:5.0f];
-            [imageLayer setBorderColor:[[UIColor redColor]CGColor]];
-            [imageLayer setMasksToBounds:YES];
 
              cell.imageView.image = [UIImage imageWithData:data];
         });
@@ -355,16 +357,16 @@ toViewController:(UIViewController *)toVC
     
     //[self showRegionStateAlertScreen:formatString];
     
-    if (![self.activeRegions containsObject:region])
-    {
-        //if the user is already checkedin, then add the new region entered
-        //and update the list of user available
-        [self.activeRegions addObject:region];
-        [self getUserWithSimlarityRank];
- 
-        //whenever a user enters a new region, update their location
-        [ParseManager setUsersPFGeoPointLocation];
-    }
+//    if (![self.activeRegions containsObject:region])
+//    {
+//        //if the user is already checkedin, then add the new region entered
+//        //and update the list of user available
+//        [self.activeRegions addObject:region];
+//        [self getUserWithSimlarityRank];
+// 
+//        //whenever a user enters a new region, update their location
+//        [ParseManager setUsersPFGeoPointLocation];
+//    }
 }
 
 
@@ -377,15 +379,15 @@ toViewController:(UIViewController *)toVC
     
     //[self showRegionStateAlertScreen:formatString];
     
-    if ([self.activeRegions containsObject:region])
-    {
-
-        [ParseManager setUsersPFGeoPointLocation];
-        [self.activeRegions removeObject:region];
-        
-        //update the list of available
-        [self getUserWithSimlarityRank];
-    }
+//    if ([self.activeRegions containsObject:region])
+//    {
+//
+//        [ParseManager setUsersPFGeoPointLocation];
+//        [self.activeRegions removeObject:region];
+//        
+//        //update the list of available
+//        [self getUserWithSimlarityRank];
+//    }
  
 }
 
@@ -487,7 +489,10 @@ toViewController:(UIViewController *)toVC
                 //change the color of the navbar based on the closest beacon
                 [self updateNavigationBarColorBasedOnProximity:self.nearestBeacon];
                 
-                //[ParseManager addBeacon:currentBeacon];
+                if(currentBeacon.proximity == CLProximityImmediate || currentBeacon.proximity == CLProximityNear)
+                {
+                    //[ParseManager addBeacon:currentBeacon];
+                }
                 [ParseManager updateUserNearestBeacon:self.nearestBeacon];
             }
         }
@@ -543,7 +548,7 @@ toViewController:(UIViewController *)toVC
     [PFUser logOut];
     PFUser *currentUser = [PFUser currentUser];
     [[ChatManager sharedChatManager] checkoutChat];
-    NSLog(@"%@",currentUser);
+    
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
@@ -556,13 +561,18 @@ toViewController:(UIViewController *)toVC
  */
 - (void)getUserWithSimlarityRank
 {
-    //NSLog(@"begin asynch call for similarity");
-    [self getCurrentUserInterestWithComplettion:^(NSArray *objects, NSError *error)
-    {
-        PFUser* user = objects.firstObject;
-        NSDictionary* currentUserInterests = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
-        [self calculateSimilarity:currentUserInterests];
-    }];
+    NSLog(@"begin asynch call for similarity");
+    
+    [self getCurrentUserInterestWithCompletion:^(PFObject *object, NSError *error)
+     {
+         //PFUser* user = object;
+         
+         if(object)
+         {
+             NSDictionary* currentUserInterests = [ParseManager convertPFObjectToNSDictionary:object[@"interests"]];
+             [self calculateSimilarity:currentUserInterests];
+         }
+     }];
 }
 
 
@@ -573,11 +583,13 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)currentUserInterests
 {
     
-    NSLog(@"begin user fetch for similarityCalculation");
+    NSLog(@"calculateSimilarity currentUserInterests");
     [self calculateSimilarity:currentUserInterests forRegions:self.activeRegions withCompletion:^(NSArray *objects, NSError *error)
     {
 
         NSDictionary* otherUserInterests = nil;
+        
+        //NSLog(@"begin For Loop for user comparison");
         
         for(PFObject* user in objects)
         {
@@ -623,10 +635,14 @@ toViewController:(UIViewController *)toVC
                 };
                 
                 //call a block function to calculate the similarity of the two users
+                //NSLog(@"begin similary calculation");
+                
                 user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUserInterests,otherUserInterests)];
+                
+                //NSLog(@"end similary calculation");
             }
         }
-        
+       
         self.users = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
                       {
                           //covert each object to a PFObject and retrieve the similarity index
@@ -637,8 +653,8 @@ toViewController:(UIViewController *)toVC
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.availableUsersTableView reloadData];
-            //NSLog(@"user retrieval complete");
+            //[self.availableUsersTableView reloadData];
+            NSLog(@"user retrieval complete");
         });
         
     }];
@@ -650,26 +666,37 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)interest forRegions:(NSArray*)regions withCompletion:(MyCompletion)completion
 {
     
-    //NSLog(@"regions value %@", self.activeRegions);
+    NSLog(@"regions value %@", self.activeRegions);
     
     if (regions.count)//if there are no regions, then stop
     {
         [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
          {
+             NSLog(@"calculateSimilarity: regions completion inside block ");
+             //NSLog(@"calculateSimilarity: regions completion block error %@",[error userInfo]);
              completion(objects,error);
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 NSLog(@"reload data calculateSimilarity forRegions withCompletion block return");
+                 [self.availableUsersTableView reloadData];
+                 
+             });
          }];
     }
 }
 
 
-//get the current user interest from parse
-- (void)getCurrentUserInterestWithComplettion:(MyCompletion)completion
-{
-    [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
-     {
-         completion(objects,error);
-     }];
 
+- (void)getCurrentUserInterestWithCompletion:(InterestCompletion)completion
+{
+    //NSLog(@"getCurrentUserInterestWithComplettion");
+    [ParseManager getUserInterest:[PFUser currentUser] WithCompletion:^(PFObject *object, NSError *error)
+     {
+         //NSLog(@"getCurrentUserInterestWithComplettion completion inside block");
+         //NSLog(@"getCurrentUserInterestWithComplettion completion block error %@",[error userInfo]);
+         completion(object,error);
+     }];
+    
 }
 
 
