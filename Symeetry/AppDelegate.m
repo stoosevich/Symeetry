@@ -18,6 +18,8 @@
 #import "CameraViewController.h"
 #import "InterestDemoViewController.h"
 #import "ContainerViewController.h"
+#import "MenuViewController.h"
+#import "MMDrawerController.h"
 
 @interface AppDelegate()
 
@@ -81,8 +83,17 @@
     
     PageViewController* pvc = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     
-    self.window.rootViewController = pvc;
+    UIViewController* login = [storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
+    UIViewController* menu = [storyboard instantiateViewControllerWithIdentifier:@"MenuViewController"];
     
+    MMDrawerController* drawerController = [[MMDrawerController alloc]
+                                            initWithCenterViewController:containerViewController
+                                            leftDrawerViewController:menu];
+    [drawerController setMaximumLeftDrawerWidth:180];
+    drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+    drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModeAll;
+    
+    self.window.rootViewController = drawerController;
     
     
     
@@ -106,7 +117,7 @@
     //if we enter a region, and we have not been notified about that region in the last 24 hours, post a local notication
     if(state == CLRegionStateInside)
     {
-\
+
         //always post a global notification for the app to respond too
         [self postGlobalNotificationOnRegionEntry:region withState:state];
         
