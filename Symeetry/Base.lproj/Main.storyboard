@@ -532,11 +532,7 @@
         <!--Opening View Controller-->
         <scene sceneID="klu-XF-UkX">
             <objects>
-
-                <viewController storyboardIdentifier="OpeningViewController" id="bHd-uZ-4Nw" customClass="OpeningViewController" sceneMemberID="viewController">
-
                 <viewController storyboardIdentifier="OpeningViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bHd-uZ-4Nw" customClass="OpeningViewController" sceneMemberID="viewController">
-
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eMk-5s-SnG"/>
                         <viewControllerLayoutGuide type="bottom" id="UgM-Zx-E84"/>
