@@ -63,12 +63,7 @@
     headerView.frame = frame;
     
     [headerView.imageView circlify];
-    
-//    CALayer *imageLayer = headerView.imageView.layer;
-//    [imageLayer setCornerRadius: headerView.imageView.frame.size.width/2];
-//    [imageLayer setBorderWidth:5.0f];
-//    [imageLayer setBorderColor:[[UIColor redColor]CGColor]];
-//    [imageLayer setMasksToBounds:YES];
+\
     
     //get the user's image from Parse
     PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
@@ -108,10 +103,17 @@
 
 - (void)showInterestsViewController
 {
- 
+    
     [self removeMapVCViewIfNeeded];
     [self removeHomeVCViewIfNeeded];
-    [self.containerView addSubview:self.interestsViewController.view];
+    
+   [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+       [self.containerView addSubview:self.interestsViewController.view];
+   } completion:nil];
+    
+
+    
+    //[self.containerView addSubview:self.interestsViewController.view];
 }
 
 - (void)showMapViewController

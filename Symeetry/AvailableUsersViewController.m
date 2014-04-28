@@ -490,20 +490,7 @@ toViewController:(UIViewController *)toVC
     
     [alertView show];
 }
-
-
-//temporary method to handle user logot
-- (IBAction)logoutButton:(UIBarButtonItem *)sender
-{
-    [PFUser logOut];
-    PFUser *currentUser = [PFUser currentUser];
-    [[ChatManager sharedChatManager] checkoutChat];
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
-
+#pragma mark - CustomSimilarityRanking Methods
 
 /*
  *
@@ -720,50 +707,5 @@ toViewController:(UIViewController *)toVC
     [alertView show];
 }
 
-
-
-//
-//- (void)updateUserProfile
-//{
-//    [PFUser logOut];
-//    
-//    PFUser *user = [PFUser logInWithUsername:@"dennis" password:@"password"];
-//    
-//    UIImage* image = [UIImage imageNamed:@"dennis.jpg"];
-//    UIImage* resizedImage = [self resizeImage:image toWidth:40.0f andHeight:40.0f];
-//    
-//    NSData* imageData = UIImageJPEGRepresentation(image, 0.8);
-//    NSData* thumbnailData = UIImageJPEGRepresentation(resizedImage, 0.8);
-//    
-//    PFFile* file = [PFFile fileWithData:imageData];
-//    PFFile* thumbnailFile = [PFFile fileWithData:thumbnailData];
-//    
-//    //user[@"photo"] = file;
-//    user[@"thumbnail"] = thumbnailFile;
-//    
-//    NSLog(@"image saving");
-//    
-//    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-//    {
-//        if (error) {
-//            NSLog(@"%@",[error userInfo]);
-//        }
-//        
-//        
-//    }];
-//    
-//    
-//}
-//
-//- (UIImage *)resizeImage:(UIImage *)image toWidth:(float)width andHeight:(float)height {
-//    CGSize newSize = CGSizeMake(width, height);
-//    CGRect newRectangle = CGRectMake(0, 0, width, height);
-//    UIGraphicsBeginImageContext(newSize);
-//    [image drawInRect:newRectangle];
-//    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    return resizedImage;
-//}
 
 @end
