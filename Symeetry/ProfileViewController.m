@@ -83,15 +83,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return self.userInterests.count;
 }
 
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"InterestsCellId"];
-    cell.textLabel.text = @"user interest";
-    cell.detailTextLabel.text = @"ranking of interesr";
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"InterestCellId"];
+    NSDictionary* interest = self.userInterests[indexPath.row];
+
+    
+    cell.textLabel.text = [[interest allKeys].firstObject capitalizedString];
+    
+    cell.detailTextLabel.text = [[[interest allValues] firstObject] description];
+    
     return cell;
 }
 
@@ -103,17 +108,25 @@
     //extract all the keys from the PFObject
     NSArray* objectToConvertKeys = [dictionary allKeys];
     
+    //create a dictionary to hold each interest and value
+    //NSMutableDictionary *interest = [[NSMutableDictionary alloc]init];
+    
+    //enumerate over the keys and get the object
     NSEnumerator *enumerator = [objectToConvertKeys objectEnumerator];
     
-    id value;
+    id object;
     
-    while ((value = [enumerator nextObject]))
+    while ((object = [enumerator nextObject]) )
     {
-        //create a dicttionary for each interest and rating
-        NSDictionary *interest = @{[enumerator nextObject]: value};
-        NSLog(@"value %@", value);
-        NSLog(@"object %@", [enumerator nextObject]);
-        [self.userInterests addObject:interest];
+        
+        if(![object isEqualToString:@"userid"] && ![object isEqualToString:@"user"])
+        {
+            //create a dicttionary for each interest and rating
+            NSMutableDictionary* interest = [[NSMutableDictionary alloc]init];
+            [interest setValue:[dictionary objectForKey:object] forKey:object];
+            [self.userInterests addObject:interest];
+            NSLog(@"object %@", interest);
+        }
     }
     
     
