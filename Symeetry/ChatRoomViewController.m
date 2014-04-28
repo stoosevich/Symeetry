@@ -27,20 +27,6 @@
 {
     self.chatMessages = [NSMutableArray new];
     [super viewDidLoad];
-    PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-     {
-         if (!error)
-         {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 self.myPicture = [UIImage imageWithData:data];
-             });
-         }
-         else
-         {
-             //do something, like load a default image
-         }
-     }];
     
     self.firstTimeTyping = YES;
     [[ChatManager sharedChatManager] setConnectedblock:^{
@@ -61,13 +47,19 @@
                 
                 }
                 gotMessage:^(NSData *data) {
-                    NSString *messageString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    NSDictionary* message = @{@"sender": self.peerID.displayName, @"messageText": messageString};
-                    [self.chatMessages addObject:message];
-                    [self.chatRoomTableView reloadData];
-                    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.chatMessages.count -1 inSection:0];
-                    [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-                    NSLog(@"%f", self.chatRoomTextView.frame.origin.y);
+                    UIImage* image = [UIImage imageWithData:data];
+                    if (image == nil) {
+                        NSString *messageString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        NSDictionary* message = @{@"sender": self.peerID.displayName, @"messageText": messageString};
+                        [self.chatMessages addObject:message];
+                        [self.chatRoomTableView reloadData];
+                        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.chatMessages.count -1 inSection:0];
+                        [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                    }
+                    else{
+                        self.theirPicture = image;
+                    }
+
                 }];
 }
 
@@ -90,10 +82,9 @@
         MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MyMessageCellID"];
         cell.myTextView.textAlignment = NSTextAlignmentLeft;
         cell.myTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
-        cell.myPicture.image = self.myPicture;
+        cell.myPicture.image = [[ChatManager sharedChatManager] myChatPhoto];
         return cell;
     }
-    NSLog(@"%f", self.chatRoomTextView.frame.origin.y);
 
 }
 
@@ -104,6 +95,7 @@
         MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"TheirMessageCellID"];
         cell.theirTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
         float height = cell.theirTextView.contentSize.height;
+        NSLog(@"%f", cell.theirTextView.contentSize.height);
                if (height > 55)
                {
                    return height + 12;
@@ -119,7 +111,7 @@
         cell.myTextView.textAlignment = NSTextAlignmentLeft;
         cell.myTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
         float height = cell.myTextView.contentSize.height;
-
+        NSLog(@"%f", cell.myTextView.contentSize.height);
         if (height > 55)
         {
             return height + 12;
@@ -143,8 +135,6 @@
         [self.chatRoomTableView reloadData];
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.chatMessages.count -1 inSection:0];
         [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        NSLog(@"%f", self.chatRoomTextView.frame.origin.y);
-
     }];
 }
 

@@ -66,7 +66,6 @@
     headerView.frame = frame;
     
     [headerView.imageView circlify];
-\
     
     //get the user's image from Parse
     PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
