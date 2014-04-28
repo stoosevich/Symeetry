@@ -8,6 +8,7 @@
 
 #import "ChatManager.h"
 #import "ChatRoomViewController.h"
+#import "ParseManager.h"
 
 
 
@@ -234,6 +235,7 @@
                 UIStoryboard *sb = [UIApplication sharedApplication].keyWindow.rootViewController.storyboard;
                 ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
                 cRVC.peerID = peerID;
+                
                 id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
                 vc = [vc presentedViewController];
                 [vc dismissModalViewControllerAnimated:YES];

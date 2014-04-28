@@ -23,6 +23,7 @@
 @property (nonatomic, copy) void (^connecting)(void);
 @property (nonatomic, copy) void (^lostConnection)(void);
 @property (nonatomic, copy) void (^gotMessage)(NSData* data);
+@property UIImage* myChatPhoto;
 //@property id currentViewController;
 //@property UIStoryboardSegue* segueToChatRoom;
 

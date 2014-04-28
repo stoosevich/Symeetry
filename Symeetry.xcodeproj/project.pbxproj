@@ -10,6 +10,20 @@
 		5608DB241906D80A002BE613 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5608DB231906D80A002BE613 /* MultipeerConnectivity.framework */; };
 		56322D5618FF265B004EF55D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56322D5518FF265B004EF55D /* LoginViewController.m */; };
 		563A1C4E190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1C4D190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m */; };
+		563A1C95190DA08E00923AD4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0818FC85890060B17A /* Foundation.framework */; };
+		563A1C96190DA08E00923AD4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0A18FC85890060B17A /* CoreGraphics.framework */; };
+		563A1C97190DA08E00923AD4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0C18FC85890060B17A /* UIKit.framework */; };
+		563A1C9D190DA08E00923AD4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 563A1C9B190DA08E00923AD4 /* InfoPlist.strings */; };
+		563A1C9F190DA08E00923AD4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1C9E190DA08E00923AD4 /* main.m */; };
+		563A1CA3190DA08E00923AD4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1CA2190DA08E00923AD4 /* AppDelegate.m */; };
+		563A1CA6190DA08E00923AD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 563A1CA4190DA08E00923AD4 /* Main.storyboard */; };
+		563A1CA9190DA08E00923AD4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1CA8190DA08E00923AD4 /* ViewController.m */; };
+		563A1CAB190DA08E00923AD4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 563A1CAA190DA08E00923AD4 /* Images.xcassets */; };
+		563A1CB1190DA08E00923AD4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B2718FC85890060B17A /* XCTest.framework */; };
+		563A1CB2190DA08E00923AD4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0818FC85890060B17A /* Foundation.framework */; };
+		563A1CB3190DA08E00923AD4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0C18FC85890060B17A /* UIKit.framework */; };
+		563A1CBB190DA08E00923AD4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 563A1CB9190DA08E00923AD4 /* InfoPlist.strings */; };
+		563A1CBD190DA08E00923AD4 /* HamBurgerMenuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1CBC190DA08E00923AD4 /* HamBurgerMenuTests.m */; };
 		5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695430F18FD8C8F00A101F4 /* ParseManager.m */; };
 		56A6548919085D15001B17AE /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548819085D15001B17AE /* RootViewController.m */; };
 		56A6548C19085E9C001B17AE /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548B19085E9C001B17AE /* SignUpViewController.m */; };
@@ -78,6 +92,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		563A1CB4190DA08E00923AD4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81AB5AFD18FC85890060B17A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 563A1C93190DA08E00923AD4;
+			remoteInfo = HamBurgerMenu;
+		};
 		81AB5B2B18FC858A0060B17A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 81AB5AFD18FC85890060B17A /* Project object */;
@@ -93,6 +114,21 @@
 		56322D5518FF265B004EF55D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		563A1C4C190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewPrototypeCellTableViewCell.h; path = Symeetry/MessageTableViewPrototypeCellTableViewCell.h; sourceTree = "<group>"; };
 		563A1C4D190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageTableViewPrototypeCellTableViewCell.m; path = Symeetry/MessageTableViewPrototypeCellTableViewCell.m; sourceTree = "<group>"; };
+		563A1C94190DA08E00923AD4 /* HamBurgerMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HamBurgerMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		563A1C9A190DA08E00923AD4 /* HamBurgerMenu-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HamBurgerMenu-Info.plist"; sourceTree = "<group>"; };
+		563A1C9C190DA08E00923AD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		563A1C9E190DA08E00923AD4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		563A1CA0190DA08E00923AD4 /* HamBurgerMenu-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HamBurgerMenu-Prefix.pch"; sourceTree = "<group>"; };
+		563A1CA1190DA08E00923AD4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		563A1CA2190DA08E00923AD4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		563A1CA5190DA08E00923AD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		563A1CA7190DA08E00923AD4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		563A1CA8190DA08E00923AD4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		563A1CAA190DA08E00923AD4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		563A1CB0190DA08E00923AD4 /* HamBurgerMenuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HamBurgerMenuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		563A1CB8190DA08E00923AD4 /* HamBurgerMenuTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HamBurgerMenuTests-Info.plist"; sourceTree = "<group>"; };
+		563A1CBA190DA08E00923AD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		563A1CBC190DA08E00923AD4 /* HamBurgerMenuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HamBurgerMenuTests.m; sourceTree = "<group>"; };
 		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseManager.h; path = Symeetry/ParseManager.h; sourceTree = "<group>"; };
 		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseManager.m; path = Symeetry/ParseManager.m; sourceTree = "<group>"; };
 		56A6548719085D15001B17AE /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -183,6 +219,26 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		563A1C91190DA08E00923AD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				563A1C96190DA08E00923AD4 /* CoreGraphics.framework in Frameworks */,
+				563A1C97190DA08E00923AD4 /* UIKit.framework in Frameworks */,
+				563A1C95190DA08E00923AD4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		563A1CAD190DA08E00923AD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				563A1CB1190DA08E00923AD4 /* XCTest.framework in Frameworks */,
+				563A1CB3190DA08E00923AD4 /* UIKit.framework in Frameworks */,
+				563A1CB2190DA08E00923AD4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81AB5B0218FC85890060B17A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -219,6 +275,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		563A1C98190DA08E00923AD4 /* HamBurgerMenu */ = {
+			isa = PBXGroup;
+			children = (
+				563A1CA1190DA08E00923AD4 /* AppDelegate.h */,
+				563A1CA2190DA08E00923AD4 /* AppDelegate.m */,
+				563A1CA4190DA08E00923AD4 /* Main.storyboard */,
+				563A1CA7190DA08E00923AD4 /* ViewController.h */,
+				563A1CA8190DA08E00923AD4 /* ViewController.m */,
+				563A1CAA190DA08E00923AD4 /* Images.xcassets */,
+				563A1C99190DA08E00923AD4 /* Supporting Files */,
+			);
+			path = HamBurgerMenu;
+			sourceTree = "<group>";
+		};
+		563A1C99190DA08E00923AD4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				563A1C9A190DA08E00923AD4 /* HamBurgerMenu-Info.plist */,
+				563A1C9B190DA08E00923AD4 /* InfoPlist.strings */,
+				563A1C9E190DA08E00923AD4 /* main.m */,
+				563A1CA0190DA08E00923AD4 /* HamBurgerMenu-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		563A1CB6190DA08E00923AD4 /* HamBurgerMenuTests */ = {
+			isa = PBXGroup;
+			children = (
+				563A1CBC190DA08E00923AD4 /* HamBurgerMenuTests.m */,
+				563A1CB7190DA08E00923AD4 /* Supporting Files */,
+			);
+			path = HamBurgerMenuTests;
+			sourceTree = "<group>";
+		};
+		563A1CB7190DA08E00923AD4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				563A1CB8190DA08E00923AD4 /* HamBurgerMenuTests-Info.plist */,
+				563A1CB9190DA08E00923AD4 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		8114069018FDC964004E578F /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +406,8 @@
 				818829FD18FC883000724B79 /* View Controllers */,
 				818829FC18FC881100724B79 /* Classes */,
 				81AB5B2D18FC858A0060B17A /* SymeetryTests */,
+				563A1C98190DA08E00923AD4 /* HamBurgerMenu */,
+				563A1CB6190DA08E00923AD4 /* HamBurgerMenuTests */,
 				81AB5B0718FC85890060B17A /* Frameworks */,
 				81AB5B0618FC85890060B17A /* Products */,
 			);
@@ -317,6 +418,8 @@
 			children = (
 				81AB5B0518FC85890060B17A /* Symeetry.app */,
 				81AB5B2618FC85890060B17A /* SymeetryTests.xctest */,
+				563A1C94190DA08E00923AD4 /* HamBurgerMenu.app */,
+				563A1CB0190DA08E00923AD4 /* HamBurgerMenuTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -392,6 +495,41 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		563A1C93190DA08E00923AD4 /* HamBurgerMenu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 563A1CC2190DA08E00923AD4 /* Build configuration list for PBXNativeTarget "HamBurgerMenu" */;
+			buildPhases = (
+				563A1C90190DA08E00923AD4 /* Sources */,
+				563A1C91190DA08E00923AD4 /* Frameworks */,
+				563A1C92190DA08E00923AD4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HamBurgerMenu;
+			productName = HamBurgerMenu;
+			productReference = 563A1C94190DA08E00923AD4 /* HamBurgerMenu.app */;
+			productType = "com.apple.product-type.application";
+		};
+		563A1CAF190DA08E00923AD4 /* HamBurgerMenuTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 563A1CC3190DA08E00923AD4 /* Build configuration list for PBXNativeTarget "HamBurgerMenuTests" */;
+			buildPhases = (
+				563A1CAC190DA08E00923AD4 /* Sources */,
+				563A1CAD190DA08E00923AD4 /* Frameworks */,
+				563A1CAE190DA08E00923AD4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				563A1CB5190DA08E00923AD4 /* PBXTargetDependency */,
+			);
+			name = HamBurgerMenuTests;
+			productName = HamBurgerMenuTests;
+			productReference = 563A1CB0190DA08E00923AD4 /* HamBurgerMenuTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		81AB5B0418FC85890060B17A /* Symeetry */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81AB5B3718FC858A0060B17A /* Build configuration list for PBXNativeTarget "Symeetry" */;
@@ -436,6 +574,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Steve Toosevich";
 				TargetAttributes = {
+					563A1CAF190DA08E00923AD4 = {
+						TestTargetID = 81AB5B0418FC85890060B17A;
+					};
 					81AB5B0418FC85890060B17A = {
 						DevelopmentTeam = 6EADSJP336;
 						SystemCapabilities = {
@@ -464,11 +605,31 @@
 			targets = (
 				81AB5B0418FC85890060B17A /* Symeetry */,
 				81AB5B2518FC85890060B17A /* SymeetryTests */,
+				563A1C93190DA08E00923AD4 /* HamBurgerMenu */,
+				563A1CAF190DA08E00923AD4 /* HamBurgerMenuTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		563A1C92190DA08E00923AD4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				563A1CAB190DA08E00923AD4 /* Images.xcassets in Resources */,
+				563A1C9D190DA08E00923AD4 /* InfoPlist.strings in Resources */,
+				563A1CA6190DA08E00923AD4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		563A1CAE190DA08E00923AD4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				563A1CBB190DA08E00923AD4 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81AB5B0318FC85890060B17A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -512,6 +673,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		563A1C90190DA08E00923AD4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				563A1CA9190DA08E00923AD4 /* ViewController.m in Sources */,
+				563A1CA3190DA08E00923AD4 /* AppDelegate.m in Sources */,
+				563A1C9F190DA08E00923AD4 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		563A1CAC190DA08E00923AD4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				563A1CBD190DA08E00923AD4 /* HamBurgerMenuTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		81AB5B0118FC85890060B17A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -552,6 +731,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		563A1CB5190DA08E00923AD4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 563A1C93190DA08E00923AD4 /* HamBurgerMenu */;
+			targetProxy = 563A1CB4190DA08E00923AD4 /* PBXContainerItemProxy */;
+		};
 		81AB5B2C18FC858A0060B17A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 81AB5B0418FC85890060B17A /* Symeetry */;
@@ -560,6 +744,30 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		563A1C9B190DA08E00923AD4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				563A1C9C190DA08E00923AD4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		563A1CA4190DA08E00923AD4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				563A1CA5190DA08E00923AD4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		563A1CB9190DA08E00923AD4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				563A1CBA190DA08E00923AD4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		81AB5B1118FC85890060B17A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -587,6 +795,76 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		563A1CBE190DA08E00923AD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HamBurgerMenu/HamBurgerMenu-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "HamBurgerMenu/HamBurgerMenu-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		563A1CBF190DA08E00923AD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HamBurgerMenu/HamBurgerMenu-Prefix.pch";
+				INFOPLIST_FILE = "HamBurgerMenu/HamBurgerMenu-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		563A1CC0190DA08E00923AD4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Symeetry.app/Symeetry";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HamBurgerMenu/HamBurgerMenu-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "HamBurgerMenuTests/HamBurgerMenuTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		563A1CC1190DA08E00923AD4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Symeetry.app/Symeetry";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HamBurgerMenu/HamBurgerMenu-Prefix.pch";
+				INFOPLIST_FILE = "HamBurgerMenuTests/HamBurgerMenuTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		81AB5B3518FC858A0060B17A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -742,6 +1020,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		563A1CC2190DA08E00923AD4 /* Build configuration list for PBXNativeTarget "HamBurgerMenu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				563A1CBE190DA08E00923AD4 /* Debug */,
+				563A1CBF190DA08E00923AD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		563A1CC3190DA08E00923AD4 /* Build configuration list for PBXNativeTarget "HamBurgerMenuTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				563A1CC0190DA08E00923AD4 /* Debug */,
+				563A1CC1190DA08E00923AD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		81AB5B0018FC85890060B17A /* Build configuration list for PBXProject "Symeetry" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
