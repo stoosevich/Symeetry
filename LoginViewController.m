@@ -14,8 +14,8 @@
 @interface LoginViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *comfirmPasswordTextField;
-@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+//@property (weak, nonatomic) IBOutlet UITextField *comfirmPasswordTextField;
+//@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 
 @end
 
@@ -25,17 +25,17 @@
 {
     [super viewDidLoad];
     self.passwordTextField.secureTextEntry = YES;
-    self.comfirmPasswordTextField.secureTextEntry = YES;
+ //   self.comfirmPasswordTextField.secureTextEntry = YES;
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    if ([PFUser currentUser] != nil) {
-        
-        //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
-        [self performSegueWithIdentifier:@"ShowContainerViewController" sender:self];
-    }
-}
+//-(void)viewDidAppear:(BOOL)animated
+//{
+//    if ([PFUser currentUser] != nil) {
+//        
+//        //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
+//        [self performSegueWithIdentifier:@"ShowContainerViewController" sender:self];
+//    }
+//}
 
 - (IBAction)onLoginButtonPressed:(id)sender
 {
