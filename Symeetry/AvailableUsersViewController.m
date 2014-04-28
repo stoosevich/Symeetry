@@ -282,7 +282,11 @@ toViewController:(UIViewController *)toVC
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"showProfileDetail" sender:self];
+    //get the users from the list
+    PFUser* user = self.users[indexPath.row];
+    
+    //call the delegate's method to display the profile
+    [self.delegate displayUserProfile:user];
 }
 
 #pragma mark - Prepare for Segue Method

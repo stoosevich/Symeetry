@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DisplayUserProfileDelegate.h"
 
 @interface AvailableUsersViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UITableView *availableUsersTableView;
 @property NSMutableArray* activeRegions;
 
+@property id<DisplayUserProfileDelegate> delegate;
 
 @end

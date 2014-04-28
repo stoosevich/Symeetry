@@ -14,12 +14,14 @@
 #import "ParseManager.h"
 #import "UIView+Circlify.h"
 #import "ChatManager.h"
+#import "ProfileViewController.h"
 
 @interface ContainerViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property AvailableUsersViewController* availableUsersViewController;
 @property InterestsViewController* interestsViewController;
 @property MapViewController* mapViewController;
+@property PFUser* user;
 @end
 
 @implementation ContainerViewController
@@ -47,6 +49,8 @@
     _interestsViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestsViewController"];
     
     _mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    
+    _availableUsersViewController.delegate = (id)self;
     
     [self showInterestsViewController];
 }
@@ -102,6 +106,25 @@
     }
 }
 
+-(void)displayUserProfile:(PFUser*)user
+{
+    self.user = user;
+    [self performSegueWithIdentifier:@"showProfileDetail" sender:self];
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showProfileDetail"])
+    {
+        NSLog(@"prepare for segue\n");
+
+        ProfileViewController* viewController = segue.destinationViewController;
+        viewController.user = self.user;
+        viewController.transitioningDelegate = (id)self;
+    }
+    
+}
 
 - (void)showInterestsViewController
 {

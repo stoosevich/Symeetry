@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+
+@class AvailableUsersViewController;
+
 @protocol DisplayUserProfileDelegate <NSObject>
 
--(void)DisplayUserProfile;
+-(void)displayUserProfile:(PFUser*)user;
 
 @end
