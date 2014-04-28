@@ -71,30 +71,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[PFUser logOut];
-    if ([PFUser currentUser] == nil)
-    {
-//        UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
-//        [self presentViewController:login animated:YES completion:nil];
-        
-    }
-    else
-    {
-    [self loadHeaderView];
-    [[ChatManager sharedChatManager] setPeerID];
-    
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    
-        _availableUsersViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
-    
-        _interestsViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestsViewController"];
-    
-        _mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
-    
-        _availableUsersViewController.delegate = (id)self;
-    
-        [self showInterestsViewController];
-    }
 }
 
 /*
