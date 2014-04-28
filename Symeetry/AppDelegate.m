@@ -18,6 +18,8 @@
 #import "CameraViewController.h"
 #import "InterestDemoViewController.h"
 #import "ContainerViewController.h"
+#import "MenuViewController.h"
+#import "MMDrawerController.h"
 
 @interface AppDelegate()
 
@@ -81,7 +83,24 @@
     
     PageViewController* pvc = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     
-    self.window.rootViewController = pvc;
+    UIViewController* login = [storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
+    UIViewController* menu = [storyboard instantiateViewControllerWithIdentifier:@"MenuViewController"];
+    
+    MMDrawerController* drawerController = [[MMDrawerController alloc]
+                                            initWithCenterViewController:containerViewController
+                                            leftDrawerViewController:menu];
+    [drawerController setMaximumLeftDrawerWidth:180];
+    drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+    drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModeAll;
+    
+    self.window.rootViewController = drawerController;
+    
+    
+    
+//    self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
+//    self.window.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f blue:217.f/255.f alpha:1];
+//    self.window.rootViewController = [PageViewController.alloc initWithViewControllerClassNames:@[@"OpeningViewController", @"StoryViewController", @"CreateNewUserViewController", @"CameraViewController",@"InterestDemoViewController"] transitionStyle:UIPageViewControllerTransitionStyleScroll];
+//    [self.window makeKeyAndVisible];
 
     
     return YES;
