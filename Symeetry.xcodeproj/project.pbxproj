@@ -225,6 +225,7 @@
 		CE65D5E7190758BC00C74DFD /* greenriver.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = greenriver.jpg; path = Symeetry/greenriver.jpg; sourceTree = "<group>"; };
 		CE65D5E91907591100C74DFD /* trainstation.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = trainstation.JPG; path = Symeetry/trainstation.JPG; sourceTree = "<group>"; };
 		CE65D5ED1907593E00C74DFD /* statue1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = statue1.jpg; path = Symeetry/statue1.jpg; sourceTree = "<group>"; };
+		CE66818D190EACFC00543FE7 /* DisplayUserProfileDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayUserProfileDelegate.h; sourceTree = "<group>"; };
 		CE66E60C1904639900C295E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE6748641901D58600F05121 /* Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defaults.h; path = Symeetry/Defaults.h; sourceTree = "<group>"; };
 		CE6748651901D58600F05121 /* Defaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Defaults.m; path = Symeetry/Defaults.m; sourceTree = "<group>"; };
@@ -439,6 +440,7 @@
 				CE7D935E190725BF00F3EDC0 /* ChatRoomViewController.m */,
 				CE893D8719022CAF000260A4 /* MapViewController.h */,
 				CE893D8819022CAF000260A4 /* MapViewController.m */,
+				CE66818D190EACFC00543FE7 /* DisplayUserProfileDelegate.h */,
 				81AB5B1D18FC85890060B17A /* AvailableUsersViewController.h */,
 				81AB5B1E18FC85890060B17A /* AvailableUsersViewController.m */,
 				818829F918FC87F300724B79 /* ProfileViewController.h */,
@@ -631,7 +633,7 @@
 						TestTargetID = 81AB5B0418FC85890060B17A;
 					};
 					81AB5B0418FC85890060B17A = {
-						DevelopmentTeam = 6EADSJP336;
+						DevelopmentTeam = S264RF7436;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;

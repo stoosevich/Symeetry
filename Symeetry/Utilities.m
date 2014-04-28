@@ -42,4 +42,35 @@
     
 }
 
+/**
+ *Resize an image taken with the camera for uploading to Parse.com
+ *@param float New width for the resized image
+ *@param float New height for the resized image
+ *@return UIImage Resized image
+ */
++(UIImage *)resizeImage:(UIImage *)image withWidth:(float)width andHeight:(float)height
+{
+    UIImage *resizedImage = nil;
+    
+    //get the new size for the image
+    CGSize newSize = CGSizeMake(width, height);
+    
+    //create a rectangle based on the new size
+    CGRect rectangle = CGRectMake(0, 0, newSize.width, newSize.height);
+    
+    //create a bitmap content for the resized image
+    UIGraphicsBeginImageContext(newSize);
+    
+    //redraw the image in the new rectangle
+    [image drawInRect:rectangle];
+    
+    //assign the new image to resize image variable
+    resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    //end the image context
+    UIGraphicsEndImageContext();
+    
+    return resizedImage;
+}
+
 @end

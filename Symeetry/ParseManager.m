@@ -110,7 +110,7 @@
  */
 +(void)retrieveUsersInLocalVicinityWithSimilarity:(NSArray*)regions WithComplettion:(MyCompletion)completion
 {
-    NSLog(@"PARSE: begin retrieveUsersInLocalVicinityWithSimilarity");
+    //NSLog(@"PARSE: begin retrieveUsersInLocalVicinityWithSimilarity");
     NSMutableArray* uuids = [NSMutableArray new];
     
     for (CLRegion* region in regions)
@@ -135,7 +135,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
-        NSLog(@"PARSE: retrieveUsersInLocalVicinityWithSimilarity findObjectsInBackgroundWithBlock");
+        //NSLog(@"PARSE: retrieveUsersInLocalVicinityWithSimilarity findObjectsInBackgroundWithBlock");
         completion(objects,error);
     }];
 
@@ -164,7 +164,7 @@
         
         PFObject* interests = user[@"interests"];
         
-        NSLog(@"PARSE: key: %@  slider value %i",key, value);
+        //NSLog(@"PARSE: key: %@  slider value %i",key, value);
         
         interests[key] = [NSNumber numberWithInt:value];
         
@@ -195,7 +195,7 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
-         NSLog(@"getUserInterest - findObjectsInBackgroundWithBlock");
+         //NSLog(@"getUserInterest - findObjectsInBackgroundWithBlock");
          completion(objects,error);
      }];
 }
@@ -209,7 +209,7 @@
  */
 +(void)getUserInterest:(PFUser*)user WithCompletion:(InterestCompletion)completion
 {
-    NSLog(@"PARSE: begin getUserInterest WithCompletion");
+    //NSLog(@"PARSE: begin getUserInterest WithCompletion");
 
     PFQuery* query = [PFUser query];
     query.cachePolicy = kPFCachePolicyCacheThenNetwork;

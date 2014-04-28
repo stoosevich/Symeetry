@@ -14,12 +14,19 @@
 #import "ParseManager.h"
 #import "UIView+Circlify.h"
 #import "ChatManager.h"
+#import "ProfileViewController.h"
+#import "PresentAnimationController.h"
+
 
 @interface ContainerViewController ()
+
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property AvailableUsersViewController* availableUsersViewController;
 @property InterestsViewController* interestsViewController;
 @property MapViewController* mapViewController;
+@property PFUser* user;
+@property PresentAnimationController* presentAnimationController;
+
 @end
 
 @implementation ContainerViewController
@@ -47,6 +54,8 @@
     _interestsViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestsViewController"];
     
     _mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    
+    _availableUsersViewController.delegate = (id)self;
     
     [self showInterestsViewController];
 }
@@ -94,7 +103,7 @@
             [self showMapViewController];
             break;
         case 2: //Rightmost segment
-            [self showHomeViewController];
+            [self showAvailableUserViewController];
             break;
         default:
             NSLog(@"Unexpected segment! %ld", (long)sender.selectedSegmentIndex);
@@ -102,33 +111,68 @@
     }
 }
 
+-(void)displayUserProfile:(PFUser*)user
+{
+    self.user = user;
+    [self performSegueWithIdentifier:@"showProfileDetail" sender:self];
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showProfileDetail"])
+    {
+        NSLog(@"prepare for segue\n");
+
+        ProfileViewController* viewController = segue.destinationViewController;
+        viewController.user = self.user;
+        viewController.transitioningDelegate = (id)self;
+    }
+}
+
+- (IBAction)unwindFromProfileDetailView:(UIStoryboardSegue*)segue
+{
+    //
+}
 
 - (void)showInterestsViewController
 {
     
     [self removeMapVCViewIfNeeded];
     [self removeHomeVCViewIfNeeded];
-    
-   [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-       [self.containerView addSubview:self.interestsViewController.view];
-   } completion:nil];
-    
 
     
-    //[self.containerView addSubview:self.interestsViewController.view];
+   [UIView transitionWithView:self.containerView duration:2.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+       
+       self.interestsViewController.view.frame = CGRectMake(0, 0, 320, 568);
+       
+   } completion:nil];
+
+    [self.containerView addSubview:self.interestsViewController.view];
 }
 
 - (void)showMapViewController
 {
     [self removeInterestsVCViewIfNeeded];
     [self removeHomeVCViewIfNeeded];
+    
+//    [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
+//        [self.containerView addSubview:self.mapViewController.view];
+//    } completion:nil];
+    
     [self.containerView addSubview:self.mapViewController.view];
 }
 
-- (void)showHomeViewController
+- (void)showAvailableUserViewController
 {
     [self removeInterestsVCViewIfNeeded];
     [self removeMapVCViewIfNeeded];
+    
+ 
+//    
+//    [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//        [self.containerView addSubview:self.availableUsersViewController.view];
+//    } completion:nil];
     [self.containerView addSubview: self.availableUsersViewController.view];
 }
 
@@ -155,5 +199,8 @@
         [self.availableUsersViewController.view removeFromSuperview];
     }
 }
+
+
+
 
 @end

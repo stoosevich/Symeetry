@@ -50,23 +50,23 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 //ensures that the custom animation controller is available when the storyboard
 //initializes the view controller
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    if (self = [super initWithCoder:aDecoder])
-    {
-        _presentAnimationController = [PresentAnimationController new];
-    }
-    return self;
-}
+//- (id)initWithCoder:(NSCoder *)aDecoder
+//{
+//    if (self = [super initWithCoder:aDecoder])
+//    {
+//        _presentAnimationController = [PresentAnimationController new];
+//    }
+//    return self;
+//}
 
 
 //delegate method for the tranistion animation
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:
-(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC
-toViewController:(UIViewController *)toVC
-{
-    return _presentAnimationController;
-}
+//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:
+//(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC
+//toViewController:(UIViewController *)toVC
+//{
+//    return _presentAnimationController;
+//}
 
 
 - (void)viewDidLoad
@@ -80,7 +80,7 @@ toViewController:(UIViewController *)toVC
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     
     //required for the custom animations
-    self.navigationController.delegate = self;
+    //self.navigationController.delegate = self;
     
     //initialize required data structures
     self.beacons = [NSMutableDictionary new];
@@ -201,7 +201,7 @@ toViewController:(UIViewController *)toVC
 
     NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
     
-    [self showRegionStateAlertScreen:formatString];
+    //[self showRegionStateAlertScreen:formatString];
     
     //make sure the region is not empty first
     if(region)
@@ -280,19 +280,28 @@ toViewController:(UIViewController *)toVC
     return cell;
 }
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //get the users from the list
+    PFUser* user = self.users[indexPath.row];
+    
+    //call the delegate's method to display the profile
+    [self.delegate displayUserProfile:user];
+}
 
 #pragma mark - Prepare for Segue Method
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showProfileView"])
+    if ([[segue identifier] isEqualToString:@"showProfileDetail"])
     {
+        NSLog(@"prepare for segue\n");
         NSIndexPath *indexPath = [self.availableUsersTableView indexPathForSelectedRow];
         ProfileViewController* viewController = segue.destinationViewController;
         viewController.user = self.users[indexPath.row];
         viewController.transitioningDelegate = self;
     }
+
 }
 
 #pragma mark - CLLocationManager Delegate Methods
@@ -498,7 +507,7 @@ toViewController:(UIViewController *)toVC
  */
 - (void)getUserWithSimlarityRank
 {
-    NSLog(@"begin asynch call for similarity");
+    //NSLog(@"begin asynch call for similarity");
     
     [self getCurrentUserInterestWithCompletion:^(PFObject *object, NSError *error)
      {
@@ -520,7 +529,7 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)currentUserInterests
 {
     
-    NSLog(@"calculateSimilarity currentUserInterests");
+    //NSLog(@"calculateSimilarity currentUserInterests");
     [self calculateSimilarity:currentUserInterests forRegions:self.activeRegions withCompletion:^(NSArray *objects, NSError *error)
     {
 
@@ -591,7 +600,7 @@ toViewController:(UIViewController *)toVC
         
         dispatch_async(dispatch_get_main_queue(), ^{
             //[self.availableUsersTableView reloadData];
-            NSLog(@"user retrieval complete");
+            //NSLog(@"user retrieval complete");
         });
         
     }];
@@ -693,12 +702,6 @@ toViewController:(UIViewController *)toVC
     }
     
 }
-
--(IBAction)unwindFromDetailView:(UIStoryboardSegue*)sender
-{
-    
-}
-
 
 - (void)showApplicationServicesAlertView:(NSString*)message
 {
