@@ -10,6 +10,8 @@
 #import "Parse/Parse.h"
 #import "ParseManager.h"
 #import "ChatManager.h"
+#import "PageViewController.h"
+#import "OpeningViewController.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -50,6 +52,40 @@
 {
     [textField endEditing:YES];
     return YES;
+}
+- (IBAction)onSignUpButtonPressed:(id)sender
+{
+    NSMutableArray *viewControllers = NSMutableArray.new;
+    //    for (int i = 1; i <= 10; i++) {
+    //       [viewControllers addObject:[NumberedViewController.alloc initWithNumber:@(i)]];
+    //    }
+    
+    //get a reference to the storyboard
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    
+    OpeningViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"OpeningViewController"];
+    [viewControllers addObject:vc];
+    
+    UIViewController* storyViewController = [storyboard instantiateViewControllerWithIdentifier:@"StoryViewController"];
+    [viewControllers addObject:storyViewController];
+    
+    UIViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
+    [viewControllers addObject:createViewController];
+    
+    UIViewController* cameraViewController = [storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    [viewControllers addObject:cameraViewController];
+    
+    UIViewController* interestDemoViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestDemoViewController"];
+    [viewControllers addObject:interestDemoViewController];
+    
+    UIViewController* containerViewController = [storyboard instantiateViewControllerWithIdentifier:@"ContainerViewController"];
+    [viewControllers addObject:containerViewController];
+    
+    PageViewController* pvc = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    pvc.controllers = viewControllers;
+    
+    
+    [self presentViewController:pvc animated:YES completion:nil];
 }
 
 @end
