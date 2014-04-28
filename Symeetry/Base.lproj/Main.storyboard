@@ -126,7 +126,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="availableUsersTableView" destination="Nxc-4k-Mwc" id="aCb-KX-xe7"/>
-                        <segue destination="NeW-jG-8jf" kind="modal" id="h0H-aB-8a6"/>
+                        <segue destination="NeW-jG-8jf" kind="modal" identifier="showProfileDetail" id="h0H-aB-8a6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -279,7 +279,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gWp-03-FT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="GZ1-9e-IQe" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1983" y="482"/>
+            <point key="canvasLocation" x="1987" y="539"/>
         </scene>
         <!--Chat Room View Controller-->
         <scene sceneID="pvU-go-2N8">
