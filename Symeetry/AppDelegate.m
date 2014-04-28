@@ -56,11 +56,11 @@
     
     //PageView Controller
       NSMutableArray *viewControllers = NSMutableArray.new;
-//    for (int i = 1; i <= 10; i++) {
-//       [viewControllers addObject:[NumberedViewController.alloc initWithNumber:@(i)]];
-//    }
-    
-    //get a reference to the storyboard
+////    for (int i = 1; i <= 10; i++) {
+////       [viewControllers addObject:[NumberedViewController.alloc initWithNumber:@(i)]];
+////    }
+//    
+//    //get a reference to the storyboard
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
 
     OpeningViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"OpeningViewController"];

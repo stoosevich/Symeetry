@@ -19,7 +19,6 @@
 //static const CGFloat kUIPageControlHeight = 36.f;
 
 @interface PageViewController ()
-@property (nonatomic) NSArray *controllers;
 @property (nonatomic) UIPageControl *pageControl;
 @end
 
@@ -73,18 +72,20 @@
 - (void)viewDidLoad
 {
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"View1"]];
-//    self.pageControl = [UIPageControl.alloc initWithFrame:CGRectMake(0, self.view.frame.size.height - kUIPageControlHeight, self.view.frame.size.width, kUIPageControlHeight)];
+//    self.pageControl = [UIPageControl new];
 //    self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 //    [self.pageControl addTarget:self
 //                         action:@selector(pageControlWasTapped:)
 //               forControlEvents:UIControlEventValueChanged];
 //    self.pageControl.numberOfPages = self.controllers.count;
 //    self.pageControl.currentPage = 0;
-//    [self.view addSubview:self.pageControl];
-//    [self setViewControllers:@[self.controllers[0]]
-//                   direction:UIPageViewControllerNavigationDirectionForward
-//                    animated:NO
-//                  completion:nil];
+    UIViewController* first = self.controllers[0];
+    UIViewController* second = self.controllers[1];
+    [self.view addSubview:self.pageControl];
+    [self setViewControllers:@[first]
+                   direction:UIPageViewControllerNavigationDirectionForward
+                    animated:NO
+                  completion:nil];
 }
 
 
@@ -110,6 +111,10 @@
        viewControllerAfterViewController:(UIViewController *)viewController
 {
     NSInteger nextIndex = [self.controllers indexOfObject:viewController] + 1;
+    [self setViewControllers:@[self.controllers[nextIndex]]
+                   direction:UIPageViewControllerNavigationDirectionForward
+                    animated:NO
+                  completion:nil];
     return (nextIndex < self.controllers.count) ? self.controllers[nextIndex] : nil;
 }
 
@@ -117,6 +122,10 @@
       viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSInteger previousIndex = [self.controllers indexOfObject:viewController] - 1;
+    [self setViewControllers:@[self.controllers[previousIndex]]
+                   direction:UIPageViewControllerNavigationDirectionForward
+                    animated:NO
+                  completion:nil];
     return (previousIndex >= 0) ? self.controllers[previousIndex] : nil;
 }
 
