@@ -153,9 +153,10 @@
     
     [self removeMapVCViewIfNeeded];
     [self removeHomeVCViewIfNeeded];
-
     
-   [UIView transitionWithView:self.containerView duration:2.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    self.interestsViewController.view.frame = CGRectMake(0, 568, 320, 568);
+    
+   [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
        
        self.interestsViewController.view.frame = CGRectMake(0, 0, 320, 568);
        
@@ -169,9 +170,14 @@
     [self removeInterestsVCViewIfNeeded];
     [self removeHomeVCViewIfNeeded];
     
-//    [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
-//        [self.containerView addSubview:self.mapViewController.view];
-//    } completion:nil];
+    self.mapViewController.view.frame = CGRectMake(0, 568, 320, 568);
+    
+    [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        
+        self.mapViewController.view.frame = CGRectMake(0, 0, 320, 568);
+        [self.containerView addSubview:self.mapViewController.view];
+        
+    } completion:nil];
     
     [self.containerView addSubview:self.mapViewController.view];
 }
@@ -182,10 +188,14 @@
     [self removeMapVCViewIfNeeded];
     
  
-//    
-//    [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//        [self.containerView addSubview:self.availableUsersViewController.view];
-//    } completion:nil];
+    self.availableUsersViewController.view.frame = CGRectMake(0, 568, 320, 568);
+    
+    [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        
+        self.availableUsersViewController.view.frame = CGRectMake(0, 0, 320, 568);
+        
+        [self.containerView addSubview:self.availableUsersViewController.view];
+    } completion:nil];
     [self.containerView addSubview: self.availableUsersViewController.view];
 }
 

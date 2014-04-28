@@ -19,7 +19,6 @@
 //static const CGFloat kUIPageControlHeight = 36.f;
 
 @interface PageViewController ()
-@property (nonatomic) NSArray *controllers;
 @property (nonatomic) UIPageControl *pageControl;
 @end
 
@@ -73,18 +72,21 @@
 - (void)viewDidLoad
 {
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"View1"]];
-//    self.pageControl = [UIPageControl.alloc initWithFrame:CGRectMake(0, self.view.frame.size.height - kUIPageControlHeight, self.view.frame.size.width, kUIPageControlHeight)];
+//    self.pageControl = [UIPageControl new];
 //    self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
 //    [self.pageControl addTarget:self
 //                         action:@selector(pageControlWasTapped:)
 //               forControlEvents:UIControlEventValueChanged];
-//    self.pageControl.numberOfPages = self.controllers.count;
-//    self.pageControl.currentPage = 0;
-//    [self.view addSubview:self.pageControl];
-//    [self setViewControllers:@[self.controllers[0]]
-//                   direction:UIPageViewControllerNavigationDirectionForward
-//                    animated:NO
-//                  completion:nil];
+    self.pageControl.numberOfPages = self.controllers.count;
+    self.pageControl.currentPage = 0;
+    UIViewController* first = self.controllers[0];
+    [self.view addSubview:self.pageControl];
+    [self setViewControllers:@[first]
+                   direction:UIPageViewControllerNavigationDirectionForward
+                    animated:NO
+                  completion:nil];
+    self.delegate = self;
+    self.dataSource = self;
 }
 
 

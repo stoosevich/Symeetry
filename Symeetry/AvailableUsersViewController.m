@@ -175,6 +175,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  
         //start monitoring all known regions
         [self.locationManager startMonitoringForRegion:region];
+        
         [self.locationManager startRangingBeaconsInRegion:region];
         //NSLog(@"monitoring region %@",region.identifier);
     }
@@ -316,16 +317,16 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     //[self showRegionStateAlertScreen:formatString];
     
-//    if (![self.activeRegions containsObject:region])
-//    {
-//        //if the user is already checkedin, then add the new region entered
-//        //and update the list of user available
-//        [self.activeRegions addObject:region];
-//        [self getUserWithSimlarityRank];
-// 
-//        //whenever a user enters a new region, update their location
-//        [ParseManager setUsersPFGeoPointLocation];
-//    }
+    if (![self.activeRegions containsObject:region])
+    {
+        //if the user is already checkedin, then add the new region entered
+        //and update the list of user available
+        [self.activeRegions addObject:region];
+        [self getUserWithSimlarityRank];
+ 
+        //whenever a user enters a new region, update their location
+        [ParseManager setUsersPFGeoPointLocation];
+    }
 }
 
 
@@ -338,15 +339,15 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     //[self showRegionStateAlertScreen:formatString];
     
-//    if ([self.activeRegions containsObject:region])
-//    {
-//
-//        [ParseManager setUsersPFGeoPointLocation];
-//        [self.activeRegions removeObject:region];
-//        
-//        //update the list of available
-//        [self getUserWithSimlarityRank];
-//    }
+    if ([self.activeRegions containsObject:region])
+    {
+
+        [ParseManager setUsersPFGeoPointLocation];
+        [self.activeRegions removeObject:region];
+        
+        //update the list of available
+        [self getUserWithSimlarityRank];
+    }
  
 }
 
@@ -356,6 +357,9 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  */
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
+    
+    //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
     if (![self.activeRegions containsObject:region] && beacons.count)
     {
         [self.activeRegions addObject:region];
@@ -446,7 +450,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
             {
                 self.nearestBeacon =  currentBeacon;
                 //change the color of the navbar based on the closest beacon
-                [self updateNavigationBarColorBasedOnProximity:self.nearestBeacon];
+                //[self updateNavigationBarColorBasedOnProximity:self.nearestBeacon];
                 
                 if(currentBeacon.proximity == CLProximityImmediate || currentBeacon.proximity == CLProximityNear)
                 {
@@ -465,29 +469,29 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  * @param CLBeacon the nearest beacon to the current user
  * @return void
  */
-- (void)updateNavigationBarColorBasedOnProximity:(CLBeacon*)beacon
-{
-    UINavigationBar* navBar = self.navigationController.navigationBar;
-    
-    //change the background color and image of the view
-    if (beacon.proximity == CLProximityImmediate)
-    {
-        navBar.backgroundColor =[UIColor redColor];
-    }
-    else if (beacon.proximity == CLProximityNear)
-    {
-        navBar.backgroundColor = [UIColor blueColor];
-    }
-    else if (beacon.proximity == CLProximityFar)
-    {
-        navBar.backgroundColor = [UIColor greenColor];
-    }
-    else if (beacon.proximity == CLProximityUnknown)
-    {
-        navBar.backgroundColor = [UIColor clearColor];
-    }
-
-}
+//- (void)updateNavigationBarColorBasedOnProximity:(CLBeacon*)beacon
+//{
+//    UINavigationBar* navBar = self.navigationController.navigationBar;
+//    
+//    //change the background color and image of the view
+//    if (beacon.proximity == CLProximityImmediate)
+//    {
+//        navBar.backgroundColor =[UIColor redColor];
+//    }
+//    else if (beacon.proximity == CLProximityNear)
+//    {
+//        navBar.backgroundColor = [UIColor blueColor];
+//    }
+//    else if (beacon.proximity == CLProximityFar)
+//    {
+//        navBar.backgroundColor = [UIColor greenColor];
+//    }
+//    else if (beacon.proximity == CLProximityUnknown)
+//    {
+//        navBar.backgroundColor = [UIColor clearColor];
+//    }
+//
+//}
 
 
 #pragma mark -  UIAlertViewDelegate Methods

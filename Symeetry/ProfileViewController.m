@@ -14,7 +14,7 @@
 #import "UIView+Circlify.h"
 #import "Utilities.h"
 
-@interface ProfileViewController () <UITextFieldDelegate>
+@interface ProfileViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *homeTownTextField;
 @property (weak, nonatomic) IBOutlet UILabel *relationShipLabel;
@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *changeRelationShipButton;
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UITableView *myTableView;
+@property NSMutableArray* userInterests;
 
 @property ChatManager* chat;
 @property ChatRoomViewController* cRVC;
@@ -35,7 +37,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //NSLog(@"%@", self.user.username);
+    
+    self.userInterests = [NSMutableArray arrayWithCapacity:12];
+    
+    [self parseUserInterestIntoDataSource];
     
     if ([ParseManager isCurrentUser:self.user]) {
         self.changeRelationShipButton.hidden = NO;
@@ -71,10 +76,50 @@
 //    self.headerView.genderTextField.enabled = [ParseManager isCurrentUser:self.user];
     self.homeTownTextField.enabled = [ParseManager isCurrentUser:self.user];
     self.emailTextField.enabled = [ParseManager isCurrentUser:self.user];
-    
-    //[self.view addSubview:self.headerView];
+
 }
 
+#pragma mark -  UITableViewDelegate Methods
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 0;
+}
+
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"InterestsCellId"];
+    cell.textLabel.text = @"user interest";
+    cell.detailTextLabel.text = @"ranking of interesr";
+    return cell;
+}
+
+- (void)parseUserInterestIntoDataSource
+{
+    //convert the PFObject into a dictionary
+    NSDictionary* dictionary = [ParseManager convertPFObjectToNSDictionary:self.user[@"interests"]];
+    
+    //extract all the keys from the PFObject
+    NSArray* objectToConvertKeys = [dictionary allKeys];
+    
+    NSEnumerator *enumerator = [objectToConvertKeys objectEnumerator];
+    
+    id value;
+    
+    while ((value = [enumerator nextObject]))
+    {
+        //create a dicttionary for each interest and rating
+        NSDictionary *interest = @{[enumerator nextObject]: value};
+        NSLog(@"value %@", value);
+        NSLog(@"object %@", [enumerator nextObject]);
+        [self.userInterests addObject:interest];
+    }
+    
+    
+}
+
+#pragma makk - IBAction Methods
 
 - (IBAction)onBackButtonPressed:(id)sender
 {
