@@ -82,15 +82,7 @@
     PageViewController* pvc = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     
     self.window.rootViewController = pvc;
-    
-    
-    
-    
-//    self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
-//    self.window.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f blue:217.f/255.f alpha:1];
-//    self.window.rootViewController = [PageViewController.alloc initWithViewControllerClassNames:@[@"OpeningViewController", @"StoryViewController", @"CreateNewUserViewController", @"CameraViewController",@"InterestDemoViewController"] transitionStyle:UIPageViewControllerTransitionStyleScroll];
-//    [self.window makeKeyAndVisible];
-    
+
     
     return YES;
 }
@@ -106,7 +98,7 @@
     //if we enter a region, and we have not been notified about that region in the last 24 hours, post a local notication
     if(state == CLRegionStateInside)
     {
-\
+
         //always post a global notification for the app to respond too
         [self postGlobalNotificationOnRegionEntry:region withState:state];
         
