@@ -11,10 +11,12 @@
 #import "InterestsViewController.h"
 #import "MapViewController.h"
 #import "AvailableUsersViewController.h"
+#import "ParseManager.h"
+#import "UIView+Circlify.h"
 
 @interface ContainerViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
-@property AvailableUsersViewController* homeViewController;
+@property AvailableUsersViewController* availableUsersViewController;
 @property InterestsViewController* interestsViewController;
 @property MapViewController* mapViewController;
 @end
@@ -37,7 +39,7 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     
-    _homeViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
+    _availableUsersViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
     
     _interestsViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestsViewController"];
     
@@ -60,15 +62,18 @@
     //set the frame
     headerView.frame = frame;
     
-    CALayer *imageLayer = headerView.imageView.layer;
-    [imageLayer setCornerRadius: headerView.imageView.frame.size.width/2];
-    [imageLayer setBorderWidth:5.0f];
-    [imageLayer setBorderColor:[[UIColor redColor]CGColor]];
-    [imageLayer setMasksToBounds:YES];
+    [headerView.imageView circlify];
+\
     
-    //set the color
-    //headerView.imageView.layer.backgroundColor = [[UIColor redColor]CGColor];
-    headerView.imageView.image = [UIImage imageNamed:@"textfieldbackground"];
+    //get the user's image from Parse
+    PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             headerView.imageView.image = [UIImage imageWithData:data];
+         });
+         
+     }];
     
     //add the new view to the array of subviews
     [self.view addSubview:headerView];
@@ -90,7 +95,7 @@
             [self showHomeViewController];
             break;
         default:
-            NSLog(@"Unexpected segment! %d", sender.selectedSegmentIndex);
+            NSLog(@"Unexpected segment! %ld", (long)sender.selectedSegmentIndex);
             break;
     }
 }
@@ -98,10 +103,17 @@
 
 - (void)showInterestsViewController
 {
- 
+    
     [self removeMapVCViewIfNeeded];
     [self removeHomeVCViewIfNeeded];
-    [self.containerView addSubview:self.interestsViewController.view];
+    
+   [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+       [self.containerView addSubview:self.interestsViewController.view];
+   } completion:nil];
+    
+
+    
+    //[self.containerView addSubview:self.interestsViewController.view];
 }
 
 - (void)showMapViewController
@@ -115,7 +127,7 @@
 {
     [self removeInterestsVCViewIfNeeded];
     [self removeMapVCViewIfNeeded];
-    [self.containerView addSubview: self.homeViewController.view];
+    [self.containerView addSubview: self.availableUsersViewController.view];
 }
 
 - (void)removeInterestsVCViewIfNeeded
@@ -136,9 +148,9 @@
 
 - (void)removeHomeVCViewIfNeeded
 {
-    if (self.homeViewController.view.superview != nil)
+    if (self.availableUsersViewController.view.superview != nil)
     {
-        [self.homeViewController.view removeFromSuperview];
+        [self.availableUsersViewController.view removeFromSuperview];
     }
 }
 

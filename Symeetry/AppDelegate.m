@@ -10,6 +10,13 @@
 #import <Parse/Parse.h>
 #import "AvailableUsersViewController.h"
 #import "ChatManager.h"
+#import "PageViewController.h"
+#import "NumberedViewController.h"
+#import "OpeningViewController.h"
+#import "StoryViewController.h"
+#import "CreateNewUserViewController.h"
+#import "CameraViewController.h"
+#import "InterestDemoViewController.h"
 
 @interface AppDelegate()
 
@@ -44,6 +51,30 @@
     
     self.standardDefaults = [NSUserDefaults standardUserDefaults];
     
+    //PageView Controller
+      NSMutableArray *viewControllers = NSMutableArray.new;
+//    for (int i = 1; i <= 10; i++) {
+//       [viewControllers addObject:[NumberedViewController.alloc initWithNumber:@(i)]];
+//    }
+    
+    //get a reference to the storyboard
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+
+    OpeningViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"OpeningViewController"];
+    
+    [viewControllers addObject:vc];
+    
+    
+    PageViewController* pvc = [[PageViewController alloc]initWithViewControllers:viewControllers transitionStyle:UIPageViewControllerTransitionStyleScroll];
+    
+    self.window.rootViewController = pvc;
+    
+//    self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
+//    self.window.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f blue:217.f/255.f alpha:1];
+//    self.window.rootViewController = [PageViewController.alloc initWithViewControllerClassNames:@[@"OpeningViewController", @"StoryViewController", @"CreateNewUserViewController", @"CameraViewController",@"InterestDemoViewController"] transitionStyle:UIPageViewControllerTransitionStyleScroll];
+//    [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 
@@ -55,18 +86,21 @@
 {
    
     
-    //if we enter a region, and we have not been notified about that region in the last 24 hours, post a notication
+    //if we enter a region, and we have not been notified about that region in the last 24 hours, post a local notication
     if(state == CLRegionStateInside)
     {
-        
-        NSDictionary* regionFound = [self.standardDefaults objectForKey:region.identifier];
+\
+        //always post a global notification for the app to respond too
         [self postGlobalNotificationOnRegionEntry:region withState:state];
+        
+        //get the region from the user defaults
+        NSDictionary* regionFound = [self.standardDefaults objectForKey:region.identifier];
 
-        //if we have not stored this region already,then show a notifcation
+        //if we have not stored this region already,then show a local notifcation
         if (!regionFound)
         {
             [self postLocalNotificationOnRegionEntry:region withState:state];
-            //[self addRegionToUserDefaults:region];
+            [self addRegionToUserDefaults:region];
         }
         else if(regionFound)
         {
@@ -78,7 +112,7 @@
                 [self postLocalNotificationOnRegionEntry:region withState:state];
                 
                 //add region to list of notified regions
-                //[self addRegionToUserDefaults:region];
+                [self addRegionToUserDefaults:region];
             }
         }
 

@@ -10,14 +10,18 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <Parse/Parse.h>
 #import "AvailableUsersViewController.h"
-#import "ProfileHeaderView.h"
 #import "ParseManager.h"
+#import "ProfileHeaderView.h"
 #import "ProfileViewController.h"
 #import "Defaults.h"
 #import "MapViewController.h"
 #import "PresentAnimationController.h"
 #import "InterestsViewController.h"
 #import "ChatManager.h"
+#import "Utilities.h"
+#import "UIView+Circlify.h"
+
+
 
 //define a block for the call back
 typedef void (^MyCompletion)(NSArray *objects, NSError *error);
@@ -70,6 +74,7 @@ toViewController:(UIViewController *)toVC
     [super viewDidLoad];
     [[ChatManager sharedChatManager] setPeerID];
     
+
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
@@ -94,49 +99,6 @@ toViewController:(UIViewController *)toVC
 }
 
 
-/*
- * Load the custom view used for the users profile
- */
-- (void)loadHeaderView
-{
-    //create the view from a xib file
-    ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
-    
-    //quick hack to make the view appear in the correct location
-    CGRect frame = CGRectMake(0.0, 60.0f, headerView.frame.size.width, headerView.frame.size.height);
-
-    //set the frame
-    headerView.frame = frame;
-    
-    //update the profile header details
-    headerView.nameTextField.text = [[PFUser currentUser]username];
-    NSNumber* age  = [[PFUser currentUser]objectForKey:@"age"];
-    
-    headerView.ageTextField.text = age.description;
-    headerView.genderTextField.text = [[PFUser currentUser]objectForKey:@"gender"];
-    
-    //convert the file to a UIImage
-    PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
-    
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
-    {
-        if (!error)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                headerView.imageView.image = [UIImage imageWithData:data];
-            });
-        }
-        else
-        {
-            //do something, like load a default image
-        }
-    }];
-    
-    //add the new view to the array of subviews
-    [self.view addSubview:headerView];
-}
-
-
 - (void)viewWillAppear:(BOOL)animated
 {
     
@@ -151,7 +113,7 @@ toViewController:(UIViewController *)toVC
         [self.locationManager startRangingBeaconsInRegion:region];
     }
     
-    if (self.activeRegions)
+    if (self.activeRegions.count)
     {
         [self getUserWithSimlarityRank];
     }
@@ -213,8 +175,10 @@ toViewController:(UIViewController *)toVC
  
         //start monitoring all known regions
         [self.locationManager startMonitoringForRegion:region];
+        [self.locationManager startRangingBeaconsInRegion:region];
         //NSLog(@"monitoring region %@",region.identifier);
     }
+
 }
 
 
@@ -235,9 +199,9 @@ toViewController:(UIViewController *)toVC
     //create a temporary region since we cannot pass the region object in the notification user info
     CLBeaconRegion* region = [[CLBeaconRegion alloc]initWithProximityUUID:uuid identifier:[uuid UUIDString]];
 
-    //NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
+    NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
     
-    //[self showRegionStateAlertScreen:formatString];
+    [self showRegionStateAlertScreen:formatString];
     
     //make sure the region is not empty first
     if(region)
@@ -296,13 +260,18 @@ toViewController:(UIViewController *)toVC
     
     //show beacon information
     cell.textLabel.text = formatString;
-    
+
     PFFile* file = [user objectForKey:@"thumbnail"];
     
     //load the image asynchronously
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
+        
+            
+            [cell.imageView circlify];
+            NSNumber* index = (NSNumber*)user[@"similarityIndex"];
+            [cell.imageView.layer setBorderColor:[Utilities colorBasedOnSimilarity:[index intValue]]];
              cell.imageView.image = [UIImage imageWithData:data];
         });
        
@@ -324,16 +293,6 @@ toViewController:(UIViewController *)toVC
         viewController.user = self.users[indexPath.row];
         viewController.transitioningDelegate = self;
     }
-    else if ([[segue identifier] isEqualToString:@"showMapView"])
-    {
-        MapViewController* viewController = segue.destinationViewController;
-        viewController.transitioningDelegate = self;
-    }
-    else if ([[segue identifier]  isEqualToString:@"showInterestView"])
-    {
-        InterestsViewController* viewController = segue.destinationViewController;
-        viewController.transitioningDelegate = self;
-    }
 }
 
 #pragma mark - CLLocationManager Delegate Methods
@@ -346,18 +305,18 @@ toViewController:(UIViewController *)toVC
 {
     NSString* formatString = [NSString stringWithFormat:@"local entered region:%@",region.identifier];
     
-    [self showRegionStateAlertScreen:formatString];
+    //[self showRegionStateAlertScreen:formatString];
     
-    if (![self.activeRegions containsObject:region])
-    {
-        //if the user is already checkedin, then add the new region entered
-        //and update the list of user available
-        [self.activeRegions addObject:region];
-        [self getUserWithSimlarityRank];
- 
-        //whenever a user enters a new region, update their location
-        [ParseManager setUsersPFGeoPointLocation];
-    }
+//    if (![self.activeRegions containsObject:region])
+//    {
+//        //if the user is already checkedin, then add the new region entered
+//        //and update the list of user available
+//        [self.activeRegions addObject:region];
+//        [self getUserWithSimlarityRank];
+// 
+//        //whenever a user enters a new region, update their location
+//        [ParseManager setUsersPFGeoPointLocation];
+//    }
 }
 
 
@@ -367,17 +326,18 @@ toViewController:(UIViewController *)toVC
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     NSString* formatString = [NSString stringWithFormat:@"region\n%@",region.identifier];
-    [self showRegionStateAlertScreen:formatString];
     
-    if ([self.activeRegions containsObject:region])
-    {
-
-        [ParseManager setUsersPFGeoPointLocation];
-        [self.activeRegions removeObject:region];
-        
-        //update the list of available
-        [self getUserWithSimlarityRank];
-    }
+    //[self showRegionStateAlertScreen:formatString];
+    
+//    if ([self.activeRegions containsObject:region])
+//    {
+//
+//        [ParseManager setUsersPFGeoPointLocation];
+//        [self.activeRegions removeObject:region];
+//        
+//        //update the list of available
+//        [self getUserWithSimlarityRank];
+//    }
  
 }
 
@@ -387,6 +347,13 @@ toViewController:(UIViewController *)toVC
  */
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
+    if (![self.activeRegions containsObject:region] && beacons.count)
+    {
+        [self.activeRegions addObject:region];
+        [self getUserWithSimlarityRank];
+        //NSLog(@"didRangeBeacons: active regions %@", self.activeRegions);
+    }
+    
     
     /*
      Per Apple -  CoreLocation will call this delegate method at 1 Hz with updated range information.
@@ -472,7 +439,10 @@ toViewController:(UIViewController *)toVC
                 //change the color of the navbar based on the closest beacon
                 [self updateNavigationBarColorBasedOnProximity:self.nearestBeacon];
                 
-                //[ParseManager addBeacon:currentBeacon];
+                if(currentBeacon.proximity == CLProximityImmediate || currentBeacon.proximity == CLProximityNear)
+                {
+                    //[ParseManager addBeacon:currentBeacon];
+                }
                 [ParseManager updateUserNearestBeacon:self.nearestBeacon];
             }
         }
@@ -520,20 +490,7 @@ toViewController:(UIViewController *)toVC
     
     [alertView show];
 }
-
-
-//temporary method to handle user logot
-- (IBAction)logoutButton:(UIBarButtonItem *)sender
-{
-    [PFUser logOut];
-    PFUser *currentUser = [PFUser currentUser];
-    [[ChatManager sharedChatManager] checkoutChat];
-    NSLog(@"%@",currentUser);
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
-
+#pragma mark - CustomSimilarityRanking Methods
 
 /*
  *
@@ -542,12 +499,17 @@ toViewController:(UIViewController *)toVC
 - (void)getUserWithSimlarityRank
 {
     NSLog(@"begin asynch call for similarity");
-    [self getCurrentUserInterestWithComplettion:^(NSArray *objects, NSError *error)
-    {
-        PFUser* user = objects.firstObject;
-        NSDictionary* currentUserInterests = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
-        [self calculateSimilarity:currentUserInterests];
-    }];
+    
+    [self getCurrentUserInterestWithCompletion:^(PFObject *object, NSError *error)
+     {
+         //PFUser* user = object;
+         
+         if(object)
+         {
+             NSDictionary* currentUserInterests = [ParseManager convertPFObjectToNSDictionary:object[@"interests"]];
+             [self calculateSimilarity:currentUserInterests];
+         }
+     }];
 }
 
 
@@ -558,11 +520,13 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)currentUserInterests
 {
     
-    NSLog(@"begin user fetch for similarityCalculation");
+    NSLog(@"calculateSimilarity currentUserInterests");
     [self calculateSimilarity:currentUserInterests forRegions:self.activeRegions withCompletion:^(NSArray *objects, NSError *error)
     {
 
         NSDictionary* otherUserInterests = nil;
+        
+        //NSLog(@"begin For Loop for user comparison");
         
         for(PFObject* user in objects)
         {
@@ -608,10 +572,14 @@ toViewController:(UIViewController *)toVC
                 };
                 
                 //call a block function to calculate the similarity of the two users
+                //NSLog(@"begin similary calculation");
+                
                 user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUserInterests,otherUserInterests)];
+                
+                //NSLog(@"end similary calculation");
             }
         }
-        
+       
         self.users = [objects sortedArrayUsingComparator:^NSComparisonResult(id user1, id user2)
                       {
                           //covert each object to a PFObject and retrieve the similarity index
@@ -622,7 +590,7 @@ toViewController:(UIViewController *)toVC
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.availableUsersTableView reloadData];
+            //[self.availableUsersTableView reloadData];
             NSLog(@"user retrieval complete");
         });
         
@@ -641,20 +609,31 @@ toViewController:(UIViewController *)toVC
     {
         [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
          {
+             NSLog(@"calculateSimilarity: regions completion inside block ");
+             //NSLog(@"calculateSimilarity: regions completion block error %@",[error userInfo]);
              completion(objects,error);
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 NSLog(@"reload data calculateSimilarity forRegions withCompletion block return");
+                 [self.availableUsersTableView reloadData];
+                 
+             });
          }];
     }
 }
 
 
-//get the current user interest from parse
-- (void)getCurrentUserInterestWithComplettion:(MyCompletion)completion
-{
-    [ParseManager getUserInterest:[PFUser currentUser] WithComplettion:^(NSArray *objects, NSError *error)
-     {
-         completion(objects,error);
-     }];
 
+- (void)getCurrentUserInterestWithCompletion:(InterestCompletion)completion
+{
+    //NSLog(@"getCurrentUserInterestWithComplettion");
+    [ParseManager getUserInterest:[PFUser currentUser] WithCompletion:^(PFObject *object, NSError *error)
+     {
+         //NSLog(@"getCurrentUserInterestWithComplettion completion inside block");
+         //NSLog(@"getCurrentUserInterestWithComplettion completion block error %@",[error userInfo]);
+         completion(object,error);
+     }];
+    
 }
 
 
@@ -715,29 +694,10 @@ toViewController:(UIViewController *)toVC
     
 }
 
-
-//- (void)notifyUserBluetoohIsDisabled:(NSUInteger)status
-//{
-//    if (self.centralManager.state == CBCentralManagerStatePoweredOff)
-//    {
-//        //bluetooth is off we need to tell the user to turn on the service
-//        [self showApplicationServicesAlertView:@"Bluetooth if off, please enable in settings"];
-//    }
-//    else if (self.centralManager.state == CBCentralManagerStateUnauthorized)
-//    {
-//        //bluetooth is not authorized for this app, we need to tell the user to adjust settings
-//        [self showApplicationServicesAlertView:@"Bluetooth is restricted"];
-//    }
-//    else if (self.centralManager.state == CBCentralManagerStateUnsupported)
-//    {
-//        //we need to tell the user that the device does not support this action
-//        [self showApplicationServicesAlertView:@"Bluetooth is not avialable on this device"];
-//    }
-//    else if (self.centralManager.state == CBCentralManagerStateUnknown)
-//    {
-//        
-//    }
-//}
+-(IBAction)unwindFromDetailView:(UIStoryboardSegue*)sender
+{
+    
+}
 
 
 - (void)showApplicationServicesAlertView:(NSString*)message
@@ -747,50 +707,5 @@ toViewController:(UIViewController *)toVC
     [alertView show];
 }
 
-
-
-//
-//- (void)updateUserProfile
-//{
-//    [PFUser logOut];
-//    
-//    PFUser *user = [PFUser logInWithUsername:@"dennis" password:@"password"];
-//    
-//    UIImage* image = [UIImage imageNamed:@"dennis.jpg"];
-//    UIImage* resizedImage = [self resizeImage:image toWidth:40.0f andHeight:40.0f];
-//    
-//    NSData* imageData = UIImageJPEGRepresentation(image, 0.8);
-//    NSData* thumbnailData = UIImageJPEGRepresentation(resizedImage, 0.8);
-//    
-//    PFFile* file = [PFFile fileWithData:imageData];
-//    PFFile* thumbnailFile = [PFFile fileWithData:thumbnailData];
-//    
-//    //user[@"photo"] = file;
-//    user[@"thumbnail"] = thumbnailFile;
-//    
-//    NSLog(@"image saving");
-//    
-//    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-//    {
-//        if (error) {
-//            NSLog(@"%@",[error userInfo]);
-//        }
-//        
-//        
-//    }];
-//    
-//    
-//}
-//
-//- (UIImage *)resizeImage:(UIImage *)image toWidth:(float)width andHeight:(float)height {
-//    CGSize newSize = CGSizeMake(width, height);
-//    CGRect newRectangle = CGRectMake(0, 0, width, height);
-//    UIGraphicsBeginImageContext(newSize);
-//    [image drawInRect:newRectangle];
-//    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    return resizedImage;
-//}
 
 @end

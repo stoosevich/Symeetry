@@ -14,18 +14,24 @@
 #import "ProfileHeaderView.h"
 #import "MapCallOutView.h"
 
+
+
 @interface MapViewController () <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property NSArray* nearbyUsers;
 
+//define a block for the call back
+typedef void (^MapCompletion)(PFGeoPoint *object, NSError *error);
+typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 @end
 
 @implementation MapViewController
 
-//define a block for the call back
-typedef void (^MyCompletion)(NSArray *objects, NSError *error);
+
+
+
 
 - (void)viewDidLoad
 {
@@ -68,31 +74,37 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 -(void)getUsersCurrentLocation
 {
     
-    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
-     {
-         //create a 2D coordinate for the map view, centered on the current user
-         CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
-         
-         
-         //determine the size of the map area to show around the location
-         MKCoordinateSpan coordinateSpan = [self calculateTheSpanOfTheUserCoordinates];
-         
-         
-         //create the region of the map that we want to show
-         MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, coordinateSpan);
-         
-         //update the map view
-         self.mapView.region = region;
-         
-         dispatch_async(dispatch_get_main_queue(), ^{
-             [self annotateMapWithNearByUserLocations];
-         });
-         
-         
-     }];
+    [self getUsersCurrentLocation:^(PFGeoPoint *object, NSError *error)
+    {
+
+        //determine the size of the map area to show around the location
+        MKCoordinateSpan coordinateSpan = [self calculateTheSpanOfTheUserCoordinates:object];
+        
+        //create a 2D coordinate for the map view, centered on the current user
+        CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(object.latitude,object.longitude);
+        
+        //create the region of the map that we want to show
+        MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, coordinateSpan);
+        
+        //update the map view
+        self.mapView.region = region;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self annotateMapWithNearByUserLocations];
+        });
+    }];
 
 }
 
+-(void)getUsersCurrentLocation:(MapCompletion)completion
+{
+    
+    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
+     {
+         completion(geoPoint,error);
+
+     }];
+}
 
 /*
  * Retrieve 50 users using Parse geopoint location query. This process uses an
@@ -112,21 +124,25 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 - (void)annotateMapWithNearByUserLocations
 {
+
+    int count = 0;
+    
     for (PFUser* user in self.nearbyUsers)
     {
         //create a pin for the map
         SymeetryPointAnnotation* symeetryAnnotation = [SymeetryPointAnnotation new];
+        symeetryAnnotation.index =  count++;
         
         //assign user to the annotation
         symeetryAnnotation.user = user;
         
         PFGeoPoint* geopoint  = user[@"location"];
-        //NSLog(@"geopoint lat:%f long:%f", geopoint.longitude, geopoint.longitude);
         
         CLLocationCoordinate2D userCoordinate =  CLLocationCoordinate2DMake(geopoint.latitude, geopoint.longitude);
         
         //set the coordinate and title of the pin
         symeetryAnnotation.coordinate =  userCoordinate;
+        
         //symeetryAnnotation.title = symeetryAnnotation.user.username;
 
         //update map with pin
@@ -172,6 +188,12 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
 {
+    
+    if ([view isKindOfClass:[MKUserLocation class]])
+    {
+        return;
+    }
+    
     if ([view isKindOfClass:[MKPinAnnotationView class]])
     {
         for (UIView* subview in view.subviews)
@@ -220,7 +242,10 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    
+    if ([view isKindOfClass:[MKUserLocation class]])
+    {
+        return;
+    }
 }
 
 
@@ -246,13 +271,14 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     return averageCoordinate;
 }
 
+
 /*
  * calculate the span of the points
  * create MKCoordinateSpan averageCoordinate
  * iterate over all items adding the lat and long to the average
  * divide by the number (count) of items in the array
  */
--(MKCoordinateSpan)calculateTheSpanOfTheUserCoordinates
+-(MKCoordinateSpan)calculateTheSpanOfTheUserCoordinates:(PFGeoPoint*)userLocation
 {
     MKCoordinateSpan corrdinateSpan = MKCoordinateSpanMake(0.0, 0.0);
 
@@ -267,12 +293,12 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     for (PFUser *user in self.nearbyUsers)
     {
         point = ((PFGeoPoint*)user[@"location"]);
-
+        
         if (point.latitude < minLatitude)
         {
             minLatitude = point.latitude;
         }
-        else if (point.latitude > maxLatitude)
+        if (point.latitude > maxLatitude)
         {
             maxLatitude = point.latitude;
         }
@@ -281,17 +307,42 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         {
             minLongitude = point.longitude;
         }
-        else if (point.longitude > maxLongitude)
+        if (point.longitude > maxLongitude)
         {
             maxLongitude = point.longitude;
         }
     }
+    
+    
+    //include the users location in the calculation of the span
+    if (userLocation.latitude < minLatitude)
+    {
+        minLatitude = userLocation.latitude;
+    }
+    if (userLocation.latitude > maxLatitude)
+    {
+        maxLatitude = userLocation.latitude;
+    }
+    
+    if (userLocation.longitude < minLongitude)
+    {
+        minLongitude = userLocation.longitude;
+    }
+    if (userLocation.longitude > maxLongitude)
+    {
+        maxLongitude = userLocation.longitude;
+    }
+    
     
     float latitudeRange = maxLatitude - minLatitude + 0.005;
     float longitudeRange = maxLongitude - minLongitude + 0.005;
     
     corrdinateSpan.latitudeDelta = latitudeRange;
     corrdinateSpan.longitudeDelta = longitudeRange;
+    
+//    NSLog(@"max lat: %f long:%f",maxLatitude,maxLongitude);
+//    NSLog(@"min lat: %f long:%f",minLatitude,minLongitude);
+//    NSLog(@"span lat: %f long:%f",corrdinateSpan.latitudeDelta,corrdinateSpan.longitudeDelta);
     
     return corrdinateSpan;
 }
