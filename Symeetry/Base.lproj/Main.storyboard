@@ -532,7 +532,11 @@
         <!--Opening View Controller-->
         <scene sceneID="klu-XF-UkX">
             <objects>
+
                 <viewController storyboardIdentifier="OpeningViewController" id="bHd-uZ-4Nw" customClass="OpeningViewController" sceneMemberID="viewController">
+
+                <viewController storyboardIdentifier="OpeningViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bHd-uZ-4Nw" customClass="OpeningViewController" sceneMemberID="viewController">
+
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eMk-5s-SnG"/>
                         <viewControllerLayoutGuide type="bottom" id="UgM-Zx-E84"/>
@@ -559,7 +563,7 @@
         <!--Story View Controller-->
         <scene sceneID="Ct0-wL-zPR">
             <objects>
-                <viewController id="06f-Qc-Ae7" customClass="StoryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StoryViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="06f-Qc-Ae7" customClass="StoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="M63-e2-Uu4"/>
                         <viewControllerLayoutGuide type="bottom" id="Ylr-Ay-JaL"/>
@@ -586,7 +590,7 @@
         <!--Create New User View Controller-->
         <scene sceneID="aCk-2r-Px2">
             <objects>
-                <viewController id="pNN-OH-xZY" customClass="CreateNewUserViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateNewUserViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pNN-OH-xZY" customClass="CreateNewUserViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="twJ-3x-EX4"/>
                         <viewControllerLayoutGuide type="bottom" id="7uV-Sq-O9V"/>
@@ -599,9 +603,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Test Text" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d7W-6t-FLf">
+                                <rect key="frame" x="101" y="397" width="119" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="textField" destination="d7W-6t-FLf" id="3V1-Bh-Ona"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q0L-JN-QGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -610,7 +623,7 @@
         <!--Camera View Controller-->
         <scene sceneID="eRX-Hp-flu">
             <objects>
-                <viewController id="jF0-V9-dao" customClass="CameraViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jF0-V9-dao" customClass="CameraViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7mJ-iR-fYv"/>
                         <viewControllerLayoutGuide type="bottom" id="IzP-px-S4Y"/>
@@ -634,7 +647,7 @@
         <!--Interest Demo View Controller-->
         <scene sceneID="WEg-dh-eC2">
             <objects>
-                <viewController id="fcA-He-dhw" customClass="InterestDemoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InterestDemoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fcA-He-dhw" customClass="InterestDemoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JLF-Wy-twC"/>
                         <viewControllerLayoutGuide type="bottom" id="SHx-kJ-V1P"/>
