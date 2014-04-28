@@ -271,7 +271,7 @@
         
         // Interested in locations near user.
         [query whereKey:@"location" nearGeoPoint:userGeoPoint];
-        [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
+        [query whereKey:@"objectId" notEqualTo:[user objectId]];
         [query whereKey:@"hidden" equalTo:@NO];
         
         // Limit what could be a lot of points.

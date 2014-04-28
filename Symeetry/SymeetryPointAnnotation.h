@@ -11,4 +11,5 @@
 
 @interface SymeetryPointAnnotation : MKPointAnnotation <MKAnnotation, MKMapViewDelegate>
 @property PFUser* user;
+@property NSInteger index;
 @end
