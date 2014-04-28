@@ -7,6 +7,9 @@
 //
 
 #import "OpeningViewController.h"
+#import "Parse/Parse.h"
+#import "ParseManager.h"
+
 
 @interface OpeningViewController ()
 @property (nonatomic) NSNumber *number;
@@ -28,15 +31,18 @@
 {
     [super viewDidLoad];
 
-    //self.view.backgroundColor = [UIColor redColor];
-    self.imageView.image = [UIImage imageNamed:@"SymeetryFar"];
-
-    //self.imageView.image = [UIImage imageNamed:@"View1"];
-    
-    self.view.backgroundColor = [UIColor redColor];
-    // Do any additional setup after loading the view.
-
+    self.imageView.image = [UIImage imageNamed:@"View1"];
 }
+
+//-(void)viewDidAppear:(BOOL)animated
+//{
+//    if ([PFUser currentUser] != nil) {
+//        
+//        //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
+//        [self performSegueWithIdentifier:@"showContainerView" sender:self];
+//    }
+//}
+
 
 - (CGFloat)randomFloat:(CGFloat)floatMaximum;
 {

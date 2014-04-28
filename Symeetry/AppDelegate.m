@@ -17,6 +17,7 @@
 #import "CreateNewUserViewController.h"
 #import "CameraViewController.h"
 #import "InterestDemoViewController.h"
+#import "ContainerViewController.h"
 
 @interface AppDelegate()
 
@@ -52,22 +53,35 @@
     self.standardDefaults = [NSUserDefaults standardUserDefaults];
     
     //PageView Controller
-//      NSMutableArray *viewControllers = NSMutableArray.new;
-////    for (int i = 1; i <= 10; i++) {
-////       [viewControllers addObject:[NumberedViewController.alloc initWithNumber:@(i)]];
-////    }
-//    
-//    //get a reference to the storyboard
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-//
-//    OpeningViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"OpeningViewController"];
-//    
-//    [viewControllers addObject:vc];
-//    
-//    
-//    PageViewController* pvc = [[PageViewController alloc]initWithViewControllers:viewControllers transitionStyle:UIPageViewControllerTransitionStyleScroll];
-//    
-//    self.window.rootViewController = pvc;
+      NSMutableArray *viewControllers = NSMutableArray.new;
+//    for (int i = 1; i <= 10; i++) {
+//       [viewControllers addObject:[NumberedViewController.alloc initWithNumber:@(i)]];
+//    }
+    
+    //get a reference to the storyboard
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+
+    OpeningViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"OpeningViewController"];
+    [viewControllers addObject:vc];
+    
+    UIViewController* storyViewController = [storyboard instantiateViewControllerWithIdentifier:@"StoryViewController"];
+    [viewControllers addObject:storyViewController];
+    
+    UIViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
+    [viewControllers addObject:createViewController];
+    
+    UIViewController* cameraViewController = [storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    [viewControllers addObject:cameraViewController];
+    
+    UIViewController* interestDemoViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestDemoViewController"];
+    [viewControllers addObject:interestDemoViewController];
+    
+    UIViewController* containerViewController = [storyboard instantiateViewControllerWithIdentifier:@"ContainerViewController"];
+    [viewControllers addObject:containerViewController];
+    
+    PageViewController* pvc = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    
+    self.window.rootViewController = pvc;
     
     
     
