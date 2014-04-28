@@ -594,7 +594,7 @@
         <!--Page View Controller-->
         <scene sceneID="fp4-65-4XV">
             <objects>
-                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="I7W-PH-0GR" customClass="PageViewController" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="vertical" spineLocation="none" id="I7W-PH-0GR" customClass="PageViewController" sceneMemberID="viewController">
                     <connections>
                         <segue destination="14H-TF-LFL" kind="modal" identifier="donsWildRide" id="Jyw-PN-ioM"/>
                     </connections>
