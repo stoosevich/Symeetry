@@ -50,23 +50,23 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 //ensures that the custom animation controller is available when the storyboard
 //initializes the view controller
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    if (self = [super initWithCoder:aDecoder])
-    {
-        _presentAnimationController = [PresentAnimationController new];
-    }
-    return self;
-}
+//- (id)initWithCoder:(NSCoder *)aDecoder
+//{
+//    if (self = [super initWithCoder:aDecoder])
+//    {
+//        _presentAnimationController = [PresentAnimationController new];
+//    }
+//    return self;
+//}
 
 
 //delegate method for the tranistion animation
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:
-(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC
-toViewController:(UIViewController *)toVC
-{
-    return _presentAnimationController;
-}
+//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:
+//(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC
+//toViewController:(UIViewController *)toVC
+//{
+//    return _presentAnimationController;
+//}
 
 
 - (void)viewDidLoad
@@ -80,7 +80,7 @@ toViewController:(UIViewController *)toVC
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     
     //required for the custom animations
-    self.navigationController.delegate = self;
+    //self.navigationController.delegate = self;
     
     //initialize required data structures
     self.beacons = [NSMutableDictionary new];
@@ -201,7 +201,7 @@ toViewController:(UIViewController *)toVC
 
     NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
     
-    [self showRegionStateAlertScreen:formatString];
+    //[self showRegionStateAlertScreen:formatString];
     
     //make sure the region is not empty first
     if(region)
@@ -702,12 +702,6 @@ toViewController:(UIViewController *)toVC
     }
     
 }
-
--(IBAction)unwindFromDetailView:(UIStoryboardSegue*)sender
-{
-    
-}
-
 
 - (void)showApplicationServicesAlertView:(NSString*)message
 {
