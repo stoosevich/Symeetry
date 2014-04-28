@@ -130,7 +130,7 @@
     }
 }
 
-- (void)unwindFromProfileDetailView:(UIStoryboardSegue*)segue
+- (IBAction)unwindFromProfileDetailView:(UIStoryboardSegue*)segue
 {
     //
 }
