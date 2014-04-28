@@ -1089,6 +1089,7 @@
 				563A1CBF190DA08E00923AD4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		563A1CC3190DA08E00923AD4 /* Build configuration list for PBXNativeTarget "HamBurgerMenuTests" */ = {
 			isa = XCConfigurationList;
@@ -1097,6 +1098,7 @@
 				563A1CC1190DA08E00923AD4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		81AB5B0018FC85890060B17A /* Build configuration list for PBXProject "Symeetry" */ = {
 			isa = XCConfigurationList;

@@ -85,9 +85,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="NeW-jG-8jf" kind="modal" identifier="showProfileView" modalTransitionStyle="coverVertical" id="EZl-hx-yyJ"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -129,6 +126,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="availableUsersTableView" destination="Nxc-4k-Mwc" id="aCb-KX-xe7"/>
+                        <segue destination="NeW-jG-8jf" kind="modal" id="h0H-aB-8a6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
