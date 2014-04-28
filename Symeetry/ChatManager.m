@@ -52,6 +52,20 @@
     [self.advertiserAssistant start];
     self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.devicePeerID serviceType:@"chat-txtchat"];
     self.browser.delegate = self;
+    PFFile* file = [[PFUser currentUser]objectForKey:@"thumbnail"];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+     {
+         if (!error)
+         {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 self.myChatPhoto = [UIImage imageWithData:data];
+             });
+         }
+         else
+         {
+             //do something, like load a default image
+         }
+     }];
     [self checkinChat];
 }
 
@@ -205,6 +219,9 @@
                 UIStoryboard *sb = [UIApplication sharedApplication].keyWindow.rootViewController.storyboard;
                 ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
                 cRVC.peerID = peerID;
+                NSData* data = UIImageJPEGRepresentation(self.myChatPhoto, 0.8);
+                NSError* error = [NSError new];
+                [self.mySession sendData:data toPeers:@[peerID] withMode:MCSessionSendDataReliable error:&error];
                 id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
                 vc = [vc presentedViewController];
                 [vc presentViewController:cRVC animated:YES completion:^{
