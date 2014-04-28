@@ -303,7 +303,7 @@ toViewController:(UIViewController *)toVC
  */
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    NSString* formatString = [NSString stringWithFormat:@"local entered region:%@",region.identifier];
+    //NSString* formatString = [NSString stringWithFormat:@"local entered region:%@",region.identifier];
     
     //[self showRegionStateAlertScreen:formatString];
     
@@ -325,7 +325,7 @@ toViewController:(UIViewController *)toVC
  */
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    NSString* formatString = [NSString stringWithFormat:@"region\n%@",region.identifier];
+    //NSString* formatString = [NSString stringWithFormat:@"region\n%@",region.identifier];
     
     //[self showRegionStateAlertScreen:formatString];
     
@@ -603,18 +603,18 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)interest forRegions:(NSArray*)regions withCompletion:(MyCompletion)completion
 {
     
-    NSLog(@"regions value %@", self.activeRegions);
+    //NSLog(@"regions value %@", self.activeRegions);
     
     if (regions.count)//if there are no regions, then stop
     {
         [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
          {
-             NSLog(@"calculateSimilarity: regions completion inside block ");
+             //NSLog(@"calculateSimilarity: regions completion inside block ");
              //NSLog(@"calculateSimilarity: regions completion block error %@",[error userInfo]);
              completion(objects,error);
              
              dispatch_async(dispatch_get_main_queue(), ^{
-                 NSLog(@"reload data calculateSimilarity forRegions withCompletion block return");
+                 //NSLog(@"reload data calculateSimilarity forRegions withCompletion block return");
                  [self.availableUsersTableView reloadData];
                  
              });

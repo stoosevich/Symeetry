@@ -77,11 +77,13 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     [self getUsersCurrentLocation:^(PFGeoPoint *object, NSError *error)
     {
 
-        //determine the size of the map area to show around the location
-        MKCoordinateSpan coordinateSpan = [self calculateTheSpanOfTheUserCoordinates:object];
-        
         //create a 2D coordinate for the map view, centered on the current user
         CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(object.latitude,object.longitude);
+        
+        
+        //determine the size of the map area to show around the location
+        MKCoordinateSpan coordinateSpan = [self calculateTheSpanOfTheUserCoordinates:object];
+       
         
         //create the region of the map that we want to show
         MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, coordinateSpan);
