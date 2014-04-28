@@ -13,8 +13,10 @@
 #import "CreateNewUserViewController.h"
 #import "CameraViewController.h"
 #import "InterestDemoViewController.h"
+#import "Parse/Parse.h"
+#import "ParseManager.h"
 
-static const CGFloat kUIPageControlHeight = 36.f;
+//static const CGFloat kUIPageControlHeight = 36.f;
 
 @interface PageViewController ()
 @property (nonatomic) NSArray *controllers;
@@ -70,19 +72,32 @@ static const CGFloat kUIPageControlHeight = 36.f;
 
 - (void)viewDidLoad
 {
-    self.pageControl = [UIPageControl.alloc initWithFrame:CGRectMake(0, self.view.frame.size.height - kUIPageControlHeight, self.view.frame.size.width, kUIPageControlHeight)];
-    self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-    [self.pageControl addTarget:self
-                         action:@selector(pageControlWasTapped:)
-               forControlEvents:UIControlEventValueChanged];
-    self.pageControl.numberOfPages = self.controllers.count;
-    self.pageControl.currentPage = 0;
-    [self.view addSubview:self.pageControl];
-    [self setViewControllers:@[self.controllers[0]]
-                   direction:UIPageViewControllerNavigationDirectionForward
-                    animated:NO
-                  completion:nil];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"View1"]];
+//    self.pageControl = [UIPageControl.alloc initWithFrame:CGRectMake(0, self.view.frame.size.height - kUIPageControlHeight, self.view.frame.size.width, kUIPageControlHeight)];
+//    self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+//    [self.pageControl addTarget:self
+//                         action:@selector(pageControlWasTapped:)
+//               forControlEvents:UIControlEventValueChanged];
+//    self.pageControl.numberOfPages = self.controllers.count;
+//    self.pageControl.currentPage = 0;
+//    [self.view addSubview:self.pageControl];
+//    [self setViewControllers:@[self.controllers[0]]
+//                   direction:UIPageViewControllerNavigationDirectionForward
+//                    animated:NO
+//                  completion:nil];
 }
+
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if ([PFUser currentUser] != nil)
+    {
+        [self performSegueWithIdentifier:@"donsWildRide" sender:self];
+        
+    }
+}
+
 
 - (NSUInteger)currentPageIndex
 {
