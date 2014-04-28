@@ -11,7 +11,7 @@
 #import "MessageTableViewPrototypeCellTableViewCell.h"
 #import "Parse/Parse.h"
 
-@interface ChatRoomViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
+@interface ChatRoomViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIAlertViewDelegate>
 
 @property NSMutableArray* chatMessages;
 @property (weak, nonatomic) IBOutlet UITableView *chatRoomTableView;
@@ -159,7 +159,23 @@
 
 - (IBAction)onLeaveChatButtonPressed:(id)sender
 {
-    [[ChatManager sharedChatManager] disconnect:self.peerID];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Are You Sure?" message:@"Nothing in this chat will be saved when you leave" delegate:self cancelButtonTitle:@"Stay" otherButtonTitles:@"Leave", nil];
+    [alert show];
+    //[[ChatManager sharedChatManager] disconnect:self.peerID];
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            [[ChatManager sharedChatManager] disconnect:self.peerID];
+            break;
+        case 1:
+            
+            break;
+        default:
+            break;
+    }
 }
 
 @end

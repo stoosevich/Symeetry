@@ -576,9 +576,7 @@
 						TestTargetID = 81AB5B0418FC85890060B17A;
 					};
 					81AB5B0418FC85890060B17A = {
-
-						DevelopmentTeam = S264RF7436;
-
+						DevelopmentTeam = 6EADSJP336;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;

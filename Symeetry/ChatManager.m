@@ -216,7 +216,7 @@
             
             NSLog(@"Connected to %@", peerID.displayName);
             dispatch_async(dispatch_get_main_queue(), ^{
-                UIStoryboard *sb = [UIApplication sharedApplication].keyWindow.rootViewController.storyboard;
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                 ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
                 cRVC.peerID = peerID;
                 NSData* data = UIImageJPEGRepresentation(self.myChatPhoto, 0.8);
