@@ -576,10 +576,9 @@
 						TestTargetID = 81AB5B0418FC85890060B17A;
 					};
 					81AB5B0418FC85890060B17A = {
-<<<<<<< HEAD
-=======
+
 						DevelopmentTeam = S264RF7436;
->>>>>>> similarity
+
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
