@@ -280,19 +280,24 @@ toViewController:(UIViewController *)toVC
     return cell;
 }
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"showProfileDetail" sender:self];
+}
 
 #pragma mark - Prepare for Segue Method
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showProfileView"])
+    if ([[segue identifier] isEqualToString:@"showProfileDetail"])
     {
+        NSLog(@"prepare for segue\n");
         NSIndexPath *indexPath = [self.availableUsersTableView indexPathForSelectedRow];
         ProfileViewController* viewController = segue.destinationViewController;
         viewController.user = self.users[indexPath.row];
         viewController.transitioningDelegate = self;
     }
+
 }
 
 #pragma mark - CLLocationManager Delegate Methods
@@ -498,7 +503,7 @@ toViewController:(UIViewController *)toVC
  */
 - (void)getUserWithSimlarityRank
 {
-    NSLog(@"begin asynch call for similarity");
+    //NSLog(@"begin asynch call for similarity");
     
     [self getCurrentUserInterestWithCompletion:^(PFObject *object, NSError *error)
      {
@@ -520,7 +525,7 @@ toViewController:(UIViewController *)toVC
 - (void)calculateSimilarity:(NSDictionary*)currentUserInterests
 {
     
-    NSLog(@"calculateSimilarity currentUserInterests");
+    //NSLog(@"calculateSimilarity currentUserInterests");
     [self calculateSimilarity:currentUserInterests forRegions:self.activeRegions withCompletion:^(NSArray *objects, NSError *error)
     {
 
@@ -591,7 +596,7 @@ toViewController:(UIViewController *)toVC
         
         dispatch_async(dispatch_get_main_queue(), ^{
             //[self.availableUsersTableView reloadData];
-            NSLog(@"user retrieval complete");
+            //NSLog(@"user retrieval complete");
         });
         
     }];

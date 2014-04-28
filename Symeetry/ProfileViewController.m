@@ -49,12 +49,12 @@
     self.emailTextField.text = [self.user objectForKey:@"email"];
     self.relationShipLabel.text = [self relationShipStatus];
     
-    self.headerView.nameTextField.text = [self.user username];
-    self.headerView.ageTextField.text = [[self.user objectForKey:@"age"] description];
+//    self.headerView.nameTextField.text = [self.user username];
+//    self.headerView.ageTextField.text = [[self.user objectForKey:@"age"] description];
     [self.headerView setDelegates:self];
     
     
-    self.headerView.genderTextField.text = [self.user objectForKey:@"gender"];
+//    self.headerView.genderTextField.text = [self.user objectForKey:@"gender"];
     PFFile* file = [self.user objectForKey:@"photo"];
     
     //load the picture asynchronously
@@ -67,12 +67,12 @@
     }];
    
     
-    self.headerView.ageTextField.enabled = [ParseManager isCurrentUser:self.user];
-    self.headerView.genderTextField.enabled = [ParseManager isCurrentUser:self.user];
+//    self.headerView.ageTextField.enabled = [ParseManager isCurrentUser:self.user];
+//    self.headerView.genderTextField.enabled = [ParseManager isCurrentUser:self.user];
     self.homeTownTextField.enabled = [ParseManager isCurrentUser:self.user];
     self.emailTextField.enabled = [ParseManager isCurrentUser:self.user];
     
-    [self.view addSubview:self.headerView];
+    //[self.view addSubview:self.headerView];
 }
 
 
@@ -93,15 +93,6 @@
     }];
     
 }
-
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([segue.identifier isEqualToString:@"ChatRoomSegue"]) {
-//        self.cRVC = segue.destinationViewController;
-//        self.cRVC.peerID = [self.chat findCorrectPeer:self.user];
-//    }
-//    
-//}
 
 
 - (IBAction)onChangeRelationShipButtonPressed:(id)sender

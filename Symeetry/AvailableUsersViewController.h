@@ -13,4 +13,5 @@
 @property (strong, nonatomic) IBOutlet UITableView *availableUsersTableView;
 @property NSMutableArray* activeRegions;
 
+
 @end

@@ -13,4 +13,6 @@
 
 + (CGColorRef)colorBasedOnSimilarity:(int)similarity;
 
++(UIImage *)resizeImage:(UIImage *)image withWidth:(float)width andHeight:(float)height;
+
 @end

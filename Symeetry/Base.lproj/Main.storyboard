@@ -39,6 +39,7 @@
                     <navigationItem key="navigationItem" id="JLP-LZ-5F2"/>
                     <connections>
                         <outlet property="containerView" destination="GyM-id-sjR" id="rMO-bl-2mw"/>
+                        <segue destination="NeW-jG-8jf" kind="modal" identifier="showProfileDetail" id="X3v-dt-7wU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhm-kC-fu2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -126,7 +127,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="availableUsersTableView" destination="Nxc-4k-Mwc" id="aCb-KX-xe7"/>
-                        <segue destination="NeW-jG-8jf" kind="modal" identifier="showProfileDetail" id="h0H-aB-8a6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
