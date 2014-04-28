@@ -13,17 +13,10 @@
 		563A1C95190DA08E00923AD4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0818FC85890060B17A /* Foundation.framework */; };
 		563A1C96190DA08E00923AD4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0A18FC85890060B17A /* CoreGraphics.framework */; };
 		563A1C97190DA08E00923AD4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0C18FC85890060B17A /* UIKit.framework */; };
-		563A1C9D190DA08E00923AD4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 563A1C9B190DA08E00923AD4 /* InfoPlist.strings */; };
-		563A1C9F190DA08E00923AD4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1C9E190DA08E00923AD4 /* main.m */; };
-		563A1CA3190DA08E00923AD4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1CA2190DA08E00923AD4 /* AppDelegate.m */; };
-		563A1CA6190DA08E00923AD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 563A1CA4190DA08E00923AD4 /* Main.storyboard */; };
-		563A1CA9190DA08E00923AD4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1CA8190DA08E00923AD4 /* ViewController.m */; };
-		563A1CAB190DA08E00923AD4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 563A1CAA190DA08E00923AD4 /* Images.xcassets */; };
 		563A1CB1190DA08E00923AD4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B2718FC85890060B17A /* XCTest.framework */; };
 		563A1CB2190DA08E00923AD4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0818FC85890060B17A /* Foundation.framework */; };
 		563A1CB3190DA08E00923AD4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0C18FC85890060B17A /* UIKit.framework */; };
-		563A1CBB190DA08E00923AD4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 563A1CB9190DA08E00923AD4 /* InfoPlist.strings */; };
-		563A1CBD190DA08E00923AD4 /* HamBurgerMenuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1CBC190DA08E00923AD4 /* HamBurgerMenuTests.m */; };
+		563A1D4E190ED63900923AD4 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1D4D190ED63900923AD4 /* MenuViewController.m */; };
 		5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695430F18FD8C8F00A101F4 /* ParseManager.m */; };
 		56A6548919085D15001B17AE /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548819085D15001B17AE /* RootViewController.m */; };
 		56A6548C19085E9C001B17AE /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548B19085E9C001B17AE /* SignUpViewController.m */; };
@@ -124,20 +117,9 @@
 		563A1C4C190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewPrototypeCellTableViewCell.h; path = Symeetry/MessageTableViewPrototypeCellTableViewCell.h; sourceTree = "<group>"; };
 		563A1C4D190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageTableViewPrototypeCellTableViewCell.m; path = Symeetry/MessageTableViewPrototypeCellTableViewCell.m; sourceTree = "<group>"; };
 		563A1C94190DA08E00923AD4 /* HamBurgerMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HamBurgerMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		563A1C9A190DA08E00923AD4 /* HamBurgerMenu-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HamBurgerMenu-Info.plist"; sourceTree = "<group>"; };
-		563A1C9C190DA08E00923AD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		563A1C9E190DA08E00923AD4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		563A1CA0190DA08E00923AD4 /* HamBurgerMenu-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HamBurgerMenu-Prefix.pch"; sourceTree = "<group>"; };
-		563A1CA1190DA08E00923AD4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		563A1CA2190DA08E00923AD4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		563A1CA5190DA08E00923AD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		563A1CA7190DA08E00923AD4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		563A1CA8190DA08E00923AD4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		563A1CAA190DA08E00923AD4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		563A1CB0190DA08E00923AD4 /* HamBurgerMenuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HamBurgerMenuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		563A1CB8190DA08E00923AD4 /* HamBurgerMenuTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HamBurgerMenuTests-Info.plist"; sourceTree = "<group>"; };
-		563A1CBA190DA08E00923AD4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		563A1CBC190DA08E00923AD4 /* HamBurgerMenuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HamBurgerMenuTests.m; sourceTree = "<group>"; };
+		563A1D4C190ED63900923AD4 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		563A1D4D190ED63900923AD4 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseManager.h; path = Symeetry/ParseManager.h; sourceTree = "<group>"; };
 		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseManager.m; path = Symeetry/ParseManager.m; sourceTree = "<group>"; };
 		56A6548719085D15001B17AE /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -303,49 +285,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		563A1C98190DA08E00923AD4 /* HamBurgerMenu */ = {
-			isa = PBXGroup;
-			children = (
-				563A1CA1190DA08E00923AD4 /* AppDelegate.h */,
-				563A1CA2190DA08E00923AD4 /* AppDelegate.m */,
-				563A1CA4190DA08E00923AD4 /* Main.storyboard */,
-				563A1CA7190DA08E00923AD4 /* ViewController.h */,
-				563A1CA8190DA08E00923AD4 /* ViewController.m */,
-				563A1CAA190DA08E00923AD4 /* Images.xcassets */,
-				563A1C99190DA08E00923AD4 /* Supporting Files */,
-			);
-			path = HamBurgerMenu;
-			sourceTree = "<group>";
-		};
-		563A1C99190DA08E00923AD4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				563A1C9A190DA08E00923AD4 /* HamBurgerMenu-Info.plist */,
-				563A1C9B190DA08E00923AD4 /* InfoPlist.strings */,
-				563A1C9E190DA08E00923AD4 /* main.m */,
-				563A1CA0190DA08E00923AD4 /* HamBurgerMenu-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		563A1CB6190DA08E00923AD4 /* HamBurgerMenuTests */ = {
-			isa = PBXGroup;
-			children = (
-				563A1CBC190DA08E00923AD4 /* HamBurgerMenuTests.m */,
-				563A1CB7190DA08E00923AD4 /* Supporting Files */,
-			);
-			path = HamBurgerMenuTests;
-			sourceTree = "<group>";
-		};
-		563A1CB7190DA08E00923AD4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				563A1CB8190DA08E00923AD4 /* HamBurgerMenuTests-Info.plist */,
-				563A1CB9190DA08E00923AD4 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		8114069018FDC964004E578F /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,6 +377,8 @@
 				56A6548B19085E9C001B17AE /* SignUpViewController.m */,
 				CE7D935D190725BF00F3EDC0 /* ChatRoomViewController.h */,
 				CE7D935E190725BF00F3EDC0 /* ChatRoomViewController.m */,
+				563A1D4C190ED63900923AD4 /* MenuViewController.h */,
+				563A1D4D190ED63900923AD4 /* MenuViewController.m */,
 				CE893D8719022CAF000260A4 /* MapViewController.h */,
 				CE893D8819022CAF000260A4 /* MapViewController.m */,
 				CE66818D190EACFC00543FE7 /* DisplayUserProfileDelegate.h */,
@@ -461,8 +402,6 @@
 				818829FD18FC883000724B79 /* View Controllers */,
 				818829FC18FC881100724B79 /* Classes */,
 				81AB5B2D18FC858A0060B17A /* SymeetryTests */,
-				563A1C98190DA08E00923AD4 /* HamBurgerMenu */,
-				563A1CB6190DA08E00923AD4 /* HamBurgerMenuTests */,
 				81AB5B0718FC85890060B17A /* Frameworks */,
 				81AB5B0618FC85890060B17A /* Products */,
 			);
@@ -671,9 +610,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				563A1CAB190DA08E00923AD4 /* Images.xcassets in Resources */,
-				563A1C9D190DA08E00923AD4 /* InfoPlist.strings in Resources */,
-				563A1CA6190DA08E00923AD4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,7 +617,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				563A1CBB190DA08E00923AD4 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,9 +667,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				563A1CA9190DA08E00923AD4 /* ViewController.m in Sources */,
-				563A1CA3190DA08E00923AD4 /* AppDelegate.m in Sources */,
-				563A1C9F190DA08E00923AD4 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,7 +674,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				563A1CBD190DA08E00923AD4 /* HamBurgerMenuTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,6 +684,7 @@
 				815C10DE190CA6A500679DD2 /* CreateNewUserViewController.m in Sources */,
 				81AB5B1F18FC85890060B17A /* AvailableUsersViewController.m in Sources */,
 				815C10D8190C9E9700679DD2 /* OpeningViewController.m in Sources */,
+				563A1D4E190ED63900923AD4 /* MenuViewController.m in Sources */,
 				815C10DB190CA0E500679DD2 /* StoryViewController.m in Sources */,
 				56A6548919085D15001B17AE /* RootViewController.m in Sources */,
 				815C10E4190CA6D400679DD2 /* InterestDemoViewController.m in Sources */,
@@ -808,30 +740,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		563A1C9B190DA08E00923AD4 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				563A1C9C190DA08E00923AD4 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		563A1CA4190DA08E00923AD4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				563A1CA5190DA08E00923AD4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		563A1CB9190DA08E00923AD4 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				563A1CBA190DA08E00923AD4 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		81AB5B1118FC85890060B17A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
