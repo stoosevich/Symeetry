@@ -13,6 +13,7 @@
 #import "AvailableUsersViewController.h"
 #import "ParseManager.h"
 #import "UIView+Circlify.h"
+#import "ChatManager.h"
 
 @interface ContainerViewController ()
 @property (weak, nonatomic) IBOutlet UIView *containerView;
@@ -36,6 +37,8 @@
 {
     [super viewDidLoad];
     [self loadHeaderView];
+    
+    [[ChatManager sharedChatManager] setPeerID];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     
