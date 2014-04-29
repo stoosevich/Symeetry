@@ -80,9 +80,6 @@
     UIViewController* interestDemoViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestDemoViewController"];
     [viewControllers addObject:interestDemoViewController];
     
-    UIViewController* containerViewController = [storyboard instantiateViewControllerWithIdentifier:@"ContainerViewController"];
-    [viewControllers addObject:containerViewController];
-    
     PageViewController* pvc = [PageViewController sharedPageViewController];
     pvc.controllers = viewControllers;
     
