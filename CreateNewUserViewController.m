@@ -57,6 +57,7 @@
         [newUser setPassword:self.passwordTextField.text];
         [newUser setUsername:self.usernameTextField.text];
         [newUser setEmail:self.emailTextField.text];
+        [newUser setObject:@(0) forKey:@"similarityIndex"];
         [newUser setObject:[ParseManager convertUIImageToPFFile:[UIImage imageNamed:@"ic_welcome_profile.png"]] forKey:@"photo"];
         [newUser setObject:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:[UIImage imageNamed:@"ic_welcome_profile.png"] withWidth:40 andHeight:40]] forKey:@"thumbnail"];
         
