@@ -89,7 +89,14 @@
 {
     if (indexPath.row == 4)
     {
+        NSLog(@"set nearest beacon to nil");
+        
         [ParseManager updateUserNearestBeacon:nil];
+        
+        NSTimer* logoutTimer = [[NSTimer alloc]initWithFireDate:[NSDate date] interval:20 target:nil selector:@selector(logoutCurrentUser) userInfo:nil repeats:NO];
+        
+        NSRunLoop *runner = [NSRunLoop currentRunLoop];
+        [runner addTimer:logoutTimer forMode: NSDefaultRunLoopMode];
         
         MMDrawerController* draw = (id)self.view.window.rootViewController;
         [draw toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
@@ -98,28 +105,24 @@
         [ChatManager sharedChatManager].on = NO;
         [[ChatManager sharedChatManager] checkoutChat];
         
-      
-        NSTimer* logoutTimer = [[NSTimer alloc]initWithFireDate:[NSDate date] interval:20 target:nil selector:@selector(logoutCurrentUser) userInfo:nil repeats:NO];
-        
-        NSRunLoop *runner = [NSRunLoop currentRunLoop];
-        [runner addTimer:logoutTimer forMode: NSDefaultRunLoopMode];
-        
+
     }
     else if(indexPath.row == self.options.count - 1)
     {
         UIAlertView* ask = [[UIAlertView alloc] initWithTitle:@"Loom™?" message:@"Ask Charles" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
         [ask show];
     }
-    else if (indexPath.row == 3)
+    else if (indexPath.row == 2)
     {
-        UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutViewController"];
-        [self presentViewController:login animated:YES completion:nil];
+        UIViewController* aboutViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutViewController"];
+        [self presentViewController:aboutViewController animated:YES completion:nil];
     }
 }
 
 - (void)logoutCurrentUser
 {
     [PFUser logOut];
+    NSLog(@"logging out user");
 }
 
 @end
