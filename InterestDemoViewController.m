@@ -7,6 +7,8 @@
 //
 
 #import "InterestDemoViewController.h"
+#import "PageViewController.h"
+
 
 @interface InterestDemoViewController ()
 
@@ -33,6 +35,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)onEndButtonPressed:(id)sender {
+    
+    [[PageViewController sharedPageViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

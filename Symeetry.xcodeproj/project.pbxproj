@@ -20,7 +20,6 @@
 		563A1D4E190ED63900923AD4 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1D4D190ED63900923AD4 /* MenuViewController.m */; };
 		5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695430F18FD8C8F00A101F4 /* ParseManager.m */; };
 		56A6548919085D15001B17AE /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548819085D15001B17AE /* RootViewController.m */; };
-		56A6548C19085E9C001B17AE /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548B19085E9C001B17AE /* SignUpViewController.m */; };
 		8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8114069218FE0CD8004E578F /* ProfileHeaderView.m */; };
 		815C10D4190C9A9700679DD2 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C10D3190C9A9700679DD2 /* PageViewController.m */; };
 		815C10D8190C9E9700679DD2 /* OpeningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815C10D7190C9E9700679DD2 /* OpeningViewController.m */; };
@@ -171,8 +170,6 @@
 		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseManager.m; path = Symeetry/ParseManager.m; sourceTree = "<group>"; };
 		56A6548719085D15001B17AE /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		56A6548819085D15001B17AE /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		56A6548A19085E9C001B17AE /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
-		56A6548B19085E9C001B17AE /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		8114069118FE0CD8004E578F /* ProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileHeaderView.h; path = Symeetry/ProfileHeaderView.h; sourceTree = "<group>"; };
 		8114069218FE0CD8004E578F /* ProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileHeaderView.m; path = Symeetry/ProfileHeaderView.m; sourceTree = "<group>"; };
 		815C10D2190C9A9700679DD2 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageViewController.h; path = Symeetry/PageViewController.h; sourceTree = "<group>"; };
@@ -525,8 +522,6 @@
 				CE6935AA19103CE10065769B /* AboutViewController.m */,
 				CE5A1E6A190C4B4700658E4D /* ContainerViewController.h */,
 				CE5A1E6B190C4B4700658E4D /* ContainerViewController.m */,
-				56A6548A19085E9C001B17AE /* SignUpViewController.h */,
-				56A6548B19085E9C001B17AE /* SignUpViewController.m */,
 				CE7D935D190725BF00F3EDC0 /* ChatRoomViewController.h */,
 				CE7D935E190725BF00F3EDC0 /* ChatRoomViewController.m */,
 				563A1D4C190ED63900923AD4 /* MenuViewController.h */,
@@ -728,6 +723,7 @@
 					};
 					81AB5B0418FC85890060B17A = {
 						DevelopmentTeam = S264RF7436;
+
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -929,7 +925,6 @@
 				563A1C4E190B206F00923AD4 /* MessageTableViewPrototypeCellTableViewCell.m in Sources */,
 				CE77AD84190CCBE60028B91D /* Utilities.m in Sources */,
 				81AB5B1918FC85890060B17A /* AppDelegate.m in Sources */,
-				56A6548C19085E9C001B17AE /* SignUpViewController.m in Sources */,
 				CE893D8919022CAF000260A4 /* MapViewController.m in Sources */,
 				CE3EC3A7190803DE00DCB671 /* MapCallOutView.m in Sources */,
 				CE6748661901D58600F05121 /* Defaults.m in Sources */,
@@ -1174,7 +1169,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

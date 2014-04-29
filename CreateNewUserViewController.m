@@ -57,6 +57,7 @@
         [newUser setPassword:self.passwordTextField.text];
         [newUser setUsername:self.usernameTextField.text];
         [newUser setEmail:self.emailTextField.text];
+        [newUser setObject:@(0) forKey:@"similarityIndex"];
         [newUser setObject:[ParseManager convertUIImageToPFFile:[UIImage imageNamed:@"ic_welcome_profile.png"]] forKey:@"photo"];
         [newUser setObject:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:[UIImage imageNamed:@"ic_welcome_profile.png"] withWidth:40 andHeight:40]] forKey:@"thumbnail"];
         
@@ -70,6 +71,24 @@
             }
             else
             {
+                PFObject* interest = [PFObject objectWithClassName:@"Interests"];
+                [interest setObject:newUser.objectId forKey:@"userid"];
+                [interest setObject:newUser forKey:@"user"];
+                [interest setObject:@(0) forKey:@"movies"];
+                [interest setObject:@(0) forKey:@"music"];
+                [interest setObject:@(0) forKey:@"food"];
+                [interest setObject:@(0) forKey:@"school"];
+                [interest setObject:@(0) forKey:@"dancing"];
+                [interest setObject:@(0) forKey:@"books"];
+                [interest setObject:@(0) forKey:@"tv"];
+                [interest setObject:@(0) forKey:@"art"];
+                [interest setObject:@(0) forKey:@"technology"];
+                [interest setObject:@(0) forKey:@"games"];
+                [interest setObject:@(0) forKey:@"fashion"];
+                [interest setObject:@(0) forKey:@"volunter"];
+                [interest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    
+                }];
                 NSLog(@"sined up");
                 self.signedUp = YES;
                 UIAlertView* created = [[UIAlertView alloc] initWithTitle:@"Welcome" message:@"Your account has been created succesfully" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];

@@ -31,14 +31,14 @@
  //   self.comfirmPasswordTextField.secureTextEntry = YES;
 }
 
-//-(void)viewDidAppear:(BOOL)animated
-//{
-//    if ([PFUser currentUser] != nil) {
-//        
-//        //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
-//        [self performSegueWithIdentifier:@"ShowContainerViewController" sender:self];
-//    }
-//}
+-(void)viewDidAppear:(BOOL)animated
+{
+    if ([PFUser currentUser] != nil) {
+        
+        //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 - (IBAction)onLoginButtonPressed:(id)sender
 {
@@ -74,14 +74,14 @@
     UIViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
     [viewControllers addObject:createViewController];
     
+    UIViewController* biographyViewController = [storyboard instantiateViewControllerWithIdentifier:@"BiographyViewController"];
+    [viewControllers addObject:biographyViewController];
+    
     UIViewController* cameraViewController = [CameraViewController sharedCameraViewController];
     [viewControllers addObject:cameraViewController];
     
     UIViewController* interestDemoViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestDemoViewController"];
     [viewControllers addObject:interestDemoViewController];
-    
-    UIViewController* containerViewController = [storyboard instantiateViewControllerWithIdentifier:@"ContainerViewController"];
-    [viewControllers addObject:containerViewController];
     
     PageViewController* pvc = [PageViewController sharedPageViewController];
     pvc.controllers = viewControllers;
