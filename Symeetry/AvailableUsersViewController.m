@@ -555,13 +555,13 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
                                 int currentUserCategoryValue = [[currUser objectForKey:item] intValue];
                                 int otherUserCategoryValue = [[otherUser objectForKey:item] intValue];
                                 
-                                int categoryValue  = abs( abs(currentUserCategoryValue - otherUserCategoryValue) - 5);
+                                int categoryValue  = abs(currentUserCategoryValue - otherUserCategoryValue);
                                 similarity += categoryValue;
                             }
                         }
 
                     }
-                    return similarity;
+                    return (((similarity/12)*100)/60);
                 };
                 
                 //call a block function to calculate the similarity of the two users

@@ -28,7 +28,7 @@
     NSArray* colors = @[BLUE,GREEN,YELLOW,ORANGE,RED];
     UIColor* rankingColor = nil;
     
-    int index = (similarity/12)-1;
+    int index = (similarity/20)-1;
     
     if (index > 0)
     {
