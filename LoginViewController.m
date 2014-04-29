@@ -31,14 +31,14 @@
  //   self.comfirmPasswordTextField.secureTextEntry = YES;
 }
 
-//-(void)viewDidAppear:(BOOL)animated
-//{
-//    if ([PFUser currentUser] != nil) {
-//        
-//        //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
-//        [self performSegueWithIdentifier:@"ShowContainerViewController" sender:self];
-//    }
-//}
+-(void)viewDidAppear:(BOOL)animated
+{
+    if ([PFUser currentUser] != nil) {
+        
+        //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 - (IBAction)onLoginButtonPressed:(id)sender
 {
