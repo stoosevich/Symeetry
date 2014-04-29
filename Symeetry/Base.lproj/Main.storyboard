@@ -828,6 +828,9 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="myImageView" destination="x0w-QU-yjC" id="dPN-Ts-EnH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cf-zJ-oBB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1018,6 +1021,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="onComfirmButtonPressed:" destination="HCd-yk-2eW" eventType="touchUpInside" id="gpt-Th-ldm"/>
                                     <segue destination="uGM-N4-4LK" kind="unwind" unwindAction="addPhoto:sender:" id="gsO-7j-bQQ"/>
                                 </connections>
                             </button>

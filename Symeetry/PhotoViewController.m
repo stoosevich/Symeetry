@@ -7,6 +7,11 @@
 //
 
 #import "PhotoViewController.h"
+#import "CameraViewController.h"
+#import "ParseManager.h"
+#import "Utilities.h"
+#import "UIView+Circlify.h"
+
 
 @interface PhotoViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *userImage;
@@ -20,7 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.userImage.image = self.photo;
+    self.userImage.image = [UIImage imageNamed:@"ic_welcome_profile.png"];
     if(![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -80,6 +85,23 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (IBAction)onComfirmButtonPressed:(id)sender
+{
+    [ParseManager saveInfo:[PFUser currentUser]
+               objectToSet:[ParseManager convertUIImageToPFFile:self.userImage.image]
+                    forKey:@"photo"
+           completionBlock:^{
+                        [ParseManager saveInfo:[PFUser currentUser]
+                                   objectToSet:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:self.userImage.image withWidth:40 andHeight:40]]
+                                        forKey:@"thumbnail"
+                               completionBlock:^{
+                                   [[CameraViewController sharedCameraViewController].myImageView circlify];
+                                   [CameraViewController sharedCameraViewController].myImageView.image = self.userImage.image;
+                                   [self dismissViewControllerAnimated:YES completion:NULL];
+                        }];
+                    }];
 }
 
 

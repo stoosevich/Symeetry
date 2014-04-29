@@ -74,9 +74,9 @@
     UIViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
     [viewControllers addObject:createViewController];
     
-    UIViewController* cameraViewController = [storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    UIViewController* cameraViewController = [CameraViewController sharedCameraViewController];
     [viewControllers addObject:cameraViewController];
-    
+
     UIViewController* interestDemoViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestDemoViewController"];
     [viewControllers addObject:interestDemoViewController];
     
