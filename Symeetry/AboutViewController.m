@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
+
 @end
 
 @implementation AboutViewController
@@ -52,6 +54,7 @@
     
 }
 
+
 - (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     switch (result)
@@ -75,5 +78,14 @@
     // Close the Mail Interface
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+- (IBAction)backButtonPressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        nil;
+    }];
+}
+
+
 
 @end

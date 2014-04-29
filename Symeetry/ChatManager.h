@@ -25,10 +25,7 @@
 @property (nonatomic, copy) void (^gotMessage)(NSData* data);
 @property UIImage* myChatPhoto;
 @property BOOL on;
-//@property id currentViewController;
-//@property UIStoryboardSegue* segueToChatRoom;
 
-//-(void)setViewController:(id)viewContoller segue:(UIStoryboardSegue*)segue;
 -(void)setPeerID;
 
 -(void)setConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(NSData* data))gotMessage;
