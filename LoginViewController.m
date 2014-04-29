@@ -45,7 +45,6 @@
         self.passwordTextField.text = @"";
         self.usernameTextField.text = @"";
         [self dismissViewControllerAnimated:YES completion:nil];
-        [[ChatManager sharedChatManager] checkinChat];
         
     }];
 }
