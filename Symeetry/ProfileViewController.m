@@ -13,6 +13,7 @@
 #import "ChatRoomViewController.h"
 #import "UIView+Circlify.h"
 #import "Utilities.h"
+#import "ProfileTableViewCell.h"
 
 @interface ProfileViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -87,12 +88,19 @@
 }
 
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (ProfileTableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"InterestCellId"];
+    ProfileTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"InterestCellId"];
     NSDictionary* interest = self.userInterests[indexPath.row];
     cell.textLabel.text = [[interest allKeys].firstObject capitalizedString];
+    NSInteger value = [[interest allValues].firstObject intValue] * 12;
+    
     cell.detailTextLabel.text = [[[interest allValues] firstObject] description];
+    cell.detailTextLabel.backgroundColor = (__bridge UIColor *)([Utilities colorBasedOnSimilarity:(int)value]);
+
+    //cell.imageView.layer.backgroundColor = [Utilities colorBasedOnSimilarity:(int)value];
+    [cell.imageView circlify];
+    
     return cell;
 }
 
@@ -105,9 +113,6 @@
     
     //extract all the keys from the PFObject
     NSArray* objectToConvertKeys = [dictionary allKeys];
-    
-    //create a dictionary to hold each interest and value
-    //NSMutableDictionary *interest = [[NSMutableDictionary alloc]init];
     
     //enumerate over the keys and get the object
     NSEnumerator *enumerator = [objectToConvertKeys objectEnumerator];
