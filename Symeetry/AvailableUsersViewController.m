@@ -47,28 +47,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 @implementation AvailableUsersViewController
 
-
-//ensures that the custom animation controller is available when the storyboard
-//initializes the view controller
-//- (id)initWithCoder:(NSCoder *)aDecoder
-//{
-//    if (self = [super initWithCoder:aDecoder])
-//    {
-//        _presentAnimationController = [PresentAnimationController new];
-//    }
-//    return self;
-//}
-
-
-//delegate method for the tranistion animation
-//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:
-//(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC
-//toViewController:(UIViewController *)toVC
-//{
-//    return _presentAnimationController;
-//}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -7,6 +7,7 @@
 //
 
 #import "Utilities.h"
+#import "ParseManager.h"
 
 #define RED [UIColor redColor]
 #define ORANGE [UIColor orangeColor]
@@ -72,5 +73,6 @@
     
     return resizedImage;
 }
+
 
 @end
