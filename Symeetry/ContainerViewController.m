@@ -58,6 +58,10 @@
         else{
             [[ChatManager sharedChatManager] setPeerID];
             [[ChatManager sharedChatManager] checkinChat];
+            [self showInterestsViewController];
+            [self loadHeaderView];
+            
+            _availableUsersViewController.delegate = (id)self;
             [ChatManager sharedChatManager].on = YES;
             NSLog(@"BroadCasting Signal");
         }
@@ -69,8 +73,6 @@
 {
     [super viewDidLoad];
     
-    [self loadHeaderView];
-    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     
     _availableUsersViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
@@ -79,9 +81,6 @@
     
     _mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
     
-    _availableUsersViewController.delegate = (id)self;
-    
-    [self showInterestsViewController];
     
 }
 
