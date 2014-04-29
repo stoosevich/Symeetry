@@ -35,9 +35,7 @@
 
     [Parse setApplicationId:@"1iPVJY5CmOx54bzcklwgtQn8wswi0H5ipKfisuJ8"
                   clientKey:@"fXgWT23ACGa7uOPagCsaEuBM1xu8bOjWSGWFwTKF"];
-    
-    [PFUser logOut];
-    
+
     //intialize a location manager to be notified of state transitions. We need this in the app
     //delegate to handle the call back from the delegate when the app is not active
     self.locationManager = [[CLLocationManager alloc]init];
@@ -103,10 +101,6 @@
 //    self.window.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f blue:217.f/255.f alpha:1];
 //    self.window.rootViewController = [PageViewController.alloc initWithViewControllerClassNames:@[@"OpeningViewController", @"StoryViewController", @"CreateNewUserViewController", @"CameraViewController",@"InterestDemoViewController"] transitionStyle:UIPageViewControllerTransitionStyleScroll];
 //    [self.window makeKeyAndVisible];
-
-    //[PFUser logOut];
-    
-    [PFUser logInWithUsernameInBackground:@"dennis" password:@"password"];
     
     return YES;
 }
