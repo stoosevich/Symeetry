@@ -20,6 +20,7 @@
 #import "ContainerViewController.h"
 #import "MenuViewController.h"
 #import "MMDrawerController.h"
+#import "BiographyViewController.h"
 
 @interface AppDelegate()
 
@@ -71,6 +72,9 @@
     
     UIViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
     [viewControllers addObject:createViewController];
+    
+    UIViewController* biographyViewController = [storyboard instantiateViewControllerWithIdentifier:@"BiographyViewController"];
+    [viewControllers addObject:biographyViewController];
     
     UIViewController* cameraViewController = [CameraViewController sharedCameraViewController];
     [viewControllers addObject:cameraViewController];
