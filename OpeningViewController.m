@@ -32,7 +32,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor clearColor];
-    self.imageView.image = [UIImage imageNamed:@"View1"];
 }
 
 //-(void)viewDidAppear:(BOOL)animated

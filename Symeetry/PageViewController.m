@@ -25,6 +25,16 @@
 @implementation PageViewController
 
 
++(instancetype)sharedPageViewController {
+    static PageViewController *manager = nil;
+    if (!manager)
+    {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        manager = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    }
+    return manager;
+}
+
 
 - (id)initWithViewControllers:(NSArray *)viewControllers transitionStyle:(UIPageViewControllerTransitionStyle)style;
 {
@@ -93,11 +103,11 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if ([PFUser currentUser] != nil)
-    {
-        [self performSegueWithIdentifier:@"donsWildRide" sender:self];
-        
-    }
+//    if ([PFUser currentUser] != nil)
+//    {
+//        [self performSegueWithIdentifier:@"donsWildRide" sender:self];
+//        
+//    }
 }
 
 
@@ -111,8 +121,23 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
        viewControllerAfterViewController:(UIViewController *)viewController
 {
-    NSInteger nextIndex = [self.controllers indexOfObject:viewController] + 1;
-    return (nextIndex < self.controllers.count) ? self.controllers[nextIndex] : nil;
+    if ([viewController isMemberOfClass:[CreateNewUserViewController class]]) {
+        CreateNewUserViewController * createVC = [self.controllers objectAtIndex:[self.controllers indexOfObject:viewController]];
+        if (createVC.signedUp) {
+            
+            NSInteger nextIndex = [self.controllers indexOfObject:viewController] + 1;
+            return (nextIndex < self.controllers.count) ? self.controllers[nextIndex] : nil;
+        }
+        else{
+            return nil;
+        }
+    }
+    else
+    {
+        NSInteger nextIndex = [self.controllers indexOfObject:viewController] + 1;
+        return (nextIndex < self.controllers.count) ? self.controllers[nextIndex] : nil;
+    }
+    
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
@@ -132,12 +157,9 @@
 
 #pragma mark - UIPageControl Action
 
--(void)pageControlWasTapped:(UIPageControl *)pageControl;
+-(void)signUpWasSuccesful
 {
-    [self setViewControllers:@[self.controllers[pageControl.currentPage]]
-                   direction:pageControl.currentPage > self.currentPageIndex ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse
-                    animated:YES
-                  completion:nil];
+    [self setViewControllers:@[self.controllers[3]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
 @end

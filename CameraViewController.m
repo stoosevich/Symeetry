@@ -10,9 +10,20 @@
 
 @interface CameraViewController ()
 
+
 @end
 
 @implementation CameraViewController
+
++(instancetype)sharedCameraViewController {
+    static CameraViewController *manager = nil;
+    if (!manager)
+    {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        manager = [storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    }
+    return manager;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

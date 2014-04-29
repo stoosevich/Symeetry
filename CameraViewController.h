@@ -10,4 +10,8 @@
 
 @interface CameraViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *myImageView;
+
++(instancetype)sharedCameraViewController;
+
 @end

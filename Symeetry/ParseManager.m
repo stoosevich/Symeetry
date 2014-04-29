@@ -55,7 +55,10 @@
      completionBlock:(void (^)(void))completionBlock
 {
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
-        if (error) {
+        if (error)
+        {
+            UIAlertView* denied = [[UIAlertView alloc] initWithTitle:@"Invalid" message:@"The username and/or password is invalide" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [denied show];
             
         }
         else {
