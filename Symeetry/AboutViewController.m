@@ -12,6 +12,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
+
 @end
 
 @implementation AboutViewController
@@ -31,6 +33,13 @@
     
 }
 - (IBAction)onReportIssueButtonPressed:(UIButton *)sender {
+}
+
+- (IBAction)backButtonPressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        nil;
+    }];
 }
 
 
