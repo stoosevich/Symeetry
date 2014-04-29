@@ -42,7 +42,10 @@ typedef void (^InterestCompletion)(PFObject *object, NSError *error);
 + (void)retrieveSymeetryUsersForMapView:(MyCompletion)completion;
 
 //handle user signon, login and logoff
-+(void)logIn:(NSString*)username password:(NSString*)password completionBlock:(void (^)(void))completionBlock;
++(void)logIn:(NSString*)username
+    password:(NSString*)password
+completionBlock:(void (^)(void))completionBlock
+ failedBlock:(void (^)(void))failedBlock;
 
 //saving and object update methods
 +(void)saveInfo:(PFUser*)user objectToSet:(id)object forKey:(NSString*)key completionBlock:(void(^)(void))completionBlock;

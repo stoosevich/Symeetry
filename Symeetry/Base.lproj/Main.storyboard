@@ -472,6 +472,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Xti-0p-bDL"/>
                     <connections>
+                        <outlet property="loginButtonPressed" destination="Izu-Lq-XNW" id="0NT-Lx-5LT"/>
                         <outlet property="passwordTextField" destination="axm-1p-CNx" id="ROe-Ov-EPH"/>
                         <outlet property="usernameTextField" destination="qxq-7Y-Zr3" id="DnI-lN-dFh"/>
                         <segue destination="14H-TF-LFL" kind="modal" identifier="ShowContainerViewController" id="DIO-SO-O8k"/>
@@ -643,7 +644,7 @@
                                     <outlet property="delegate" destination="pNN-OH-xZY" id="JHd-d4-y1r"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="comfirm password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bbz-22-mw0">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="confirm password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bbz-22-mw0">
                                 <rect key="frame" x="46" y="361" width="228" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1137,6 +1138,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Jyw-PN-ioM"/>
+        <segue reference="DIO-SO-O8k"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 //@property (weak, nonatomic) IBOutlet UITextField *comfirmPasswordTextField;
 //@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property (weak, nonatomic) IBOutlet UIButton *loginButtonPressed;
 
 @end
 
@@ -43,11 +44,14 @@
 
 - (IBAction)onLoginButtonPressed:(id)sender
 {
+    self.loginButtonPressed.enabled = NO;
     [ParseManager logIn:self.usernameTextField.text password:self.passwordTextField.text completionBlock:^{
         self.passwordTextField.text = @"";
         self.usernameTextField.text = @"";
+        self.loginButtonPressed.enabled = YES;
         [self dismissViewControllerAnimated:YES completion:nil];
-        
+    } failedBlock:^{
+        self.loginButtonPressed.enabled = YES;
     }];
 }
 
