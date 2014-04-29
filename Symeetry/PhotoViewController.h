@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PhotoViewController : UIViewController
+@interface PhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+@property UIImage* photo;
+
 
 @end
