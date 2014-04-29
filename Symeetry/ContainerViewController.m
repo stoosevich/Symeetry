@@ -50,20 +50,7 @@
     }
     else
     {
-        [self loadHeaderView];
-        [[ChatManager sharedChatManager] setPeerID];
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        
-        _availableUsersViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
-        
-        _interestsViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestsViewController"];
-        
-        _mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
-        
-        _availableUsersViewController.delegate = (id)self;
-        
-        [self showInterestsViewController];
+       [[ChatManager sharedChatManager] setPeerID];
     }
     
 }
@@ -71,6 +58,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self loadHeaderView];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    
+    _availableUsersViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
+    
+    _interestsViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestsViewController"];
+    
+    _mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    
+    _availableUsersViewController.delegate = (id)self;
+    
+    [self showInterestsViewController];
+    
 }
 
 /*
@@ -145,14 +147,14 @@
 
 - (IBAction)unwindFromProfileDetailView:(UIStoryboardSegue*)segue
 {
-    //
+
 }
 
 - (void)showInterestsViewController
 {
     
     [self removeMapVCViewIfNeeded];
-    [self removeHomeVCViewIfNeeded];
+    [self removeAvailableUsersVCViewIfNeeded];
     
 //    self.interestsViewController.view.frame = CGRectMake(0, 568, 320, 568);
     
@@ -168,7 +170,7 @@
 - (void)showMapViewController
 {
     [self removeInterestsVCViewIfNeeded];
-    [self removeHomeVCViewIfNeeded];
+    [self removeAvailableUsersVCViewIfNeeded];
     
 //    self.mapViewController.view.frame = CGRectMake(0, 568, 320, 568);
 //    
@@ -216,7 +218,7 @@
     }
 }
 
-- (void)removeHomeVCViewIfNeeded
+- (void)removeAvailableUsersVCViewIfNeeded
 {
     if (self.availableUsersViewController.view.superview != nil)
     {

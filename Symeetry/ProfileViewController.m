@@ -91,15 +91,13 @@
 {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"InterestCellId"];
     NSDictionary* interest = self.userInterests[indexPath.row];
-
-    
     cell.textLabel.text = [[interest allKeys].firstObject capitalizedString];
-    
     cell.detailTextLabel.text = [[[interest allValues] firstObject] description];
-    
     return cell;
 }
 
+//convert the user dictionary  into an array of dictionary items, one for each interest with
+//associated value
 - (void)parseUserInterestIntoDataSource
 {
     //convert the PFObject into a dictionary
@@ -125,7 +123,6 @@
             NSMutableDictionary* interest = [[NSMutableDictionary alloc]init];
             [interest setValue:[dictionary objectForKey:object] forKey:object];
             [self.userInterests addObject:interest];
-            NSLog(@"object %@", interest);
         }
     }
     
