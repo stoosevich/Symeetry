@@ -13,6 +13,7 @@
 #import "PageViewController.h"
 #import "OpeningViewController.h"
 #import "CameraViewController.h"
+#import "CreateNewUserViewController.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -71,7 +72,11 @@
     UIViewController* storyViewController = [storyboard instantiateViewControllerWithIdentifier:@"StoryViewController"];
     [viewControllers addObject:storyViewController];
     
-    UIViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
+//    UIViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
+//    [viewControllers addObject:createViewController];
+    
+    CreateNewUserViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
+    createViewController.signedUp = NO;
     [viewControllers addObject:createViewController];
     
     UIViewController* biographyViewController = [storyboard instantiateViewControllerWithIdentifier:@"BiographyViewController"];
@@ -85,6 +90,7 @@
     
     PageViewController* pvc = [PageViewController sharedPageViewController];
     pvc.controllers = viewControllers;
+    [pvc setViewControllers:@[viewControllers[0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
     [self presentViewController:pvc animated:YES completion:nil];
 }
