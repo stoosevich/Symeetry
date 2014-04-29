@@ -121,22 +121,22 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
        viewControllerAfterViewController:(UIViewController *)viewController
 {
-//    if ([viewController isMemberOfClass:[CreateNewUserViewController class]]) {
-//        CreateNewUserViewController * createVC = [self.controllers objectAtIndex:[self.controllers indexOfObject:viewController]];
-//        if (createVC.signedUp) {
-//            
-//            NSInteger nextIndex = [self.controllers indexOfObject:viewController] + 1;
-//            return (nextIndex < self.controllers.count) ? self.controllers[nextIndex] : nil;
-//        }
-//        else{
-//            return nil;
-//        }
-//    }
-//    else
-//    {
+    if ([viewController isMemberOfClass:[CreateNewUserViewController class]]) {
+        CreateNewUserViewController * createVC = [self.controllers objectAtIndex:[self.controllers indexOfObject:viewController]];
+        if (createVC.signedUp) {
+            
+            NSInteger nextIndex = [self.controllers indexOfObject:viewController] + 1;
+            return (nextIndex < self.controllers.count) ? self.controllers[nextIndex] : nil;
+        }
+        else{
+            return nil;
+        }
+    }
+    else
+    {
         NSInteger nextIndex = [self.controllers indexOfObject:viewController] + 1;
         return (nextIndex < self.controllers.count) ? self.controllers[nextIndex] : nil;
- //   }
+    }
     
 }
 
