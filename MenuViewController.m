@@ -8,7 +8,9 @@
 
 #import "MenuViewController.h"
 
-@interface MenuViewController ()
+
+@interface MenuViewController () <UITableViewDataSource, UITableViewDelegate>
+
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 
 @end
@@ -30,21 +32,26 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MenuItemReuseID"];
+    if (indexPath.row == 0) {
+        cell.textLabel.text = @"Settings";
+    }
+    else if(indexPath.row == 1)
+    {
+        cell.textLabel.text = @"Logout";
+    }
+    else if(indexPath.row == 99)
+    {
+        cell.textLabel.text = @"Loom™?";
+    }
+    return cell;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    return 100;
 }
-*/
 
 @end

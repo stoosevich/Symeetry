@@ -93,12 +93,8 @@
     ProfileTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"InterestCellId"];
     NSDictionary* interest = self.userInterests[indexPath.row];
     cell.textLabel.text = [[interest allKeys].firstObject capitalizedString];
-    NSInteger value = [[interest allValues].firstObject intValue] * 12;
-    
+    //NSInteger value = [[interest allValues].firstObject intValue] * 12;
     cell.detailTextLabel.text = [[[interest allValues] firstObject] description];
-    cell.detailTextLabel.backgroundColor = (__bridge UIColor *)([Utilities colorBasedOnSimilarity:(int)value]);
-
-    //cell.imageView.layer.backgroundColor = [Utilities colorBasedOnSimilarity:(int)value];
     [cell.imageView circlify];
     
     return cell;
