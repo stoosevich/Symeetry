@@ -151,11 +151,10 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  
         //start monitoring all known regions
         [self.locationManager startMonitoringForRegion:region];
-
-        [self.locationManager startRangingBeaconsInRegion:region];
-        //NSLog(@"monitoring region %@",region.identifier);
+        //[self.locationManager startRangingBeaconsInRegion:region];
     }
-
+    
+    NSLog(@"monitoring region call ended");
 }
 
 
@@ -176,9 +175,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     //create a temporary region since we cannot pass the region object in the notification user info
     CLBeaconRegion* region = [[CLBeaconRegion alloc]initWithProximityUUID:uuid identifier:[uuid UUIDString]];
 
-//    NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
-    
-    //[self showRegionStateAlertScreen:formatString];
     
     //make sure the region is not empty first
     if(region)
@@ -294,6 +290,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     //[self showRegionStateAlertScreen:formatString];
     
+     NSLog(@"didEnterRegion begin");
+    
     if (![self.activeRegions containsObject:region])
     {
         //if the user is already checkedin, then add the new region entered
@@ -304,6 +302,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         //whenever a user enters a new region, update their location
         [ParseManager setUsersPFGeoPointLocation];
     }
+    
+    NSLog(@"didEnterRegion end");
 }
 
 
@@ -316,6 +316,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     //[self showRegionStateAlertScreen:formatString];
     
+    NSLog(@"didExitRegion begin");
+    
     if ([self.activeRegions containsObject:region])
     {
 
@@ -326,6 +328,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         [self getUserWithSimlarityRank];
     }
  
+    NSLog(@"didExitRegion end");
 }
 
 
@@ -339,7 +342,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     {
         [self.activeRegions addObject:region];
         [self getUserWithSimlarityRank];
-        //NSLog(@"didRangeBeacons: active regions %@", self.activeRegions);
+        NSLog(@"didRangeBeacons: active regions %@", self.activeRegions);
     }
     
     
@@ -380,6 +383,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
             [self determineNearestBeaconToUser];
         }
     }
+    
+    NSLog(@"didRangeBeacons ended");
 }
 
 
