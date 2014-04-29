@@ -12,7 +12,7 @@
 
 @interface ChatManager : NSObject <MCNearbyServiceAdvertiserDelegate, MCSessionDelegate, MCAdvertiserAssistantDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceBrowserDelegate>
 
-+ (instancetype)sharedChatManager;
++(instancetype)sharedChatManager;
 
 @property MCPeerID* devicePeerID;
 @property MCSession* mySession;
