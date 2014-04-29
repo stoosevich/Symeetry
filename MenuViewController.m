@@ -87,7 +87,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 4)
+    if (indexPath.row == 3)
     {
         NSLog(@"set nearest beacon to nil");
         
