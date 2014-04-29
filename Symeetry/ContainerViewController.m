@@ -46,11 +46,20 @@
     {
         UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
         [self presentViewController:login animated:YES completion:nil];
+        [ChatManager sharedChatManager].on = NO;
         
     }
     else
     {
-       [[ChatManager sharedChatManager] setPeerID];
+        if ([[ChatManager sharedChatManager] on]) {
+            NSLog(@"already on");
+        }
+        else{
+            [[ChatManager sharedChatManager] setPeerID];
+            [[ChatManager sharedChatManager] checkinChat];
+            [ChatManager sharedChatManager].on = YES;
+            NSLog(@"BroadCasting Signal");
+        }
     }
     
 }
