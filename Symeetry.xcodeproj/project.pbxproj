@@ -591,7 +591,11 @@
 						TestTargetID = 81AB5B0418FC85890060B17A;
 					};
 					81AB5B0418FC85890060B17A = {
+<<<<<<< HEAD
 						DevelopmentTeam = C2MJ53WM9P;
+=======
+						DevelopmentTeam = 6EADSJP336;
+>>>>>>> james
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
