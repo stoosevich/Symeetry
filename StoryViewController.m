@@ -27,8 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.imageView.image = [UIImage imageNamed:@"View2"];
-    self.view.backgroundColor = [UIColor greenColor];
+    self.view.backgroundColor = [UIColor clearColor];
 
     
     // Do any additional setup after loading the view.
