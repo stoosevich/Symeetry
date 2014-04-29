@@ -89,6 +89,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     if (self.activeRegions.count)
     {
+        [ParseManager setUsersPFGeoPointLocation];
         [self getUserWithSimlarityRank];
     }
     
@@ -384,7 +385,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         }
     }
     
-    NSLog(@"didRangeBeacons ended");
+    //NSLog(@"didRangeBeacons ended");
 }
 
 
@@ -519,8 +520,11 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
         NSDictionary* otherUserInterests = nil;
         
+    
+        
         //NSLog(@"begin For Loop for user comparison");
         
+        //loop through the list of users return for the regions with beacons
         for(PFObject* user in objects)
         {
                         
@@ -631,30 +635,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
 }
 
-//
-- (float)calculateDistanceBetweenGeoPointOne:(PFGeoPoint*)currentUser geoPointTwo:(PFGeoPoint*)nearbyUser
-{
-    /* 
-     λ = latittude
-     φ = longitude
-     R = earth's radius 6,371
-     x = Δλ.cos(φ) //differnece in latitude times cos-sign of longitude
-     y = Δφ        //change in longitude
-     d = R.√x² + y² //distance times earh radius
-     */
-    
-    
-    float latitudeDelta = currentUser.latitude -  nearbyUser.latitude;
-    float longitudeDelta = currentUser.longitude -  nearbyUser.longitude;
-    
-    float radius = 6371.00;
-    float x = latitudeDelta * cos((currentUser.longitude + nearbyUser.longitude)/2);
-    float y = longitudeDelta;
-    float d = sqrt(x*x + y*y) * radius;
-    
-    return d;
-    
-}
+
 #pragma mark - ApplicationServicesRelated Method
 
 /*
