@@ -131,7 +131,6 @@
     
     //exclude the current user
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
-    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query whereKey:@"nearestBeacon" containedIn:uuids];
     [query whereKey:@"hidden" equalTo:@NO];
     
@@ -202,7 +201,6 @@
 {
     PFQuery* query = [PFUser query];
     [query whereKey:@"objectId" equalTo:user.objectId];
-    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query includeKey:@"interests"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
