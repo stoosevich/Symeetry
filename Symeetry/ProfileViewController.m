@@ -17,18 +17,19 @@
 
 @interface ProfileViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *homeTownTextField;
-@property (weak, nonatomic) IBOutlet UILabel *relationShipLabel;
-@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+
+
 @property ProfileHeaderView *headerView;
-@property (weak, nonatomic) IBOutlet UIButton *changeRelationShipButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
-@property NSMutableArray* userInterests;
-
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *ageTextField;
+@property (weak, nonatomic) IBOutlet UIView *biographyView;
 @property ChatManager* chat;
 @property ChatRoomViewController* cRVC;
+@property NSMutableArray* userInterests;
 
 
 @end
@@ -44,21 +45,16 @@
     [self parseUserInterestIntoDataSource];
     
     if ([ParseManager isCurrentUser:self.user]) {
-        self.changeRelationShipButton.hidden = NO;
+
         self.chatButton.hidden = YES;
     }
     else{
-        self.changeRelationShipButton.hidden = YES;
+
         self.chatButton.hidden = NO;
     }
-    self.homeTownTextField.text = [self.user objectForKey:@"homeTown"];
-    self.emailTextField.text = [self.user objectForKey:@"email"];
-    self.relationShipLabel.text = [self relationShipStatus];
     
-//    self.headerView.nameTextField.text = [self.user username];
-//    self.headerView.ageTextField.text = [[self.user objectForKey:@"age"] description];
-    [self.headerView setDelegates:self];
-    
+    self.nameTextField.text = [self.user username];
+    self.ageTextField.text = [[self.user objectForKey:@"age"] description];    
     
 //    self.headerView.genderTextField.text = [self.user objectForKey:@"gender"];
     PFFile* file = [self.user objectForKey:@"photo"];
@@ -72,11 +68,7 @@
          self.imageView.image = [UIImage imageWithData:data];
     }];
    
-    
-//    self.headerView.ageTextField.enabled = [ParseManager isCurrentUser:self.user];
-//    self.headerView.genderTextField.enabled = [ParseManager isCurrentUser:self.user];
-    self.homeTownTextField.enabled = [ParseManager isCurrentUser:self.user];
-    self.emailTextField.enabled = [ParseManager isCurrentUser:self.user];
+
 
 }
 
@@ -151,25 +143,7 @@
 }
 
 
-- (IBAction)onChangeRelationShipButtonPressed:(id)sender
-{
-    int x = [[self.user objectForKey:@"relationshipStatus"] intValue];
-    if (x != 3)
-    {
-        x++;
-        [ParseManager saveInfo:self.user objectToSet:@(x) forKey:@"relationshipStatus" completionBlock:^{
-            self.relationShipLabel.text = [self relationShipStatus];
-        }];
-    }
-    else
-    {
-        x = 0;
-        [ParseManager saveInfo:self.user objectToSet:@(x) forKey:@"relationshipStatus" completionBlock:^{
-            self.relationShipLabel.text = [self relationShipStatus];
 
-        }];
-    }
-}
 
 
 -(NSString*)relationShipStatus
@@ -202,19 +176,8 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField endEditing:YES];
-    if (textField == self.emailTextField)
-    {
-        [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"email" completionBlock:^{
-            
-        }];
-    }
-    else if(textField == self.homeTownTextField)
-    {
-        [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"homeTown" completionBlock:^{
-            
-        }];
-    }
-    else if(textField == self.headerView.ageTextField)
+    
+    if(textField == self.headerView.ageTextField)
     {
         [ParseManager saveInfo:self.user objectToSet:@(textField.text.intValue) forKey:@"age" completionBlock:^{
             
