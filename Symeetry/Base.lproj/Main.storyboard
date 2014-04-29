@@ -801,6 +801,9 @@
                                 <state key="normal" title="Button" image="bg_flow_next.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onEndButtonPressed:" destination="fcA-He-dhw" eventType="touchUpInside" id="Afn-Ic-lti"/>
+                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="How much is music a part of your life?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="218" translatesAutoresizingMaskIntoConstraints="NO" id="1sp-qI-gvZ">
                                 <rect key="frame" x="51" y="450" width="218" height="50"/>
