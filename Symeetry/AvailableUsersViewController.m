@@ -223,9 +223,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     PFUser* user = self.users[indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"homeReuseCellID"];
-    
-    
-    NSString* formatString = [NSString stringWithFormat:@"%@ %@",user.username,[user[@"similarityIndex"] description]];
+    int x = [user[@"similarityIndex"]intValue];
+    NSString* formatString = [NSString stringWithFormat:@"%@ %d",user.username,((x*100)/60)];
     
     cell.textLabel.text = formatString;
     cell.detailTextLabel.text = user[@"biography"];
@@ -555,13 +554,13 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
                                 int currentUserCategoryValue = [[currUser objectForKey:item] intValue];
                                 int otherUserCategoryValue = [[otherUser objectForKey:item] intValue];
                                 
-                                int categoryValue  = abs(currentUserCategoryValue - otherUserCategoryValue);
+                                int categoryValue  = abs( abs(currentUserCategoryValue - otherUserCategoryValue) - 5);
                                 similarity += categoryValue;
                             }
                         }
 
                     }
-                    return (((similarity/12)*100)/60);
+                    return similarity;
                 };
                 
                 //call a block function to calculate the similarity of the two users
