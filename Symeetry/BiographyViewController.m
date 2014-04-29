@@ -9,6 +9,8 @@
 #import "BiographyViewController.h"
 
 @interface BiographyViewController ()
+@property (weak, nonatomic) IBOutlet UITextView *myBioTextView;
+@property (weak, nonatomic) IBOutlet UITextField *ageTextField;
 
 @end
 
