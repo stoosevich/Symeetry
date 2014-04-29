@@ -18,7 +18,6 @@
 //@property ChatManager* chatMang;
 @property NSMutableSet* users;
 @property BOOL invited;
-@property BOOL on;
 
 @end
 
