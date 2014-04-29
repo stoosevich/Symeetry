@@ -13,9 +13,12 @@
 
 @property (nonatomic) NSArray *controllers;
 
++(instancetype)sharedPageViewController;
 
 
 - (id)initWithViewControllers:(NSArray *)viewControllers transitionStyle:(UIPageViewControllerTransitionStyle)style;
 - (id)initWithViewControllerClassNames:(NSArray *)classNames transitionStyle:(UIPageViewControllerTransitionStyle)style;
+
+-(void)signUpWasSuccesful;
 
 @end

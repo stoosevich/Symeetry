@@ -10,5 +10,6 @@
 
 @interface CreateNewUserViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UITextField *textField;
+@property BOOL signedUp;
 
 @end

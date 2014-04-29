@@ -12,6 +12,7 @@
 #import "ChatManager.h"
 #import "PageViewController.h"
 #import "OpeningViewController.h"
+#import "CameraViewController.h"
 
 @interface LoginViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -73,7 +74,7 @@
     UIViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
     [viewControllers addObject:createViewController];
     
-    UIViewController* cameraViewController = [storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    UIViewController* cameraViewController = [CameraViewController sharedCameraViewController];
     [viewControllers addObject:cameraViewController];
     
     UIViewController* interestDemoViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestDemoViewController"];
@@ -82,9 +83,8 @@
     UIViewController* containerViewController = [storyboard instantiateViewControllerWithIdentifier:@"ContainerViewController"];
     [viewControllers addObject:containerViewController];
     
-    PageViewController* pvc = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    PageViewController* pvc = [PageViewController sharedPageViewController];
     pvc.controllers = viewControllers;
-    
     
     [self presentViewController:pvc animated:YES completion:nil];
 }

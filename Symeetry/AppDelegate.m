@@ -32,9 +32,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     [Parse setApplicationId:@"1iPVJY5CmOx54bzcklwgtQn8wswi0H5ipKfisuJ8"
                   clientKey:@"fXgWT23ACGa7uOPagCsaEuBM1xu8bOjWSGWFwTKF"];
+    
+    [PFUser logOut];
     
     //intialize a location manager to be notified of state transitions. We need this in the app
     //delegate to handle the call back from the delegate when the app is not active
@@ -72,9 +73,9 @@
     UIViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
     [viewControllers addObject:createViewController];
     
-    UIViewController* cameraViewController = [storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    UIViewController* cameraViewController = [CameraViewController sharedCameraViewController];
     [viewControllers addObject:cameraViewController];
-    
+
     UIViewController* interestDemoViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestDemoViewController"];
     [viewControllers addObject:interestDemoViewController];
     
@@ -84,10 +85,6 @@
     UIViewController* photoViewController = [storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
     [viewControllers addObject:photoViewController];
 
-    
-    PageViewController* pvc = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
-    
-    UIViewController* login = [storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
     UIViewController* menu = [storyboard instantiateViewControllerWithIdentifier:@"MenuViewController"];
     
     MMDrawerController* drawerController = [[MMDrawerController alloc]
