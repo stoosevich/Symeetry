@@ -112,6 +112,8 @@
 		81C3783A190FE19F00F37924 /* ic_interest_voluenteer.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C37811190FE19F00F37924 /* ic_interest_voluenteer.png */; };
 		81CC0CD21908023D00D2F924 /* venus.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81CC0CD11908023D00D2F924 /* venus.jpg */; };
 		81D0E71E190F491F00619C78 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D0E71D190F491F00619C78 /* PhotoViewController.m */; };
+		81D95E8F19103510002DEE76 /* music_rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D95E8E19103510002DEE76 /* music_rainbow.png */; };
+		81D95E92191036F3002DEE76 /* BiographyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D95E91191036F3002DEE76 /* BiographyViewController.m */; };
 		CE3EC3A7190803DE00DCB671 /* MapCallOutView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EC3A6190803DE00DCB671 /* MapCallOutView.m */; };
 		CE3EC3A9190806BC00DCB671 /* MapCallOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */; };
 		CE562EC718FCCF7F00DDB3D3 /* dennis.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */; };
@@ -278,6 +280,9 @@
 		81CC0CD11908023D00D2F924 /* venus.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = venus.jpg; sourceTree = "<group>"; };
 		81D0E71C190F491F00619C78 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoViewController.h; path = Symeetry/PhotoViewController.h; sourceTree = "<group>"; };
 		81D0E71D190F491F00619C78 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoViewController.m; path = Symeetry/PhotoViewController.m; sourceTree = "<group>"; };
+		81D95E8E19103510002DEE76 /* music_rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = music_rainbow.png; sourceTree = "<group>"; };
+		81D95E90191036F3002DEE76 /* BiographyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BiographyViewController.h; path = Symeetry/BiographyViewController.h; sourceTree = "<group>"; };
+		81D95E91191036F3002DEE76 /* BiographyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BiographyViewController.m; path = Symeetry/BiographyViewController.m; sourceTree = "<group>"; };
 		C5524F3CF1B74DF19CAA246F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CE3EC3A5190803DE00DCB671 /* MapCallOutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapCallOutView.h; path = Symeetry/MapCallOutView.h; sourceTree = "<group>"; };
 		CE3EC3A6190803DE00DCB671 /* MapCallOutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapCallOutView.m; path = Symeetry/MapCallOutView.m; sourceTree = "<group>"; };
@@ -380,6 +385,7 @@
 		8114069018FDC964004E578F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				81D95E8E19103510002DEE76 /* music_rainbow.png */,
 				81C377EA190FE19F00F37924 /* bg_flow_next.png */,
 				81C377EB190FE19F00F37924 /* btn_confirm.png */,
 				81C377EC190FE19F00F37924 /* btn_go.png */,
@@ -447,6 +453,8 @@
 		815C10D5190C9E5E00679DD2 /* On-Boarding */ = {
 			isa = PBXGroup;
 			children = (
+				81D95E90191036F3002DEE76 /* BiographyViewController.h */,
+				81D95E91191036F3002DEE76 /* BiographyViewController.m */,
 				81D0E71C190F491F00619C78 /* PhotoViewController.h */,
 				81D0E71D190F491F00619C78 /* PhotoViewController.m */,
 				815C10D2190C9A9700679DD2 /* PageViewController.h */,
@@ -714,7 +722,7 @@
 						TestTargetID = 81AB5B0418FC85890060B17A;
 					};
 					81AB5B0418FC85890060B17A = {
-						DevelopmentTeam = 6EADSJP336;
+						DevelopmentTeam = C2MJ53WM9P;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -814,6 +822,7 @@
 				81B2848C18FD9C2D00A27224 /* movies_crop.jpg in Resources */,
 				81C37823190FE19F00F37924 /* ic_tab_interests_normal.png in Resources */,
 				81A30988190030CB00963305 /* art.jpg in Resources */,
+				81D95E8F19103510002DEE76 /* music_rainbow.png in Resources */,
 				81C37815190FE19F00F37924 /* btn_go.png in Resources */,
 				81C37835190FE19F00F37924 /* ic_interest_games.png in Resources */,
 				CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */,
@@ -905,6 +914,7 @@
 				CE759C55190F348500231FE6 /* SimilarityAlgorithm.m in Sources */,
 				56A6548919085D15001B17AE /* RootViewController.m in Sources */,
 				815C10E4190CA6D400679DD2 /* InterestDemoViewController.m in Sources */,
+				81D95E92191036F3002DEE76 /* BiographyViewController.m in Sources */,
 				CE7D9363190729C700F3EDC0 /* PresentAnimationController.m in Sources */,
 				815C10D4190C9A9700679DD2 /* PageViewController.m in Sources */,
 				CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */,
