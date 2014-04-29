@@ -59,7 +59,9 @@
             
         }
         else {
+            NSLog(@"saving");
             completionBlock();
+            NSLog(@"saved");
         }
     }];
 }
@@ -76,7 +78,9 @@
     PFQuery* query = [PFUser query];
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
     [query whereKey:@"hidden" equalTo:@NO];
+    NSLog(@"Get Users: finding objects");
     [query findObjects];
+    NSLog(@"Get Users: found objects");
 }
 
 
@@ -92,10 +96,12 @@
     PFQuery* query = [PFUser query];
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
     [query whereKey:@"hidden" equalTo:@NO];
-    
+    NSLog(@"Get Users With Completion: finding objects");
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
          completion(objects, error);
+         NSLog(@"Get Users With Completion: found objects");
+
      }];
 }
 
@@ -132,9 +138,10 @@
     //sort by by user name, this will be resorted once the similarity index is assigned
     [query addAscendingOrder:@"username"];
     
-    
+    NSLog(@"Finding users in Local Vicinity");
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
+        NSLog(@"Found users in Local Vicinity");
         //NSLog(@"PARSE: retrieveUsersInLocalVicinityWithSimilarity findObjectsInBackgroundWithBlock");
         completion(objects,error);
     }];

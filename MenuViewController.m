@@ -10,9 +10,10 @@
 #import "Parse/Parse.h"
 #import "MMDrawerController.h"
 #import "ProfileHeaderView.h"
+#import "ChatManager.h"
 
 
-@interface MenuViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+@interface MenuViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property NSArray* options;
@@ -86,8 +87,21 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 1) {
+    if (indexPath.row == 4)
+    {
+        [PFUser logOut];
+        MMDrawerController* draw = (id)self.view.window.rootViewController;
+        [draw toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+        UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
+        [self presentViewController:login animated:YES completion:nil];
+        [ChatManager sharedChatManager].on = NO;
+        [[ChatManager sharedChatManager] checkoutChat];
         
+    }
+    else if(indexPath.row == self.options.count - 1)
+    {
+        UIAlertView* ask = [[UIAlertView alloc] initWithTitle:@"Loom™?" message:@"Ask Charlse" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+        [ask show];
     }
 }
 
