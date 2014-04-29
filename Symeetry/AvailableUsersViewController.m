@@ -315,9 +315,16 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     if ([self.activeRegions containsObject:region])
     {
-
+        
         [ParseManager setUsersPFGeoPointLocation];
         [self.activeRegions removeObject:region];
+        
+        //if there are no active regions left set the nearest beacon to nil
+        if (self.activeRegions == nil)
+        {
+            
+            [ParseManager updateUserNearestBeacon:nil];
+        }
         
         //update the list of available
         [self getUserWithSimlarityRank];
@@ -418,7 +425,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         
         if (currentBeacon)
         {
-            //only update navbar/database if the beacon actually changed
+            //only update the database if the beacon actually changed
             if (currentBeacon.proximityUUID != self.nearestBeacon.proximityUUID &&
                 currentBeacon.major != self.nearestBeacon.major &&
                 currentBeacon.minor != self.nearestBeacon.minor)
