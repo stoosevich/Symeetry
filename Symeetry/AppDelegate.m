@@ -81,6 +81,10 @@
     UIViewController* containerViewController = [storyboard instantiateViewControllerWithIdentifier:@"ContainerViewController"];
     [viewControllers addObject:containerViewController];
     
+    UIViewController* photoViewController = [storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
+    [viewControllers addObject:photoViewController];
+
+    
     PageViewController* pvc = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
     
     UIViewController* login = [storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];

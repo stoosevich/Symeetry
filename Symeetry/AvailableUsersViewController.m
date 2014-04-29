@@ -50,7 +50,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[ChatManager sharedChatManager] setPeerID];
     
     //initialize the location manager for ibeacon scanning
     self.locationManager = [[CLLocationManager alloc]init];
