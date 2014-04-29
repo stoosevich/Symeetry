@@ -304,8 +304,8 @@
 		CE66E60C1904639900C295E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE6748641901D58600F05121 /* Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defaults.h; path = Symeetry/Defaults.h; sourceTree = "<group>"; };
 		CE6748651901D58600F05121 /* Defaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Defaults.m; path = Symeetry/Defaults.m; sourceTree = "<group>"; };
-		CE6935A919103CE10065769B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
-		CE6935AA19103CE10065769B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		CE6935A919103CE10065769B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = Symeetry/AboutViewController.h; sourceTree = "<group>"; };
+		CE6935AA19103CE10065769B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Symeetry/AboutViewController.m; sourceTree = "<group>"; };
 		CE730E081906043000FD6F95 /* SymeetryAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryAnnotationView.h; path = Symeetry/SymeetryAnnotationView.h; sourceTree = "<group>"; };
 		CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryAnnotationView.m; path = Symeetry/SymeetryAnnotationView.m; sourceTree = "<group>"; };
 		CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryPointAnnotation.h; path = Symeetry/SymeetryPointAnnotation.h; sourceTree = "<group>"; };
@@ -521,6 +521,8 @@
 				815C10D5190C9E5E00679DD2 /* On-Boarding */,
 				56A6548719085D15001B17AE /* RootViewController.h */,
 				56A6548819085D15001B17AE /* RootViewController.m */,
+				CE6935A919103CE10065769B /* AboutViewController.h */,
+				CE6935AA19103CE10065769B /* AboutViewController.m */,
 				CE5A1E6A190C4B4700658E4D /* ContainerViewController.h */,
 				CE5A1E6B190C4B4700658E4D /* ContainerViewController.m */,
 				56A6548A19085E9C001B17AE /* SignUpViewController.h */,
@@ -601,8 +603,6 @@
 				81AB5B1818FC85890060B17A /* AppDelegate.m */,
 				CE66E60C1904639900C295E0 /* Images.xcassets */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
-				CE6935A919103CE10065769B /* AboutViewController.h */,
-				CE6935AA19103CE10065769B /* AboutViewController.m */,
 				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
 				CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */,
 				81AB5B0F18FC85890060B17A /* Supporting Files */,
@@ -727,7 +727,6 @@
 						TestTargetID = 81AB5B0418FC85890060B17A;
 					};
 					81AB5B0418FC85890060B17A = {
-						DevelopmentTeam = C2MJ53WM9P;
 						DevelopmentTeam = S264RF7436;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {

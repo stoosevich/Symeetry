@@ -100,8 +100,13 @@
     }
     else if(indexPath.row == self.options.count - 1)
     {
-        UIAlertView* ask = [[UIAlertView alloc] initWithTitle:@"Loom™?" message:@"Ask Charlse" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+        UIAlertView* ask = [[UIAlertView alloc] initWithTitle:@"Loom™?" message:@"Ask Charles" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
         [ask show];
+    }
+    else if (indexPath.row == 3)
+    {
+        UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutViewController"];
+        [self presentViewController:login animated:YES completion:nil];
     }
 }
 
