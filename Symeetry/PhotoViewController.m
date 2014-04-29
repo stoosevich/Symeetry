@@ -15,6 +15,8 @@
 
 @implementation PhotoViewController
 
+
+// crash fixed
 - (void)viewDidLoad
 {
     [super viewDidLoad];
