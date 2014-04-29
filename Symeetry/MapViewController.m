@@ -288,11 +288,11 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 {
     MKCoordinateSpan corrdinateSpan = MKCoordinateSpanMake(0.0, 0.0);
 
-    float minLatitude = MAXFLOAT;
-    float minLongitude = MAXFLOAT;
+    float southernBorder = MAXFLOAT;
+    float easternBorder = MAXFLOAT;
     
-    float maxLatitude = -200;
-    float maxLongitude = -200;
+    float northernBorder = 0;
+    float westernBorder = 0;
     
     PFGeoPoint *point = nil;
     
@@ -300,48 +300,48 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     {
         point = ((PFGeoPoint*)user[@"location"]);
         
-        if (point.latitude < minLatitude)
+        if (fabs(southernBorder) > fabs(point.latitude))
         {
-            minLatitude = point.latitude;
+            southernBorder = point.latitude;
         }
-        if (point.latitude > maxLatitude)
+        if (fabs(northernBorder) < fabs(point.latitude))
         {
-            maxLatitude = point.latitude;
+            northernBorder = point.latitude;
         }
         
-        if (point.longitude < minLongitude)
+        if (fabs(point.longitude) < fabs(easternBorder))
         {
-            minLongitude = point.longitude;
+            easternBorder = point.longitude;
         }
-        if (point.longitude > maxLongitude)
+        if (fabs(point.longitude) > fabs(westernBorder))
         {
-            maxLongitude = point.longitude;
+            westernBorder = point.longitude;
         }
     }
     
     
     //include the users location in the calculation of the span
-    if (userLocation.latitude < minLatitude)
+    if (fabs(userLocation.latitude) < fabs(southernBorder))
     {
-        minLatitude = userLocation.latitude;
+        southernBorder = userLocation.latitude;
     }
-    if (userLocation.latitude > maxLatitude)
+    if (fabs(userLocation.latitude) > fabs(northernBorder))
     {
-        maxLatitude = userLocation.latitude;
-    }
-    
-    if (userLocation.longitude < minLongitude)
-    {
-        minLongitude = userLocation.longitude;
-    }
-    if (userLocation.longitude > maxLongitude)
-    {
-        maxLongitude = userLocation.longitude;
+        northernBorder = userLocation.latitude;
     }
     
+    if (fabs(userLocation.longitude) < fabs(easternBorder))
+    {
+        easternBorder = userLocation.longitude;
+    }
+    if (fabs(userLocation.longitude) > fabs(westernBorder))
+    {
+        westernBorder = userLocation.longitude;
+    }
     
-    float latitudeRange = maxLatitude - minLatitude + 0.005;
-    float longitudeRange = maxLongitude - minLongitude + 0.005;
+    
+    float latitudeRange = northernBorder - southernBorder + 0.005;
+    float longitudeRange = westernBorder - easternBorder + 0.005;
     
     corrdinateSpan.latitudeDelta = latitudeRange;
     corrdinateSpan.longitudeDelta = longitudeRange;
