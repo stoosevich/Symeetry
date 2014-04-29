@@ -50,7 +50,7 @@
     [[UIApplication sharedApplication]setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
     
-    //[PFUser logInWithUsername:@"dennis" password:@"password"];
+  
     
     self.standardDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -102,6 +102,8 @@
 //    self.window.rootViewController = [PageViewController.alloc initWithViewControllerClassNames:@[@"OpeningViewController", @"StoryViewController", @"CreateNewUserViewController", @"CameraViewController",@"InterestDemoViewController"] transitionStyle:UIPageViewControllerTransitionStyleScroll];
 //    [self.window makeKeyAndVisible];
 
+    [PFUser logOut];
+      //[PFUser logInWithUsername:@"dennis" password:@"password"];
     
     return YES;
 }
