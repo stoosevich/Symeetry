@@ -32,7 +32,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
+    [PFUser logOut];
     [Parse setApplicationId:@"1iPVJY5CmOx54bzcklwgtQn8wswi0H5ipKfisuJ8"
                   clientKey:@"fXgWT23ACGa7uOPagCsaEuBM1xu8bOjWSGWFwTKF"];
     
@@ -217,17 +217,11 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    if ([PFUser currentUser] != nil) {
-        [[ChatManager sharedChatManager] setPeerID];
-    }
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    if ([PFUser currentUser] != nil) {
-        [[ChatManager sharedChatManager] setPeerID];
-    }
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 
 }
