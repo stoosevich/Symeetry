@@ -89,13 +89,20 @@
 {
     if (indexPath.row == 4)
     {
-        [PFUser logOut];
+        [ParseManager updateUserNearestBeacon:nil];
+        
         MMDrawerController* draw = (id)self.view.window.rootViewController;
         [draw toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
         UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
         [self presentViewController:login animated:YES completion:nil];
         [ChatManager sharedChatManager].on = NO;
         [[ChatManager sharedChatManager] checkoutChat];
+        
+      
+        NSTimer* logoutTimer = [[NSTimer alloc]initWithFireDate:[NSDate date] interval:20 target:nil selector:@selector(logoutCurrentUser) userInfo:nil repeats:NO];
+        
+        NSRunLoop *runner = [NSRunLoop currentRunLoop];
+        [runner addTimer:logoutTimer forMode: NSDefaultRunLoopMode];
         
     }
     else if(indexPath.row == self.options.count - 1)
@@ -110,5 +117,9 @@
     }
 }
 
+- (void)logoutCurrentUser
+{
+    [PFUser logOut];
+}
 
 @end

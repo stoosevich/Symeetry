@@ -334,12 +334,21 @@
  */
 +(void)updateUserNearestBeacon:(CLBeacon*)beacon
 {
-    
-    NSString* uuidString = [beacon.proximityUUID UUIDString];
-    [PFUser currentUser][@"nearestBeacon"]= uuidString;
-    [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:beacon.accuracy];
-    [PFUser currentUser][@"major"] = beacon.major;
-    [PFUser currentUser][@"minor"] = beacon.minor;
+    if (beacon == nil)
+    {
+        [PFUser currentUser][@"nearestBeacon"] = @"";
+        [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:0.0f];
+        [PFUser currentUser][@"major"] = [NSNumber numberWithInt:0];
+        [PFUser currentUser][@"minor"] = [NSNumber numberWithInt:0];
+    }
+    else
+    {
+        NSString* uuidString = [beacon.proximityUUID UUIDString];
+        [PFUser currentUser][@"nearestBeacon"] = uuidString;
+        [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:beacon.accuracy];
+        [PFUser currentUser][@"major"] = beacon.major;
+        [PFUser currentUser][@"minor"] = beacon.minor;
+    }
     
     [[PFUser currentUser]saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
      {
