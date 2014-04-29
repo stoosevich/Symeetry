@@ -32,6 +32,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
     [Parse setApplicationId:@"1iPVJY5CmOx54bzcklwgtQn8wswi0H5ipKfisuJ8"
                   clientKey:@"fXgWT23ACGa7uOPagCsaEuBM1xu8bOjWSGWFwTKF"];
     
@@ -51,7 +52,7 @@
     [[UIApplication sharedApplication]setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
     
-    //[PFUser logInWithUsername:@"dennis" password:@"password"];
+  
     
     self.standardDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -103,6 +104,9 @@
 //    self.window.rootViewController = [PageViewController.alloc initWithViewControllerClassNames:@[@"OpeningViewController", @"StoryViewController", @"CreateNewUserViewController", @"CameraViewController",@"InterestDemoViewController"] transitionStyle:UIPageViewControllerTransitionStyleScroll];
 //    [self.window makeKeyAndVisible];
 
+    //[PFUser logOut];
+    
+    [PFUser logInWithUsernameInBackground:@"dennis" password:@"password"];
     
     return YES;
 }
