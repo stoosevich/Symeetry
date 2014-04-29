@@ -36,7 +36,7 @@
 {
     
     // Email Subject
-    NSString *emailTitle = @"Report Issue to Symeetry team";
+    NSString *emailTitle = @"Report Issue";
     // Email Content
     NSString *messageBody = nil;    // To address
     NSArray *toRecipents = [NSArray arrayWithObject:@"symeetry@gmail.com"];
@@ -52,5 +52,28 @@
     
 }
 
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
 
 @end
