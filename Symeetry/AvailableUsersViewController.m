@@ -50,7 +50,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[ChatManager sharedChatManager] setPeerID];
     
 
     self.locationManager = [[CLLocationManager alloc]init];

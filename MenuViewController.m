@@ -9,6 +9,7 @@
 #import "MenuViewController.h"
 
 @interface MenuViewController ()
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
 
 @end
 
