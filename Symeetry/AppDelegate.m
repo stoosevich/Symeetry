@@ -32,9 +32,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [PFUser logOut];
+    
     [Parse setApplicationId:@"1iPVJY5CmOx54bzcklwgtQn8wswi0H5ipKfisuJ8"
                   clientKey:@"fXgWT23ACGa7uOPagCsaEuBM1xu8bOjWSGWFwTKF"];
+    
+    [PFUser logOut];
     
     //intialize a location manager to be notified of state transitions. We need this in the app
     //delegate to handle the call back from the delegate when the app is not active
