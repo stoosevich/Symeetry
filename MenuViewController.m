@@ -36,7 +36,7 @@
     [super viewDidLoad];
     self.myTableView.scrollsToTop = YES;
     self.myTableView.frame = CGRectMake(0, 0, 180, self.myTableView.frame.size.height);
-    self.options = @[@"Profile", @"Settings", @"Report", @"About", @"Logout", @"", @"", @"", @"", @"",
+    self.options = @[@"My Profile", @"Settings", @"Report", @"About", @"Logout", @"", @"", @"", @"", @"",
                    @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
                    @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
                    @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",

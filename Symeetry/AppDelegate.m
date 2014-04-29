@@ -86,10 +86,6 @@
     UIViewController* photoViewController = [storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
     [viewControllers addObject:photoViewController];
 
-    
-    PageViewController* pvc = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
-    
-    UIViewController* login = [storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
     UIViewController* menu = [storyboard instantiateViewControllerWithIdentifier:@"MenuViewController"];
     
     MMDrawerController* drawerController = [[MMDrawerController alloc]

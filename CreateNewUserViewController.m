@@ -7,8 +7,15 @@
 //
 
 #import "CreateNewUserViewController.h"
+#import "Parse/Parse.h"
+#import "PageViewController.h"
 
-@interface CreateNewUserViewController ()
+@interface CreateNewUserViewController () <UITextFieldDelegate, UIAlertViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UITextField *comfirmpasswordTextField;
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 
 @end
 
@@ -29,21 +36,47 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [textField endEditing:YES];
+    return YES;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (IBAction)onSignUpButtongPressed:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ((![self.usernameTextField.text isEqualToString:@""])&&
+        (![self.passwordTextField.text isEqualToString:@""])&&
+        ([self.passwordTextField.text isEqualToString:self.comfirmpasswordTextField.text])&&
+        (![self.emailTextField.text isEqualToString:@""]))
+    {
+        PFUser* newUser = [PFUser new];
+        [newUser setPassword:self.passwordTextField.text];
+        [newUser setUsername:self.usernameTextField.text];
+        [newUser setEmail:self.emailTextField.text];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError* error = [NSError new];
+            [newUser signUp:&error];
+            if (!error)
+            {
+                UIAlertView* taken = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"That username and/or email is taken, please try different one" delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
+                [taken show];
+            }
+            else
+            {
+                NSLog(@"sined up");
+                self.signedUp = YES;
+                UIAlertView* created = [[UIAlertView alloc] initWithTitle:@"Welcome" message:@"Your account has been created succesfully" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+                [created show];
+                self.signUpButton.hidden = YES;
+                [[PageViewController sharedPageViewController] signUpWasSuccesful];
+            }
+        });
+
+
+    }
 }
-*/
+
 
 @end

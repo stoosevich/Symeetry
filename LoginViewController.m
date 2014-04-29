@@ -82,9 +82,8 @@
     UIViewController* containerViewController = [storyboard instantiateViewControllerWithIdentifier:@"ContainerViewController"];
     [viewControllers addObject:containerViewController];
     
-    PageViewController* pvc = [storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    PageViewController* pvc = [PageViewController sharedPageViewController];
     pvc.controllers = viewControllers;
-    
     
     [self presentViewController:pvc animated:YES completion:nil];
 }
