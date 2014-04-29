@@ -227,14 +227,9 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     NSString* formatString = [NSString stringWithFormat:@"%@ %@",user.username,[user[@"similarityIndex"] description]];
     
-//    NSString *beaconFormatString = NSLocalizedString(@"UUID: %@ Major: %@, Minor: %@, Acc: %.2fm", @"Format string for ranging table cells.");
-
-    
     cell.textLabel.text = formatString;
+    cell.detailTextLabel.text = user[@"biography"];
     
-    //display the beacon information in the detail line for now
-//    cell.detailTextLabel.text = [NSString stringWithFormat:beaconFormatString, user[@"nearestBeacon"],user[@"major"],user[@"minor"], user[@"Accuracy"]];
-
 
     PFFile* file = [user objectForKey:@"thumbnail"];
     

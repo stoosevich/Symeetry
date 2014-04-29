@@ -25,8 +25,10 @@
 @property AvailableUsersViewController* availableUsersViewController;
 @property InterestsViewController* interestsViewController;
 @property MapViewController* mapViewController;
+
+//used in delegate method to display the users detail
 @property PFUser* user;
-@property PresentAnimationController* presentAnimationController;
+
 
 @end
 
@@ -91,6 +93,10 @@
 {
     //create the view from a xib file
     ProfileHeaderView *headerView =  [ProfileHeaderView newViewFromNib:@"ProfileHeaderView"];
+    
+    headerView.nameTextField.text =  [[PFUser currentUser] objectForKey:@"username"];
+    headerView.bioTextField.text = [[PFUser currentUser] objectForKey:@"biography"];
+
     
     //quick hack to make the view appear in the correct location
     CGRect frame = CGRectMake(0.0, 20.0f, headerView.frame.size.width, headerView.frame.size.height);
