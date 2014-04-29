@@ -16,6 +16,7 @@
 #import "ChatManager.h"
 #import "ProfileViewController.h"
 #import "PresentAnimationController.h"
+#import "MMDrawerController.h"
 
 
 @interface ContainerViewController ()
@@ -46,24 +47,20 @@
     {
         UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
         [self presentViewController:login animated:YES completion:nil];
+        [ChatManager sharedChatManager].on = NO;
         
     }
     else
     {
-        [self loadHeaderView];
-        [[ChatManager sharedChatManager] setPeerID];
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        
-        _availableUsersViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
-        
-        _interestsViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestsViewController"];
-        
-        _mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
-        
-        _availableUsersViewController.delegate = (id)self;
-        
-        [self showInterestsViewController];
+        if ([[ChatManager sharedChatManager] on]) {
+            NSLog(@"already on");
+        }
+        else{
+            [[ChatManager sharedChatManager] setPeerID];
+            [[ChatManager sharedChatManager] checkinChat];
+            [ChatManager sharedChatManager].on = YES;
+            NSLog(@"BroadCasting Signal");
+        }
     }
     
 }
@@ -71,6 +68,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self loadHeaderView];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    
+    _availableUsersViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
+    
+    _interestsViewController = [storyboard instantiateViewControllerWithIdentifier:@"InterestsViewController"];
+    
+    _mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    
+    _availableUsersViewController.delegate = (id)self;
+    
+    [self showInterestsViewController];
+    
 }
 
 /*
@@ -86,6 +98,10 @@
     
     //set the frame
     headerView.frame = frame;
+    headerView.menuPressed =^{
+        MMDrawerController* draw = (id)self.view.window.rootViewController;
+        [draw toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    };
     
     [headerView.imageView circlify];
     
@@ -145,14 +161,14 @@
 
 - (IBAction)unwindFromProfileDetailView:(UIStoryboardSegue*)segue
 {
-    //
+
 }
 
 - (void)showInterestsViewController
 {
     
     [self removeMapVCViewIfNeeded];
-    [self removeHomeVCViewIfNeeded];
+    [self removeAvailableUsersVCViewIfNeeded];
     
 //    self.interestsViewController.view.frame = CGRectMake(0, 568, 320, 568);
     
@@ -168,7 +184,7 @@
 - (void)showMapViewController
 {
     [self removeInterestsVCViewIfNeeded];
-    [self removeHomeVCViewIfNeeded];
+    [self removeAvailableUsersVCViewIfNeeded];
     
 //    self.mapViewController.view.frame = CGRectMake(0, 568, 320, 568);
 //    
@@ -216,7 +232,7 @@
     }
 }
 
-- (void)removeHomeVCViewIfNeeded
+- (void)removeAvailableUsersVCViewIfNeeded
 {
     if (self.availableUsersViewController.view.superview != nil)
     {

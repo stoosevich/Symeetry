@@ -23,7 +23,7 @@
 
 @implementation ChatManager
 
-+ (instancetype)sharedChatManager {
++(instancetype)sharedChatManager {
     static ChatManager *manager = nil;
     if (!manager)
     {
@@ -49,7 +49,6 @@
     self.mySession.delegate = self;
     self.advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"chat-txtchat" discoveryInfo:nil session:self.mySession];
     self.advertiserAssistant.delegate = self;
-    [self.advertiserAssistant start];
     self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.devicePeerID serviceType:@"chat-txtchat"];
     self.browser.delegate = self;
     PFFile* file = [[PFUser currentUser]objectForKey:@"thumbnail"];
@@ -66,7 +65,6 @@
              //do something, like load a default image
          }
      }];
-    [self checkinChat];
 }
 
 -(void)setConnectedblock:(void(^)(void))connected connectingBlock:(void(^)(void))connecting lostConnectionBlock:(void(^)(void))lostConnection gotMessage:(void(^)(NSData* data))gotMessage;
@@ -155,6 +153,8 @@
 {
     
     [self.users removeObject:peerID];
+    NSLog(@"%@", peerID.displayName);
+    NSLog(@"%lu", (unsigned long)self.users.count);
     dispatch_async(dispatch_get_main_queue(), ^{
         //self.lostConnection();
     });

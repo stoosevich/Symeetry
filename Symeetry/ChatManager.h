@@ -12,7 +12,7 @@
 
 @interface ChatManager : NSObject <MCNearbyServiceAdvertiserDelegate, MCSessionDelegate, MCAdvertiserAssistantDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceBrowserDelegate>
 
-+ (instancetype)sharedChatManager;
++(instancetype)sharedChatManager;
 
 @property MCPeerID* devicePeerID;
 @property MCSession* mySession;
@@ -24,6 +24,7 @@
 @property (nonatomic, copy) void (^lostConnection)(void);
 @property (nonatomic, copy) void (^gotMessage)(NSData* data);
 @property UIImage* myChatPhoto;
+@property BOOL on;
 //@property id currentViewController;
 //@property UIStoryboardSegue* segueToChatRoom;
 
