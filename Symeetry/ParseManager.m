@@ -15,8 +15,8 @@
 @end
 
 
-
 @implementation ParseManager
+
 
 #pragma mark -  USER QUERY RELATED METHODS
 
