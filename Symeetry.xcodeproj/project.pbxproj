@@ -127,6 +127,7 @@
 		CE65D5EE1907593E00C74DFD /* statue1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE65D5ED1907593E00C74DFD /* statue1.jpg */; };
 		CE66E60D1904639900C295E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE66E60C1904639900C295E0 /* Images.xcassets */; };
 		CE6748661901D58600F05121 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6748651901D58600F05121 /* Defaults.m */; };
+		CE6935AB19103CE10065769B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935AA19103CE10065769B /* AboutViewController.m */; };
 		CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */; };
 		CE7561E31905ABBC00611B93 /* SymeetryPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */; };
 		CE759C55190F348500231FE6 /* SimilarityAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = CE759C54190F348500231FE6 /* SimilarityAlgorithm.m */; };
@@ -303,6 +304,8 @@
 		CE66E60C1904639900C295E0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE6748641901D58600F05121 /* Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defaults.h; path = Symeetry/Defaults.h; sourceTree = "<group>"; };
 		CE6748651901D58600F05121 /* Defaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Defaults.m; path = Symeetry/Defaults.m; sourceTree = "<group>"; };
+		CE6935A919103CE10065769B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		CE6935AA19103CE10065769B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		CE730E081906043000FD6F95 /* SymeetryAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryAnnotationView.h; path = Symeetry/SymeetryAnnotationView.h; sourceTree = "<group>"; };
 		CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryAnnotationView.m; path = Symeetry/SymeetryAnnotationView.m; sourceTree = "<group>"; };
 		CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryPointAnnotation.h; path = Symeetry/SymeetryPointAnnotation.h; sourceTree = "<group>"; };
@@ -598,6 +601,8 @@
 				81AB5B1818FC85890060B17A /* AppDelegate.m */,
 				CE66E60C1904639900C295E0 /* Images.xcassets */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
+				CE6935A919103CE10065769B /* AboutViewController.h */,
+				CE6935AA19103CE10065769B /* AboutViewController.m */,
 				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
 				CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */,
 				81AB5B0F18FC85890060B17A /* Supporting Files */,
@@ -722,7 +727,7 @@
 						TestTargetID = 81AB5B0418FC85890060B17A;
 					};
 					81AB5B0418FC85890060B17A = {
-						DevelopmentTeam = 6EADSJP336;
+						DevelopmentTeam = S264RF7436;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -915,6 +920,7 @@
 				56A6548919085D15001B17AE /* RootViewController.m in Sources */,
 				815C10E4190CA6D400679DD2 /* InterestDemoViewController.m in Sources */,
 				81D95E92191036F3002DEE76 /* BiographyViewController.m in Sources */,
+				CE6935AB19103CE10065769B /* AboutViewController.m in Sources */,
 				CE7D9363190729C700F3EDC0 /* PresentAnimationController.m in Sources */,
 				815C10D4190C9A9700679DD2 /* PageViewController.m in Sources */,
 				CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */,
