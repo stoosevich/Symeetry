@@ -863,6 +863,51 @@
             </objects>
             <point key="canvasLocation" x="2277" y="1441"/>
         </scene>
+        <!--About View Controller-->
+        <scene sceneID="mY6-B0-aF6">
+            <objects>
+                <viewController id="ycx-d2-PFV" customClass="AboutViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="L4B-YJ-DyA"/>
+                        <viewControllerLayoutGuide type="bottom" id="EDD-yB-wsL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HuK-5e-lyE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VcN-jg-MFb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="312"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Developed by the Symeetry team at Mobile Makers Academy                            2014 All rights reserved" translatesAutoresizingMaskIntoConstraints="NO" id="JMd-97-yqQ">
+                                <rect key="frame" x="28" y="320" width="272" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NQl-18-4vt">
+                                <rect key="frame" x="99" y="427" width="108" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Report an Issue">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onReportIssueButtonPressed:" destination="ycx-d2-PFV" eventType="touchUpInside" id="vzH-bc-E4N"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="VcN-jg-MFb" id="kUe-Ne-kGF"/>
+                        <outlet property="textView" destination="JMd-97-yqQ" id="6Eb-5F-LYv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KIW-zR-AFA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2639" y="1433"/>
+        </scene>
         <!--Interests View Controller-->
         <scene sceneID="SX9-IO-Ue2">
             <objects>
