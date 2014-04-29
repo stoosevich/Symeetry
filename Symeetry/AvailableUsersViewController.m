@@ -52,14 +52,11 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     [super viewDidLoad];
     [[ChatManager sharedChatManager] setPeerID];
     
-
+    //initialize the location manager for ibeacon scanning
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
-    
-    //required for the custom animations
-    //self.navigationController.delegate = self;
-    
+
     //initialize required data structures
     self.beacons = [NSMutableDictionary new];
     self.activeRegions = [NSMutableArray new];
@@ -130,6 +127,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  */
 - (void)createRegionsForMonitoring
 {
+    NSLog(@"createRegionsForMonitoring called");
+    
     // Populate the regions we will range once
     self.rangedRegions = [[NSMutableDictionary alloc] init];
     
@@ -153,7 +152,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  
         //start monitoring all known regions
         [self.locationManager startMonitoringForRegion:region];
-        
+
         [self.locationManager startRangingBeaconsInRegion:region];
         //NSLog(@"monitoring region %@",region.identifier);
     }
@@ -178,7 +177,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     //create a temporary region since we cannot pass the region object in the notification user info
     CLBeaconRegion* region = [[CLBeaconRegion alloc]initWithProximityUUID:uuid identifier:[uuid UUIDString]];
 
-    NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
+//    NSString* formatString = [NSString stringWithFormat:@"AppDelegateNotification %@",region.identifier];
     
     //[self showRegionStateAlertScreen:formatString];
     
@@ -232,13 +231,14 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     NSString* formatString = [NSString stringWithFormat:@"%@ %@",user.username,[user[@"similarityIndex"] description]];
     
-    NSString *beaconFormatString = NSLocalizedString(@"UUID: %@ Major: %@, Minor: %@, Acc: %.2fm", @"Format string for ranging table cells.");
+//    NSString *beaconFormatString = NSLocalizedString(@"UUID: %@ Major: %@, Minor: %@, Acc: %.2fm", @"Format string for ranging table cells.");
 
-    //display the beacon information in the detail line for now
-    cell.detailTextLabel.text = [NSString stringWithFormat:beaconFormatString, user[@"nearestBeacon"],user[@"major"],user[@"minor"], user[@"Accuracy"]];
     
-    //show beacon information
     cell.textLabel.text = formatString;
+    
+    //display the beacon information in the detail line for now
+//    cell.detailTextLabel.text = [NSString stringWithFormat:beaconFormatString, user[@"nearestBeacon"],user[@"major"],user[@"minor"], user[@"Accuracy"]];
+
 
     PFFile* file = [user objectForKey:@"thumbnail"];
     
@@ -335,8 +335,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  */
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-    
-    //[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     if (![self.activeRegions containsObject:region] && beacons.count)
     {
