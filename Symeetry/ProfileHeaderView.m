@@ -7,6 +7,7 @@
 //
 
 #import "ProfileHeaderView.h"
+#import "MMDrawerController.h"
 
 @interface ProfileHeaderView() <UITextFieldDelegate>
 
@@ -44,6 +45,12 @@
     self.nameTextField.delegate = object;
     self.genderTextField.delegate = object;
     self.ageTextField.delegate = object;
+}
+
+
+- (IBAction)onMenuButtonPressed:(id)sender
+{
+    self.menuPressed();
 }
 
 @end

@@ -16,6 +16,7 @@
 #import "ChatManager.h"
 #import "ProfileViewController.h"
 #import "PresentAnimationController.h"
+#import "MMDrawerController.h"
 
 
 @interface ContainerViewController ()
@@ -97,6 +98,10 @@
     
     //set the frame
     headerView.frame = frame;
+    headerView.menuPressed =^{
+        MMDrawerController* draw = (id)self.view.window.rootViewController;
+        [draw toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    };
     
     [headerView.imageView circlify];
     

@@ -38,7 +38,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <items>
-                        <barButtonItem title="Item" id="jVO-WI-yH3" customClass="MMDrawerBarButtonItem"/>
+                        <barButtonItem title="Item" id="jVO-WI-yH3" customClass="MMDrawerBarButtonItem">
+                            <connections>
+                                <action selector="onMenuButtonPressed:" destination="iN0-l3-epB" id="FdF-wZ-m9l"/>
+                            </connections>
+                        </barButtonItem>
                     </items>
                 </toolbar>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Symeetry" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVI-XJ-ToT">
