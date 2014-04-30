@@ -720,13 +720,14 @@
                                 <rect key="frame" x="20" y="222" width="280" height="280"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDu-xV-roJ">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDu-xV-roJ">
                                 <rect key="frame" x="30" y="232" width="260" height="260"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="onAddPhotoButtonPressed:" destination="jF0-V9-dao" eventType="touchUpInside" id="PFj-kJ-utY"/>
                                     <segue destination="HCd-yk-2eW" kind="modal" id="jSt-kI-drQ"/>
                                 </connections>
                             </button>
@@ -763,6 +764,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="addPhotoButton" destination="CDu-xV-roJ" id="Ggx-dy-Buj"/>
                         <outlet property="myImageView" destination="x0w-QU-yjC" id="dPN-Ts-EnH"/>
                     </connections>
                 </viewController>
@@ -1051,6 +1053,9 @@
                                 <state key="normal" image="ic_gender_wmn.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onFemaleButtonPressed:" destination="Ecj-k5-Pbc" eventType="touchUpInside" id="jBn-fv-BQW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppe-0r-74M">
                                 <rect key="frame" x="24" y="140" width="60" height="103"/>
@@ -1058,6 +1063,9 @@
                                 <state key="normal" image="ic_gender_men.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onMaleButtonPressed:" destination="Ecj-k5-Pbc" eventType="touchUpInside" id="ix5-no-64R"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1124,6 +1132,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="8q7-za-b21"/>
                     <connections>
+                        <outlet property="confirmButton" destination="vUf-9z-8kg" id="fDv-kI-I7S"/>
+                        <outlet property="selectPhotoButton" destination="6Qw-jH-Uxb" id="PLe-5F-IEL"/>
+                        <outlet property="takePhotoButton" destination="fw3-Bd-WyK" id="U4H-G3-xw5"/>
                         <outlet property="userImage" destination="B9s-L3-Sc0" id="k00-t6-hdf"/>
                     </connections>
                 </viewController>
