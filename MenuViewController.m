@@ -17,7 +17,8 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property NSArray* options;
-
+@property int easterEgg;
+@property BOOL unlocked;
 @end
 
 @implementation MenuViewController
@@ -34,26 +35,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.easterEgg = 0;
+    self.unlocked = NO;
     self.myTableView.scrollsToTop = YES;
     self.myTableView.frame = CGRectMake(0, 0, 180, self.myTableView.frame.size.height);
-    self.options = @[@"My Profile", @"Settings", @"About", @"Logout", @"", @"", @"", @"", @"",
-                   @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
-                   @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
-                   @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
-                   @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
-                   @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
-                   @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
-                   @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
-                   @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
-                   @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
-                   @"", @"", @"", @"", @"", @"", @"", @"", @"", @"Loom™"];
+    self.options = @[@"My Profile", @"Settings", @"About", @"Logout", @"Loom™"];
     // Do any additional setup after loading the view.
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MenuItemReuseID"];
-    cell.textLabel.text = self.options[indexPath.row];
+    if ((indexPath.row == self.options.count-1)&&(self.unlocked)) {
+        cell.textLabel.text = self.options[indexPath.row];
+    }
+    else if (indexPath.row != self.options.count-1){
+        cell.textLabel.text = self.options[indexPath.row];
+    }
+    else{
+        cell.textLabel.text = @"";
+    }
     return cell;
 }
 
@@ -109,13 +110,47 @@
     }
     else if(indexPath.row == self.options.count - 1)
     {
-        UIAlertView* ask = [[UIAlertView alloc] initWithTitle:@"Loom™?" message:@"Ask Charles" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
-        [ask show];
+        if (self.unlocked) {
+            UIAlertView* ask = [[UIAlertView alloc] initWithTitle:@"Loom™?" message:@"Ask Charles" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+            [ask show];
+        }
     }
     else if (indexPath.row == 2)
     {
+        if ((self.easterEgg == 0)||(self.easterEgg == 3)||(self.easterEgg == 5)) {
+            self.easterEgg ++;
+        }
+        else{
+            self.easterEgg = 0;
+        }
         UIViewController* aboutViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutViewController"];
         [self presentViewController:aboutViewController animated:YES completion:nil];
+    }
+    else if (indexPath.row == 0)
+    {
+        if ((self.easterEgg == 1)||(self.easterEgg == 2)||(self.easterEgg == 6)) {
+            self.easterEgg ++;
+            if (self.easterEgg == 7) {
+                self.unlocked = YES;
+                NSIndexPath* path = [NSIndexPath indexPathForRow:(self.options.count -1) inSection:0];
+                [self.myTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationLeft];
+            }
+        }
+        else
+        {
+            self.easterEgg = 0;
+        }
+    }
+    else if(indexPath.row == 1)
+    {
+        if (self.easterEgg == 4) {
+            self.easterEgg++;
+        }
+        else
+        {
+            self.easterEgg = 0;
+        }
+        
     }
 }
 
