@@ -11,6 +11,7 @@
 @interface PhotoViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property UIImage* photo;
+@property BOOL editing;
 
 
 @end

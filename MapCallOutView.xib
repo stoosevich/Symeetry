@@ -20,7 +20,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EJL-GQ-cHJ">
-                    <rect key="frame" x="41" y="5" width="60" height="30"/>
+                    <rect key="frame" x="48" y="5" width="60" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -31,6 +31,7 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="backGroundView" destination="OiG-eI-cjP" id="Fvs-qS-bVf"/>
                 <outlet property="imageView" destination="apX-ke-mgu" id="irq-M9-AIe"/>
                 <outlet property="nameTextField" destination="EJL-GQ-cHJ" id="d13-Xq-cZ9"/>
             </connections>

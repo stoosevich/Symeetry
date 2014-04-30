@@ -43,6 +43,9 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (self.editing) {
+        self.userImage.image = [[ParseManager currentUser] objectForKey:@"photo"];
+    }
 }
 
 
@@ -92,26 +95,47 @@
 
 - (IBAction)onComfirmButtonPressed:(id)sender
 {
-    self.selectPhotoButton.enabled = NO;
-    self.confirmButton.enabled = NO;
-    self.takePhotoButton.enabled = NO;
-    [ParseManager saveInfo:[PFUser currentUser]
-               objectToSet:[ParseManager convertUIImageToPFFile:self.userImage.image]
-                    forKey:@"photo"
-           completionBlock:^{
-                    }];
-    [ParseManager saveInfo:[PFUser currentUser]
-               objectToSet:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:self.userImage.image withWidth:40 andHeight:40]]
-                    forKey:@"thumbnail"
-           completionBlock:^{
-
-           }];
-    [[CameraViewController sharedCameraViewController].myImageView circlify];
-    [CameraViewController sharedCameraViewController].myImageView.image = self.userImage.image;
-    self.selectPhotoButton.enabled = YES;
-    self.confirmButton.enabled = YES;
-    self.takePhotoButton.enabled = YES;
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    if (self.editing)
+    {
+        self.selectPhotoButton.enabled = NO;
+        self.confirmButton.enabled = NO;
+        self.takePhotoButton.enabled = NO;
+        [ParseManager saveInfo:[PFUser currentUser]
+                   objectToSet:[ParseManager convertUIImageToPFFile:self.userImage.image]
+                        forKey:@"photo"
+               completionBlock:^{
+               }];
+        [ParseManager saveInfo:[PFUser currentUser]
+                   objectToSet:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:self.userImage.image withWidth:40 andHeight:40]]
+                        forKey:@"thumbnail"
+               completionBlock:^{
+               }];
+        self.selectPhotoButton.enabled = YES;
+        self.confirmButton.enabled = YES;
+        self.takePhotoButton.enabled = YES;
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
+    else{
+        self.selectPhotoButton.enabled = NO;
+        self.confirmButton.enabled = NO;
+        self.takePhotoButton.enabled = NO;
+        [ParseManager saveInfo:[PFUser currentUser]
+                   objectToSet:[ParseManager convertUIImageToPFFile:self.userImage.image]
+                        forKey:@"photo"
+               completionBlock:^{
+               }];
+        [ParseManager saveInfo:[PFUser currentUser]
+                   objectToSet:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:self.userImage.image withWidth:40 andHeight:40]]
+                        forKey:@"thumbnail"
+               completionBlock:^{
+               }];
+        [[CameraViewController sharedCameraViewController].myImageView circlify];
+        [CameraViewController sharedCameraViewController].myImageView.image = self.userImage.image;
+        self.selectPhotoButton.enabled = YES;
+        self.confirmButton.enabled = YES;
+        self.takePhotoButton.enabled = YES;
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
 
 }
 
