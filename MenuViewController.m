@@ -88,20 +88,21 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-
     if (indexPath.row == 3)
     {
-        [PFUser logOut];
-        
-        MMDrawerController* draw = (id)self.view.window.rootViewController;
-        [draw toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-        UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
-        [self presentViewController:login animated:YES completion:nil];
-        
         [ChatManager sharedChatManager].on = NO;
         [[ChatManager sharedChatManager] checkoutChat];
-
+        
+        __weak MenuViewController* weakSelf = self;
+     
+        [ParseManager updateUserNearestBeaconOnLogout:nil withCompletion:^(BOOL succeeded, NSError *error) {
+            
+           dispatch_async(dispatch_get_main_queue(), ^{
+               [weakSelf logoutUserInBackround];
+           });
+            
+            
+        }];
     }
     else if(indexPath.row == self.options.count - 1)
     {
@@ -149,5 +150,16 @@
     }
 }
 
+-(void)logoutUserInBackround
+{
+    NSLog(@"logging out user");
+    
+    [PFUser logOut];
+    
+    MMDrawerController* draw = (id)self.view.window.rootViewController;
+    [draw toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
+    [self presentViewController:login animated:YES completion:nil];
+}
 
 @end

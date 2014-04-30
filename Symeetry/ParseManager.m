@@ -336,21 +336,12 @@
  */
 +(void)updateUserNearestBeacon:(CLBeacon*)beacon
 {
-    if (beacon == nil)
-    {
-        [PFUser currentUser][@"nearestBeacon"] = @"";
-        [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:0.0f];
-        [PFUser currentUser][@"major"] = [NSNumber numberWithInt:0];
-        [PFUser currentUser][@"minor"] = [NSNumber numberWithInt:0];
-    }
-    else
-    {
-        NSString* uuidString = [beacon.proximityUUID UUIDString];
-        [PFUser currentUser][@"nearestBeacon"] = uuidString;
-        [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:beacon.accuracy];
-        [PFUser currentUser][@"major"] = beacon.major;
-        [PFUser currentUser][@"minor"] = beacon.minor;
-    }
+    
+    NSString* uuidString = [beacon.proximityUUID UUIDString];
+    [PFUser currentUser][@"nearestBeacon"] = uuidString;
+    [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:beacon.accuracy];
+    [PFUser currentUser][@"major"] = beacon.major;
+    [PFUser currentUser][@"minor"] = beacon.minor;
     
     [[PFUser currentUser]saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
      {
@@ -361,6 +352,24 @@
      }];
 }
 
+
++(void)updateUserNearestBeaconOnLogout:(CLBeacon*)beacon withCompletion:(LogoutCompletion)completion
+{
+    if (beacon == nil)
+    {
+        
+        [PFUser currentUser][@"nearestBeacon"] = @"";
+        [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:0.0f];
+        [PFUser currentUser][@"major"] = [NSNumber numberWithInt:0];
+        [PFUser currentUser][@"minor"] = [NSNumber numberWithInt:0];
+    }
+
+    [[PFUser currentUser]saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+     {
+         completion(succeeded,error);
+     }];
+
+}
 
 /*
  * Adds a newly found beacon to the database of beacon if it has not already present.
