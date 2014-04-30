@@ -68,7 +68,6 @@ completionBlock:(void (^)(void))completionBlock
 +(PFFile*)convertUIImageToPFFile:(UIImage*)image;
 +(NSDictionary*)convertPFObjectToNSDictionary:(PFObject*)objectToConvert;
 +(NSArray*)convertArrayOfPFObjectsToDictionaryObjects:(NSArray*)objectsToConvert;
-
-
++(void)resetUserPasswordByEmail:(NSString*)email;
 
 @end

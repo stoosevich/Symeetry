@@ -512,7 +512,7 @@
 /*
  * reset the user's password view Parse standard method call
  */
-- (void)resetUserPasswordByEmail:(NSString*)email
++ (void)resetUserPasswordByEmail:(NSString*)email
 {
     [PFUser requestPasswordResetForEmailInBackground:email];
 }

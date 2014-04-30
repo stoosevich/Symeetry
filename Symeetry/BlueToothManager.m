@@ -40,7 +40,7 @@
     if (self.centralManager.state == CBCentralManagerStatePoweredOff)
     {
         //bluetooth is off we need to tell the user to turn on the service
-            UIAlertView* notOnAlertView = [[UIAlertView alloc] initWithTitle:@"BlueTooth LE Off" message:@"This device has its bluetooth turned off which is required for this application" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+            UIAlertView* notOnAlertView = [[UIAlertView alloc] initWithTitle:@"BlueTooth LE Off" message:@"This device has its bluetooth turned off which is required for this application" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [notOnAlertView show];
         
     }
@@ -59,9 +59,8 @@
     }
     else if (self.centralManager.state == CBCentralManagerStateUnknown)
     {
-        UIAlertView* notKnownAlertView = [[UIAlertView alloc] initWithTitle:@"BlueTooth LE Unknown" message:@"The bluetooth state is unknown for this device, please turn it off then on and try again" delegate:nil cancelButtonTitle:nil
-            otherButtonTitles:nil];
-        [notKnownAlertView show];
+        onBlock();
+        
 //        self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
 //        [self startScan];
     }
