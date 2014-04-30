@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="I7W-PH-0GR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="I7W-PH-0GR">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -392,7 +392,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQo-89-w1J">
-                                <rect key="frame" x="127" y="12" width="66" height="30"/>
+                                <rect key="frame" x="0.0" y="12" width="66" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Leave">
                                     <color key="titleColor" red="0.078431375324726105" green="0.79215693473815918" blue="0.074509806931018829" alpha="1" colorSpace="deviceRGB"/>
@@ -402,11 +402,19 @@
                                     <action selector="onLeaveChatButtonPressed:" destination="gon-vt-Fhm" eventType="touchUpInside" id="C5q-zH-EZN"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geh-a1-iCX">
+                                <rect key="frame" x="130" y="16" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="gD9-So-Dh5"/>
                     <connections>
+                        <outlet property="chatRoomLabel" destination="geh-a1-iCX" id="YRk-UT-9ZR"/>
                         <outlet property="chatRoomTableView" destination="Qdp-Xb-MWK" id="zIk-dq-JNG"/>
                         <outlet property="chatRoomTextView" destination="KKz-yv-D0c" id="cic-VS-Jkp"/>
                         <outlet property="sendButtonPressed" destination="TPx-1Q-f2Z" id="8uG-HT-kiL"/>

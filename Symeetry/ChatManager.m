@@ -234,7 +234,6 @@
                 [vc presentViewController:cRVC animated:YES completion:^{
                     NSLog(@"worked");
                     NSLog(@"%@", cRVC.peerID.displayName);
-                    self.connected();
                 }];
                 //self.connected();
             });
@@ -260,6 +259,7 @@
                 UIStoryboard *sb = [UIApplication sharedApplication].keyWindow.rootViewController.storyboard;
                 ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
                 cRVC.peerID = peerID;
+                cRVC.chatRoomLabel.text = peerID.displayName;
                 
                 id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
                 vc = [vc presentedViewController];
