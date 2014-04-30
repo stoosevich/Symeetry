@@ -340,6 +340,22 @@
 
 
 #pragma mark - BEACON RETRIEVE AND UPDATE RELATED METHODS
++(void)updateUserNearestBeaconInForeground:(CLBeacon*)beacon
+{
+    if (beacon == nil)
+    {
+        
+        NSLog(@"setting nearest beacon to nil");
+        [PFUser currentUser][@"nearestBeacon"] = @"EMPTYUUIDSTRING";
+        [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:0.0f];
+        [PFUser currentUser][@"major"] = [NSNumber numberWithInt:0];
+        [PFUser currentUser][@"minor"] = [NSNumber numberWithInt:0];
+    }
+    
+    [[PFUser currentUser] save];
+}
+
+
 
 /*
  * Update the users reference to the nearest beacon
