@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (weak, nonatomic) IBOutlet UIView* textFieldGroup;
 @property int spacing;
+@property BOOL didStartEditing;
 
 @end
 
@@ -42,6 +43,21 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    self.didStartEditing = NO;
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.usernameTextField endEditing:YES];
+    [self.emailTextField endEditing:YES];
+    [self.comfirmpasswordTextField endEditing:YES];
+    [self.passwordTextField endEditing:YES];
+
+
+}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -63,27 +79,11 @@
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField == self.usernameTextField) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.textFieldGroup.frame = CGRectMake(0, 0, self.textFieldGroup.frame.size.width, self.textFieldGroup.frame.size.height);
+    if (self.didStartEditing == NO) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.textFieldGroup.frame = CGRectMake(self.textFieldGroup.frame.origin.x, -85, self.textFieldGroup.frame.size.width, self.textFieldGroup.frame.size.height);
         }];
-    }
-    else if(textField == self.passwordTextField){
-        [UIView animateWithDuration:0.5 animations:^{
-            self.textFieldGroup.frame = CGRectMake(0, self.spacing, self.textFieldGroup.frame.size.width, self.textFieldGroup.frame.size.height);
-        }];
-        
-    }
-    else if(textField == self.comfirmpasswordTextField){
-        [UIView animateWithDuration:0.5 animations:^{
-            self.textFieldGroup.frame = CGRectMake(0, self.spacing*2, self.textFieldGroup.frame.size.width, self.textFieldGroup.frame.size.height);
-        }];
-        
-    }
-    else if(textField == self.emailTextField){
-        [UIView animateWithDuration:0.5 animations:^{
-            self.textFieldGroup.frame = CGRectMake(0, self.spacing*3, self.textFieldGroup.frame.size.width, self.textFieldGroup.frame.size.height);
-        }];
+        self.didStartEditing = YES;
     }
 }
 
