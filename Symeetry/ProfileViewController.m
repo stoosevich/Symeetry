@@ -85,8 +85,7 @@
     ProfileTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"InterestCellId"];
     NSDictionary* interest = self.userInterests[indexPath.row];
     cell.textLabel.text = [[interest allKeys].firstObject capitalizedString];
-    //NSInteger value = [[interest allValues].firstObject intValue] * 12;
-    cell.detailTextLabel.text = [[[interest allValues] firstObject] description];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",(long)[[[interest allValues] firstObject] integerValue]];
     [cell.imageView circlify];
     
     return cell;
@@ -136,42 +135,12 @@
 - (IBAction)onChatButtonPressed:(id)sender
 {
     [[ChatManager sharedChatManager] inviteToChat:[[ChatManager sharedChatManager] findCorrectPeer:self.user] completedBlock:^{
-//        [self performSegueWithIdentifier:@"ChatRoomSegue" sender:self];
-//        NSLog(@"Invited %@", self.user.username);
+
     }];
     
 }
 
 
-
-
-
--(NSString*)relationShipStatus
-{
-    
-    int x = [(NSNumber*)[self.user objectForKey:@"relationshipStatus"] intValue];
-    
-    switch (x) {
-        case 0:
-            return @"Single";
-            break;
-        case 1:
-            return @"Dating";
-            break;
-            
-        case 2:
-            return @"Engaged";
-            break;
-            
-        case 3:
-            return @"Married";
-            break;
-            
-        default:
-            return nil;
-            break;
-    }
-}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -182,24 +151,7 @@
         [ParseManager saveInfo:self.user objectToSet:@(textField.text.intValue) forKey:@"age" completionBlock:^{
             
         }];
-//    }
-//    else if (textField == self.headerView.genderTextField)
-//    {
-//        if ([self.headerView.genderTextField.text isEqualToString:@"Male"] ||
-//            [self.headerView.genderTextField.text isEqualToString:@"male"] ||
-//            [self.headerView.genderTextField.text isEqualToString:@"Female"] ||
-//            [self.headerView.genderTextField.text isEqualToString:@"female"] ||
-//            [self.headerView.genderTextField.text isEqualToString:@"M" ] ||
-//            [self.headerView.genderTextField.text isEqualToString:@"F"])
-//        {
-//            [ParseManager saveInfo:self.user objectToSet:textField.text forKey:@"gender" completionBlock:^{
-//                
-//            }];
-//        }
-//        else
-//        {
-//            self.headerView.genderTextField.text = [self.user objectForKey:@"gender"];
-//        }
+
     }
     return YES;
 }
