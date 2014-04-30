@@ -12,7 +12,7 @@
 
 
 
-@interface ChatManager()
+@interface ChatManager() <UIAlertViewDelegate>
 
 @property MCPeerID* userBasedPeerID;
 //@property ChatManager* chatMang;
@@ -103,9 +103,21 @@
     [self.mySession sendData:[message dataUsingEncoding:NSUTF8StringEncoding] toPeers:[NSArray arrayWithObject:peer] withMode:MCSessionSendDataReliable error:&error];
     if (error) {
         //do something Aler view or something that says it didn't send
-        NSLog(@"didn't send");
+        UIAlertView* didNotSend = [[UIAlertView alloc] initWithTitle:@"Failure" message:@"Message was not able to send" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [didNotSend show];
     }
     else {
+        sent();
+    }
+}
+
+-(void)sendPhoto:(NSData*)data peer:(MCPeerID*)peer error:(NSError*)error sent:(void(^)(void))sent
+{
+    [self.mySession sendData:data toPeers:@[peer] withMode:MCSessionSendDataReliable error:&error];
+    if (error) {
+        
+    }
+    else{
         sent();
     }
 }
@@ -199,9 +211,7 @@
 
 -(void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.gotMessage(data);
-    });
+    self.gotMessage(data);
 }
 
 -(void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID
@@ -219,9 +229,6 @@
                 UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                 ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
                 cRVC.peerID = peerID;
-                NSData* data = UIImageJPEGRepresentation(self.myChatPhoto, 0.8);
-                NSError* error = [NSError new];
-                [self.mySession sendData:data toPeers:@[peerID] withMode:MCSessionSendDataReliable error:&error];
                 id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
                 vc = [vc presentedViewController];
                 [vc presentViewController:cRVC animated:YES completion:^{
