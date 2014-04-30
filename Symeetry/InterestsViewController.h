@@ -11,6 +11,7 @@
 
 @interface InterestsViewController : UIViewController
 //Another test
+@property NSMutableArray* interests;
 
 
 @end

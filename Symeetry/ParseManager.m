@@ -212,12 +212,13 @@
      }];
 }
 
-+(void)userInterest:(PFUser*)user completionBlock:(void (^)(void))completionBlock
++(void)userInterest:(PFUser*)user completionBlock:(InterestCompletion)completionBlock
 {
     PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
     [query whereKey:@"user" equalTo:user];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        completionBlock();
+        completionBlock(objects.firstObject, error);
+        
     }];
 }
 

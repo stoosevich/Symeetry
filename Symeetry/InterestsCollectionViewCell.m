@@ -8,6 +8,7 @@
 
 #import "InterestsCollectionViewCell.h"
 #import "ParseManager.h"
+#import "InterestsViewController.h"
 
 @interface InterestsCollectionViewCell()
 
@@ -39,7 +40,10 @@
     
     //Change background color with slider
     NSArray *backgroundColors = [[NSArray alloc]initWithObjects:[UIColor whiteColor],[UIColor blueColor],[UIColor greenColor],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor], nil];
-    self.backgroundView.backgroundColor = [backgroundColors objectAtIndex:sender.value];
+    self.backgroundView.backgroundColor = [backgroundColors objectAtIndex:number.intValue];
+    UIStoryboard* storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    InterestsViewController* iVC = [storyBoard instantiateViewControllerWithIdentifier:@"InterestsViewController"];
+    [iVC.interests replaceObjectAtIndex:self.tag withObject:number];
     
     [self.currentUsersInterests setObject:number forKey:self.interestTextField.text];
     [self.currentUsersInterests saveInBackground];

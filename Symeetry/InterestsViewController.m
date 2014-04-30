@@ -20,7 +20,6 @@
 //@property NSMutableDictionary* chosenInterests;
 @property NSArray* images;
 @property NSArray* interestNames;
-@property NSMutableArray* interests;
 @property PFObject* myInterests;
 //@property UISwipeGestureRecognizer *swipeLeftRecognizer;
 //@property UISwipeGestureRecognizer *swipeRightRecognizer;
@@ -32,16 +31,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.interests removeAllObjects];
-    [ParseManager getUserInterest:[PFUser currentUser] WithCompletion:^(PFObject *object, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.myInterests = object;
-            for (NSString*string in self.interestNames) {
-                NSNumber* number = [object objectForKey:string];
-                [self.interests addObject:number];
-            }
-            [self.interestsCollectionView reloadData];
-        });
-    }];
+    [self updateInterest];
 }
 
 - (void)viewDidLoad
@@ -64,6 +54,38 @@
     self.interests = [NSMutableArray new];
 
 }
+
+-(void)updateInterests:(void(^)(PFObject* object, NSError* error)) completion
+{
+    NSLog(@"Getting Interests");
+    [ParseManager userInterest:[PFUser currentUser] completionBlock:^(PFObject *object, NSError *error) {
+        completion(object, error);
+    }];
+}
+
+
+-(void)updateInterest
+{
+    [self updateInterests:^(PFObject *object, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Anaylsing Interests");
+            self.myInterests = object;
+            for (NSString*string in self.interestNames) {
+                NSNumber* number = [object objectForKey:string];
+                [self.interests addObject:number];
+            }
+            [self.interestsCollectionView reloadData];
+        });
+    }];
+}
+//dispatch_async(dispatch_get_main_queue(), ^{
+//    self.myInterests = object;
+//    for (NSString*string in self.interestNames) {
+//        NSNumber* number = [object objectForKey:string];
+//        [self.interests addObject:number];
+//    }
+//    [self.interestsCollectionView reloadData];
+//});
 
 // Add animation to cells
 //-(void)viewDidAppear:(BOOL)animated
@@ -95,7 +117,13 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.images.count;
+    if (self.interests.firstObject == nil)
+    {
+        return 0;
+    }
+    else{
+        return self.images.count;
+    }
 }
 
 -(InterestsCollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -116,6 +144,7 @@
     cell.backgroundView.backgroundColor = [UIColor whiteColor];
     cell.interestSlider.value = [self.interests[indexPath.row] floatValue];
     cell.currentUsersInterests = self.myInterests;
+    cell.tag = (int)self.images[indexPath.row];
   //  cell.backgroundColor = [UIColor blueColor];
  //   cell.backgroundColor = [UIColor colorWithRed:186 green:228 blue:217 alpha:1];
     

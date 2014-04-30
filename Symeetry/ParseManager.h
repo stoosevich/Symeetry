@@ -38,8 +38,7 @@ typedef void (^LogoutCompletion)(BOOL succeeded, NSError *error);
 + (void)getUsersWithCompletion:(MyCompletion)completion;
 
 
-+(void)userInterest:(PFUser*)user completionBlock:(void (^)(void))completionBlock;
-
++(void)userInterest:(PFUser*)user completionBlock:(InterestCompletion)completionBlock;
 
 //find users that are in the immediate vicinity based on the uuid of a beacon
 +(void)retrieveUsersInLocalVicinityWithSimilarity:(NSArray*)regions WithComplettion:(MyCompletion)completion;
