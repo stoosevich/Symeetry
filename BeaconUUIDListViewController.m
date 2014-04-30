@@ -38,10 +38,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSIndexPath *indexPath = [[NSIndexPath alloc]initWithIndex:self.beacons.count-1];
-    
-//    [self.myTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-//    
     [self.myTableView reloadData];
 }
 

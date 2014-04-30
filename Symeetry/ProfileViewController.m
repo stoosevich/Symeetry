@@ -56,7 +56,6 @@
     self.nameTextField.text = [self.user username];
     self.ageTextField.text = [[self.user objectForKey:@"age"] description];    
     
-//    self.headerView.genderTextField.text = [self.user objectForKey:@"gender"];
     PFFile* file = [self.user objectForKey:@"photo"];
     
     //load the picture asynchronously

@@ -27,7 +27,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+       
     }
     return self;
 }
@@ -40,7 +40,6 @@
     self.myTableView.scrollsToTop = YES;
     self.myTableView.frame = CGRectMake(0, 0, 180, self.myTableView.frame.size.height);
     self.options = @[@"My Profile", @"Settings", @"About", @"Logout", @"Loom™"];
-    // Do any additional setup after loading the view.
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -63,11 +62,6 @@
     return self.options.count;
 }
 
-//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    return @"Menu";
-//}
-//
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 50;
@@ -158,10 +152,7 @@
 
 -(void)logoutUserInBackround
 {
-    NSLog(@"logging out user");
-    
     [PFUser logOut];
-    
     MMDrawerController* draw = (id)self.view.window.rootViewController;
     [draw toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
     UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];

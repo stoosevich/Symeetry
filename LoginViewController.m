@@ -36,8 +36,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     if ([PFUser currentUser] != nil) {
-        
-        //[self performSegueWithIdentifier:@"LoginSegue" sender:self];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
@@ -63,9 +61,6 @@
 - (IBAction)onSignUpButtonPressed:(id)sender
 {
     NSMutableArray *viewControllers = NSMutableArray.new;
-    //    for (int i = 1; i <= 10; i++) {
-    //       [viewControllers addObject:[NumberedViewController.alloc initWithNumber:@(i)]];
-    //    }
     
     //get a reference to the storyboard
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
@@ -75,9 +70,6 @@
     
     UIViewController* storyViewController = [storyboard instantiateViewControllerWithIdentifier:@"StoryViewController"];
     [viewControllers addObject:storyViewController];
-    
-//    UIViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
-//    [viewControllers addObject:createViewController];
     
     CreateNewUserViewController* createViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateNewUserViewController"];
     createViewController.signedUp = NO;

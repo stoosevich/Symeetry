@@ -39,10 +39,7 @@
 {
     [super viewDidLoad];
     
-    self.supportedProximityUUIDs = [[Defaults sharedDefaults]supportedProximityUUIDs];
-    
-    NSLog(@"uuids %@", self.supportedProximityUUIDs);
-    
+    self.supportedProximityUUIDs = [[Defaults sharedDefaults]supportedProximityUUIDs];    
     self.uuid1TextField.delegate =  self;
     self.uuid2TextField.delegate =  self;
     self.uuid3TextField.delegate =  self;

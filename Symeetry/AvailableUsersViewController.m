@@ -155,10 +155,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  
         //start monitoring all known regions
         [self.locationManager startMonitoringForRegion:region];
-        //[self.locationManager startRangingBeaconsInRegion:region];
+        [self.locationManager startRangingBeaconsInRegion:region];
     }
-    
-    //NSLog(@"monitoring region call ended");
 }
 
 
@@ -267,7 +265,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 {
     if ([[segue identifier] isEqualToString:@"showProfileDetail"])
     {
-        NSLog(@"prepare for segue\n");
         NSIndexPath *indexPath = [self.availableUsersTableView indexPathForSelectedRow];
         ProfileViewController* viewController = segue.destinationViewController;
         viewController.user = self.users[indexPath.row];
@@ -284,12 +281,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  */
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    //NSString* formatString = [NSString stringWithFormat:@"local entered region:%@",region.identifier];
-    
-    //[self showRegionStateAlertScreen:formatString];
-    
-    //NSLog(@"didEnterRegion begin");
-    
     if (![self.activeRegions containsObject:region])
     {
         //if the user is already checkedin, then add the new region entered
@@ -300,8 +291,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         //whenever a user enters a new region, update their location
         [ParseManager setUsersPFGeoPointLocation];
     }
-    
-    //NSLog(@"didEnterRegion end");
 }
 
 
@@ -310,15 +299,9 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  */
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    //NSString* formatString = [NSString stringWithFormat:@"region\n%@",region.identifier];
-    
-    //[self showRegionStateAlertScreen:formatString];
-    
-    //NSLog(@"didExitRegion begin");
-    
+
     if ([self.activeRegions containsObject:region])
     {
-        
         [ParseManager setUsersPFGeoPointLocation];
         [self.activeRegions removeObject:region];
         
@@ -332,8 +315,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         //update the list of available
         [self getUserWithSimlarityRank];
     }
- 
-    //NSLog(@"didExitRegion end");
 }
 
 
@@ -347,7 +328,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     {
         [self.activeRegions addObject:region];
         [self getUserWithSimlarityRank];
-        //NSLog(@"didRangeBeacons: active regions %@", self.activeRegions);
     }
     
     
@@ -405,7 +385,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         {
             beacons = self.beacons[@(CLProximityImmediate)];
             currentBeacon = beacons.firstObject;
-            //send information to parse
         }
         else if (self.beacons[@(CLProximityNear)])
         {
@@ -504,12 +483,9 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  */
 - (void)getUserWithSimlarityRank
 {
-    //NSLog(@"begin asynch call for similarity");
-    
+
     [self getCurrentUserInterestWithCompletion:^(PFObject *object, NSError *error)
      {
-         //PFUser* user = object;
-         
          if(object)
          {
              NSDictionary* currentUserInterests = [ParseManager convertPFObjectToNSDictionary:object[@"interests"]];
@@ -525,17 +501,10 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  */
 - (void)calculateSimilarity:(NSDictionary*)currentUserInterests
 {
-    
-    //NSLog(@"calculateSimilarity currentUserInterests");
     [self calculateSimilarity:currentUserInterests forRegions:self.activeRegions withCompletion:^(NSArray *objects, NSError *error)
     {
-
         NSDictionary* otherUserInterests = nil;
-        
-    
-        
-        //NSLog(@"begin For Loop for user comparison");
-        
+
         //loop through the list of users return for the regions with beacons
         for(PFObject* user in objects)
         {
@@ -581,13 +550,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
                     return similarity;
                 };
                 
-                //call a block function to calculate the similarity of the two users
-                //NSLog(@"begin similary calculation");
-                
+                //call a block function to calculate the similarity of the two user
                 user[@"similarityIndex"] = [NSNumber numberWithInt:similarityCalculation(currentUserInterests,otherUserInterests)];
-                
-                
-                //NSLog(@"end similary calculation");
             }
         }
        
@@ -601,8 +565,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            //[self.availableUsersTableView reloadData];
-            //NSLog(@"user retrieval complete");
+            [self.availableUsersTableView reloadData];
         });
         
     }];
@@ -613,19 +576,14 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 //get the list of user by region asyncronously from parse
 - (void)calculateSimilarity:(NSDictionary*)interest forRegions:(NSArray*)regions withCompletion:(MyCompletion)completion
 {
-    
-    //NSLog(@"regions value %@", self.activeRegions);
-    
+
     if (regions.count)//if there are no regions, then stop
     {
         [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
          {
-             //NSLog(@"calculateSimilarity: regions completion inside block ");
-             //NSLog(@"calculateSimilarity: regions completion block error %@",[error userInfo]);
              completion(objects,error);
              
              dispatch_async(dispatch_get_main_queue(), ^{
-                 //NSLog(@"reload data calculateSimilarity forRegions withCompletion block return");
                  [self.availableUsersTableView reloadData];
                  
              });
@@ -640,8 +598,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     //NSLog(@"getCurrentUserInterestWithComplettion");
     [ParseManager getUserInterest:[PFUser currentUser] WithCompletion:^(PFObject *object, NSError *error)
      {
-         //NSLog(@"getCurrentUserInterestWithComplettion completion inside block");
-         //NSLog(@"getCurrentUserInterestWithComplettion completion block error %@",[error userInfo]);
          completion(object,error);
      }];
     
