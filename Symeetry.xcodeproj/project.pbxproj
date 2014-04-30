@@ -127,6 +127,11 @@
 		CE66E60D1904639900C295E0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE66E60C1904639900C295E0 /* Images.xcassets */; };
 		CE6748661901D58600F05121 /* Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6748651901D58600F05121 /* Defaults.m */; };
 		CE6935AB19103CE10065769B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935AA19103CE10065769B /* AboutViewController.m */; };
+		CE6935B519109C130065769B /* BeaconUUIDListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935B019109C130065769B /* BeaconUUIDListViewController.m */; };
+		CE6935B619109C130065769B /* BeaconDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935B219109C130065769B /* BeaconDetailViewController.m */; };
+		CE6935B719109C130065769B /* AddBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935B419109C130065769B /* AddBeaconViewController.m */; };
+		CE6935BA19109EAB0065769B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935B919109EAB0065769B /* SettingViewController.m */; };
+		CE6935BD1910A3040065769B /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935BC1910A3040065769B /* ResetPasswordViewController.m */; };
 		CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */; };
 		CE7561E31905ABBC00611B93 /* SymeetryPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */; };
 		CE759C55190F348500231FE6 /* SimilarityAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = CE759C54190F348500231FE6 /* SimilarityAlgorithm.m */; };
@@ -194,7 +199,7 @@
 		81882A0218FC8AEE00724B79 /* InterestsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InterestsCollectionViewCell.m; path = Symeetry/InterestsCollectionViewCell.m; sourceTree = "<group>"; };
 		81882A0718FC8DFE00724B79 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		81882A0918FC8E0D00724B79 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		81882A0D18FC923300724B79 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
+		81882A0D18FC923300724B79 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileHeaderView.xib; path = Symeetry/ProfileHeaderView.xib; sourceTree = "<group>"; };
 		81882A0F18FC96F000724B79 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		81882A1118FC96F800724B79 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		81882A1318FC972500724B79 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -303,6 +308,16 @@
 		CE6748651901D58600F05121 /* Defaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Defaults.m; path = Symeetry/Defaults.m; sourceTree = "<group>"; };
 		CE6935A919103CE10065769B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = Symeetry/AboutViewController.h; sourceTree = "<group>"; };
 		CE6935AA19103CE10065769B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Symeetry/AboutViewController.m; sourceTree = "<group>"; };
+		CE6935AF19109C130065769B /* BeaconUUIDListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconUUIDListViewController.h; sourceTree = "<group>"; };
+		CE6935B019109C130065769B /* BeaconUUIDListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconUUIDListViewController.m; sourceTree = "<group>"; };
+		CE6935B119109C130065769B /* BeaconDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconDetailViewController.h; sourceTree = "<group>"; };
+		CE6935B219109C130065769B /* BeaconDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconDetailViewController.m; sourceTree = "<group>"; };
+		CE6935B319109C130065769B /* AddBeaconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBeaconViewController.h; sourceTree = "<group>"; };
+		CE6935B419109C130065769B /* AddBeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBeaconViewController.m; sourceTree = "<group>"; };
+		CE6935B819109EAB0065769B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = Symeetry/SettingViewController.h; sourceTree = "<group>"; };
+		CE6935B919109EAB0065769B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = Symeetry/SettingViewController.m; sourceTree = "<group>"; };
+		CE6935BB1910A3040065769B /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResetPasswordViewController.h; path = Symeetry/ResetPasswordViewController.h; sourceTree = "<group>"; };
+		CE6935BC1910A3040065769B /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResetPasswordViewController.m; path = Symeetry/ResetPasswordViewController.m; sourceTree = "<group>"; };
 		CE730E081906043000FD6F95 /* SymeetryAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryAnnotationView.h; path = Symeetry/SymeetryAnnotationView.h; sourceTree = "<group>"; };
 		CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryAnnotationView.m; path = Symeetry/SymeetryAnnotationView.m; sourceTree = "<group>"; };
 		CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryPointAnnotation.h; path = Symeetry/SymeetryPointAnnotation.h; sourceTree = "<group>"; };
@@ -518,6 +533,17 @@
 				815C10D5190C9E5E00679DD2 /* On-Boarding */,
 				56A6548719085D15001B17AE /* RootViewController.h */,
 				56A6548819085D15001B17AE /* RootViewController.m */,
+				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
+				CE6935BB1910A3040065769B /* ResetPasswordViewController.h */,
+				CE6935BC1910A3040065769B /* ResetPasswordViewController.m */,
+				CE6935B819109EAB0065769B /* SettingViewController.h */,
+				CE6935B919109EAB0065769B /* SettingViewController.m */,
+				CE6935AF19109C130065769B /* BeaconUUIDListViewController.h */,
+				CE6935B019109C130065769B /* BeaconUUIDListViewController.m */,
+				CE6935B119109C130065769B /* BeaconDetailViewController.h */,
+				CE6935B219109C130065769B /* BeaconDetailViewController.m */,
+				CE6935B319109C130065769B /* AddBeaconViewController.h */,
+				CE6935B419109C130065769B /* AddBeaconViewController.m */,
 				CE6935A919103CE10065769B /* AboutViewController.h */,
 				CE6935AA19103CE10065769B /* AboutViewController.m */,
 				CE5A1E6A190C4B4700658E4D /* ContainerViewController.h */,
@@ -598,7 +624,6 @@
 				81AB5B1818FC85890060B17A /* AppDelegate.m */,
 				CE66E60C1904639900C295E0 /* Images.xcassets */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
-				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
 				CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */,
 				81AB5B0F18FC85890060B17A /* Supporting Files */,
 			);
@@ -906,12 +931,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE6935B519109C130065769B /* BeaconUUIDListViewController.m in Sources */,
 				815C10DE190CA6A500679DD2 /* CreateNewUserViewController.m in Sources */,
 				81AB5B1F18FC85890060B17A /* AvailableUsersViewController.m in Sources */,
 				815C10D8190C9E9700679DD2 /* OpeningViewController.m in Sources */,
 				563A1D4E190ED63900923AD4 /* MenuViewController.m in Sources */,
 				815C10DB190CA0E500679DD2 /* StoryViewController.m in Sources */,
 				CE759C55190F348500231FE6 /* SimilarityAlgorithm.m in Sources */,
+				CE6935B619109C130065769B /* BeaconDetailViewController.m in Sources */,
 				56A6548919085D15001B17AE /* RootViewController.m in Sources */,
 				815C10E4190CA6D400679DD2 /* InterestDemoViewController.m in Sources */,
 				81D95E92191036F3002DEE76 /* BiographyViewController.m in Sources */,
@@ -935,13 +962,16 @@
 				CE7D935F190725BF00F3EDC0 /* ChatManager.m in Sources */,
 				81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */,
 				CE5A1E6C190C4B4700658E4D /* ContainerViewController.m in Sources */,
+				CE6935B719109C130065769B /* AddBeaconViewController.m in Sources */,
 				81882A0018FC88BD00724B79 /* InterestsViewController.m in Sources */,
 				CE759C58190F37E600231FE6 /* ProfileTableViewCell.m in Sources */,
 				815C10E7190CBE7900679DD2 /* NumberedViewController.m in Sources */,
+				CE6935BD1910A3040065769B /* ResetPasswordViewController.m in Sources */,
 				815C10E1190CA6BC00679DD2 /* CameraViewController.m in Sources */,
 				5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */,
 				8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */,
 				81D0E71E190F491F00619C78 /* PhotoViewController.m in Sources */,
+				CE6935BA19109EAB0065769B /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
