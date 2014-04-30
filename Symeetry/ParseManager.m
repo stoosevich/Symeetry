@@ -508,6 +508,18 @@
     }];
 }
 
++ (void)optIn
+{
+    [PFUser currentUser][@"hidden" ]= @NO;
+    [[PFUser currentUser]saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if(error)
+        {
+            
+        }
+    }];
+}
+
 
 /*
  * reset the user's password view Parse standard method call

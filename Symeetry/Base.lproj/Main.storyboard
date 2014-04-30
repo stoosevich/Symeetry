@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="I7W-PH-0GR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="I7W-PH-0GR">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -562,7 +562,7 @@
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TMF-3J-vmK" id="wWR-5T-vGL">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -795,7 +795,7 @@
                                 </state>
                                 <connections>
                                     <action selector="onAddPhotoButtonPressed:" destination="jF0-V9-dao" eventType="touchUpInside" id="PFj-kJ-utY"/>
-                                    <segue destination="HCd-yk-2eW" kind="modal" id="jSt-kI-drQ"/>
+                                    <action selector="onCamuraButtonPressed:" destination="jF0-V9-dao" eventType="touchUpInside" id="2Yz-Uf-ITq"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_welcome_face.png" translatesAutoresizingMaskIntoConstraints="NO" id="tsK-41-9ZS">
@@ -837,7 +837,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cf-zJ-oBB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1811" y="1441"/>
+            <point key="canvasLocation" x="1816" y="1446"/>
         </scene>
         <!--Interest Demo View Controller-->
         <scene sceneID="WEg-dh-eC2">
@@ -1074,7 +1074,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4SC-Eb-Q27" userLabel="Button - Change Picture">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4SC-Eb-Q27" userLabel="Button - Change Picture">
                                         <rect key="frame" x="60" y="68" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1124,7 +1124,7 @@
                                         <rect key="frame" x="92" y="329" width="97" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="269-ie-meW">
                                         <rect key="frame" x="40" y="398" width="240" height="128"/>
@@ -1132,7 +1132,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                     </textView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Bio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jfr-b9-F6A">
                                         <rect key="frame" x="20" y="367" width="280" height="32"/>
@@ -1175,6 +1175,7 @@
                         <outlet property="femaleButton" destination="GP8-bZ-iA8" id="8l8-A3-FLS"/>
                         <outlet property="fullPageView" destination="75w-Re-Jdn" id="cEQ-ZW-9t4"/>
                         <outlet property="maleButton" destination="GP8-bZ-iA8" id="foC-oP-bfo"/>
+                        <outlet property="userImage" destination="mxp-rJ-GRW" id="amF-Cv-Nfg"/>
                         <outlet property="usernameTextField" destination="you-B9-he9" id="CO0-DN-a4R"/>
                     </connections>
                 </viewController>
@@ -1724,6 +1725,7 @@
                     </view>
                     <connections>
                         <outlet property="backButton" destination="xQ6-6m-4x2" id="aQP-Ji-D3K"/>
+                        <outlet property="settingsTableView" destination="opJ-DL-2Ov" id="baY-he-QZw"/>
                         <segue destination="Vyh-6A-CNA" kind="push" identifier="showUUIDs" id="Llv-ZE-dHu"/>
                         <segue destination="fb2-bg-fWR" kind="push" identifier="showResetPassword" id="aTb-uD-ywd"/>
                     </connections>

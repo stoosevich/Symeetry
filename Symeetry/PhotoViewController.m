@@ -43,6 +43,11 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
     if (self.editing) {
         self.userImage.image = [[ParseManager currentUser] objectForKey:@"photo"];
     }

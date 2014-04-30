@@ -7,6 +7,7 @@
 //
 
 #import "CameraViewController.h"
+#import "PhotoViewController.h"
 
 @interface CameraViewController ()
 
@@ -49,6 +50,15 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)onCamuraButtonPressed:(id)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIViewController* photoViewController = [storyboard instantiateViewControllerWithIdentifier:@"PhotoViewController"];
+    photoViewController.editing = NO;
+    [self presentViewController:photoViewController animated:YES completion:nil];
+    //CameraSetOnBoardingModalSegue
+    
 }
 
 /*
