@@ -64,9 +64,7 @@
             
         }
         else {
-            NSLog(@"saving");
             completionBlock();
-            NSLog(@"saved");
         }
     }];
 }
@@ -83,9 +81,7 @@
     PFQuery* query = [PFUser query];
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
     [query whereKey:@"hidden" equalTo:@NO];
-    NSLog(@"Get Users: finding objects");
     [query findObjects];
-    NSLog(@"Get Users: found objects");
 }
 
 
@@ -101,12 +97,10 @@
     PFQuery* query = [PFUser query];
     [query whereKey:@"objectId" notEqualTo:[[PFUser currentUser] objectId]];
     [query whereKey:@"hidden" equalTo:@NO];
-    NSLog(@"Get Users With Completion: finding objects");
+
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
          completion(objects, error);
-         NSLog(@"Get Users With Completion: found objects");
-
      }];
 }
 
@@ -145,8 +139,6 @@
     //NSLog(@"Finding users in Local Vicinity");
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
-        //NSLog(@"Found users in Local Vicinity");
-        //NSLog(@"PARSE: retrieveUsersInLocalVicinityWithSimilarity findObjectsInBackgroundWithBlock");
         completion(objects,error);
     }];
 
@@ -174,11 +166,8 @@
         PFUser* user = objects.firstObject;
         
         //update the category with the new value
-        
         PFObject* interests = user[@"interests"];
-        
-        //NSLog(@"PARSE: key: %@  slider value %i",key, value);
-        
+
         interests[key] = [NSNumber numberWithInt:value];
         
         [interests saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -207,7 +196,6 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
-         //NSLog(@"getUserInterest - findObjectsInBackgroundWithBlock");
          completion(objects,error);
      }];
 }
@@ -286,8 +274,7 @@
     
     if (userGeoPoint)
     {
-        
-        
+
         // Create a query for places
         PFQuery *query = [PFUser query];
         
@@ -326,13 +313,13 @@
             {
                 if (error)
                 {
-                    NSLog(@"error: %@",[error userInfo]);
+                    
                 }
             }];
         }
         else
         {
-            NSLog(@"error: %@",[error userInfo]);
+            
         }
     }];
 }
@@ -344,14 +331,11 @@
 {
     if (beacon == nil)
     {
-        
-        NSLog(@"setting nearest beacon to nil");
         [PFUser currentUser][@"nearestBeacon"] = @"";
         [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:0.0f];
         [PFUser currentUser][@"major"] = [NSNumber numberWithInt:0];
         [PFUser currentUser][@"minor"] = [NSNumber numberWithInt:0];
     }
-    
     [[PFUser currentUser] save];
 }
 
@@ -362,11 +346,9 @@
  */
 +(void)updateUserNearestBeacon:(CLBeacon*)beacon
 {
-    NSLog(@"updating nearest beacon");
-    
     if (beacon == nil)
     {
-        [PFUser currentUser][@"nearestBeacon"] = @"EMPTYUUIDSTRING";
+        [PFUser currentUser][@"nearestBeacon"] = @"";
         [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:0.0f];
         [PFUser currentUser][@"major"] = [NSNumber numberWithInt:0];
         [PFUser currentUser][@"minor"] = [NSNumber numberWithInt:0];
@@ -397,8 +379,7 @@
 {
     if (beacon == nil)
     {
-        
-        [PFUser currentUser][@"nearestBeacon"] = @"EMPTYUUIDSTRING";
+        [PFUser currentUser][@"nearestBeacon"] = @"";
         [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:0.0f];
         [PFUser currentUser][@"major"] = [NSNumber numberWithInt:0];
         [PFUser currentUser][@"minor"] = [NSNumber numberWithInt:0];
@@ -429,13 +410,8 @@
     [query whereKey:@"major" equalTo:beacon.major];
     [query whereKey:@"minor" equalTo:beacon.minor];
     
-    //NSLog(@"beacon info uuid:%@  major:%@ minor:%@",beacon.proximityUUID, beacon.major, beacon.minor);
-    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
-         
-         //NSLog(@"objects %@ %lu", objects, (unsigned long)objects.count);
-         
          //first check if the beacon is in Parse, if not add it, otherwise update it
          if (objects.count == 0)
          {
@@ -452,8 +428,6 @@
          }
          else if (objects.count > 0)
          {
-             //NSLog(@"Saving beacon");
-             
              [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
               {
                   if (geoPoint)

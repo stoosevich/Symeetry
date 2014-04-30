@@ -27,14 +27,12 @@
 
 + (ProfileHeaderView *)newViewFromNib:(NSString*)viewName
 {
-     NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"ProfileHeaderView" owner:nil options:nil];
+    NSArray *nibViews = [[NSBundle mainBundle] loadNibNamed:@"ProfileHeaderView" owner:nil options:nil];
     
     ProfileHeaderView* view = nibViews.firstObject;
     view.nameTextField.enabled = NO;
     view.ageTextField.enabled = NO;
-    //view.genderTextField.enabled = NO;
     view.nameTextField.keyboardAppearance = UIKeyboardAppearanceDark;
-    //view.genderTextField.keyboardAppearance = UIKeyboardAppearanceDark;
     view.ageTextField.keyboardAppearance = UIKeyboardAppearanceDark;
     
     return view;
