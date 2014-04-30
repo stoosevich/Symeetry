@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Parse/Parse.h"
 
 @interface InterestsCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
@@ -16,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *rankTestLabel;
 @property NSMutableDictionary* chosenInterests;
 @property (strong, nonatomic) IBOutlet UIView *backgroundView;
+@property PFObject* currentUsersInterests;
 
 
 @end

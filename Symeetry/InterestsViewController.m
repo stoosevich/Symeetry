@@ -20,6 +20,8 @@
 //@property NSMutableDictionary* chosenInterests;
 @property NSArray* images;
 @property NSArray* interestNames;
+@property NSMutableArray* interests;
+@property PFObject* myInterests;
 //@property UISwipeGestureRecognizer *swipeLeftRecognizer;
 //@property UISwipeGestureRecognizer *swipeRightRecognizer;
 
@@ -27,10 +29,25 @@
 
 @implementation InterestsViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.interests removeAllObjects];
+    [ParseManager getUserInterest:[PFUser currentUser] WithCompletion:^(PFObject *object, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.myInterests = object;
+            for (NSString*string in self.interestNames) {
+                NSNumber* number = [object objectForKey:string];
+                [self.interests addObject:number];
+            }
+            [self.interestsCollectionView reloadData];
+        });
+    }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+        
  //   self.interestsCollectionView.backgroundColor = [UIColor orangeColor];
 
     self.interestsCollectionView.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f blue:217.f/255.f alpha:1];
@@ -44,6 +61,8 @@
    self.images = @[[UIImage imageNamed:@"music_note240x240"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"Food_crop.jpg"], [UIImage imageNamed:@"school.jpg"], [UIImage imageNamed:@"dancing.jpg"], [UIImage imageNamed:@"books.jpg"], [UIImage imageNamed:@"tv.jpg"], [UIImage imageNamed:@"art.jpg"], [UIImage imageNamed:@"technology.jpg"], [UIImage imageNamed:@"games.jpg"], [UIImage imageNamed:@"fashion.jpg"], [UIImage imageNamed:@"volunteer.jpg"]];
     
     self.interestNames = @[@"music", @"movies", @"food", @"school", @"dancing", @"books", @"tv", @"art", @"technology", @"games", @"fashion", @"volunteer"];
+    self.interests = [NSMutableArray new];
+
 }
 
 // Add animation to cells
@@ -95,6 +114,8 @@
     cell.imageView.image = self.images[indexPath.row];
     cell.interestTextField.text = self.interestNames[indexPath.row];
     cell.backgroundView.backgroundColor = [UIColor whiteColor];
+    cell.interestSlider.value = [self.interests[indexPath.row] floatValue];
+    cell.currentUsersInterests = self.myInterests;
   //  cell.backgroundColor = [UIColor blueColor];
  //   cell.backgroundColor = [UIColor colorWithRed:186 green:228 blue:217 alpha:1];
     

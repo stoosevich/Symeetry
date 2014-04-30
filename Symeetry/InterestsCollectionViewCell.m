@@ -30,16 +30,21 @@
 
 - (IBAction)adjustInterest:(UISlider*)sender {
     
-    self.chosenInterests = [NSMutableDictionary new];
+    NSNumber* number = @(sender.value);
+    
+//    self.chosenInterests = [NSMutableDictionary new];
     self.rankTestLabel.text = [NSString stringWithFormat:@"%d", (int)self.interestSlider.value];
-    [self.chosenInterests setObject:@((int)self.interestSlider.value) forKey:self.interestTextField.text];
-    NSLog(@"%@", self.chosenInterests);
+//    [self.chosenInterests setObject:@((int)self.interestSlider.value) forKey:self.interestTextField.text];
+//    NSLog(@"%@", self.chosenInterests);
     
     //Change background color with slider
     NSArray *backgroundColors = [[NSArray alloc]initWithObjects:[UIColor whiteColor],[UIColor blueColor],[UIColor greenColor],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor], nil];
     self.backgroundView.backgroundColor = [backgroundColors objectAtIndex:sender.value];
     
-    [ParseManager saveUserInterestsByKey:self.interestTextField.text withValue:(int)self.interestSlider.value];
+    [self.currentUsersInterests setObject:number forKey:self.interestTextField.text];
+    [self.currentUsersInterests saveInBackground];
+    
+//    [ParseManager saveUserInterestsByKey:self.interestTextField.text withValue:(int)self.interestSlider.value];
 
 }
 

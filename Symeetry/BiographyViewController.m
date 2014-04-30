@@ -13,6 +13,8 @@
 @interface BiographyViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *myBioTextView;
 @property (weak, nonatomic) IBOutlet UITextField *ageTextField;
+@property (weak, nonatomic) IBOutlet UIButton *femaleButton;
+@property (weak, nonatomic) IBOutlet UIButton *maleButton;
 @property BOOL gender;
 @end
 // test commit
@@ -40,14 +42,27 @@
 }
 - (IBAction)onMaleButtonPressed:(id)sender
 {
+    self.maleButton.enabled = NO;
+    self.femaleButton.enabled = NO;
+
     self.gender = NO;
     [[PFUser currentUser]setObject:@NO forKey:@"gender"];
+    self.maleButton.enabled = YES;
+    self.femaleButton.enabled = YES;
+
     
 }
 - (IBAction)onFemaleButtonPressed:(id)sender
 {
+    self.maleButton.enabled = NO;
+    self.femaleButton.enabled = NO;
+
     self.gender = YES;
     [[PFUser currentUser]setObject:@YES forKey:@"gender"];
+    
+    self.maleButton.enabled = YES;
+    self.femaleButton.enabled = YES;
+
 
 }
 
