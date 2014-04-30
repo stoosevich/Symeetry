@@ -201,6 +201,9 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     [[ChatManager sharedChatManager] checkoutChat];
+    
+    //set the users nearest beacon to nil
+    [ParseManager updateUserNearestBeacon:nil];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

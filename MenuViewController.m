@@ -88,24 +88,19 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+
     if (indexPath.row == 3)
     {
-        NSLog(@"set nearest beacon to nil");
-        
-        [ParseManager updateUserNearestBeacon:nil];
-        
-        NSTimer* logoutTimer = [[NSTimer alloc]initWithFireDate:[NSDate date] interval:20 target:nil selector:@selector(logoutCurrentUser) userInfo:nil repeats:NO];
-        
-        NSRunLoop *runner = [NSRunLoop currentRunLoop];
-        [runner addTimer:logoutTimer forMode: NSDefaultRunLoopMode];
+        [PFUser logOut];
         
         MMDrawerController* draw = (id)self.view.window.rootViewController;
         [draw toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
         UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
         [self presentViewController:login animated:YES completion:nil];
+        
         [ChatManager sharedChatManager].on = NO;
         [[ChatManager sharedChatManager] checkoutChat];
-        
 
     }
     else if(indexPath.row == self.options.count - 1)
@@ -154,10 +149,5 @@
     }
 }
 
-- (void)logoutCurrentUser
-{
-    [PFUser logOut];
-    NSLog(@"logging out user");
-}
 
 @end
