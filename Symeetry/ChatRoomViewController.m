@@ -32,8 +32,8 @@
     NSError* error = [NSError new];
     self.firstTimeTyping = YES;
     [[ChatManager sharedChatManager] setConnectedblock:^{
-        
-        
+        [[ChatManager sharedChatManager]sendPhoto:data peer:self.peerID error:error sent:nil];
+
         
                 }
                 connectingBlock:^{
@@ -60,10 +60,11 @@
                     }
                     else{
                         self.theirPicture = image;
+                        NSLog(@"%@",data);
+                        [self.chatRoomTableView reloadData];
                     }
 
                 }];
-    [[ChatManager sharedChatManager]sendPhoto:data peer:self.peerID error:error sent:nil];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
