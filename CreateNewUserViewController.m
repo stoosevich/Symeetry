@@ -105,16 +105,27 @@
         [newUser setObject:@NO forKey:@"gender"];
         [newUser setObject:@(0) forKey:@"age"];
         [newUser setObject:@"" forKey:@"biography"];
+        [newUser setObject:@NO forKey:@"hidden"];
+        [newUser setObject:@"NOT_INITIALIZED" forKey:@"nearestBeacon"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSError* error = [NSError new];
             [newUser signUp:&error];
-            if (!error)
+            
+            if (error)
             {
-                UIAlertView* taken = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"That username and/or email is taken, please try different one" delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
-                [taken show];
+                if ([error code] == 202)
+                {
+                    [self raiseUserNameTakenAlert];
+                }
+                
+                else
+                {
+                    [self raiseParseErrorAlert:error];
+                }
+
             }
-            else
+            else if(!error)
             {
                 PFObject* interest = [PFObject objectWithClassName:@"Interests"];
                 [interest setObject:newUser.objectId forKey:@"userid"];
@@ -148,5 +159,18 @@
     self.signUpButton.enabled = YES;
 }
 
+-(void)raiseUserNameTakenAlert
+{
+    UIAlertView* taken = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"That username and/or email is taken, please try different one" delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
+    [taken show];
+}
 
+-(void)raiseParseErrorAlert:(NSError*)error
+{
+    NSString* errorString = [NSString stringWithFormat:@"An error has occured, please try again\n: %@",[error userInfo]];
+    
+    //raise alert with Parse error message
+    UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertView show];
+}
 @end
