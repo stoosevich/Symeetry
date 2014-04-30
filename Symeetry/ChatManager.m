@@ -234,6 +234,7 @@
                 [vc presentViewController:cRVC animated:YES completion:^{
                     NSLog(@"worked");
                     NSLog(@"%@", cRVC.peerID.displayName);
+                    self.connected();
                 }];
                 //self.connected();
             });
