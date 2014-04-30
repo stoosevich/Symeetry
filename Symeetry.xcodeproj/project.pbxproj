@@ -113,6 +113,7 @@
 		81D0E71E190F491F00619C78 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D0E71D190F491F00619C78 /* PhotoViewController.m */; };
 		81D95E8F19103510002DEE76 /* music_rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D95E8E19103510002DEE76 /* music_rainbow.png */; };
 		81D95E92191036F3002DEE76 /* BiographyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D95E91191036F3002DEE76 /* BiographyViewController.m */; };
+		81D95E95191079C4002DEE76 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D95E94191079C4002DEE76 /* EditProfileViewController.m */; };
 		CE3EC3A7190803DE00DCB671 /* MapCallOutView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EC3A6190803DE00DCB671 /* MapCallOutView.m */; };
 		CE3EC3A9190806BC00DCB671 /* MapCallOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */; };
 		CE562EC718FCCF7F00DDB3D3 /* dennis.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */; };
@@ -281,6 +282,8 @@
 		81D95E8E19103510002DEE76 /* music_rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = music_rainbow.png; sourceTree = "<group>"; };
 		81D95E90191036F3002DEE76 /* BiographyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BiographyViewController.h; path = Symeetry/BiographyViewController.h; sourceTree = "<group>"; };
 		81D95E91191036F3002DEE76 /* BiographyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BiographyViewController.m; path = Symeetry/BiographyViewController.m; sourceTree = "<group>"; };
+		81D95E93191079C4002DEE76 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditProfileViewController.h; path = Symeetry/EditProfileViewController.h; sourceTree = "<group>"; };
+		81D95E94191079C4002DEE76 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditProfileViewController.m; path = Symeetry/EditProfileViewController.m; sourceTree = "<group>"; };
 		C5524F3CF1B74DF19CAA246F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CE3EC3A5190803DE00DCB671 /* MapCallOutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapCallOutView.h; path = Symeetry/MapCallOutView.h; sourceTree = "<group>"; };
 		CE3EC3A6190803DE00DCB671 /* MapCallOutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapCallOutView.m; path = Symeetry/MapCallOutView.m; sourceTree = "<group>"; };
@@ -518,6 +521,8 @@
 				815C10D5190C9E5E00679DD2 /* On-Boarding */,
 				56A6548719085D15001B17AE /* RootViewController.h */,
 				56A6548819085D15001B17AE /* RootViewController.m */,
+				81D95E93191079C4002DEE76 /* EditProfileViewController.h */,
+				81D95E94191079C4002DEE76 /* EditProfileViewController.m */,
 				CE6935A919103CE10065769B /* AboutViewController.h */,
 				CE6935AA19103CE10065769B /* AboutViewController.m */,
 				CE5A1E6A190C4B4700658E4D /* ContainerViewController.h */,
@@ -723,7 +728,6 @@
 					};
 					81AB5B0418FC85890060B17A = {
 						DevelopmentTeam = S264RF7436;
-
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -908,6 +912,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				815C10DE190CA6A500679DD2 /* CreateNewUserViewController.m in Sources */,
+				81D95E95191079C4002DEE76 /* EditProfileViewController.m in Sources */,
 				81AB5B1F18FC85890060B17A /* AvailableUsersViewController.m in Sources */,
 				815C10D8190C9E9700679DD2 /* OpeningViewController.m in Sources */,
 				563A1D4E190ED63900923AD4 /* MenuViewController.m in Sources */,
