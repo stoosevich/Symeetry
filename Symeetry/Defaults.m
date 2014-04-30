@@ -72,11 +72,7 @@ NSString *BeaconIdentifier = @"com.Symeetry.beacon";
     //get the URL for the plist, and append a name for the plist
     NSURL *plist = [[self documentsDirectory]URLByAppendingPathComponent:@"proximityUUIDs.plist"];
     
-    //wrtie the array contents to the file structure
-    //[self.dictionary writeToURL:plist atomically:YES];
-    
     //NSUUID ARE NOT SUPPROTED OBJECT TYPES FOR A PLIST!!!!
-    
     NSMutableArray *temp = [[NSMutableArray alloc]initWithCapacity:10];
     
     for (NSUUID* uuid in self.supportedProximityUUIDs)
@@ -101,7 +97,6 @@ NSString *BeaconIdentifier = @"com.Symeetry.beacon";
     NSURL* plist = [[self documentsDirectory]URLByAppendingPathComponent:@"proximityUUIDs.plist"];
     
     //load the array with the contents of the plist
-    //self.dictionary = [NSDictionary dictionaryWithContentsOfURL:plist];
     NSArray *temp = [NSArray arrayWithContentsOfURL:plist];
     NSMutableArray* uuids = [[NSMutableArray alloc]initWithCapacity:10];
     
