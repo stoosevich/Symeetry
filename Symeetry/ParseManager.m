@@ -142,10 +142,10 @@
     //sort by by user name, this will be resorted once the similarity index is assigned
     [query addAscendingOrder:@"username"];
     
-    NSLog(@"Finding users in Local Vicinity");
+    //NSLog(@"Finding users in Local Vicinity");
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
     {
-        NSLog(@"Found users in Local Vicinity");
+        //NSLog(@"Found users in Local Vicinity");
         //NSLog(@"PARSE: retrieveUsersInLocalVicinityWithSimilarity findObjectsInBackgroundWithBlock");
         completion(objects,error);
     }];
@@ -346,18 +346,32 @@
  */
 +(void)updateUserNearestBeacon:(CLBeacon*)beacon
 {
+    NSLog(@"updating nearest beacon");
     
-    NSString* uuidString = [beacon.proximityUUID UUIDString];
-    [PFUser currentUser][@"nearestBeacon"] = uuidString;
-    [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:beacon.accuracy];
-    [PFUser currentUser][@"major"] = beacon.major;
-    [PFUser currentUser][@"minor"] = beacon.minor;
+    if (beacon == nil)
+    {
+        [PFUser currentUser][@"nearestBeacon"] = @"EMPTYUUIDSTRING";
+        [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:0.0f];
+        [PFUser currentUser][@"major"] = [NSNumber numberWithInt:0];
+        [PFUser currentUser][@"minor"] = [NSNumber numberWithInt:0];
+    }
+    else
+    {
+        [PFUser currentUser][@"nearestBeacon"] = [beacon.proximityUUID UUIDString];
+        [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:beacon.accuracy];
+        [PFUser currentUser][@"major"] = beacon.major;
+        [PFUser currentUser][@"minor"] = beacon.minor;
+    }
     
     [[PFUser currentUser]saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
      {
          if (error)
          {
              //handle eror
+             
+         }
+         else{
+             
          }
      }];
 }
@@ -368,7 +382,7 @@
     if (beacon == nil)
     {
         
-        [PFUser currentUser][@"nearestBeacon"] = @"";
+        [PFUser currentUser][@"nearestBeacon"] = @"EMPTYUUIDSTRING";
         [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:0.0f];
         [PFUser currentUser][@"major"] = [NSNumber numberWithInt:0];
         [PFUser currentUser][@"minor"] = [NSNumber numberWithInt:0];
@@ -399,12 +413,12 @@
     [query whereKey:@"major" equalTo:beacon.major];
     [query whereKey:@"minor" equalTo:beacon.minor];
     
-    NSLog(@"beacon info uuid:%@  major:%@ minor:%@",beacon.proximityUUID, beacon.major, beacon.minor);
+    //NSLog(@"beacon info uuid:%@  major:%@ minor:%@",beacon.proximityUUID, beacon.major, beacon.minor);
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
          
-         NSLog(@"objects %@ %lu", objects, (unsigned long)objects.count);
+         //NSLog(@"objects %@ %lu", objects, (unsigned long)objects.count);
          
          //first check if the beacon is in Parse, if not add it, otherwise update it
          if (objects.count == 0)
@@ -422,7 +436,7 @@
          }
          else if (objects.count > 0)
          {
-             NSLog(@"Saving beacon");
+             //NSLog(@"Saving beacon");
              
              [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error)
               {

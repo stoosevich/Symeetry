@@ -224,7 +224,9 @@
 {
 
     //set the users nearest beacon to nil
-    [ParseManager updateUserNearestBeacon:nil];
+    [ParseManager updateUserNearestBeaconOnLogout:nil withCompletion:^(BOOL succeeded, NSError *error) {
+        
+    }];
 
 }
 

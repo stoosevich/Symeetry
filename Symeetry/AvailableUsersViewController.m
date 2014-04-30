@@ -98,6 +98,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    
     // Stop ranging when the view disappears
     for (CLBeaconRegion *region in self.rangedRegions)
     {
@@ -344,7 +345,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     {
         [self.activeRegions addObject:region];
         [self getUserWithSimlarityRank];
-        NSLog(@"didRangeBeacons: active regions %@", self.activeRegions);
+        //NSLog(@"didRangeBeacons: active regions %@", self.activeRegions);
     }
     
     
