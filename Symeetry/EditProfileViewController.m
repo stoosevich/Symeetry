@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
 @property (strong, nonatomic) IBOutlet UIButton *maleButton;
 @property (strong, nonatomic) IBOutlet UIButton *femaleButton;
+@property (strong, nonatomic) IBOutlet UIButton *changePictureButton;
 @property (strong, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *ageTextField;
 @property (strong, nonatomic) IBOutlet UITextView *bioTextView;
@@ -52,5 +53,9 @@
 
 - (IBAction)onMaleButtonPressed:(id)sender {
 }
+
+- (IBAction)onChangePictureButtonPressed:(id)sender {
+}
+
 
 @end
