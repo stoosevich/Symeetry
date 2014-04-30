@@ -53,6 +53,7 @@
 		81A30991190030CB00963305 /* tv.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81A30986190030CB00963305 /* tv.jpg */; };
 		81A30992190030CB00963305 /* volunteer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81A30987190030CB00963305 /* volunteer.jpg */; };
 		81A3099419003E7000963305 /* interests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81A3099319003E7000963305 /* interests.plist */; };
+		81A385A219119A29007B5870 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A385A119119A29007B5870 /* EditProfileViewController.m */; };
 		81AB5B0918FC85890060B17A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0818FC85890060B17A /* Foundation.framework */; };
 		81AB5B0B18FC85890060B17A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0A18FC85890060B17A /* CoreGraphics.framework */; };
 		81AB5B0D18FC85890060B17A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0C18FC85890060B17A /* UIKit.framework */; };
@@ -221,6 +222,8 @@
 		81A30986190030CB00963305 /* tv.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tv.jpg; sourceTree = "<group>"; };
 		81A30987190030CB00963305 /* volunteer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = volunteer.jpg; sourceTree = "<group>"; };
 		81A3099319003E7000963305 /* interests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = interests.plist; path = ../interests.plist; sourceTree = "<group>"; };
+		81A385A019119A29007B5870 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditProfileViewController.h; path = Symeetry/EditProfileViewController.h; sourceTree = "<group>"; };
+		81A385A119119A29007B5870 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditProfileViewController.m; path = Symeetry/EditProfileViewController.m; sourceTree = "<group>"; };
 		81AB5B0518FC85890060B17A /* Symeetry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Symeetry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB5B0818FC85890060B17A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		81AB5B0A18FC85890060B17A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -536,6 +539,8 @@
 				815C10D5190C9E5E00679DD2 /* On-Boarding */,
 				56A6548719085D15001B17AE /* RootViewController.h */,
 				56A6548819085D15001B17AE /* RootViewController.m */,
+				81A385A019119A29007B5870 /* EditProfileViewController.h */,
+				81A385A119119A29007B5870 /* EditProfileViewController.m */,
 				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
 				CE6935BB1910A3040065769B /* ResetPasswordViewController.h */,
 				CE6935BC1910A3040065769B /* ResetPasswordViewController.m */,
@@ -940,6 +945,7 @@
 				568BD8D819118DDE007E5013 /* ForgotPassViewController.m in Sources */,
 				81AB5B1F18FC85890060B17A /* AvailableUsersViewController.m in Sources */,
 				815C10D8190C9E9700679DD2 /* OpeningViewController.m in Sources */,
+				81A385A219119A29007B5870 /* EditProfileViewController.m in Sources */,
 				563A1D4E190ED63900923AD4 /* MenuViewController.m in Sources */,
 				815C10DB190CA0E500679DD2 /* StoryViewController.m in Sources */,
 				CE759C55190F348500231FE6 /* SimilarityAlgorithm.m in Sources */,
