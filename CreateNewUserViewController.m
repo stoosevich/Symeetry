@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *comfirmpasswordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
+@property (weak, nonatomic) IBOutlet UIView* textFieldGroup;
 
 @end
 
@@ -42,8 +43,36 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField endEditing:YES];
+    if (textField == self.emailTextField) {
+        [textField endEditing:YES];
+        [self.signUpButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+    }
+    else if (textField == self.usernameTextField) {
+        [self.passwordTextField becomeFirstResponder];
+    }
+    else if (textField == self.passwordTextField) {
+        [self.comfirmpasswordTextField becomeFirstResponder];
+    }
+    else if (textField == self.comfirmpasswordTextField) {
+        [self.emailTextField becomeFirstResponder];
+    }
     return YES;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField == self.usernameTextField) {
+        //nothing
+    }
+    else if(textField == self.passwordTextField){
+        
+    }
+    else if(textField == self.comfirmpasswordTextField){
+        
+    }
+    else if(textField == self.emailTextField){
+        
+    }
 }
 
 - (IBAction)onSignUpButtongPressed:(id)sender
