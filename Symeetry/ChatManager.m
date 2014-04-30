@@ -56,9 +56,7 @@
      {
          if (!error)
          {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 self.myChatPhoto = [UIImage imageWithData:data];
-             });
+             self.myChatPhoto = [UIImage imageWithData:data];
          }
          else
          {
@@ -164,11 +162,11 @@
 -(void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID
 {
     
-    [self.users removeObject:peerID];
-    NSLog(@"%@", peerID.displayName);
-    NSLog(@"%lu", (unsigned long)self.users.count);
+
     dispatch_async(dispatch_get_main_queue(), ^{
-        //self.lostConnection();
+        [self.users removeObject:peerID];
+        NSLog(@"%@", peerID.displayName);
+        NSLog(@"%lu", (unsigned long)self.users.count);
     });
 }
 

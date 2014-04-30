@@ -67,13 +67,15 @@
 -(void)updateInterest
 {
     [self updateInterests:^(PFObject *object, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"Anaylsing Interests");
-            self.myInterests = object;
-            for (NSString*string in self.interestNames) {
-                NSNumber* number = [object objectForKey:string];
-                [self.interests addObject:number];
-            }
+        NSLog(@"Anaylsing Interests");
+        self.myInterests = object;
+        for (NSString*string in self.interestNames)
+        {
+            NSNumber* number = [object objectForKey:string];
+            [self.interests addObject:number];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
             [self.interestsCollectionView reloadData];
         });
     }];
