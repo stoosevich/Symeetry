@@ -15,6 +15,9 @@
 
 @interface PhotoViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *userImage;
+@property (weak, nonatomic) IBOutlet UIButton *confirmButton;
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectPhotoButton;
 
 @end
 
@@ -89,19 +92,27 @@
 
 - (IBAction)onComfirmButtonPressed:(id)sender
 {
+    self.selectPhotoButton.enabled = NO;
+    self.confirmButton.enabled = NO;
+    self.takePhotoButton.enabled = NO;
     [ParseManager saveInfo:[PFUser currentUser]
                objectToSet:[ParseManager convertUIImageToPFFile:self.userImage.image]
                     forKey:@"photo"
            completionBlock:^{
-                        [ParseManager saveInfo:[PFUser currentUser]
-                                   objectToSet:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:self.userImage.image withWidth:40 andHeight:40]]
-                                        forKey:@"thumbnail"
-                               completionBlock:^{
-                                   [[CameraViewController sharedCameraViewController].myImageView circlify];
-                                   [CameraViewController sharedCameraViewController].myImageView.image = self.userImage.image;
-                                   [self dismissViewControllerAnimated:YES completion:NULL];
-                        }];
                     }];
+    [ParseManager saveInfo:[PFUser currentUser]
+               objectToSet:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:self.userImage.image withWidth:40 andHeight:40]]
+                    forKey:@"thumbnail"
+           completionBlock:^{
+
+           }];
+    [[CameraViewController sharedCameraViewController].myImageView circlify];
+    [CameraViewController sharedCameraViewController].myImageView.image = self.userImage.image;
+    self.selectPhotoButton.enabled = YES;
+    self.confirmButton.enabled = YES;
+    self.takePhotoButton.enabled = YES;
+    [self dismissViewControllerAnimated:YES completion:NULL];
+
 }
 
 

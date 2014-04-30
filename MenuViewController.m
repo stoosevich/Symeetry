@@ -106,7 +106,7 @@
     else if(indexPath.row == self.options.count - 1)
     {
         if (self.unlocked) {
-            UIAlertView* ask = [[UIAlertView alloc] initWithTitle:@"Loom™?" message:@"Ask Charles" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+            UIAlertView* ask = [[UIAlertView alloc] initWithTitle:@"Loom™?" message:@"Ask Charles" delegate:self cancelButtonTitle:@"ok..." otherButtonTitles:nil];
             [ask show];
         }
     }

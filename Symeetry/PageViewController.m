@@ -144,7 +144,14 @@
       viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSInteger previousIndex = [self.controllers indexOfObject:viewController] - 1;
-    return (previousIndex >= 0) ? self.controllers[previousIndex] : nil;
+    if (previousIndex >= 2)
+    {
+        return nil;
+    }
+    else
+    {
+        return (previousIndex >= 0) ? self.controllers[previousIndex] : nil;
+    }
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController

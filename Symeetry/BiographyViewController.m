@@ -7,11 +7,13 @@
 //
 
 #import "BiographyViewController.h"
+#import "ParseManager.h"
+#import "Parse/Parse.h"
 
-@interface BiographyViewController ()
+@interface BiographyViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *myBioTextView;
 @property (weak, nonatomic) IBOutlet UITextField *ageTextField;
-
+@property BOOL gender;
 @end
 // test commit
 @implementation BiographyViewController
@@ -35,6 +37,37 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)onMaleButtonPressed:(id)sender
+{
+    self.gender = NO;
+    [[PFUser currentUser]setObject:@NO forKey:@"gender"];
+    
+}
+- (IBAction)onFemaleButtonPressed:(id)sender
+{
+    self.gender = YES;
+    [[PFUser currentUser]setObject:@YES forKey:@"gender"];
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[PFUser currentUser]saveInBackground];
+    
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.ageTextField) {
+        [[PFUser currentUser]setObject:@(self.ageTextField.text.intValue) forKey:@"age"];
+    }
+    else
+    {
+        [[PFUser currentUser]setObject:self.myBioTextView.text forKey:@"biography"];
+
+    }
+    return YES;
 }
 
 /*

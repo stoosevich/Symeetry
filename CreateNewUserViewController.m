@@ -48,6 +48,7 @@
 
 - (IBAction)onSignUpButtongPressed:(id)sender
 {
+    self.signUpButton.enabled = NO;
     if ((![self.usernameTextField.text isEqualToString:@""])&&
         (![self.passwordTextField.text isEqualToString:@""])&&
         ([self.passwordTextField.text isEqualToString:self.comfirmpasswordTextField.text])&&
@@ -60,6 +61,9 @@
         [newUser setObject:@(0) forKey:@"similarityIndex"];
         [newUser setObject:[ParseManager convertUIImageToPFFile:[UIImage imageNamed:@"ic_welcome_profile.png"]] forKey:@"photo"];
         [newUser setObject:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:[UIImage imageNamed:@"ic_welcome_profile.png"] withWidth:40 andHeight:40]] forKey:@"thumbnail"];
+        [newUser setObject:@NO forKey:@"gender"];
+        [newUser setObject:@(0) forKey:@"age"];
+        [newUser setObject:@"" forKey:@"biography"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSError* error = [NSError new];
@@ -100,6 +104,7 @@
 
 
     }
+    self.signUpButton.enabled = YES;
 }
 
 

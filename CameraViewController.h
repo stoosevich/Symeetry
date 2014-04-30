@@ -11,6 +11,7 @@
 @interface CameraViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *myImageView;
+@property (weak, nonatomic) IBOutlet UIButton *addPhotoButton;
 
 +(instancetype)sharedCameraViewController;
 

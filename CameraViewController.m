@@ -11,6 +11,7 @@
 @interface CameraViewController ()
 
 
+
 @end
 
 @implementation CameraViewController
@@ -23,6 +24,10 @@
         manager = [storyboard instantiateViewControllerWithIdentifier:@"CameraViewController"];
     }
     return manager;
+}
+- (IBAction)onAddPhotoButtonPressed:(id)sender
+{
+    self.addPhotoButton.enabled = NO;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
