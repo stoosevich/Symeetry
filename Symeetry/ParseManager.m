@@ -346,7 +346,7 @@
     {
         
         NSLog(@"setting nearest beacon to nil");
-        [PFUser currentUser][@"nearestBeacon"] = @"EMPTYUUIDSTRING";
+        [PFUser currentUser][@"nearestBeacon"] = @"";
         [PFUser currentUser][@"accuracy"] = [NSNumber numberWithFloat:0.0f];
         [PFUser currentUser][@"major"] = [NSNumber numberWithInt:0];
         [PFUser currentUser][@"minor"] = [NSNumber numberWithInt:0];

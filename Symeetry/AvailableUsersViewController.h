@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *availableUsersTableView;
 @property NSMutableArray* activeRegions;
+@property CLBeacon* nearestBeacon;
 
 @property id<DisplayUserProfileDelegate> delegate;
 
