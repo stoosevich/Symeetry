@@ -344,7 +344,6 @@
                                                 <constraint firstAttribute="bottom" secondItem="htA-ac-4Vd" secondAttribute="bottom" constant="6" id="wVH-ke-K54"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="myPicture" destination="PZ5-Bw-o0Y" id="Tq5-Wt-3GR"/>
                                             <outlet property="myTextView" destination="htA-ac-4Vd" id="yh6-rR-ix7"/>
@@ -395,8 +394,8 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQo-89-w1J">
                                 <rect key="frame" x="127" y="12" width="66" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Ditch'em">
-                                    <color key="titleColor" red="1" green="0.50217481019999999" blue="0.0020682545409999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Leave">
+                                    <color key="titleColor" red="0.078431375324726105" green="0.79215693473815918" blue="0.074509806931018829" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

@@ -65,7 +65,6 @@
             
             _availableUsersViewController.delegate = (id)self;
             [ChatManager sharedChatManager].on = YES;
-            [ParseManager interests];
             NSLog(@"BroadCasting Signal");
         }
     }

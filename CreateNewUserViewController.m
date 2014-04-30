@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (weak, nonatomic) IBOutlet UIView* textFieldGroup;
+@property int spacing;
 
 @end
 
@@ -37,6 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -62,16 +64,26 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (textField == self.usernameTextField) {
-        //nothing
+        [UIView animateWithDuration:0.5 animations:^{
+            self.textFieldGroup.frame = CGRectMake(0, 0, self.textFieldGroup.frame.size.width, self.textFieldGroup.frame.size.height);
+        }];
     }
     else if(textField == self.passwordTextField){
+        [UIView animateWithDuration:0.5 animations:^{
+            self.textFieldGroup.frame = CGRectMake(0, self.spacing, self.textFieldGroup.frame.size.width, self.textFieldGroup.frame.size.height);
+        }];
         
     }
     else if(textField == self.comfirmpasswordTextField){
+        [UIView animateWithDuration:0.5 animations:^{
+            self.textFieldGroup.frame = CGRectMake(0, self.spacing*2, self.textFieldGroup.frame.size.width, self.textFieldGroup.frame.size.height);
+        }];
         
     }
     else if(textField == self.emailTextField){
-        
+        [UIView animateWithDuration:0.5 animations:^{
+            self.textFieldGroup.frame = CGRectMake(0, self.spacing*3, self.textFieldGroup.frame.size.width, self.textFieldGroup.frame.size.height);
+        }];
     }
 }
 

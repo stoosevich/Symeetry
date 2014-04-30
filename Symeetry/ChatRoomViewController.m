@@ -10,6 +10,7 @@
 #import "ChatManager.h"
 #import "MessageTableViewPrototypeCellTableViewCell.h"
 #import "Parse/Parse.h"
+#import "UIView+Circlify.h"
 
 @interface ChatRoomViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate, UIAlertViewDelegate>
 
@@ -75,6 +76,7 @@
         MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"TheirMessageCellID"];
         cell.theirTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
         cell.theirPicture.image = self.theirPicture;
+        [cell.theirPicture circlify];
         return cell;
     }
     else
@@ -83,6 +85,7 @@
         cell.myTextView.textAlignment = NSTextAlignmentLeft;
         cell.myTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
         cell.myPicture.image = [[ChatManager sharedChatManager] myChatPhoto];
+        [cell.myPicture circlify];
         return cell;
     }
 
