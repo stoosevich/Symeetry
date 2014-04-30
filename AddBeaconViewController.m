@@ -9,8 +9,7 @@
 #import "AddBeaconViewController.h"
 #import "Defaults.h"
 
-@interface AddBeaconViewController () <UITextFieldDelegate>
-@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@interface AddBeaconViewController () <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *uuid1TextField;
 @property (weak, nonatomic) IBOutlet UITextField *uuid2TextField;
@@ -61,17 +60,34 @@
 
 - (IBAction)onSaveButtonPressed:(UIBarButtonItem *)sender
 {
+    NSUUID* uuid = [self createUUIDFromTextFields];
     
-    [[[Defaults sharedDefaults]supportedProximityUUIDs] addObject:[self createUUIDFromTextFields]];
+    if(uuid == nil)
+    {
+        return;
+    }
+    
+    [[[Defaults sharedDefaults]supportedProximityUUIDs] addObject:uuid];
     
     [[Defaults sharedDefaults]saveUUIDListToFile];
-    //NSLog(@"uuids %@", self.supportedProximityUUIDs);
+    
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Save" message:@"Data saved" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [alertView show];
 }
 
 
 -(NSUUID*)createUUIDFromTextFields
 {
 
+    if (![self validateTextFieldInputs])
+    {
+        UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"Invalid Entry" message:@"UUID is not in valid format" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alertView show];
+        return nil;
+    }
+    
     NSString *uuidFormatString = NSLocalizedString(@"%@-%@-%@-%@-%@", @"Format string for uuid");
     NSString* uuidString = [NSString stringWithFormat:uuidFormatString,self.uuid1TextField.text, self.uuid2TextField.text, self.uuid3TextField.text, self.uuid4TextField.text,self.uuid5TextField.text];
     
@@ -84,17 +100,17 @@
 //make sure the uuid is valid
 - (BOOL)validateTextFieldInputs
 {
-    if (self.uuid1TextField.text.length < 8)
+    if (self.uuid1TextField.text.length != 8)
     {
         return FALSE;
     }
-    else if (self.uuid2TextField.text.length < 4 ||
-             self.uuid3TextField.text.length < 4 ||
-             self.uuid4TextField.text.length < 4 )
+    else if (self.uuid2TextField.text.length != 4 ||
+             self.uuid3TextField.text.length != 4 ||
+             self.uuid4TextField.text.length != 4 )
     {
         return FALSE;
     }
-    else if (self.uuid5TextField.text.length < 12)
+    else if (self.uuid5TextField.text.length != 12)
     {
         return FALSE;
     }
@@ -114,6 +130,39 @@
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0 && [alertView.title isEqualToString:@"Invalid Entry"])
+    {
+        if (self.uuid1TextField.text.length != 8)
+        {
+            self.uuid1TextField.backgroundColor = [UIColor lightGrayColor];
+        }
+        
+        if (self.uuid2TextField.text.length != 4)
+        {
+            self.uuid2TextField.backgroundColor = [UIColor lightGrayColor];
+        }
+        
+        
+        if(self.uuid3TextField.text.length != 4)
+        {
+            self.uuid3TextField.backgroundColor = [UIColor lightGrayColor];
+        }
+        
+        
+        if(self.uuid4TextField.text.length != 4 )
+        {
+            self.uuid4TextField.backgroundColor = [UIColor lightGrayColor];
+        }
+        if (self.uuid5TextField.text.length != 12)
+        {
+            self.uuid5TextField.backgroundColor = [UIColor lightGrayColor];
+        }
+    }
+    
 }
 
 @end
