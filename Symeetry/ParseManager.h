@@ -16,6 +16,7 @@
 //define a block for the call back
 typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 typedef void (^InterestCompletion)(PFObject *object, NSError *error);
+typedef void (^LogoutCompletion)(BOOL succeeded, NSError *error);
 
 //single user related methods
 +(PFUser*)currentUser;
@@ -25,7 +26,10 @@ typedef void (^InterestCompletion)(PFObject *object, NSError *error);
 //asynchronous method
 +(void)getUserInterest:(PFUser*)user WithCompletion:(InterestCompletion)completion;
 
+
+//methods to update the nearest beacon to current user
 +(void)updateUserNearestBeacon:(CLBeacon*)beacon;
++(void)updateUserNearestBeaconOnLogout:(CLBeacon*)beacon withCompletion:(LogoutCompletion)completion;
 
 //multiple user object queries
 +(void)getUsers;

@@ -202,6 +202,8 @@
 {
     [[ChatManager sharedChatManager] checkoutChat];
     
+    NSLog(@"applicationWillResignActive");
+    
     //set the users nearest beacon to nil
     [ParseManager updateUserNearestBeacon:nil];
 }
@@ -228,6 +230,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    NSLog(@"applicationWillTerminate");
     
     //set the users nearest beacon to nil
     [ParseManager updateUserNearestBeacon:nil];
