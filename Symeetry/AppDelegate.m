@@ -42,25 +42,16 @@
     self.locationManager = [[CLLocationManager alloc]init];
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
-    
-    //initialize the set of regions we have seen
-    self.regionsMonitored = [NSMutableSet new];
-    
+
     //determines how often the app receives updates. This is the minimum number of seconds that must
     //elapse before another background fetch is initiated
     [[UIApplication sharedApplication]setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
 
-    
-  
-    
     self.standardDefaults = [NSUserDefaults standardUserDefaults];
     
     //PageView Controller
       NSMutableArray *viewControllers = NSMutableArray.new;
-////    for (int i = 1; i <= 10; i++) {
-////       [viewControllers addObject:[NumberedViewController.alloc initWithNumber:@(i)]];
-////    }
-//    
+ 
 //    //get a reference to the storyboard
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
 
