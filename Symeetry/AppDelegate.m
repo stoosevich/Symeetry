@@ -194,8 +194,9 @@
     [[ChatManager sharedChatManager] checkoutChat];
     
     //set the users nearest beacon to nil
-    [ParseManager updateUserNearestBeacon:nil];
+    [ParseManager updateUserNearestBeaconInForeground:nil];
 }
+
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
@@ -204,7 +205,6 @@
     
     
     //set the users nearest beacon to nil
-    [ParseManager updateUserNearestBeacon:nil];
     
 
 }

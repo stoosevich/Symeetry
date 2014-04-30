@@ -9,6 +9,7 @@
 #import "ChatManager.h"
 #import "ChatRoomViewController.h"
 #import "ParseManager.h"
+#import "MMDrawerController.h"
 
 
 
@@ -221,20 +222,30 @@
 {
     switch (state) {
         case MCSessionStateConnected: {
-            
+            assert(![NSThread isMainThread]);
             NSLog(@"Connected to %@", peerID.displayName);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
-                cRVC.peerID = peerID;
-                id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+            ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
+            cRVC.peerID = peerID;
+            cRVC.chatRoomLabel.text = [NSString stringWithFormat:@"Chat with %@",peerID.displayName];
+            id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+            if ([vc isMemberOfClass:([MMDrawerController class])])
+            {
+                MMDrawerController* mDVC = vc;
+                [mDVC closeDrawerAnimated:YES completion:nil];
+                [mDVC.centerViewController presentViewController:cRVC animated:YES completion:^{
+                    NSLog(@"worked");
+                    NSLog(@"%@", cRVC.peerID.displayName);
+                }];
+            }
+            else{
                 vc = [vc presentedViewController];
                 [vc presentViewController:cRVC animated:YES completion:^{
                     NSLog(@"worked");
                     NSLog(@"%@", cRVC.peerID.displayName);
                 }];
+            }
                 //self.connected();
-            });
             break;
             
         } case MCSessionStateConnecting: {

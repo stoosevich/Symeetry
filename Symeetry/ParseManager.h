@@ -30,6 +30,7 @@ typedef void (^LogoutCompletion)(BOOL succeeded, NSError *error);
 //methods to update the nearest beacon to current user
 +(void)updateUserNearestBeacon:(CLBeacon*)beacon;
 +(void)updateUserNearestBeaconOnLogout:(CLBeacon*)beacon withCompletion:(LogoutCompletion)completion;
++(void)updateUserNearestBeaconInForeground:(CLBeacon*)beacon;
 
 //multiple user object queries
 +(void)getUsers;

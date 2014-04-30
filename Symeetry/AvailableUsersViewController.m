@@ -128,7 +128,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  */
 - (void)createRegionsForMonitoring
 {
-    NSLog(@"createRegionsForMonitoring called");
+    //NSLog(@"createRegionsForMonitoring called");
     
     // Populate the regions we will range once
     self.rangedRegions = [[NSMutableDictionary alloc] init];
@@ -156,7 +156,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         //[self.locationManager startRangingBeaconsInRegion:region];
     }
     
-    NSLog(@"monitoring region call ended");
+    //NSLog(@"monitoring region call ended");
 }
 
 
@@ -286,7 +286,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     //[self showRegionStateAlertScreen:formatString];
     
-     NSLog(@"didEnterRegion begin");
+    //NSLog(@"didEnterRegion begin");
     
     if (![self.activeRegions containsObject:region])
     {
@@ -299,7 +299,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         [ParseManager setUsersPFGeoPointLocation];
     }
     
-    NSLog(@"didEnterRegion end");
+    //NSLog(@"didEnterRegion end");
 }
 
 
@@ -312,7 +312,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     //[self showRegionStateAlertScreen:formatString];
     
-    NSLog(@"didExitRegion begin");
+    //NSLog(@"didExitRegion begin");
     
     if ([self.activeRegions containsObject:region])
     {
@@ -331,7 +331,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         [self getUserWithSimlarityRank];
     }
  
-    NSLog(@"didExitRegion end");
+    //NSLog(@"didExitRegion end");
 }
 
 
