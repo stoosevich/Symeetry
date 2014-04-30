@@ -10,4 +10,8 @@
 
 @interface BlueToothManager : NSObject
 
++(instancetype)sharedBlueToothManager;
+- (void)createCBCentralManager:(void(^)(void))onBlock;
+
+
 @end

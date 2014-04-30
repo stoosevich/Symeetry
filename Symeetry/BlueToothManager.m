@@ -23,34 +23,54 @@
 
 #pragma mark - CoreBluetoothDelegate Methods
 
-- (void)createCBCentralManager
++(instancetype)sharedBlueToothManager
+{
+    static BlueToothManager *manager = nil;
+    if (!manager)
+    {
+        manager = [BlueToothManager new];
+    }
+    return manager;
+}
+
+- (void)createCBCentralManager:(void(^)(void))onBlock
 {
     //NSLog(@"state %ld", self.centralManager.state);
     
     if (self.centralManager.state == CBCentralManagerStatePoweredOff)
     {
         //bluetooth is off we need to tell the user to turn on the service
+            UIAlertView* notOnAlertView = [[UIAlertView alloc] initWithTitle:@"BlueTooth LE Off" message:@"This device has its bluetooth turned off which is required for this application" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+            [notOnAlertView show];
         
     }
     else if (self.centralManager.state == CBCentralManagerStateUnauthorized)
     {
+        UIAlertView* notAuthorizedAlertView = [[UIAlertView alloc] initWithTitle:@"BlueTooth LE Unauthorized" message:@"This device is not authorized to use bluetooth which is required for this application" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        [notAuthorizedAlertView show];
         //bluetooth is not authorized for this app, we need to tell the user to adjust settings
         
     }
     else if (self.centralManager.state == CBCentralManagerStateUnsupported)
     {
+        UIAlertView* notSupportedAlertView = [[UIAlertView alloc] initWithTitle:@"BlueTooth LE Unsupported" message:@"This device does not support bluetooth LE which is required for this application" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        [notSupportedAlertView show];
         //we need to tell the user that the device does not support this action
     }
     else if (self.centralManager.state == CBCentralManagerStateUnknown)
     {
-        self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
-        [self startScan];
+        UIAlertView* notKnownAlertView = [[UIAlertView alloc] initWithTitle:@"BlueTooth LE Unknown" message:@"The bluetooth state is unknown for this device, please turn it off then on and try again" delegate:nil cancelButtonTitle:nil
+            otherButtonTitles:nil];
+        [notKnownAlertView show];
+//        self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
+//        [self startScan];
     }
     
     else if(self.centralManager.state == CBCentralManagerStatePoweredOn)
     {
-        self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
-        [self startScan];
+        onBlock();
+//        self.centralManager = [[CBCentralManager alloc]initWithDelegate:self queue:nil];
+//        [self startScan];
     }
 }
 

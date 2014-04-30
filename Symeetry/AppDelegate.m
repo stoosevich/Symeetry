@@ -93,7 +93,7 @@
     
     
 //    self.window = [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
-//    self.window.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f blue:217.f/255.f alpha:1];
+//    self.window.backgroundColor = [UIColor colorWithRed:186.f/255.f green:228.f/255.f :217.f/255.f alpha:1];
 //    self.window.rootViewController = [PageViewController.alloc initWithViewControllerClassNames:@[@"OpeningViewController", @"StoryViewController", @"CreateNewUserViewController", @"CameraViewController",@"InterestDemoViewController"] transitionStyle:UIPageViewControllerTransitionStyleScroll];
 //    [self.window makeKeyAndVisible];
     

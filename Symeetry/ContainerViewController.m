@@ -17,6 +17,7 @@
 #import "ProfileViewController.h"
 #import "PresentAnimationController.h"
 #import "MMDrawerController.h"
+#import "BlueToothManager.h"
 
 
 @interface ContainerViewController ()
@@ -45,30 +46,31 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    if ([PFUser currentUser] == nil)
-    {
-        UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
-        [self presentViewController:login animated:YES completion:nil];
-        [ChatManager sharedChatManager].on = NO;
-        
-    }
-    else
-    {
-        if ([[ChatManager sharedChatManager] on]) {
-            NSLog(@"already on");
-        }
-        else{
-            [[ChatManager sharedChatManager] setPeerID];
-            [[ChatManager sharedChatManager] checkinChat];
-            [self showInterestsViewController];
-            [self loadHeaderView];
+    [[BlueToothManager sharedBlueToothManager]createCBCentralManager:^{
+        if ([PFUser currentUser] == nil)
+        {
+            UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
+            [self presentViewController:login animated:YES completion:nil];
+            [ChatManager sharedChatManager].on = NO;
             
-            _availableUsersViewController.delegate = (id)self;
-            [ChatManager sharedChatManager].on = YES;
-            NSLog(@"BroadCasting Signal");
         }
-    }
-    
+        else
+        {
+            if ([[ChatManager sharedChatManager] on]) {
+                NSLog(@"already on");
+            }
+            else{
+                [[ChatManager sharedChatManager] setPeerID];
+                [[ChatManager sharedChatManager] checkinChat];
+                [self showInterestsViewController];
+                [self loadHeaderView];
+                
+                _availableUsersViewController.delegate = (id)self;
+                [ChatManager sharedChatManager].on = YES;
+                NSLog(@"BroadCasting Signal");
+            }
+        }
+    }];
 }
 
 - (void)viewDidLoad
