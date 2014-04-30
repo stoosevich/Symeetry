@@ -142,7 +142,6 @@
             [self showAvailableUserViewController];
             break;
         default:
-            NSLog(@"Unexpected segment! %ld", (long)sender.selectedSegmentIndex);
             break;
     }
 }
@@ -176,15 +175,6 @@
     
     [self removeMapVCViewIfNeeded];
     [self removeAvailableUsersVCViewIfNeeded];
-    
-//    self.interestsViewController.view.frame = CGRectMake(0, 568, 320, 568);
-    
-//   [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//       
-//       self.interestsViewController.view.frame = CGRectMake(0, 0, 320, 568);
-//       
-//   } completion:nil];
-
     [self.containerView addSubview:self.interestsViewController.view];
 }
 
@@ -192,16 +182,6 @@
 {
     [self removeInterestsVCViewIfNeeded];
     [self removeAvailableUsersVCViewIfNeeded];
-    
-//    self.mapViewController.view.frame = CGRectMake(0, 568, 320, 568);
-//    
-//    [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//        
-//        self.mapViewController.view.frame = CGRectMake(0, 0, 320, 568);
-//        [self.containerView addSubview:self.mapViewController.view];
-//        
-//    } completion:nil];
-    
     [self.containerView addSubview:self.mapViewController.view];
 }
 
@@ -209,17 +189,6 @@
 {
     [self removeInterestsVCViewIfNeeded];
     [self removeMapVCViewIfNeeded];
-    
- 
-//    self.availableUsersViewController.view.frame = CGRectMake(0, 568, 320, 568);
-//    
-//    [UIView transitionWithView:self.containerView duration:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//        
-//        self.availableUsersViewController.view.frame = CGRectMake(0, 0, 320, 568);
-//        
-//        [self.containerView addSubview:self.availableUsersViewController.view];
-//    } completion:nil];
-    
     [self.containerView addSubview: self.availableUsersViewController.view];
 }
 
