@@ -344,7 +344,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     {
         [self.activeRegions addObject:region];
         [self getUserWithSimlarityRank];
-        NSLog(@"didRangeBeacons: active regions %@", self.activeRegions);
+        //NSLog(@"didRangeBeacons: active regions %@", self.activeRegions);
     }
     
     
