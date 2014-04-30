@@ -28,11 +28,8 @@
 {
     self.chatMessages = [NSMutableArray new];
     [super viewDidLoad];
-    NSData* data = UIImageJPEGRepresentation([[ChatManager sharedChatManager] myChatPhoto], 0.8);
-    NSError* error = [NSError new];
     self.firstTimeTyping = YES;
     [[ChatManager sharedChatManager] setConnectedblock:^{
-        [[ChatManager sharedChatManager]sendPhoto:data peer:self.peerID error:error sent:nil];
 
         
                 }
@@ -49,21 +46,12 @@
                 
                 }
                 gotMessage:^(NSData *data) {
-                    UIImage* image = [UIImage imageWithData:data];
-                    if (image == nil) {
                         NSString *messageString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                         NSDictionary* message = @{@"sender": self.peerID.displayName, @"messageText": messageString};
                         [self.chatMessages addObject:message];
                         [self.chatRoomTableView reloadData];
                         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:self.chatMessages.count -1 inSection:0];
-                        [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-                    }
-                    else{
-                        self.theirPicture = image;
-                        NSLog(@"%@",data);
-                        [self.chatRoomTableView reloadData];
-                    }
-
+                    [self.chatRoomTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
                 }];
 }
 
@@ -78,9 +66,7 @@
     {
         MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"TheirMessageCellID"];
         cell.theirTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
-        if (self.theirPicture != nil) {
-            cell.theirPicture.image = self.theirPicture;
-        }
+        cell.theirPicture.image = [UIImage imageNamed:@"ic_welcome_profile.png"];
         [cell.theirPicture circlify];
         return cell;
     }
