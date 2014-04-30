@@ -42,24 +42,6 @@ NSString *BeaconIdentifier = @"com.Symeetry.beacon";
             [self loadProximityUUIDFromFile];
         }
         
-        
-//        // uuidgen should be used to generate UUIDs.
-//        NSArray* temp = @[[[NSUUID alloc] initWithUUIDString:@"E2C56DB5-DFFB-48D2-B060-D0F5A71096E0"],
-//                                     [[NSUUID alloc] initWithUUIDString:@"5A4BCFCE-174E-4BAC-A814-092E77F6B7E5"],
-//                                     [[NSUUID alloc] initWithUUIDString:@"74278BDA-B644-4520-8F0C-720EAF059935"],
-//                                         [[NSUUID alloc] initWithUUIDString:@"2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6"],
-//                                         [[NSUUID alloc] initWithUUIDString:@"AFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF"],
-//                                         [[NSUUID alloc] initWithUUIDString:@"92AB49BE-4127-42F4-B532-90fAF1E26491"],
-//                                         [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"],
-//                                         [[NSUUID alloc] initWithUUIDString:@"08D4A950-80F0-4D42-A14B-D53E063516E6"],
-//                                         [[NSUUID alloc] initWithUUIDString:@"8492E75F-4FD6-469D-B132-043FE94921D8"],
-//                                         [[NSUUID alloc] initWithUUIDString:@"C77581A3-D1C6-4648-A9AC-F8F85F361D54"],
-//                                         [[NSUUID alloc] initWithUUIDString:@"8AEFB031-6C32-486F-825B-E26FA193487D"],
-//                                         [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"]
-//                                         ];
-//
-//        self.supportedProximityUUIDs = [NSMutableArray arrayWithArray:temp];
-        
         self.defaultPower = @-59;
     }
     
@@ -146,6 +128,8 @@ NSString *BeaconIdentifier = @"com.Symeetry.beacon";
                       [[NSUUID alloc] initWithUUIDString:@"8492E75F-4FD6-469D-B132-043FE94921D8"],
                       [[NSUUID alloc] initWithUUIDString:@"C77581A3-D1C6-4648-A9AC-F8F85F361D54"],
                       [[NSUUID alloc] initWithUUIDString:@"8AEFB031-6C32-486F-825B-E26FA193487D"],
+                      [[NSUUID alloc] initWithUUIDString:@"F1EABF09-E313-4FCD-80DF-67C779763888"],
+                      [[NSUUID alloc] initWithUUIDString:@"01E6A043-0126-0EA0-8B4D-494E494A414D"],
                       [[NSUUID alloc] initWithUUIDString:@"00000000-0000-0000-0000-000000000000"]
                       ];
     

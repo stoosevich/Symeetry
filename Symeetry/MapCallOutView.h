@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property IBOutlet UIImageView* imageView;
 
+@property (weak, nonatomic) IBOutlet UIView *backGroundView;
 + (MapCallOutView *)newViewFromNib:(NSString*)viewName;
 @end

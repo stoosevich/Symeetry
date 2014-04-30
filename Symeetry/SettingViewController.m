@@ -9,10 +9,13 @@
 #import "SettingViewController.h"
 #import "Defaults.h"
 #import "ParseManager.h"
+#import "ChatManager.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
-@property NSArray* settings;
+@property NSMutableArray* settings;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UITableView *settingsTableView;
+@property BOOL checkedIN;
 
 @end
 
@@ -30,11 +33,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.settings = @[@"Change Password", @"Delete Account", @"Opt-Out",@"Configure UUIDs", @"Reset UUIDs to Default"];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_blur_map"]];
 }
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.checkedIN =! [ChatManager sharedChatManager].on;
+    if (self.checkedIN) {
+        self.settings = [NSMutableArray arrayWithArray:@[@"Change Password", @"Delete Account", @"Opt-In",@"Configure UUIDs", @"Reset UUIDs to Default"]];
+    }
+    else{
+        self.settings = [NSMutableArray arrayWithArray:@[@"Change Password", @"Delete Account", @"Opt-Out",@"Configure UUIDs", @"Reset UUIDs to Default"]];
+    }
+}
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -62,7 +73,25 @@
     }
     else if (indexPath.row == 2)//opt-out
     {
-        [ParseManager optOut];
+        self.checkedIN =! self.checkedIN;
+        if (self.checkedIN) {
+            self.settings = [NSMutableArray arrayWithArray:@[@"Change Password", @"Delete Account", @"Opt-In",@"Configure UUIDs", @"Reset UUIDs to Default"]];
+            NSIndexPath* path = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+            [self.settingsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationLeft];
+            [ParseManager optOut];
+            [[ChatManager sharedChatManager] checkoutChat];
+            [ChatManager sharedChatManager].on = NO;
+        }
+        else{
+            self.settings = [NSMutableArray arrayWithArray:@[@"Change Password", @"Delete Account", @"Opt-Out",@"Configure UUIDs", @"Reset UUIDs to Default"]];
+            NSIndexPath* path = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+            [self.settingsTableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationRight];
+            [ParseManager optIn];
+            [[ChatManager sharedChatManager] checkinChat];
+            [ChatManager sharedChatManager].on = YES;
+        }
+        
+
     }
     else if (indexPath.row == 3)//configure UUID
     {

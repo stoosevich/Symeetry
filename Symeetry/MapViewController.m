@@ -168,6 +168,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     //set the frame
     annotationView.frame = frame;
+    annotationView.backGroundView.layer.cornerRadius = 25;
+    annotationView.backGroundView.layer.masksToBounds = YES;
     
     if (annotation.user)
     {

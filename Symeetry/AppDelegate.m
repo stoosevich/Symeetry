@@ -192,6 +192,8 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     [[ChatManager sharedChatManager] checkoutChat];
+    [ChatManager sharedChatManager].on = NO;
+
     
     //set the users nearest beacon to nil
     
@@ -203,6 +205,7 @@
 {
     
     [[ChatManager sharedChatManager] checkoutChat];
+    [ChatManager sharedChatManager].on = NO;
     
     //set the users nearest beacon to nil
     [ParseManager updateUserNearestBeaconInForeground:nil];
