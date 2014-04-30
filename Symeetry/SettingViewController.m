@@ -9,6 +9,7 @@
 #import "SettingViewController.h"
 #import "Defaults.h"
 #import "ParseManager.h"
+#import "ChatManager.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property NSArray* settings;
@@ -63,6 +64,7 @@
     else if (indexPath.row == 2)//opt-out
     {
         [ParseManager optOut];
+        [[ChatManager sharedChatManager] checkoutChat];
     }
     else if (indexPath.row == 3)//configure UUID
     {
