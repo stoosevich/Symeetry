@@ -94,7 +94,7 @@
                                             initWithCenterViewController:containerViewController
                                             leftDrawerViewController:menu];
     [drawerController setMaximumLeftDrawerWidth:180];
-    drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+    drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModeNone;
     drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModeAll;
     
     self.window.rootViewController = drawerController;

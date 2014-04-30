@@ -28,7 +28,8 @@
 {
     self.chatMessages = [NSMutableArray new];
     [super viewDidLoad];
-    
+    NSData* data = UIImageJPEGRepresentation([[ChatManager sharedChatManager] myChatPhoto], 0.8);
+    NSError* error = [NSError new];
     self.firstTimeTyping = YES;
     [[ChatManager sharedChatManager] setConnectedblock:^{
         
@@ -62,6 +63,7 @@
                     }
 
                 }];
+    [[ChatManager sharedChatManager]sendPhoto:data peer:self.peerID error:error sent:nil];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -75,7 +77,9 @@
     {
         MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"TheirMessageCellID"];
         cell.theirTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
-        cell.theirPicture.image = self.theirPicture;
+        if (self.theirPicture != nil) {
+            cell.theirPicture.image = self.theirPicture;
+        }
         [cell.theirPicture circlify];
         return cell;
     }
