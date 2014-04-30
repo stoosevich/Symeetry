@@ -1072,6 +1072,8 @@
                     </view>
                     <connections>
                         <outlet property="ageTextField" destination="bzX-LG-quN" id="Hzx-xv-Mzp"/>
+                        <outlet property="femaleButton" destination="309-GN-9I1" id="hlu-sv-hAM"/>
+                        <outlet property="maleButton" destination="ppe-0r-74M" id="Nf1-Pv-TYh"/>
                         <outlet property="myBioTextView" destination="Xrt-JX-y3K" id="CwV-jV-bNO"/>
                     </connections>
                 </viewController>

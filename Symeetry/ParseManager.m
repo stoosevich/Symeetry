@@ -212,6 +212,15 @@
      }];
 }
 
++(void)userInterest:(PFUser*)user completionBlock:(void (^)(void))completionBlock
+{
+    PFQuery* query = [PFQuery queryWithClassName:@"Interests"];
+    [query whereKey:@"user" equalTo:user];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        completionBlock();
+    }];
+}
+
 
 /*
  * Query the Parse backend to find the interest of the user based on the
