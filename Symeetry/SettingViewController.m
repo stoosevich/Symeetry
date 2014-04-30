@@ -12,6 +12,7 @@
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property NSArray* settings;
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
 
 @end
 
@@ -30,6 +31,7 @@
 {
     [super viewDidLoad];
     self.settings = @[@"Change Password", @"Delete Account", @"Opt-Out",@"Configure UUIDs", @"Reset UUIDs to Default"];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_blur_map"]];
 }
 
 
@@ -73,6 +75,13 @@
         [alertView show];
     }
     
+}
+- (IBAction)onBackButtonPressed:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        nil;
+    }];
+
 }
 
 
