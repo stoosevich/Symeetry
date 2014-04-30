@@ -147,6 +147,12 @@
             self.easterEgg = 0;
         }
         
+        UINavigationController* nav = [[UINavigationController alloc]init];
+        UIViewController* settingsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+        [nav addChildViewController:settingsViewController];
+        
+        [self presentViewController:nav animated:YES completion:nil];
+        
     }
 }
 

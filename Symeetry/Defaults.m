@@ -10,7 +10,7 @@
 @interface Defaults()
 
 //redefine the properties so they can be set up in the class
-@property (nonatomic, copy) NSArray *supportedProximityUUIDs;
+
 @property (nonatomic, copy) NSUUID *defaultProximityUUID;
 @property (nonatomic, copy) NSNumber *defaultPower;
 
@@ -63,6 +63,71 @@ NSString *BeaconIdentifier = @"com.Symeetry.beacon";
 - (NSUUID *)defaultProximityUUID
 {
     return self.supportedProximityUUIDs[0];
+}
+
+
+- (void)saveUUIDListToFile
+{
+    //get the URL for the plist, and append a name for the plist
+    NSURL *plist = [[self documentsDirectory]URLByAppendingPathComponent:@"proximityUUIDs.plist"];
+    
+    //wrtie the array contents to the file structure
+    //[self.dictionary writeToURL:plist atomically:YES];
+    
+    //NSUUID ARE NOT SUPPROTED OBJECT TYPES FOR A PLIST!!!!
+    //[self.supportedProximityUUIDs writeToURL:plist atomically:YES];
+    
+    NSMutableArray *temp = [[NSMutableArray alloc]initWithCapacity:10];
+    
+    for (NSUUID* uuid in self.supportedProximityUUIDs)
+    {
+        [temp addObject:[uuid UUIDString]];
+    }
+    
+    [temp writeToURL:plist atomically:YES];
+    //create a user defaults object, and give it the date as a key
+    // and note that it is last saved
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSDate date] forKey:@"last saved"];
+    
+    //sync the data
+    [userDefaults synchronize];
+    
+    NSLog(@"data saved!");
+    
+}
+
+- (void)loadProximityUUIDFromFile
+{
+    
+    //get the url for the saved data
+    NSURL* plist = [[self documentsDirectory]URLByAppendingPathComponent:@"proximityUUIDs.plist"];
+    
+    //load the array with the contents of the plist
+    //self.dictionary = [NSDictionary dictionaryWithContentsOfURL:plist];
+    NSArray *temp = [NSArray arrayWithContentsOfURL:plist];
+    NSMutableArray* uuids = [[NSMutableArray alloc]initWithCapacity:10];
+    
+    for (NSString* uuid in temp)
+    {
+        [uuids addObject:[[NSUUID alloc] initWithUUIDString:uuid]];
+    }
+    
+    self.supportedProximityUUIDs = uuids;
+    
+    
+}
+
+
+-(NSURL*)documentsDirectory
+{
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    
+    //find the directory for the application
+    NSArray* directories = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    
+    //return the directory, there should only be one
+    return directories.firstObject;
 }
 
 @end
