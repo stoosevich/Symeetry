@@ -16,6 +16,7 @@ extern NSString *BeaconIdentifier;
 
 //update the list of uuids
 - (void)saveUUIDListToFile;
+- (void)resetToDefaultUUIDs;
 
 @property (nonatomic) NSMutableArray *supportedProximityUUIDs;
 @property (nonatomic, copy, readonly) NSUUID *defaultProximityUUID;

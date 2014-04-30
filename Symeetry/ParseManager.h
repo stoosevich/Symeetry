@@ -21,7 +21,7 @@ typedef void (^LogoutCompletion)(BOOL succeeded, NSError *error);
 //single user related methods
 +(PFUser*)currentUser;
 +(BOOL)isCurrentUser:(PFUser*)user;
-
++(void)optOut;
 
 //asynchronous method
 +(void)getUserInterest:(PFUser*)user WithCompletion:(InterestCompletion)completion;

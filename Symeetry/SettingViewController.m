@@ -7,6 +7,8 @@
 //
 
 #import "SettingViewController.h"
+#import "Defaults.h"
+#import "ParseManager.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property NSArray* settings;
@@ -27,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.settings = @[@"Change Password", @"Delete Account", @"Configure UUIDs"];
+    self.settings = @[@"Change Password", @"Delete Account", @"Opt-Out",@"Configure UUIDs", @"Reset UUIDs to Default"];
 }
 
 
@@ -47,21 +49,28 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    NSLog(@"index path %i", indexPath.row);
-    
+    //change password
     if (indexPath.row == 0)
     {
         [self performSegueWithIdentifier:@"showResetPassword" sender:self];
     }
-    else if (indexPath.row == 1)
+    else if (indexPath.row == 1)//delete account
     {
         
     }
-    else if (indexPath.row == 2)
+    else if (indexPath.row == 2)//opt-out
+    {
+        [ParseManager optOut];
+    }
+    else if (indexPath.row == 3)//configure UUID
     {
         [self performSegueWithIdentifier:@"showUUIDs" sender:self];
-        
+    }
+    else if (indexPath.row == 4) //reset UUIDs to default
+    {
+        [[Defaults sharedDefaults] resetToDefaultUUIDs];
+        UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"Reset Defaults" message:@"UUIDs reset to defaults" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
     }
     
 }

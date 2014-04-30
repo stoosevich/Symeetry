@@ -463,6 +463,29 @@
 
 #pragma mark - HELPER METHODS
 
+/*
+ * reset the user's password view Parse standard method call
+ */
++ (void)optOut
+{
+    [PFUser currentUser][@"hidden" ]= @YES;
+    [[PFUser currentUser]saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        
+        if(error)
+        {
+            
+        }
+    }];
+}
+
+
+/*
+ * reset the user's password view Parse standard method call
+ */
+- (void)resetUserPasswordByEmail:(NSString*)email
+{
+    [PFUser requestPasswordResetForEmailInBackground:email];
+}
 
 /*
  * Convert a UIImage to a PFFile object for storage on parse

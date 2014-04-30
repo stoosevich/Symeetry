@@ -109,10 +109,7 @@ NSString *BeaconIdentifier = @"com.Symeetry.beacon";
     [userDefaults setObject:[NSDate date] forKey:@"last saved"];
     
     //sync the data
-    [userDefaults synchronize];
-    
-    NSLog(@"data saved!");
-    
+    [userDefaults synchronize];    
 }
 
 - (void)loadProximityUUIDFromFile
