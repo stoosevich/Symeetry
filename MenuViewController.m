@@ -36,7 +36,7 @@
     [super viewDidLoad];
     self.myTableView.scrollsToTop = YES;
     self.myTableView.frame = CGRectMake(0, 0, 180, self.myTableView.frame.size.height);
-    self.options = @[@"My Profile", @"Settings", @"Report", @"About", @"Logout", @"", @"", @"", @"", @"",
+    self.options = @[@"My Profile", @"Settings", @"About", @"Logout", @"", @"", @"", @"", @"",
                    @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
                    @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
                    @"", @"", @"", @"", @"", @"", @"", @"", @"", @"",
@@ -87,8 +87,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 4)
-    {    
+
+
+    if (indexPath.row == 3)
+    {
         [PFUser logOut];
         
         MMDrawerController* draw = (id)self.view.window.rootViewController;
@@ -98,7 +100,6 @@
         
         [ChatManager sharedChatManager].on = NO;
         [[ChatManager sharedChatManager] checkoutChat];
-        
 
     }
     else if(indexPath.row == self.options.count - 1)
