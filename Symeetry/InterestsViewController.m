@@ -48,7 +48,7 @@
    // NSLog(@"contents %@", interestNamesDictionary);
     
     // Local images
-   self.images = @[[UIImage imageNamed:@"music_note240x240"], [UIImage imageNamed:@"movies_crop.jpg"], [UIImage imageNamed:@"Food_crop.jpg"], [UIImage imageNamed:@"school.jpg"], [UIImage imageNamed:@"dancing.jpg"], [UIImage imageNamed:@"books.jpg"], [UIImage imageNamed:@"tv.jpg"], [UIImage imageNamed:@"art.jpg"], [UIImage imageNamed:@"technology.jpg"], [UIImage imageNamed:@"games.jpg"], [UIImage imageNamed:@"fashion.jpg"], [UIImage imageNamed:@"volunteer.jpg"]];
+   self.images = @[[UIImage imageNamed:@"ic_interest_music"], [UIImage imageNamed:@"ic_interest_movies"], [UIImage imageNamed:@"ic_interest_food"], [UIImage imageNamed:@"ic_interest_school"], [UIImage imageNamed:@"ic_interest_dancing"], [UIImage imageNamed:@"ic_interest_books"], [UIImage imageNamed:@"ic_interest_tv"], [UIImage imageNamed:@"ic_interest_art"], [UIImage imageNamed:@"ic_interest_tech"], [UIImage imageNamed:@"ic_interest_games"], [UIImage imageNamed:@"ic_interest_fashion"], [UIImage imageNamed:@"ic_interest_volunteer"]];
     
     self.interestNames = @[@"music", @"movies", @"food", @"school", @"dancing", @"books", @"tv", @"art", @"technology", @"games", @"fashion", @"volunteer"];
     self.interests = [NSMutableArray new];
