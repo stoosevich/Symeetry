@@ -227,6 +227,7 @@
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
             ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
             cRVC.peerID = peerID;
+            cRVC.chatRoomLabel.text = peerID.displayName;
             id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
             if ([vc isMemberOfClass:([MMDrawerController class])])
             {
