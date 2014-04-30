@@ -194,6 +194,7 @@
     [[ChatManager sharedChatManager] checkoutChat];
     
     //set the users nearest beacon to nil
+    
     [ParseManager updateUserNearestBeaconInForeground:nil];
 }
 
@@ -203,9 +204,8 @@
     
     [[ChatManager sharedChatManager] checkoutChat];
     
-    
     //set the users nearest beacon to nil
-    
+    [ParseManager updateUserNearestBeaconInForeground:nil];
 
 }
 
@@ -224,9 +224,11 @@
 {
 
     //set the users nearest beacon to nil
-    [ParseManager updateUserNearestBeaconOnLogout:nil withCompletion:^(BOOL succeeded, NSError *error) {
-        
-    }];
+    [ParseManager updateUserNearestBeaconInForeground:nil];
+    //set the users nearest beacon to nil
+//    [ParseManager updateUserNearestBeaconOnLogout:nil withCompletion:^(BOOL succeeded, NSError *error) {
+//        
+//    }];
 
 }
 
