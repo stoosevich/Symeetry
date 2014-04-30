@@ -41,7 +41,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 //local data source
 @property NSArray* users;
-@property CLBeacon* nearestBeacon;
+
 
 @end
 
@@ -80,6 +80,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleRegionBoundaryNotification:)
                                                  name:@"CLRegionStateInsideNotification" object:nil];
+    //assume there are no near beacons
+    self.nearestBeacon = nil;
     
     // Start ranging when the view appears
     for (CLBeaconRegion *region in self.rangedRegions)
@@ -323,8 +325,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         //if there are no active regions left set the nearest beacon to nil
         if (self.activeRegions == nil)
         {
-            
-            [ParseManager updateUserNearestBeacon:nil];
+            self.nearestBeacon = nil;
+            [ParseManager updateUserNearestBeacon:self.nearestBeacon];
         }
         
         //update the list of available
@@ -386,8 +388,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
             [self determineNearestBeaconToUser];
         }
     }
-    
-    //NSLog(@"didRangeBeacons ended");
 }
 
 
@@ -424,23 +424,33 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         }
 
         
+        //if we found at least on beacon in our ranging of regions
         if (currentBeacon)
         {
-            //only update the database if the beacon actually changed
-            if (currentBeacon.proximityUUID != self.nearestBeacon.proximityUUID &&
-                currentBeacon.major != self.nearestBeacon.major &&
-                currentBeacon.minor != self.nearestBeacon.minor)
+            /*
+              only update if we are actually closer to a different beacon.
+            beacons in close proximit (i.e. next to each other) maybe treated as a
+            simgle beacon. Since beacon CLProximityUnknown = 0, we exclude this from 
+             consideration as the nearest beacon
+             */
+            
+            //if we have not set a nearest beacon yet, then set this as the nearest
+            if (self.nearestBeacon == nil)
             {
-                self.nearestBeacon =  currentBeacon;
-                //change the color of the navbar based on the closest beacon
-                //[self updateNavigationBarColorBasedOnProximity:self.nearestBeacon];
-                
-                if(currentBeacon.proximity == CLProximityImmediate || currentBeacon.proximity == CLProximityNear)
-                {
-                    //[ParseManager addBeacon:currentBeacon];
-                }
+                self.nearestBeacon = currentBeacon;
                 [ParseManager updateUserNearestBeacon:self.nearestBeacon];
             }
+            
+            //otherwise check if the beacon is is actually closer
+            else if ( (currentBeacon.proximity < self.nearestBeacon.proximity) &&
+                 currentBeacon.proximity != CLProximityUnknown)
+            {
+                
+                self.nearestBeacon =  currentBeacon;
+                [ParseManager updateUserNearestBeacon:self.nearestBeacon];
+
+            }
+
         }
     }
 }
