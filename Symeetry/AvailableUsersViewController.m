@@ -98,6 +98,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    
     // Stop ranging when the view disappears
     for (CLBeaconRegion *region in self.rangedRegions)
     {
