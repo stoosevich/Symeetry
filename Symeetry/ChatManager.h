@@ -34,6 +34,7 @@
 -(void)checkoutChat;
 -(void)checkinChat;
 -(void)sendMessage:(NSString*)message peer:(MCPeerID*)peer error:(NSError*)error sent:(void(^)(void))sent;
+-(void)sendPhoto:(NSData*)data peer:(MCPeerID*)peer error:(NSError*)error sent:(void(^)(void))sent;
 -(void)disconnect:(MCPeerID*)peer;
 -(MCPeerID*)findCorrectPeer:(PFUser*)user;
 //-(void)acceptedInvite;
