@@ -14,9 +14,12 @@
 #define YELLOW [UIColor yellowColor]
 #define GREEN [UIColor greenColor]
 #define BLUE [UIColor blueColor]
+#define BASE ((int)60)
+
 @interface Utilities()
 
 @property NSArray* colors;
+
 @end
 
 @implementation Utilities
@@ -28,7 +31,7 @@
     NSArray* colors = @[BLUE,GREEN,YELLOW,ORANGE,RED];
     UIColor* rankingColor = nil;
     
-    int index = (similarity/12)-1;
+    int index = [self determineColorByPercentage:similarity]; //(similarity/12)-1;
     
     if (index > 0)
     {
@@ -41,6 +44,34 @@
     
     return [rankingColor CGColor];
     
+}
+
++(int)determineColorByPercentage:(int)similarity
+{
+    
+    float percentage = (similarity/60)*100;
+    
+    if (percentage >=  95) {
+        return 4;
+    }
+    else if (percentage >= 85 && percentage < 95)
+    {
+        return 3;
+    }
+    else if (percentage >= 75 && percentage < 85)
+    {
+        return 2;
+    }
+    else if (percentage >= 65 && percentage < 75)
+    {
+        return 1;
+    }
+    else if (percentage <65)
+    {
+        return 0;
+    }
+    
+    return -1;
 }
 
 /**
