@@ -136,7 +136,6 @@
 		CE6935BD1910A3040065769B /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935BC1910A3040065769B /* ResetPasswordViewController.m */; };
 		CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */; };
 		CE7561E31905ABBC00611B93 /* SymeetryPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */; };
-		CE759C55190F348500231FE6 /* SimilarityAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = CE759C54190F348500231FE6 /* SimilarityAlgorithm.m */; };
 		CE759C58190F37E600231FE6 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE759C57190F37E600231FE6 /* ProfileTableViewCell.m */; };
 		CE77AD84190CCBE60028B91D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CE77AD83190CCBE60028B91D /* Utilities.m */; };
 		CE7D935F190725BF00F3EDC0 /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7D935C190725BF00F3EDC0 /* ChatManager.m */; };
@@ -328,8 +327,6 @@
 		CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryAnnotationView.m; path = Symeetry/SymeetryAnnotationView.m; sourceTree = "<group>"; };
 		CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryPointAnnotation.h; path = Symeetry/SymeetryPointAnnotation.h; sourceTree = "<group>"; };
 		CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryPointAnnotation.m; path = Symeetry/SymeetryPointAnnotation.m; sourceTree = "<group>"; };
-		CE759C53190F348500231FE6 /* SimilarityAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimilarityAlgorithm.h; path = Symeetry/SimilarityAlgorithm.h; sourceTree = "<group>"; };
-		CE759C54190F348500231FE6 /* SimilarityAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimilarityAlgorithm.m; path = Symeetry/SimilarityAlgorithm.m; sourceTree = "<group>"; };
 		CE759C56190F37E600231FE6 /* ProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileTableViewCell.h; path = Symeetry/ProfileTableViewCell.h; sourceTree = "<group>"; };
 		CE759C57190F37E600231FE6 /* ProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileTableViewCell.m; path = Symeetry/ProfileTableViewCell.m; sourceTree = "<group>"; };
 		CE77AD82190CCBE60028B91D /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = Symeetry/Utilities.h; sourceTree = "<group>"; };
@@ -519,8 +516,6 @@
 				CE759C57190F37E600231FE6 /* ProfileTableViewCell.m */,
 				8114069118FE0CD8004E578F /* ProfileHeaderView.h */,
 				8114069218FE0CD8004E578F /* ProfileHeaderView.m */,
-				CE759C53190F348500231FE6 /* SimilarityAlgorithm.h */,
-				CE759C54190F348500231FE6 /* SimilarityAlgorithm.m */,
 				CE730E081906043000FD6F95 /* SymeetryAnnotationView.h */,
 				CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */,
 				CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */,
@@ -948,7 +943,6 @@
 				81A385A219119A29007B5870 /* EditProfileViewController.m in Sources */,
 				563A1D4E190ED63900923AD4 /* MenuViewController.m in Sources */,
 				815C10DB190CA0E500679DD2 /* StoryViewController.m in Sources */,
-				CE759C55190F348500231FE6 /* SimilarityAlgorithm.m in Sources */,
 				CE6935B619109C130065769B /* BeaconDetailViewController.m in Sources */,
 				56A6548919085D15001B17AE /* RootViewController.m in Sources */,
 				815C10E4190CA6D400679DD2 /* InterestDemoViewController.m in Sources */,

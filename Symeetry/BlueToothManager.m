@@ -89,14 +89,12 @@
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    NSLog(@"central manger did update state");
+    
 }
 
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    
-    NSLog(@"peripheral name: %@\nUUID: %@\nservices:%@\n",peripheral.name, peripheral.identifier.description,peripheral.services);
     
     NSMutableArray* peripherals = [NSMutableArray new]; //[self mutableArrayValueForKey:@"estimote"];
     
@@ -125,8 +123,6 @@
 {
     [peripheral setDelegate:(id)self];
     [peripheral discoverServices:nil];
-    
-    NSLog(@"didConnectPeripheral");
 }
 
 
@@ -147,7 +143,6 @@
     {
         //pull out the characteristics we are interested in, we can also set the
         //notification value for the characteristic if we need to be updated constantly
-        NSLog(@"Characteristics of service %@", characteristic);
     }
 }
 
