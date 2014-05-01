@@ -80,8 +80,12 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleRegionBoundaryNotification:)
                                                  name:@"CLRegionStateInsideNotification" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshView:) name:@"refreshView" object:nil];
+    
     //assume there are no near beacons
     self.nearestBeacon = nil;
+    NSLog(@"nearest beacon nil");
     
     // Start ranging when the view appears
     for (CLBeaconRegion *region in self.rangedRegions)
@@ -115,11 +119,20 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 }
 
 
-//
+//allow user to refresh list as desired
 - (void)refresh:(UIRefreshControl *)refreshControl
 {
     [self getUserWithSimlarityRank];
+    [self.availableUsersTableView reloadData];
     [refreshControl endRefreshing];
+}
+
+
+//respond to notification that we have entered the foreground
+//after being in the background
+-(void)refreshView:(NSNotification *) notification
+{
+    [self viewWillAppear:YES];
 }
 
 
@@ -418,6 +431,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
             {
                 self.nearestBeacon = currentBeacon;
                 [ParseManager updateUserNearestBeacon:self.nearestBeacon];
+                NSLog(@"set nearest beacon\n");
             }
             
             //otherwise check if the beacon is is actually closer
@@ -427,6 +441,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
                 
                 self.nearestBeacon =  currentBeacon;
                 [ParseManager updateUserNearestBeacon:self.nearestBeacon];
+                NSLog(@"set nearest beacon\n");
 
             }
 

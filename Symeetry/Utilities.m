@@ -33,9 +33,7 @@
     
     int index = [self determineColorByPercentage:similarity]; //(similarity/12)-1;
     
-    NSLog(@"index %d",[self determineColorByPercentage:similarity]);
-    
-    if (index > 0)
+    if (index > -1)
     {
         rankingColor = colors[index];
     }
