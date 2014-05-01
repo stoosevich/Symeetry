@@ -132,6 +132,9 @@
         {
             self.easterEgg = 0;
         }
+        UIViewController* editProfileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EditProfileViewController"];
+        [self presentViewController:editProfileViewController animated:YES completion:nil];
+        
     }
     else if(indexPath.row == 1)
     {
