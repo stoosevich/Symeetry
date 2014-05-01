@@ -354,9 +354,11 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     }
     
     
+
     float latitudeRange = northernBorder - southernBorder + 0.005;
     float longitudeRange = westernBorder - easternBorder + 0.005;
     
+
 //    corrdinateSpan.latitudeDelta = latitudeRange;
 //    corrdinateSpan.longitudeDelta = longitudeRange;
     

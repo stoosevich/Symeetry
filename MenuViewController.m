@@ -40,6 +40,8 @@
     self.myTableView.scrollsToTop = YES;
     self.myTableView.frame = CGRectMake(0, 0, 180, self.myTableView.frame.size.height);
     self.options = @[@"My Profile", @"Settings", @"About", @"Logout", @"Loom™"];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_blur_map"]];
+
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,6 +132,9 @@
         {
             self.easterEgg = 0;
         }
+        UIViewController* editProfileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EditProfileViewController"];
+        [self presentViewController:editProfileViewController animated:YES completion:nil];
+        
     }
     else if(indexPath.row == 1)
     {

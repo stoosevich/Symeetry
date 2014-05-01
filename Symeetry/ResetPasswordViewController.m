@@ -24,7 +24,7 @@
     [super viewDidLoad];
     self.passwordTextField.secureTextEntry = YES;
     self.confirmPasswordTextField.secureTextEntry = YES;
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_blur_map"]];
 }
 
 - (IBAction)onChangePassButtonPressed:(id)sender

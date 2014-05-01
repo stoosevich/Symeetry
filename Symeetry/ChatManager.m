@@ -86,14 +86,20 @@
 
 -(void)checkoutChat
 {
+    NSLog(@"OFF");
     [self.advertiserAssistant stop];
     [self.browser stopBrowsingForPeers];
+    [self.users removeAllObjects];
+
 }
 
 -(void)checkinChat
 {
+    NSLog(@"ON");
+    [self.users removeAllObjects];
     [self.advertiserAssistant start];
     [self.browser startBrowsingForPeers];
+
 }
 
 -(void)sendMessage:(NSString*)message peer:(MCPeerID*)peer error:(NSError*)error sent:(void(^)(void))sent
@@ -140,10 +146,6 @@
     return self.friendPeerID;
 }
 
-//-(void)acceptedInvite
-//{
-//    [self.currentViewController performSegueWithIdentifier:self.segueToChatRoom.identifier sender:self.currentViewController];
-//}
 
 #pragma mark -- Browser
 
@@ -154,16 +156,29 @@
 
 -(void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
+
     MCPeerID* foundPeer = peerID;
-    [self.users addObject:foundPeer];
-    //NSLog(@"%@", peerID.displayName);
-    //NSLog(@"%lu", (unsigned long)self.users.count);
+
+    NSLog(@"%@", self.users);
+    NSMutableSet* temp = self.users;
+    for (MCPeerID*peer in self.users) {
+        if ([peer.displayName isEqualToString:foundPeer.displayName]) {
+            [temp removeObject:peer];
+            break;
+        }
+    }
+    [temp addObject:foundPeer];
+    self.users = temp;
+    NSLog(@"%@", peerID);
+    NSLog(@"%@", self.users);
+    NSLog(@"%lu", (unsigned long)self.users.count);
+    });
+
 }
 
 -(void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID
 {
-    
-
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.users removeObject:peerID];
         //NSLog(@"%@", peerID.displayName);
@@ -229,15 +244,7 @@
             cRVC.peerID = peerID;
             cRVC.chatRoomLabel.text = [NSString stringWithFormat:@"Chat with %@",peerID.displayName];
             id drawVC = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-
-//            if ([drawVC presentedViewController] == nil) {
-//                [drawVC presentViewController:cRVC animated:YES completion:^{
-//                    NSLog(@"worked");
-//                    NSLog(@"%@", cRVC.peerID.displayName);
-//                }];
-//            }
-//            else
-//            {
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 while ([drawVC presentedViewController] != nil) {
                     [drawVC dismissViewControllerAnimated:NO completion:^{
@@ -247,68 +254,14 @@
                     //NSLog(@"worked");
                     //NSLog(@"%@", cRVC.peerID.displayName);
                 }];
-//                NSLog(@"%@", [drawVC presentedViewController]);
-//                [drawVC dismissViewControllerAnimated:YES completion:^{
-//                    NSLog(@"%@", [drawVC presentedViewController]);
-//                    [drawVC presentViewController:cRVC animated:YES completion:^{
-//                        NSLog(@"worked");
-//                        NSLog(@"%@", cRVC.peerID.displayName);
-//                    }];
-//                }];
-
-//                if (drawVC != [drawVC presentedViewController]) {
-//                    [[drawVC presentedViewController] presentViewController:cRVC animated:YES completion:^{
-//                        NSLog(@"worked");
-//                        NSLog(@"%@", cRVC.peerID.displayName);
-//                    }];
-//                }
-//                else{
-//                    while (drawVC != [drawVC presentedViewController]) {
-//                        [[drawVC presentedViewController] dismissViewControllerAnimated:YES completion:nil];
-//                    }
-//                [drawVC presentViewController:cRVC animated:YES completion:^{
-//                    NSLog(@"worked");
-//                    NSLog(@"%@", cRVC.peerID.displayName);
-//                }];
-//                }
             });
-
-//            if ([vc isMemberOfClass:([MMDrawerController class])])
-//            {
-//                MMDrawerController* mDVC = vc;
-//                if ([mDVC openSide] == MMDrawerSideNone) {
-//                    [mDVC.centerViewController presentViewController:cRVC animated:YES completion:^{
-//                        NSLog(@"worked");
-//                        NSLog(@"%@", cRVC.peerID.displayName);
-//                    }];
-//                }
-//                else{
-//                    [mDVC.leftDrawerViewController presentViewController:cRVC animated:YES completion:^{
-//                        NSLog(@"worked");
-//                        NSLog(@"%@", cRVC.peerID.displayName);
-//                    }];
-//                }
-//            }
-//            else{
-//                vc = [vc presentedViewController];
-//                [vc presentViewController:cRVC animated:YES completion:^{
-//                    NSLog(@"worked");
-//                    NSLog(@"%@", cRVC.peerID.displayName);
-//                }];
-//            }
-                //self.connected();
             break;
             
         } case MCSessionStateConnecting: {
             
             NSLog(@"Connecting to %@", peerID.displayName);
             dispatch_async(dispatch_get_main_queue(), ^{
-//                ChatRoomViewController* cRVC = [ChatRoomViewController new];
-//                cRVC.peerID = self.friendPeerID;
-//                [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:cRVC animated:YES completion:^{
-//                    NSLog(@"worked");
-//                }];
-//                self.connecting();
+
             });
             
             break;
@@ -324,11 +277,6 @@
                 id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
                 vc = [vc presentedViewController];
                 [vc dismissModalViewControllerAnimated:YES];
-//                [vc presentViewController:cRVC animated:YES completion:^{
-//                    NSLog(@"worked");
-//                    NSLog(@"%@", cRVC.peerID.displayName);
-//                }];
-//                //[self disconnect:peerID];
             });
             
             break;

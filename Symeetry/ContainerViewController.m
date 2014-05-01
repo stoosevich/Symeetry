@@ -26,6 +26,7 @@
 @property AvailableUsersViewController* availableUsersViewController;
 @property InterestsViewController* interestsViewController;
 @property MapViewController* mapViewController;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 //used in delegate method to display the users detail
 @property PFUser* user;
@@ -85,7 +86,6 @@
     
     _mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
     
-    
 }
 
 /*
@@ -126,20 +126,23 @@
     [self.view addSubview:headerView];
 }
 
-
-
 - (IBAction)segmentedControl:(UISegmentedControl *)sender
 {
     switch (sender.selectedSegmentIndex)
     {
         case 0: //Leftmost segment
             [self showInterestsViewController];
+            self.segmentedControl.contentMode = UIViewContentModeScaleAspectFit;
             break;
         case 1: //Center segment
             [self showMapViewController];
+            self.segmentedControl.contentMode = UIViewContentModeScaleAspectFit;
+
             break;
         case 2: //Rightmost segment
             [self showAvailableUserViewController];
+            self.segmentedControl.contentMode = UIViewContentModeScaleAspectFit;
+
             break;
         default:
             break;
