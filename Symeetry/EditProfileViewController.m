@@ -115,10 +115,17 @@
     }];
 }
 
--(void)textViewDidChange:(UITextView *)textView
-{
-    [[PFUser currentUser]setObject:textView.text forKey:@"biography"];
-    [[PFUser currentUser]saveInBackground];
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([text isEqualToString:@"\n"]) {
+        [[PFUser currentUser]setObject:textView.text forKey:@"biography"];
+        [[PFUser currentUser]saveInBackground];
+        [textView endEditing:YES];
+        return NO;
+    }
+    
+    return YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated
