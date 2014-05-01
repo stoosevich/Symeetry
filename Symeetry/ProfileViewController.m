@@ -31,10 +31,24 @@
 @property ChatRoomViewController* cRVC;
 @property NSMutableArray* userInterests;
 
+@property (weak, nonatomic) IBOutlet UIImageView *theirGenderPicture;
 
 @end
 
 @implementation ProfileViewController
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    if ([[self.user objectForKey:@"gender"]boolValue]) {
+        self.theirGenderPicture.image = [UIImage imageNamed:@"ic_gender_wmn_sm"];
+    }
+    else
+    {
+        self.theirGenderPicture.image = [UIImage imageNamed:@"ic_gender_men_sm"];
+
+    }
+}
+
 
 - (void)viewDidLoad
 {

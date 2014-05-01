@@ -280,6 +280,10 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TRK-tQ-ahV">
+                                <rect key="frame" x="245" y="264" width="17" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -291,6 +295,7 @@
                         <outlet property="imageView" destination="Tg1-M5-lt4" id="cfn-Lu-hzi"/>
                         <outlet property="myTableView" destination="Wev-Dc-1bM" id="KhR-Y9-G62"/>
                         <outlet property="nameTextField" destination="Ofh-mx-Km6" id="Hjn-aC-vyJ"/>
+                        <outlet property="theirGenderPicture" destination="TRK-tQ-ahV" id="Zhs-gF-Nka"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gWp-03-FT0" userLabel="First Responder" sceneMemberID="firstResponder"/>
