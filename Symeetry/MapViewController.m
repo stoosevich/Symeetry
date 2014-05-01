@@ -345,8 +345,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     float latitudeRange = northernBorder - southernBorder + 0.005;
     float longitudeRange = westernBorder - easternBorder + 0.005;
     
-    corrdinateSpan.latitudeDelta = latitudeRange;
-    corrdinateSpan.longitudeDelta = longitudeRange;
+//    corrdinateSpan.latitudeDelta = latitudeRange;
+//    corrdinateSpan.longitudeDelta = longitudeRange;
     
 //    NSLog(@"max lat: %f long:%f",maxLatitude,maxLongitude);
 //    NSLog(@"min lat: %f long:%f",minLatitude,minLongitude);
