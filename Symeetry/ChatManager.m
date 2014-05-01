@@ -228,23 +228,74 @@
             ChatRoomViewController* cRVC = [sb instantiateViewControllerWithIdentifier:@"ChatRoomStoryBoardID"];
             cRVC.peerID = peerID;
             cRVC.chatRoomLabel.text = [NSString stringWithFormat:@"Chat with %@",peerID.displayName];
-            id vc = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-            if ([vc isMemberOfClass:([MMDrawerController class])])
-            {
-                MMDrawerController* mDVC = vc;
-                [mDVC closeDrawerAnimated:YES completion:nil];
-                [mDVC.centerViewController presentViewController:cRVC animated:YES completion:^{
+            id drawVC = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+
+//            if ([drawVC presentedViewController] == nil) {
+//                [drawVC presentViewController:cRVC animated:YES completion:^{
+//                    NSLog(@"worked");
+//                    NSLog(@"%@", cRVC.peerID.displayName);
+//                }];
+//            }
+//            else
+//            {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                while ([drawVC presentedViewController] != nil) {
+                    [drawVC dismissViewControllerAnimated:NO completion:^{
+                    }];
+                }
+                [drawVC presentViewController:cRVC animated:YES completion:^{
                     NSLog(@"worked");
                     NSLog(@"%@", cRVC.peerID.displayName);
                 }];
-            }
-            else{
-                vc = [vc presentedViewController];
-                [vc presentViewController:cRVC animated:YES completion:^{
-                    NSLog(@"worked");
-                    NSLog(@"%@", cRVC.peerID.displayName);
-                }];
-            }
+//                NSLog(@"%@", [drawVC presentedViewController]);
+//                [drawVC dismissViewControllerAnimated:YES completion:^{
+//                    NSLog(@"%@", [drawVC presentedViewController]);
+//                    [drawVC presentViewController:cRVC animated:YES completion:^{
+//                        NSLog(@"worked");
+//                        NSLog(@"%@", cRVC.peerID.displayName);
+//                    }];
+//                }];
+
+//                if (drawVC != [drawVC presentedViewController]) {
+//                    [[drawVC presentedViewController] presentViewController:cRVC animated:YES completion:^{
+//                        NSLog(@"worked");
+//                        NSLog(@"%@", cRVC.peerID.displayName);
+//                    }];
+//                }
+//                else{
+//                    while (drawVC != [drawVC presentedViewController]) {
+//                        [[drawVC presentedViewController] dismissViewControllerAnimated:YES completion:nil];
+//                    }
+//                [drawVC presentViewController:cRVC animated:YES completion:^{
+//                    NSLog(@"worked");
+//                    NSLog(@"%@", cRVC.peerID.displayName);
+//                }];
+//                }
+            });
+
+//            if ([vc isMemberOfClass:([MMDrawerController class])])
+//            {
+//                MMDrawerController* mDVC = vc;
+//                if ([mDVC openSide] == MMDrawerSideNone) {
+//                    [mDVC.centerViewController presentViewController:cRVC animated:YES completion:^{
+//                        NSLog(@"worked");
+//                        NSLog(@"%@", cRVC.peerID.displayName);
+//                    }];
+//                }
+//                else{
+//                    [mDVC.leftDrawerViewController presentViewController:cRVC animated:YES completion:^{
+//                        NSLog(@"worked");
+//                        NSLog(@"%@", cRVC.peerID.displayName);
+//                    }];
+//                }
+//            }
+//            else{
+//                vc = [vc presentedViewController];
+//                [vc presentViewController:cRVC animated:YES completion:^{
+//                    NSLog(@"worked");
+//                    NSLog(@"%@", cRVC.peerID.displayName);
+//                }];
+//            }
                 //self.connected();
             break;
             
