@@ -89,14 +89,10 @@
 }
 
 
-
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+-(void)textViewDidChange:(UITextView *)textView
 {
-    if([text isEqualToString:@"\n"])
-        [[PFUser currentUser]setObject:textView.text forKey:@"biography"];
-        [[PFUser currentUser]saveInBackground];
-        [textView endEditing:YES];
-    return YES;
+    [[PFUser currentUser]setObject:textView.text forKey:@"biography"];
+    [[PFUser currentUser]saveInBackground];
 }
 
 -(void)textViewDidBeginEditing:(UITextView *)textView
