@@ -19,9 +19,7 @@
 #import "MMDrawerController.h"
 #import "BlueToothManager.h"
 
-
 @interface ContainerViewController ()
-
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property AvailableUsersViewController* availableUsersViewController;
 @property InterestsViewController* interestsViewController;
@@ -86,6 +84,13 @@
     
     _mapViewController = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
     
+    self.segmentedControl.contentMode = UIViewContentModeScaleAspectFill;
+    for (int ii = 0; ii < self.segmentedControl.numberOfSegments; ++ii)
+    {
+        UIImage *img = [self.segmentedControl imageForSegmentAtIndex:ii];
+        img = [img resizableImageWithCapInsets:UIEdgeInsetsZero];
+        [self.segmentedControl setImage:img forSegmentAtIndex:ii];
+    }
 }
 
 /*
@@ -132,17 +137,12 @@
     {
         case 0: //Leftmost segment
             [self showInterestsViewController];
-            self.segmentedControl.contentMode = UIViewContentModeScaleAspectFit;
             break;
         case 1: //Center segment
             [self showMapViewController];
-            self.segmentedControl.contentMode = UIViewContentModeScaleAspectFit;
-
             break;
         case 2: //Rightmost segment
             [self showAvailableUserViewController];
-            self.segmentedControl.contentMode = UIViewContentModeScaleAspectFit;
-
             break;
         default:
             break;
