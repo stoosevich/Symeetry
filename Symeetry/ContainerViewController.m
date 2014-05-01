@@ -110,6 +110,7 @@
     
     //set the frame
     headerView.frame = frame;
+    headerView.menuButtonOnHeader.image = [UIImage imageNamed:@"btn_hamburger"];
     headerView.menuPressed =^{
         MMDrawerController* draw = (id)self.view.window.rootViewController;
         [draw toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];

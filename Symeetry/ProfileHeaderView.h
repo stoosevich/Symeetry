@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMDrawerBarButtonItem.h"
+
+
 
 @interface ProfileHeaderView : UIView
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
@@ -15,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
 @property (weak, nonatomic) IBOutlet UITextView *bioTextField;
 @property (nonatomic, copy) void (^menuPressed)(void);
+@property (weak, nonatomic) IBOutlet MMDrawerBarButtonItem *menuButtonOnHeader;
 
 -(void)setDelegates:(id)object;
 
