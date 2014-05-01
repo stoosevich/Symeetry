@@ -19,6 +19,7 @@
 		563A1CB3190DA08E00923AD4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AB5B0C18FC85890060B17A /* UIKit.framework */; };
 		563A1D4E190ED63900923AD4 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563A1D4D190ED63900923AD4 /* MenuViewController.m */; };
 		568BD8D819118DDE007E5013 /* ForgotPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 568BD8D719118DDE007E5013 /* ForgotPassViewController.m */; };
+		568BD8DA19129FD0007E5013 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 568BD8D919129FD0007E5013 /* EditProfileViewController.m */; };
 		5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5695430F18FD8C8F00A101F4 /* ParseManager.m */; };
 		56A6548919085D15001B17AE /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A6548819085D15001B17AE /* RootViewController.m */; };
 		8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8114069218FE0CD8004E578F /* ProfileHeaderView.m */; };
@@ -43,7 +44,6 @@
 		81882A1C18FC974900724B79 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81882A1B18FC974900724B79 /* StoreKit.framework */; };
 		81882A1E18FC975500724B79 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81882A1D18FC975500724B79 /* SystemConfiguration.framework */; };
 		81A3099419003E7000963305 /* interests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81A3099319003E7000963305 /* interests.plist */; };
-		81A385A219119A29007B5870 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A385A119119A29007B5870 /* EditProfileViewController.m */; };
 		81A385A61911FC6C007B5870 /* input_bg_age.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A385A31911FC6C007B5870 /* input_bg_age.png */; };
 		81A385A71911FC6C007B5870 /* input_bg_bio.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A385A41911FC6C007B5870 /* input_bg_bio.png */; };
 		81A385A81911FC6C007B5870 /* input_bg_register.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A385A51911FC6C007B5870 /* input_bg_register.png */; };
@@ -100,6 +100,8 @@
 		81C37838190FE19F00F37924 /* ic_interest_tech.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C3780F190FE19F00F37924 /* ic_interest_tech.png */; };
 		81C37839190FE19F00F37924 /* ic_interest_tv.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C37810190FE19F00F37924 /* ic_interest_tv.png */; };
 		81C3783A190FE19F00F37924 /* ic_interest_voluenteer.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C37811190FE19F00F37924 /* ic_interest_voluenteer.png */; };
+		81CBC9491912939E0071DAF0 /* ic_gender_men_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 81CBC9471912939E0071DAF0 /* ic_gender_men_selected.png */; };
+		81CBC94A1912939E0071DAF0 /* ic_gender_wmn_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 81CBC9481912939E0071DAF0 /* ic_gender_wmn_selected.png */; };
 		81CC0CD21908023D00D2F924 /* venus.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81CC0CD11908023D00D2F924 /* venus.jpg */; };
 		81D0E71E190F491F00619C78 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D0E71D190F491F00619C78 /* PhotoViewController.m */; };
 		81D95E8F19103510002DEE76 /* music_rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D95E8E19103510002DEE76 /* music_rainbow.png */; };
@@ -161,8 +163,9 @@
 		563A1CB0190DA08E00923AD4 /* HamBurgerMenuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HamBurgerMenuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		563A1D4C190ED63900923AD4 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		563A1D4D190ED63900923AD4 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		568BD8D619118DDE007E5013 /* ForgotPassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotPassViewController.h; sourceTree = "<group>"; };
 		568BD8D719118DDE007E5013 /* ForgotPassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotPassViewController.m; sourceTree = "<group>"; };
+		568BD8D919129FD0007E5013 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditProfileViewController.m; path = Symeetry/EditProfileViewController.m; sourceTree = "<group>"; };
+		568BD8DB19129FF6007E5013 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditProfileViewController.h; path = Symeetry/EditProfileViewController.h; sourceTree = "<group>"; };
 		5695430E18FD8C8F00A101F4 /* ParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseManager.h; path = Symeetry/ParseManager.h; sourceTree = "<group>"; };
 		5695430F18FD8C8F00A101F4 /* ParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParseManager.m; path = Symeetry/ParseManager.m; sourceTree = "<group>"; };
 		56A6548719085D15001B17AE /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -200,8 +203,6 @@
 		81882A1B18FC974900724B79 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81882A1D18FC975500724B79 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		81A3099319003E7000963305 /* interests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = interests.plist; path = ../interests.plist; sourceTree = "<group>"; };
-		81A385A019119A29007B5870 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditProfileViewController.h; path = Symeetry/EditProfileViewController.h; sourceTree = "<group>"; };
-		81A385A119119A29007B5870 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditProfileViewController.m; path = Symeetry/EditProfileViewController.m; sourceTree = "<group>"; };
 		81A385A31911FC6C007B5870 /* input_bg_age.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input_bg_age.png; sourceTree = "<group>"; };
 		81A385A41911FC6C007B5870 /* input_bg_bio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input_bg_bio.png; sourceTree = "<group>"; };
 		81A385A51911FC6C007B5870 /* input_bg_register.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input_bg_register.png; sourceTree = "<group>"; };
@@ -263,6 +264,8 @@
 		81C3780F190FE19F00F37924 /* ic_interest_tech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_interest_tech.png; path = Symeetry/ic_interest_tech.png; sourceTree = "<group>"; };
 		81C37810190FE19F00F37924 /* ic_interest_tv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_interest_tv.png; path = Symeetry/ic_interest_tv.png; sourceTree = "<group>"; };
 		81C37811190FE19F00F37924 /* ic_interest_voluenteer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_interest_voluenteer.png; path = Symeetry/ic_interest_voluenteer.png; sourceTree = "<group>"; };
+		81CBC9471912939E0071DAF0 /* ic_gender_men_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_gender_men_selected.png; sourceTree = "<group>"; };
+		81CBC9481912939E0071DAF0 /* ic_gender_wmn_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_gender_wmn_selected.png; sourceTree = "<group>"; };
 		81CC0CD11908023D00D2F924 /* venus.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = venus.jpg; sourceTree = "<group>"; };
 		81D0E71C190F491F00619C78 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoViewController.h; path = Symeetry/PhotoViewController.h; sourceTree = "<group>"; };
 		81D0E71D190F491F00619C78 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoViewController.m; path = Symeetry/PhotoViewController.m; sourceTree = "<group>"; };
@@ -381,6 +384,9 @@
 			isa = PBXGroup;
 			children = (
 				81A385A919121C63007B5870 /* btn_hamburger@2x.png */,
+				81CBC9471912939E0071DAF0 /* ic_gender_men_selected.png */,
+				81CBC9481912939E0071DAF0 /* ic_gender_wmn_selected.png */,
+				81A385A919121C63007B5870 /* btn_hamburger.png */,
 				81A385AB19121C71007B5870 /* btn_back.png */,
 				81D95E8E19103510002DEE76 /* music_rainbow.png */,
 				81C377EA190FE19F00F37924 /* bg_flow_next.png */,
@@ -499,30 +505,27 @@
 			isa = PBXGroup;
 			children = (
 				815C10D5190C9E5E00679DD2 /* On-Boarding */,
-				56A6548719085D15001B17AE /* RootViewController.h */,
-				56A6548819085D15001B17AE /* RootViewController.m */,
-				CE6935A919103CE10065769B /* AboutViewController.h */,
-				CE6935AA19103CE10065769B /* AboutViewController.m */,
 				CE6935B319109C130065769B /* AddBeaconViewController.h */,
 				CE6935B419109C130065769B /* AddBeaconViewController.m */,
+				CE6935A919103CE10065769B /* AboutViewController.h */,
+				CE6935AA19103CE10065769B /* AboutViewController.m */,
 				81AB5B1D18FC85890060B17A /* AvailableUsersViewController.h */,
 				81AB5B1E18FC85890060B17A /* AvailableUsersViewController.m */,
-				81A385A019119A29007B5870 /* EditProfileViewController.h */,
-				81A385A119119A29007B5870 /* EditProfileViewController.m */,
-				CE6935B819109EAB0065769B /* SettingViewController.h */,
-				CE6935B919109EAB0065769B /* SettingViewController.m */,
-				CE6935AF19109C130065769B /* BeaconUUIDListViewController.h */,
-				CE6935B019109C130065769B /* BeaconUUIDListViewController.m */,
 				CE6935B119109C130065769B /* BeaconDetailViewController.h */,
 				CE6935B219109C130065769B /* BeaconDetailViewController.m */,
-				CE5A1E6A190C4B4700658E4D /* ContainerViewController.h */,
-				CE5A1E6B190C4B4700658E4D /* ContainerViewController.m */,
+				CE6935AF19109C130065769B /* BeaconUUIDListViewController.h */,
+				CE6935B019109C130065769B /* BeaconUUIDListViewController.m */,
 				CE7D935D190725BF00F3EDC0 /* ChatRoomViewController.h */,
 				CE7D935E190725BF00F3EDC0 /* ChatRoomViewController.m */,
+				CE5A1E6A190C4B4700658E4D /* ContainerViewController.h */,
+				CE5A1E6B190C4B4700658E4D /* ContainerViewController.m */,
 				CE66818D190EACFC00543FE7 /* DisplayUserProfileDelegate.h */,
-				81A385A019119A29007B5870 /* EditProfileViewController.h */,
-				81A385A119119A29007B5870 /* EditProfileViewController.m */,
-				568BD8D619118DDE007E5013 /* ForgotPassViewController.h */,
+				568BD8DB19129FF6007E5013 /* EditProfileViewController.h */,
+				568BD8D919129FD0007E5013 /* EditProfileViewController.m */,
+				56A6548719085D15001B17AE /* RootViewController.h */,
+				56A6548819085D15001B17AE /* RootViewController.m */,
+				CE6935B819109EAB0065769B /* SettingViewController.h */,
+				CE6935B919109EAB0065769B /* SettingViewController.m */,
 				568BD8D719118DDE007E5013 /* ForgotPassViewController.m */,
 				818829FE18FC88BD00724B79 /* InterestsViewController.h */,
 				818829FF18FC88BD00724B79 /* InterestsViewController.m */,
@@ -801,6 +804,8 @@
 				81C3781E190FE19F00F37924 /* ic_interests_trio_welcome.png in Resources */,
 				81C37832190FE19F00F37924 /* ic_interest_dancing.png in Resources */,
 				81C37824190FE19F00F37924 /* ic_tab_interests_selected@2x.png in Resources */,
+				81CBC9491912939E0071DAF0 /* ic_gender_men_selected.png in Resources */,
+				81C37824190FE19F00F37924 /* ic_tab_interests_selected.png in Resources */,
 				81C3782F190FE19F00F37924 /* symeetry-welcome-what.png in Resources */,
 				81C37838190FE19F00F37924 /* ic_interest_tech.png in Resources */,
 				81C37816190FE19F00F37924 /* btn_select_picture.png in Resources */,
@@ -811,6 +816,8 @@
 				81C37819190FE19F00F37924 /* color_slider.png in Resources */,
 				81C37813190FE19F00F37924 /* bg_flow_next.png in Resources */,
 				81C37823190FE19F00F37924 /* ic_tab_interests_normal@2x.png in Resources */,
+				81C37823190FE19F00F37924 /* ic_tab_interests_normal.png in Resources */,
+				81CBC94A1912939E0071DAF0 /* ic_gender_wmn_selected.png in Resources */,
 				81D95E8F19103510002DEE76 /* music_rainbow.png in Resources */,
 				81C37815190FE19F00F37924 /* btn_go.png in Resources */,
 				81C37835190FE19F00F37924 /* ic_interest_games.png in Resources */,
@@ -899,7 +906,7 @@
 				568BD8D819118DDE007E5013 /* ForgotPassViewController.m in Sources */,
 				81AB5B1F18FC85890060B17A /* AvailableUsersViewController.m in Sources */,
 				815C10D8190C9E9700679DD2 /* OpeningViewController.m in Sources */,
-				81A385A219119A29007B5870 /* EditProfileViewController.m in Sources */,
+				568BD8DA19129FD0007E5013 /* EditProfileViewController.m in Sources */,
 				563A1D4E190ED63900923AD4 /* MenuViewController.m in Sources */,
 				815C10DB190CA0E500679DD2 /* StoryViewController.m in Sources */,
 				CE6935B619109C130065769B /* BeaconDetailViewController.m in Sources */,
