@@ -13,7 +13,7 @@
 #import "Utilities.h"
 
 
-@interface CreateNewUserViewController () <UITextFieldDelegate, UIAlertViewDelegate>
+@interface CreateNewUserViewController () <UITextFieldDelegate, UIAlertViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *comfirmpasswordTextField;
@@ -113,6 +113,8 @@
                     [newUser setObject:@"" forKey:@"biography"];
                     [newUser setObject:@NO forKey:@"hidden"];
                     [newUser setObject:@"NOT_INITIALIZED" forKey:@"nearestBeacon"];
+                    PFGeoPoint* point = [PFGeoPoint geoPointWithLatitude:51.5072 longitude:-0.1275];
+                    [newUser setObject:point forKey:@"location"];
                     [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         if (succeeded) {
                             PFObject* interest = [PFObject objectWithClassName:@"Interests"];
