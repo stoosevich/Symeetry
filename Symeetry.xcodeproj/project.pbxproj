@@ -503,11 +503,10 @@
 		818829FD18FC883000724B79 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				815C10D5190C9E5E00679DD2 /* On-Boarding */,
-				CE6935B319109C130065769B /* AddBeaconViewController.h */,
-				CE6935B419109C130065769B /* AddBeaconViewController.m */,
 				CE6935A919103CE10065769B /* AboutViewController.h */,
 				CE6935AA19103CE10065769B /* AboutViewController.m */,
+				CE6935B319109C130065769B /* AddBeaconViewController.h */,
+				CE6935B419109C130065769B /* AddBeaconViewController.m */,
 				81AB5B1D18FC85890060B17A /* AvailableUsersViewController.h */,
 				81AB5B1E18FC85890060B17A /* AvailableUsersViewController.m */,
 				CE6935B119109C130065769B /* BeaconDetailViewController.h */,
@@ -521,10 +520,6 @@
 				CE66818D190EACFC00543FE7 /* DisplayUserProfileDelegate.h */,
 				568BD8DB19129FF6007E5013 /* EditProfileViewController.h */,
 				568BD8D919129FD0007E5013 /* EditProfileViewController.m */,
-				56A6548719085D15001B17AE /* RootViewController.h */,
-				56A6548819085D15001B17AE /* RootViewController.m */,
-				CE6935B819109EAB0065769B /* SettingViewController.h */,
-				CE6935B919109EAB0065769B /* SettingViewController.m */,
 				568BD8D719118DDE007E5013 /* ForgotPassViewController.m */,
 				818829FE18FC88BD00724B79 /* InterestsViewController.h */,
 				818829FF18FC88BD00724B79 /* InterestsViewController.m */,
@@ -534,10 +529,15 @@
 				CE893D8819022CAF000260A4 /* MapViewController.m */,
 				563A1D4C190ED63900923AD4 /* MenuViewController.h */,
 				563A1D4D190ED63900923AD4 /* MenuViewController.m */,
-				CE6935B819109EAB0065769B /* SettingViewController.h */,
-				CE6935B919109EAB0065769B /* SettingViewController.m */,
+				815C10D5190C9E5E00679DD2 /* On-Boarding */,
 				818829F918FC87F300724B79 /* ProfileViewController.h */,
 				818829FA18FC87F300724B79 /* ProfileViewController.m */,
+				56A6548719085D15001B17AE /* RootViewController.h */,
+				56A6548819085D15001B17AE /* RootViewController.m */,
+				CE6935B819109EAB0065769B /* SettingViewController.h */,
+				CE6935B819109EAB0065769B /* SettingViewController.h */,
+				CE6935B919109EAB0065769B /* SettingViewController.m */,
+				CE6935B919109EAB0065769B /* SettingViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
