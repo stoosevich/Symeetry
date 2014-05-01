@@ -333,9 +333,17 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
     
+    
+    //if the region is not part of the active list, add it
     if (![self.activeRegions containsObject:region] && beacons.count)
     {
         [self.activeRegions addObject:region];
+        [self getUserWithSimlarityRank];
+    }
+    else if (self.activeRegions.count == 0 && self.nearestBeacon != nil)
+    {
+        self.nearestBeacon = nil;
+        [ParseManager updateUserNearestBeacon:self.nearestBeacon];
         [self getUserWithSimlarityRank];
     }
     
