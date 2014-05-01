@@ -20,15 +20,31 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 //@property (weak, nonatomic) IBOutlet UITextField *comfirmPasswordTextField;
 //@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
-@property (weak, nonatomic) IBOutlet UIButton *loginButtonPressed;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (strong, nonatomic) IBOutlet UIButton *signUpButton;
 
 @end
 
 @implementation LoginViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.hidden = YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    CALayer *signUPButtonLayer = [self.signUpButton layer];
+    [signUPButtonLayer setMasksToBounds:YES];
+    [signUPButtonLayer setCornerRadius:5.0f];
+    
+    CALayer *loginButtonLayer = [self.loginButton layer];
+    [loginButtonLayer setMasksToBounds:YES];
+    [loginButtonLayer setCornerRadius:5.0f];
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_blur_map"]];
     self.passwordTextField.secureTextEntry = YES;
  //   self.comfirmPasswordTextField.secureTextEntry = YES;
 }
@@ -42,14 +58,14 @@
 
 - (IBAction)onLoginButtonPressed:(id)sender
 {
-    self.loginButtonPressed.enabled = NO;
+    self.loginButton.enabled = NO;
     [ParseManager logIn:self.usernameTextField.text password:self.passwordTextField.text completionBlock:^{
         self.passwordTextField.text = @"";
         self.usernameTextField.text = @"";
-        self.loginButtonPressed.enabled = YES;
+        self.loginButton.enabled = YES;
         [self dismissViewControllerAnimated:YES completion:nil];
     } failedBlock:^{
-        self.loginButtonPressed.enabled = YES;
+        self.loginButton.enabled = YES;
     }];
 }
 
