@@ -10,7 +10,6 @@
 #import "Parse/Parse.h"
 
 @interface InterestsViewController : UIViewController
-//Another test
 @property NSMutableArray* interests;
 
 
