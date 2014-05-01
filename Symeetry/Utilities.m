@@ -9,11 +9,11 @@
 #import "Utilities.h"
 #import "ParseManager.h"
 
-#define RED [UIColor redColor]
-#define ORANGE [UIColor orangeColor]
-#define YELLOW [UIColor yellowColor]
-#define GREEN [UIColor greenColor]
-#define BLUE [UIColor blueColor]
+#define RED [UIColor colorWithRed:207/255.0f green:44/255.0f blue:74/255.0f alpha:1.0] //[UIColor redColor]
+#define ORANGE [UIColor colorWithRed:235/255.0f green:107/255.0f blue:37/255.0f alpha:1.0]//[UIColor orangeColor]
+#define YELLOW [UIColor colorWithRed:210/255.0f green:208/255.0f blue:34/255.0f alpha:1.0] //[UIColor yellowColor]
+#define GREEN [UIColor colorWithRed:136/255.0f green:170/255.0f blue:63/255.0f alpha:1.0] //[UIColor greenColor]
+#define BLUE [UIColor colorWithRed:54/255.0f green:155/255.0f blue:210/255.0f alpha:1.0]//[UIColor blueColor]
 #define BASE ((int)60)
 
 @interface Utilities()
@@ -36,6 +36,7 @@
     if (index > -1)
     {
         rankingColor = colors[index];
+        
     }
     else
     {
@@ -52,23 +53,23 @@
     float percentage = (similarity/60.0)*100;
     
     
-    if (percentage >=  95)//red
+    if (percentage >=  81)//red
     {
         return 4;
     }
-    else if (percentage >= 85 && percentage < 95)//orange
+    else if (percentage >= 61 && percentage < 81)//orange
     {
         return 3;
     }
-    else if (percentage >= 75 && percentage < 85)//yellow
+    else if (percentage >= 41 && percentage < 61)//yellow
     {
         return 2;
     }
-    else if (percentage >= 65 && percentage < 75)//green
+    else if (percentage >= 21 && percentage < 41)//green
     {
         return 1;
     }
-    else if (percentage < 65)//blue
+    else if (percentage >=1 && percentage < 65)//blue
     {
         return 0;
     }
