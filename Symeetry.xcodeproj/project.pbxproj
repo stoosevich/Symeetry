@@ -123,7 +123,6 @@
 		CE6935B619109C130065769B /* BeaconDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935B219109C130065769B /* BeaconDetailViewController.m */; };
 		CE6935B719109C130065769B /* AddBeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935B419109C130065769B /* AddBeaconViewController.m */; };
 		CE6935BA19109EAB0065769B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935B919109EAB0065769B /* SettingViewController.m */; };
-		CE6935BD1910A3040065769B /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6935BC1910A3040065769B /* ResetPasswordViewController.m */; };
 		CE730E0A1906043000FD6F95 /* SymeetryAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */; };
 		CE7561E31905ABBC00611B93 /* SymeetryPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7561E21905ABBC00611B93 /* SymeetryPointAnnotation.m */; };
 		CE759C58190F37E600231FE6 /* ProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE759C57190F37E600231FE6 /* ProfileTableViewCell.m */; };
@@ -301,8 +300,6 @@
 		CE6935B419109C130065769B /* AddBeaconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBeaconViewController.m; sourceTree = "<group>"; };
 		CE6935B819109EAB0065769B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingViewController.h; path = Symeetry/SettingViewController.h; sourceTree = "<group>"; };
 		CE6935B919109EAB0065769B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingViewController.m; path = Symeetry/SettingViewController.m; sourceTree = "<group>"; };
-		CE6935BB1910A3040065769B /* ResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResetPasswordViewController.h; path = Symeetry/ResetPasswordViewController.h; sourceTree = "<group>"; };
-		CE6935BC1910A3040065769B /* ResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResetPasswordViewController.m; path = Symeetry/ResetPasswordViewController.m; sourceTree = "<group>"; };
 		CE730E081906043000FD6F95 /* SymeetryAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryAnnotationView.h; path = Symeetry/SymeetryAnnotationView.h; sourceTree = "<group>"; };
 		CE730E091906043000FD6F95 /* SymeetryAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SymeetryAnnotationView.m; path = Symeetry/SymeetryAnnotationView.m; sourceTree = "<group>"; };
 		CE7561E11905ABBC00611B93 /* SymeetryPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SymeetryPointAnnotation.h; path = Symeetry/SymeetryPointAnnotation.h; sourceTree = "<group>"; };
@@ -512,8 +509,6 @@
 				81AB5B1E18FC85890060B17A /* AvailableUsersViewController.m */,
 				81A385A019119A29007B5870 /* EditProfileViewController.h */,
 				81A385A119119A29007B5870 /* EditProfileViewController.m */,
-				CE6935BB1910A3040065769B /* ResetPasswordViewController.h */,
-				CE6935BC1910A3040065769B /* ResetPasswordViewController.m */,
 				CE6935B819109EAB0065769B /* SettingViewController.h */,
 				CE6935B919109EAB0065769B /* SettingViewController.m */,
 				CE6935AF19109C130065769B /* BeaconUUIDListViewController.h */,
@@ -537,8 +532,6 @@
 				CE893D8819022CAF000260A4 /* MapViewController.m */,
 				563A1D4C190ED63900923AD4 /* MenuViewController.h */,
 				563A1D4D190ED63900923AD4 /* MenuViewController.m */,
-				CE6935BB1910A3040065769B /* ResetPasswordViewController.h */,
-				CE6935BC1910A3040065769B /* ResetPasswordViewController.m */,
 				CE6935B819109EAB0065769B /* SettingViewController.h */,
 				CE6935B919109EAB0065769B /* SettingViewController.m */,
 				818829F918FC87F300724B79 /* ProfileViewController.h */,
@@ -937,7 +930,6 @@
 				81882A0018FC88BD00724B79 /* InterestsViewController.m in Sources */,
 				CE759C58190F37E600231FE6 /* ProfileTableViewCell.m in Sources */,
 				815C10E7190CBE7900679DD2 /* NumberedViewController.m in Sources */,
-				CE6935BD1910A3040065769B /* ResetPasswordViewController.m in Sources */,
 				815C10E1190CA6BC00679DD2 /* CameraViewController.m in Sources */,
 				5695431018FD8C8F00A101F4 /* ParseManager.m in Sources */,
 				8114069318FE0CD8004E578F /* ProfileHeaderView.m in Sources */,
