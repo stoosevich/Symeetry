@@ -161,7 +161,13 @@
 -(void)getSignedUpInterest:(void(^)(void))block
 {
     [self getNewlyUsersInterests:^(PFObject *object, NSError *error) {
-        self.myNewlyCreatedUsersInterests = object;
+        
+        //object is the user, not the interests of the user
+        PFObject* tempUser =  object;
+
+        //we need to get the interest from the user
+        self.myNewlyCreatedUsersInterests = tempUser[@"interests"];
+        
         [self.myNewlyCreatedUsersInterests setObject:[PFUser currentUser] forKey:@"user"];
         [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"movies"];
         [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"music"];
