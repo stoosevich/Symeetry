@@ -166,7 +166,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
 
-    if ([view isKindOfClass:[MKUserLocation class]])
+    if (![view isKindOfClass:[MKPinAnnotationView class]])
     {
         return;
     }
@@ -193,10 +193,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
              UIImage* resizedImage = [self resizeImage:image toWidth:30.0f andHeight:30.0f];
              annotationView.imageView.image = resizedImage;
              NSNumber* index = (NSNumber*)annotation.user[@"similarityIndex"];
-             
-             NSLog(@"sim index %@",index);
              [annotationView.imageView.layer setBorderColor:[Utilities colorBasedOnSimilarity:[index intValue]]];
-             
              [annotationView.imageView circlify];
          }];
         
