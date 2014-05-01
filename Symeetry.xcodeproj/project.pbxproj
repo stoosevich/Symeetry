@@ -34,7 +34,6 @@
 		81882A0318FC8AEE00724B79 /* InterestsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81882A0218FC8AEE00724B79 /* InterestsCollectionViewCell.m */; };
 		81882A0818FC8DFE00724B79 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81882A0718FC8DFE00724B79 /* CoreBluetooth.framework */; };
 		81882A0A18FC8E0D00724B79 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81882A0918FC8E0D00724B79 /* CoreLocation.framework */; };
-		81882A0E18FC923300724B79 /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81882A0D18FC923300724B79 /* ProfileHeaderView.xib */; };
 		81882A1018FC96F000724B79 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81882A0F18FC96F000724B79 /* AudioToolbox.framework */; };
 		81882A1218FC96F800724B79 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81882A1118FC96F800724B79 /* CFNetwork.framework */; };
 		81882A1418FC972500724B79 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81882A1318FC972500724B79 /* libz.dylib */; };
@@ -105,6 +104,7 @@
 		81D0E71E190F491F00619C78 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D0E71D190F491F00619C78 /* PhotoViewController.m */; };
 		81D95E8F19103510002DEE76 /* music_rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D95E8E19103510002DEE76 /* music_rainbow.png */; };
 		81D95E92191036F3002DEE76 /* BiographyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D95E91191036F3002DEE76 /* BiographyViewController.m */; };
+		CE26A9F119127B2E00840673 /* ProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE26A9F019127B2E00840673 /* ProfileHeaderView.xib */; };
 		CE3EC3A7190803DE00DCB671 /* MapCallOutView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3EC3A6190803DE00DCB671 /* MapCallOutView.m */; };
 		CE3EC3A9190806BC00DCB671 /* MapCallOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */; };
 		CE562EC718FCCF7F00DDB3D3 /* dennis.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE562EC618FCCF7F00DDB3D3 /* dennis.jpg */; };
@@ -192,7 +192,6 @@
 		81882A0218FC8AEE00724B79 /* InterestsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InterestsCollectionViewCell.m; path = Symeetry/InterestsCollectionViewCell.m; sourceTree = "<group>"; };
 		81882A0718FC8DFE00724B79 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		81882A0918FC8E0D00724B79 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		81882A0D18FC923300724B79 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		81882A0F18FC96F000724B79 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		81882A1118FC96F800724B79 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		81882A1318FC972500724B79 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -272,6 +271,7 @@
 		81D95E90191036F3002DEE76 /* BiographyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BiographyViewController.h; path = Symeetry/BiographyViewController.h; sourceTree = "<group>"; };
 		81D95E91191036F3002DEE76 /* BiographyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BiographyViewController.m; path = Symeetry/BiographyViewController.m; sourceTree = "<group>"; };
 		C5524F3CF1B74DF19CAA246F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		CE26A9F019127B2E00840673 /* ProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileHeaderView.xib; sourceTree = "<group>"; };
 		CE3EC3A5190803DE00DCB671 /* MapCallOutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapCallOutView.h; path = Symeetry/MapCallOutView.h; sourceTree = "<group>"; };
 		CE3EC3A6190803DE00DCB671 /* MapCallOutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapCallOutView.m; path = Symeetry/MapCallOutView.m; sourceTree = "<group>"; };
 		CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapCallOutView.xib; path = ../MapCallOutView.xib; sourceTree = "<group>"; };
@@ -504,6 +504,12 @@
 				815C10D5190C9E5E00679DD2 /* On-Boarding */,
 				56A6548719085D15001B17AE /* RootViewController.h */,
 				56A6548819085D15001B17AE /* RootViewController.m */,
+				CE6935A919103CE10065769B /* AboutViewController.h */,
+				CE6935AA19103CE10065769B /* AboutViewController.m */,
+				CE6935B319109C130065769B /* AddBeaconViewController.h */,
+				CE6935B419109C130065769B /* AddBeaconViewController.m */,
+				81AB5B1D18FC85890060B17A /* AvailableUsersViewController.h */,
+				81AB5B1E18FC85890060B17A /* AvailableUsersViewController.m */,
 				81A385A019119A29007B5870 /* EditProfileViewController.h */,
 				81A385A119119A29007B5870 /* EditProfileViewController.m */,
 				CE6935BB1910A3040065769B /* ResetPasswordViewController.h */,
@@ -514,29 +520,29 @@
 				CE6935B019109C130065769B /* BeaconUUIDListViewController.m */,
 				CE6935B119109C130065769B /* BeaconDetailViewController.h */,
 				CE6935B219109C130065769B /* BeaconDetailViewController.m */,
-				CE6935B319109C130065769B /* AddBeaconViewController.h */,
-				CE6935B419109C130065769B /* AddBeaconViewController.m */,
-				CE6935A919103CE10065769B /* AboutViewController.h */,
-				CE6935AA19103CE10065769B /* AboutViewController.m */,
 				CE5A1E6A190C4B4700658E4D /* ContainerViewController.h */,
 				CE5A1E6B190C4B4700658E4D /* ContainerViewController.m */,
 				CE7D935D190725BF00F3EDC0 /* ChatRoomViewController.h */,
 				CE7D935E190725BF00F3EDC0 /* ChatRoomViewController.m */,
-				563A1D4C190ED63900923AD4 /* MenuViewController.h */,
-				563A1D4D190ED63900923AD4 /* MenuViewController.m */,
-				CE893D8719022CAF000260A4 /* MapViewController.h */,
-				CE893D8819022CAF000260A4 /* MapViewController.m */,
 				CE66818D190EACFC00543FE7 /* DisplayUserProfileDelegate.h */,
-				81AB5B1D18FC85890060B17A /* AvailableUsersViewController.h */,
-				81AB5B1E18FC85890060B17A /* AvailableUsersViewController.m */,
-				818829F918FC87F300724B79 /* ProfileViewController.h */,
-				818829FA18FC87F300724B79 /* ProfileViewController.m */,
-				56322D5418FF265B004EF55D /* LoginViewController.h */,
-				56322D5518FF265B004EF55D /* LoginViewController.m */,
-				818829FE18FC88BD00724B79 /* InterestsViewController.h */,
-				818829FF18FC88BD00724B79 /* InterestsViewController.m */,
+				81A385A019119A29007B5870 /* EditProfileViewController.h */,
+				81A385A119119A29007B5870 /* EditProfileViewController.m */,
 				568BD8D619118DDE007E5013 /* ForgotPassViewController.h */,
 				568BD8D719118DDE007E5013 /* ForgotPassViewController.m */,
+				818829FE18FC88BD00724B79 /* InterestsViewController.h */,
+				818829FF18FC88BD00724B79 /* InterestsViewController.m */,
+				56322D5418FF265B004EF55D /* LoginViewController.h */,
+				56322D5518FF265B004EF55D /* LoginViewController.m */,
+				CE893D8719022CAF000260A4 /* MapViewController.h */,
+				CE893D8819022CAF000260A4 /* MapViewController.m */,
+				563A1D4C190ED63900923AD4 /* MenuViewController.h */,
+				563A1D4D190ED63900923AD4 /* MenuViewController.m */,
+				CE6935BB1910A3040065769B /* ResetPasswordViewController.h */,
+				CE6935BC1910A3040065769B /* ResetPasswordViewController.m */,
+				CE6935B819109EAB0065769B /* SettingViewController.h */,
+				CE6935B919109EAB0065769B /* SettingViewController.m */,
+				818829F918FC87F300724B79 /* ProfileViewController.h */,
+				818829FA18FC87F300724B79 /* ProfileViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -598,7 +604,7 @@
 				81AB5B1818FC85890060B17A /* AppDelegate.m */,
 				CE66E60C1904639900C295E0 /* Images.xcassets */,
 				81AB5B1A18FC85890060B17A /* Main.storyboard */,
-				81882A0D18FC923300724B79 /* ProfileHeaderView.xib */,
+				CE26A9F019127B2E00840673 /* ProfileHeaderView.xib */,
 				CE3EC3A8190806BC00DCB671 /* MapCallOutView.xib */,
 				81AB5B0F18FC85890060B17A /* Supporting Files */,
 			);
@@ -722,6 +728,8 @@
 						TestTargetID = 81AB5B0418FC85890060B17A;
 					};
 					81AB5B0418FC85890060B17A = {
+
+						DevelopmentTeam = S264RF7436;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -816,12 +824,12 @@
 				81C37815190FE19F00F37924 /* btn_go.png in Resources */,
 				81C37835190FE19F00F37924 /* ic_interest_games.png in Resources */,
 				CE562ECB18FCD13F00DDB3D3 /* steve.jpg in Resources */,
+				CE26A9F119127B2E00840673 /* ProfileHeaderView.xib in Resources */,
 				CE65D5EE1907593E00C74DFD /* statue1.jpg in Resources */,
 				81CC0CD21908023D00D2F924 /* venus.jpg in Resources */,
 				81A385AA19121C63007B5870 /* btn_hamburger.png in Resources */,
 				81A385A71911FC6C007B5870 /* input_bg_bio.png in Resources */,
 				81C37830190FE19F00F37924 /* ic_interest_art.png in Resources */,
-				81882A0E18FC923300724B79 /* ProfileHeaderView.xib in Resources */,
 				81C37821190FE19F00F37924 /* ic_tab_chat_normal.png in Resources */,
 				81C37820190FE19F00F37924 /* ic_start_chat_listview.png in Resources */,
 				81C3781A190FE19F00F37924 /* ic_gender_men_sm.png in Resources */,
