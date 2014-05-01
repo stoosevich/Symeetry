@@ -18,10 +18,18 @@
 
 @implementation ForgotPassViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.hidden = YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    CALayer *ssendPasswordButtonLayer = [self.sendPasswordButton layer];
+    [ssendPasswordButtonLayer setMasksToBounds:YES];
+    [ssendPasswordButtonLayer setCornerRadius:5.0f];
+
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_blur_map"]];
     self.sent = [[UIAlertView alloc]initWithTitle:@"Succes" message:@"Email has been sent, please open it and follow the instructions" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 }

@@ -100,6 +100,8 @@
 		81C37838190FE19F00F37924 /* ic_interest_tech.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C3780F190FE19F00F37924 /* ic_interest_tech.png */; };
 		81C37839190FE19F00F37924 /* ic_interest_tv.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C37810190FE19F00F37924 /* ic_interest_tv.png */; };
 		81C3783A190FE19F00F37924 /* ic_interest_voluenteer.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C37811190FE19F00F37924 /* ic_interest_voluenteer.png */; };
+		81CBC9491912939E0071DAF0 /* ic_gender_men_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 81CBC9471912939E0071DAF0 /* ic_gender_men_selected.png */; };
+		81CBC94A1912939E0071DAF0 /* ic_gender_wmn_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 81CBC9481912939E0071DAF0 /* ic_gender_wmn_selected.png */; };
 		81CC0CD21908023D00D2F924 /* venus.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81CC0CD11908023D00D2F924 /* venus.jpg */; };
 		81D0E71E190F491F00619C78 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D0E71D190F491F00619C78 /* PhotoViewController.m */; };
 		81D95E8F19103510002DEE76 /* music_rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D95E8E19103510002DEE76 /* music_rainbow.png */; };
@@ -264,6 +266,8 @@
 		81C3780F190FE19F00F37924 /* ic_interest_tech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_interest_tech.png; path = Symeetry/ic_interest_tech.png; sourceTree = "<group>"; };
 		81C37810190FE19F00F37924 /* ic_interest_tv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_interest_tv.png; path = Symeetry/ic_interest_tv.png; sourceTree = "<group>"; };
 		81C37811190FE19F00F37924 /* ic_interest_voluenteer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_interest_voluenteer.png; path = Symeetry/ic_interest_voluenteer.png; sourceTree = "<group>"; };
+		81CBC9471912939E0071DAF0 /* ic_gender_men_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_gender_men_selected.png; sourceTree = "<group>"; };
+		81CBC9481912939E0071DAF0 /* ic_gender_wmn_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_gender_wmn_selected.png; sourceTree = "<group>"; };
 		81CC0CD11908023D00D2F924 /* venus.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = venus.jpg; sourceTree = "<group>"; };
 		81D0E71C190F491F00619C78 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoViewController.h; path = Symeetry/PhotoViewController.h; sourceTree = "<group>"; };
 		81D0E71D190F491F00619C78 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoViewController.m; path = Symeetry/PhotoViewController.m; sourceTree = "<group>"; };
@@ -383,6 +387,8 @@
 		8114069018FDC964004E578F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				81CBC9471912939E0071DAF0 /* ic_gender_men_selected.png */,
+				81CBC9481912939E0071DAF0 /* ic_gender_wmn_selected.png */,
 				81A385A919121C63007B5870 /* btn_hamburger.png */,
 				81A385AB19121C71007B5870 /* btn_back.png */,
 				81D95E8E19103510002DEE76 /* music_rainbow.png */,
@@ -808,6 +814,7 @@
 				81C3781B190FE19F00F37924 /* ic_gender_men.png in Resources */,
 				81C3781E190FE19F00F37924 /* ic_interests_trio_welcome.png in Resources */,
 				81C37832190FE19F00F37924 /* ic_interest_dancing.png in Resources */,
+				81CBC9491912939E0071DAF0 /* ic_gender_men_selected.png in Resources */,
 				81C37824190FE19F00F37924 /* ic_tab_interests_selected.png in Resources */,
 				81C3782F190FE19F00F37924 /* symeetry-welcome-what.png in Resources */,
 				81C37838190FE19F00F37924 /* ic_interest_tech.png in Resources */,
@@ -819,6 +826,7 @@
 				81C37819190FE19F00F37924 /* color_slider.png in Resources */,
 				81C37813190FE19F00F37924 /* bg_flow_next.png in Resources */,
 				81C37823190FE19F00F37924 /* ic_tab_interests_normal.png in Resources */,
+				81CBC94A1912939E0071DAF0 /* ic_gender_wmn_selected.png in Resources */,
 				81D95E8F19103510002DEE76 /* music_rainbow.png in Resources */,
 				81C37815190FE19F00F37924 /* btn_go.png in Resources */,
 				81C37835190FE19F00F37924 /* ic_interest_games.png in Resources */,
