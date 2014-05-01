@@ -122,7 +122,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 - (void)refresh:(UIRefreshControl *)refreshControl
 {
     [self getUserWithSimlarityRank];
-    [self.availableUsersTableView reloadData];
     [refreshControl endRefreshing];
 }
 
@@ -592,10 +591,10 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
          {
              completion(objects,error);
              
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.availableUsersTableView reloadData];
-                 
-             });
+//             dispatch_async(dispatch_get_main_queue(), ^{
+//                 [self.availableUsersTableView reloadData];
+//                 
+//             });
          }];
     }
 }
