@@ -67,7 +67,11 @@
     //change password
     if (indexPath.row == 0)
     {
-        [self performSegueWithIdentifier:@"showResetPassword" sender:self];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        
+        UIViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"ResetPasswordViewController"];
+        [self presentViewController:vc animated:YES completion:nil];
+        
     }
     else if (indexPath.row == 1)//delete account
     {

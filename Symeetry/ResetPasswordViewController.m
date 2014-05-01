@@ -43,5 +43,8 @@
         self.changePassButton.enabled = YES;
     }
 }
+- (IBAction)onBackButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

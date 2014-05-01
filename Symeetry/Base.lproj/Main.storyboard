@@ -1395,7 +1395,7 @@
         <!--Reset Password View Controller-->
         <scene sceneID="gbw-qi-KP5">
             <objects>
-                <viewController id="fb2-bg-fWR" customClass="ResetPasswordViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResetPasswordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fb2-bg-fWR" customClass="ResetPasswordViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MxJ-Sv-5Re"/>
                         <viewControllerLayoutGuide type="bottom" id="QXw-gx-BYI"/>
@@ -1442,6 +1442,9 @@
                                 <state key="normal" title="Button" image="btn_back.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onBackButtonPressed:" destination="fb2-bg-fWR" eventType="touchUpInside" id="LVw-DN-9Vl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
