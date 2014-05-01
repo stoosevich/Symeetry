@@ -26,6 +26,15 @@
 
 - (void)viewDidLoad
 {
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_blur_map"]];
+    CALayer *sendButtonPressedLayer = [self.sendButtonPressed layer];
+    [sendButtonPressedLayer setMasksToBounds:YES];
+    [sendButtonPressedLayer setCornerRadius:5.0f];
+    
+    CALayer *chatRoomTextViewLayer = [self.chatRoomTextView layer];
+    [chatRoomTextViewLayer setMasksToBounds:YES];
+    [chatRoomTextViewLayer setCornerRadius:5.0f];
+
     self.chatMessages = [NSMutableArray new];
     [super viewDidLoad];
     self.firstTimeTyping = YES;
