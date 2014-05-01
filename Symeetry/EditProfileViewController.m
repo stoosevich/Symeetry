@@ -134,12 +134,12 @@
     self.changePictureButton.enabled = NO;
     self.gender = [[[ParseManager currentUser]objectForKey:@"gender"] boolValue];
     if (self.gender) {
-        self.maleButton.highlighted = NO;
-        self.femaleButton.highlighted = YES;
+        [self.maleButton setImage:[UIImage imageNamed:@"ic_gender_men_sm"] forState:UIControlStateNormal];
+        [self.femaleButton setImage:[UIImage imageNamed:@"ic_gender_wmn_selected_sm"] forState:UIControlStateNormal];
     }
     else{
-        self.maleButton.highlighted = YES;
-        self.femaleButton.highlighted = NO;
+        [self.maleButton setImage:[UIImage imageNamed:@"ic_gender_men_selected_sm"] forState:UIControlStateNormal];
+        [self.femaleButton setImage:[UIImage imageNamed:@"ic_gender_wmn_sm"] forState:UIControlStateNormal];
 
     }
     PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
@@ -166,8 +166,8 @@
 - (IBAction)onFemaleButtonPressed:(id)sender
 {
     self.gender = YES;
-    self.maleButton.highlighted = NO;
-    self.femaleButton.highlighted = YES;
+    [self.maleButton setImage:[UIImage imageNamed:@"ic_gender_men_sm"] forState:UIControlStateNormal];
+    [self.femaleButton setImage:[UIImage imageNamed:@"ic_gender_wmn_selected_sm"] forState:UIControlStateNormal];
     [[PFUser currentUser] setObject:@YES forKey:@"gender"];
 
 }
@@ -175,8 +175,9 @@
 - (IBAction)onMaleButtonPressed:(id)sender
 {
     self.gender = NO;
-    self.maleButton.highlighted = YES;
-    self.femaleButton.highlighted = NO;
+    [self.maleButton setImage:[UIImage imageNamed:@"ic_gender_men_selected_sm"] forState:UIControlStateNormal];
+    [self.femaleButton setImage:[UIImage imageNamed:@"ic_gender_wmn_sm"] forState:UIControlStateNormal];
+    
     [[PFUser currentUser] setObject:@NO forKey:@"gender"];
 }
 

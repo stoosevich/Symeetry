@@ -1204,7 +1204,7 @@
                                         <state key="normal" image="ic_gender_men_sm.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" image="ic_gender_men_selected.png"/>
+                                        <state key="highlighted" image="ic_gender_men_selected_sm"/>
                                         <connections>
                                             <action selector="onMaleButtonPressed:" destination="ZkR-5X-fKZ" eventType="touchUpInside" id="9Xd-39-CnU"/>
                                         </connections>
@@ -1215,7 +1215,7 @@
                                         <state key="normal" image="ic_gender_wmn_sm.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" image="ic_gender_wmn_selected.png"/>
+                                        <state key="highlighted" image="ic_gender_wmn_selected_sm"/>
                                         <connections>
                                             <action selector="onFemaleButtonPressed:" destination="ZkR-5X-fKZ" eventType="touchUpInside" id="tSn-gX-hfF"/>
                                         </connections>
@@ -1808,9 +1808,11 @@
         <image name="color_slider.png" width="290" height="30"/>
         <image name="ic_gender_men.png" width="60" height="103"/>
         <image name="ic_gender_men_selected.png" width="60" height="103"/>
+        <image name="ic_gender_men_selected_sm" width="14" height="25"/>
         <image name="ic_gender_men_sm.png" width="14" height="25"/>
         <image name="ic_gender_wmn.png" width="60" height="103"/>
         <image name="ic_gender_wmn_selected.png" width="60" height="103"/>
+        <image name="ic_gender_wmn_selected_sm" width="14" height="25"/>
         <image name="ic_gender_wmn_sm.png" width="14" height="25"/>
         <image name="ic_interests_trio_welcome.png" width="320" height="110"/>
         <image name="ic_tab_chat_normal.png" width="40" height="40"/>
