@@ -14,14 +14,17 @@ PODS:
     - MMDrawerController/Core
   - Parse (1.2.19):
     - Facebook-iOS-SDK (~> 3.11)
+  - UIImage-Resize (1.0.1)
 
 DEPENDENCIES:
   - MMDrawerController (~> 0.5.3)
   - Parse (~> 1.2.19)
+  - UIImage-Resize
 
 SPEC CHECKSUMS:
   Facebook-iOS-SDK: 47ae9e54684c84f93d75d4e6ab47cd031abdf406
   MMDrawerController: 76408e0a01b0a3996479261c57aed5d5765a6ea1
   Parse: 3739f0b211c49115bad96d6b0969b804d4da2f24
+  UIImage-Resize: b71ddbd27e5a29c2776df5c55b766928050437b2
 
 COCOAPODS: 0.32.1
