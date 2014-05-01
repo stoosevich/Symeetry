@@ -85,7 +85,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     //assume there are no near beacons
     self.nearestBeacon = nil;
-    NSLog(@"nearest beacon nil");
     
     // Start ranging when the view appears
     for (CLBeaconRegion *region in self.rangedRegions)
@@ -143,8 +142,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
  */
 - (void)createRegionsForMonitoring
 {
-    //NSLog(@"createRegionsForMonitoring called");
-    
     // Populate the regions we will range once
     self.rangedRegions = [[NSMutableDictionary alloc] init];
     
@@ -431,7 +428,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
             {
                 self.nearestBeacon = currentBeacon;
                 [ParseManager updateUserNearestBeacon:self.nearestBeacon];
-                NSLog(@"set nearest beacon\n");
             }
             
             //otherwise check if the beacon is is actually closer
@@ -441,8 +437,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
                 
                 self.nearestBeacon =  currentBeacon;
                 [ParseManager updateUserNearestBeacon:self.nearestBeacon];
-                NSLog(@"set nearest beacon\n");
-
             }
 
         }
@@ -610,7 +604,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 - (void)getCurrentUserInterestWithCompletion:(InterestCompletion)completion
 {
-    //NSLog(@"getCurrentUserInterestWithComplettion");
     [ParseManager getUserInterest:[PFUser currentUser] WithCompletion:^(PFObject *object, NSError *error)
      {
          completion(object,error);

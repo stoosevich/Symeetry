@@ -35,8 +35,7 @@
 
 - (void)createCBCentralManager:(void(^)(void))onBlock
 {
-    //NSLog(@"state %ld", self.centralManager.state);
-    
+
     if (self.centralManager.state == CBCentralManagerStatePoweredOff)
     {
         //bluetooth is off we need to tell the user to turn on the service

@@ -151,7 +151,7 @@
 
 -(void)browser:(MCNearbyServiceBrowser *)browser didNotStartBrowsingForPeers:(NSError *)error
 {
-    NSLog(@"Did not start browsing");
+    //NSLog(@"Did not start browsing");
 }
 
 -(void)browser:(MCNearbyServiceBrowser *)browser foundPeer:(MCPeerID *)peerID withDiscoveryInfo:(NSDictionary *)info
@@ -159,6 +159,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
 
     MCPeerID* foundPeer = peerID;
+
     NSLog(@"%@", self.users);
     NSMutableSet* temp = self.users;
     for (MCPeerID*peer in self.users) {
@@ -173,14 +174,15 @@
     NSLog(@"%@", self.users);
     NSLog(@"%lu", (unsigned long)self.users.count);
     });
+
 }
 
 -(void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.users removeObject:peerID];
-        NSLog(@"%@", peerID.displayName);
-        NSLog(@"%lu", (unsigned long)self.users.count);
+        //NSLog(@"%@", peerID.displayName);
+        //NSLog(@"%lu", (unsigned long)self.users.count);
     });
 }
 
@@ -206,7 +208,7 @@
 
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didNotStartAdvertisingPeer:(NSError *)error
 {
-    NSLog(@"can't send signal");
+    //NSLog(@"can't send signal");
 }
 
 #pragma mark -- Session
@@ -249,8 +251,8 @@
                     }];
                 }
                 [drawVC presentViewController:cRVC animated:YES completion:^{
-                    NSLog(@"worked");
-                    NSLog(@"%@", cRVC.peerID.displayName);
+                    //NSLog(@"worked");
+                    //NSLog(@"%@", cRVC.peerID.displayName);
                 }];
             });
             break;
