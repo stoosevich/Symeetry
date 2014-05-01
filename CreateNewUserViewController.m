@@ -102,14 +102,6 @@
         [newUser setPassword:self.passwordTextField.text];
         [newUser setUsername:self.usernameTextField.text];
         [newUser setEmail:self.emailTextField.text];
-//        [newUser setObject:@(0) forKey:@"similarityIndex"];
-//        [newUser setObject:[ParseManager convertUIImageToPFFile:[UIImage imageNamed:@"ic_welcome_profile.png"]] forKey:@"photo"];
-//        [newUser setObject:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:[UIImage imageNamed:@"ic_welcome_profile.png"] withWidth:40 andHeight:40]] forKey:@"thumbnail"];
-//        [newUser setObject:@NO forKey:@"gender"];
-//        [newUser setObject:@(0) forKey:@"age"];
-//        [newUser setObject:@"" forKey:@"biography"];
-//        [newUser setObject:@NO forKey:@"hidden"];
-//        [newUser setObject:@"NOT_INITIALIZED" forKey:@"nearestBeacon"];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
