@@ -222,7 +222,6 @@
     //NSLog(@"PARSE: begin getUserInterest WithCompletion");
 
     PFQuery* query = [PFUser query];
-    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     [query includeKey:@"interests"];
     
     [query getObjectInBackgroundWithId:[[PFUser currentUser] objectId] block:^(PFObject *object, NSError *error) {
