@@ -40,6 +40,10 @@
 {
     [super viewDidLoad];
     
+    CALayer *chatButtonLayer = [self.chatButton layer];
+    [chatButtonLayer setMasksToBounds:YES];
+    [chatButtonLayer setCornerRadius:5.0f];
+    
     self.userInterests = [NSMutableArray arrayWithCapacity:12];
     
     [self parseUserInterestIntoDataSource];

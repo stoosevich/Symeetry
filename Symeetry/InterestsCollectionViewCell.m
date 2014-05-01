@@ -35,7 +35,13 @@
     self.rankTestLabel.text = [NSString stringWithFormat:@"%d", (int)self.interestSlider.value];
     
     //Change background color with slider
-    NSArray *backgroundColors = [[NSArray alloc]initWithObjects:[UIColor grayColor],[UIColor blueColor],[UIColor greenColor],[UIColor yellowColor],[UIColor orangeColor],[UIColor redColor], nil];
+    NSArray *backgroundColors = [[NSArray alloc]initWithObjects:[UIColor grayColor],
+                                 [UIColor colorWithRed:54.0/255.0 green:155.0/255.0 blue:210.0/255.0 alpha:1.0],
+                                 [UIColor colorWithRed:136.0/255.0 green:170.0/255.0 blue:63.0/255.0 alpha:1.0],
+                                 [UIColor colorWithRed:210.0/255.0 green:208.0/255.0 blue:34.0/255.0 alpha:1.0],
+                                 [UIColor colorWithRed:235.0/255.0 green:107.0/255.0 blue:37.0/255.0 alpha:1.0],
+                                 [UIColor colorWithRed:207.0/255.0  green:44.0/255.0  blue:74.0/255.0  alpha:1.0], nil];
+    
     self.backgroundView.backgroundColor = [backgroundColors objectAtIndex:number.intValue];
     UIStoryboard* storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     InterestsViewController* iVC = [storyBoard instantiateViewControllerWithIdentifier:@"InterestsViewController"];
