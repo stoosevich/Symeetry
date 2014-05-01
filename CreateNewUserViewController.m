@@ -135,12 +135,14 @@
                     });
 
                 }
+                UIAlertView* invalidSignUp = [[UIAlertView alloc] initWithTitle:@"Invalid SignUp" message:@"The username and/or email has been taken or the email is invalid. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [invalidSignUp show];
             }];
-
-
-
-
-
+    }
+    else
+    {
+        UIAlertView* invalidEntry = [[UIAlertView alloc] initWithTitle:@"Invalid SignUp" message:@"The information you entered was not valid. Please check that your passwords match and that now feild was left blank" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [invalidEntry show];
     }
 
     self.signUpButton.alpha = 1.0;
