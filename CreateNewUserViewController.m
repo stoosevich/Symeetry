@@ -49,6 +49,8 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     self.didStartEditing = NO;
+    self.signUpButton.enabled = NO;
+    self.signUpButton.alpha = 0.4;
     
 }
 
@@ -92,8 +94,6 @@
 
 - (IBAction)onSignUpButtongPressed:(id)sender
 {
-    self.signUpButton.enabled = NO;
-    self.signUpButton.alpha = 0.4;
     if ((![self.usernameTextField.text isEqualToString:@""])&&
         (![self.passwordTextField.text isEqualToString:@""])&&
         ([self.passwordTextField.text isEqualToString:self.comfirmpasswordTextField.text])&&
