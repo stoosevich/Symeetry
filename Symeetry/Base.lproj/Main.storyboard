@@ -1201,6 +1201,7 @@
                                         <state key="normal" image="ic_gender_men_sm.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="highlighted" image="ic_gender_men_selected.png"/>
                                         <connections>
                                             <action selector="onMaleButtonPressed:" destination="ZkR-5X-fKZ" eventType="touchUpInside" id="9Xd-39-CnU"/>
                                         </connections>
@@ -1211,6 +1212,7 @@
                                         <state key="normal" image="ic_gender_wmn_sm.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="highlighted" image="ic_gender_wmn_selected.png"/>
                                         <connections>
                                             <action selector="onFemaleButtonPressed:" destination="ZkR-5X-fKZ" eventType="touchUpInside" id="tSn-gX-hfF"/>
                                         </connections>
@@ -1229,7 +1231,7 @@
                         <outlet property="editButton" destination="mjR-7Y-hBK" id="CQ9-IK-Fah"/>
                         <outlet property="femaleButton" destination="GP8-bZ-iA8" id="8l8-A3-FLS"/>
                         <outlet property="fullPageView" destination="75w-Re-Jdn" id="cEQ-ZW-9t4"/>
-                        <outlet property="maleButton" destination="GP8-bZ-iA8" id="foC-oP-bfo"/>
+                        <outlet property="maleButton" destination="nMX-fP-koK" id="txY-RQ-7ln"/>
                         <outlet property="userImage" destination="mxp-rJ-GRW" id="amF-Cv-Nfg"/>
                         <outlet property="usernameTextField" destination="you-B9-he9" id="CO0-DN-a4R"/>
                     </connections>

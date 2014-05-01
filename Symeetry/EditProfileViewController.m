@@ -132,7 +132,7 @@
     self.bioTextView.userInteractionEnabled = NO;
     self.ageTextField.userInteractionEnabled = NO;
     self.changePictureButton.enabled = NO;
-    self.gender = [[ParseManager currentUser]objectForKey:@"gender"];
+    self.gender = [[[ParseManager currentUser]objectForKey:@"gender"] boolValue];
     if (self.gender) {
         self.maleButton.highlighted = NO;
         self.femaleButton.highlighted = YES;
