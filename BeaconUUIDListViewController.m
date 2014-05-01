@@ -32,6 +32,7 @@
 {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.hidden = NO;
     //get the uuid from the default manager
     _beacons = [Defaults sharedDefaults].supportedProximityUUIDs;
 }
