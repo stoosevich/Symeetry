@@ -101,6 +101,8 @@
         MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"TheirMessageCellID"];
         NSLog(@"%@", self.chatMessages[indexPath.row][@"messageText"]);
         cell.theirTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
+        cell.theirTextView.textAlignment = NSTextAlignmentLeft;
+
         float height = cell.theirTextView.contentSize.height;
         NSLog(@"%f", cell.theirTextView.contentSize.height);
                if (height > 55)
@@ -115,7 +117,7 @@
     else
     {
         MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MyMessageCellID"];
-        cell.myTextView.textAlignment = NSTextAlignmentLeft;
+        cell.myTextView.textAlignment = NSTextAlignmentRight;
         cell.myTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
         float height = cell.myTextView.contentSize.height;
         NSLog(@"%f", cell.myTextView.contentSize.height);
