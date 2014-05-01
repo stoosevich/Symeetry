@@ -1778,32 +1778,32 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bg_flow_next.png" width="140" height="140"/>
-        <image name="btn_back.png" width="80" height="80"/>
-        <image name="btn_confirm.png" width="176" height="170"/>
-        <image name="btn_go.png" width="160" height="160"/>
-        <image name="btn_select_picture.png" width="176" height="170"/>
-        <image name="btn_take_picture.png" width="480" height="480"/>
-        <image name="btn_take_picture_sm.png" width="176" height="170"/>
-        <image name="color_slider.png" width="581" height="60"/>
-        <image name="ic_gender_men.png" width="121" height="207"/>
-        <image name="ic_gender_men_selected.png" width="121" height="207"/>
-        <image name="ic_gender_men_sm.png" width="29" height="50"/>
-        <image name="ic_gender_wmn.png" width="121" height="207"/>
-        <image name="ic_gender_wmn_selected.png" width="121" height="207"/>
-        <image name="ic_gender_wmn_sm.png" width="29" height="50"/>
-        <image name="ic_interests_trio_welcome.png" width="640" height="220"/>
-        <image name="ic_tab_chat_normal.png" width="80" height="80"/>
-        <image name="ic_tab_interests_normal.png" width="80" height="80"/>
-        <image name="ic_tab_map_normal.png" width="80" height="80"/>
-        <image name="ic_welcome_chat_bubbles.png" width="81" height="81"/>
-        <image name="ic_welcome_face.png" width="81" height="81"/>
-        <image name="ic_welcome_profile.png" width="81" height="81"/>
-        <image name="input_bg_age.png" width="321" height="102"/>
-        <image name="input_bg_register.png" width="475" height="91"/>
-        <image name="music_rainbow.png" width="244" height="244"/>
-        <image name="symeetry-welcome-logo.png" width="600" height="630"/>
-        <image name="symeetry-welcome-what.png" width="640" height="810"/>
+        <image name="bg_flow_next.png" width="70" height="70"/>
+        <image name="btn_back.png" width="40" height="40"/>
+        <image name="btn_confirm.png" width="88" height="85"/>
+        <image name="btn_go.png" width="80" height="80"/>
+        <image name="btn_select_picture.png" width="88" height="85"/>
+        <image name="btn_take_picture.png" width="240" height="240"/>
+        <image name="btn_take_picture_sm.png" width="88" height="85"/>
+        <image name="color_slider.png" width="290" height="30"/>
+        <image name="ic_gender_men.png" width="60" height="103"/>
+        <image name="ic_gender_men_selected.png" width="60" height="103"/>
+        <image name="ic_gender_men_sm.png" width="14" height="25"/>
+        <image name="ic_gender_wmn.png" width="60" height="103"/>
+        <image name="ic_gender_wmn_selected.png" width="60" height="103"/>
+        <image name="ic_gender_wmn_sm.png" width="14" height="25"/>
+        <image name="ic_interests_trio_welcome.png" width="320" height="110"/>
+        <image name="ic_tab_chat_normal.png" width="40" height="40"/>
+        <image name="ic_tab_interests_normal.png" width="40" height="40"/>
+        <image name="ic_tab_map_normal.png" width="40" height="40"/>
+        <image name="ic_welcome_chat_bubbles.png" width="40" height="40"/>
+        <image name="ic_welcome_face.png" width="40" height="40"/>
+        <image name="ic_welcome_profile.png" width="40" height="40"/>
+        <image name="input_bg_age.png" width="160" height="51"/>
+        <image name="input_bg_register.png" width="237" height="45"/>
+        <image name="music_rainbow.png" width="122" height="122"/>
+        <image name="symeetry-welcome-logo.png" width="300" height="315"/>
+        <image name="symeetry-welcome-what.png" width="320" height="405"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

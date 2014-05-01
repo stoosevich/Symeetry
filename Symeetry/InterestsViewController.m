@@ -37,7 +37,7 @@
     interestNamesDictionary = [[NSMutableDictionary alloc]initWithDictionary:interestNamesDictionary copyItems:YES];
  
     // Local images
-   self.images = @[[UIImage imageNamed:@"ic_interest_music"],
+   self.images = @[[UIImage imageNamed:@"ic_interest_music@2x"],
                    [UIImage imageNamed:@"ic_interest_movies"],
                    [UIImage imageNamed:@"ic_interest_food"],
                    [UIImage imageNamed:@"ic_interest_school"],
