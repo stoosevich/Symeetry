@@ -75,8 +75,6 @@
     if ([segue.identifier isEqualToString:@"showDetailView"])
     {
         BeaconDetailViewController* vc = segue.destinationViewController;
-        
-        NSLog(@"sender");
         //pass the uuid
         NSIndexPath* indexPath = [self.myTableView indexPathForCell:sender];
         vc.proximityUUID = self.beacons[indexPath.row];
