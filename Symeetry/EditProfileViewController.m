@@ -116,6 +116,12 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    self.backButton.hidden = NO;
+    self.femaleButton.enabled = NO;
+    self.maleButton.enabled = NO;
+    self.bioTextView.userInteractionEnabled = NO;
+    self.ageTextField.userInteractionEnabled = NO;
+    self.changePictureButton.enabled = NO;
     self.gender = [[ParseManager currentUser]objectForKey:@"gender"];
     if (self.gender) {
         self.maleButton.highlighted = NO;
@@ -126,8 +132,16 @@
         self.femaleButton.highlighted = NO;
 
     }
-    self.userImage.image = [[ParseManager currentUser] objectForKey:@"photo"];
-    [self.userImage circlify];
+    PFFile* file = [[PFUser currentUser]objectForKey:@"photo"];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             self.userImage.image = [UIImage imageWithData:data];
+             [self.userImage circlify];
+
+         });
+         
+     }];
     self.bioTextView.text = [[PFUser currentUser]objectForKey:@"biography"];
     self.ageTextField.text = [[[PFUser currentUser] objectForKey:@"age"] description];
 }
