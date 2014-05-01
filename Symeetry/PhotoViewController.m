@@ -49,7 +49,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     if (self.editing) {
-        self.userImage.image = [[ParseManager currentUser] objectForKey:@"photo"];
+        PFFile* file = [[ParseManager currentUser] objectForKey:@"photo"];
+        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            self.userImage.image = [UIImage imageWithData:data];
+        }];
     }
 }
 
