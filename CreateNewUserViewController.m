@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIView* textFieldGroup;
 @property int spacing;
 @property BOOL didStartEditing;
+@property PFObject* myNewlyCreatedUsersInterests;
 
 @end
 
@@ -103,63 +104,79 @@
         [newUser setUsername:self.usernameTextField.text];
         [newUser setEmail:self.emailTextField.text];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
             [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+
                     [newUser setObject:@(0) forKey:@"similarityIndex"];
                    // [newUser setObject:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:[UIImage imageNamed:@"ic_welcome_profile.png"] withWidth:40 andHeight:40]] forKey:@"thumbnail"];
-                    [newUser setObject:@NO forKey:@"gender"];
-                    [newUser setObject:@(0) forKey:@"age"];
-                    [newUser setObject:@"" forKey:@"biography"];
-                    [newUser setObject:@NO forKey:@"hidden"];
-                    [newUser setObject:@"NOT_INITIALIZED" forKey:@"nearestBeacon"];
                     PFGeoPoint* point = [PFGeoPoint geoPointWithLatitude:51.5072 longitude:-0.1275];
-                    [newUser setObject:point forKey:@"location"];
-                    [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                        if (succeeded) {
-                            PFObject* interest = [PFObject objectWithClassName:@"Interests"];
-                            [interest setObject:newUser.objectId forKey:@"userid"];
-                            [interest setObject:newUser forKey:@"user"];
-                            [interest setObject:@(0) forKey:@"movies"];
-                            [interest setObject:@(0) forKey:@"music"];
-                            [interest setObject:@(0) forKey:@"food"];
-                            [interest setObject:@(0) forKey:@"school"];
-                            [interest setObject:@(0) forKey:@"dancing"];
-                            [interest setObject:@(0) forKey:@"books"];
-                            [interest setObject:@(0) forKey:@"tv"];
-                            [interest setObject:@(0) forKey:@"art"];
-                            [interest setObject:@(0) forKey:@"technology"];
-                            [interest setObject:@(0) forKey:@"games"];
-                            [interest setObject:@(0) forKey:@"fashion"];
-                            [interest setObject:@(0) forKey:@"volunter"];
-                            [interest saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                if (succeeded) {
-                                    [newUser setObject:interest forKey:@"interests"];
-                                    [newUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                                        if (succeeded) {
-                                            [newUser setObject:[ParseManager convertUIImageToPFFile:[UIImage imageNamed:@"ic_welcome_profile.png"]] forKey:@"photo"];
-                                            NSLog(@"sined up");
-                                            self.signedUp = YES;
-                                            UIAlertView* created = [[UIAlertView alloc] initWithTitle:@"Welcome" message:@"Your account has been created succesfully" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
-                                            [created show];
-                                            self.signUpButton.hidden = YES;
-                                            [[PageViewController sharedPageViewController] signUpWasSuccesful];
-                                            [newUser saveInBackground];
-                                            [newUser setObject:[ParseManager convertUIImageToPFFile:[Utilities resizeImage:[UIImage imageNamed:@"ic_welcome_profile.png"] withWidth:40 andHeight:40]] forKey:@"thumbnail"];
-                                            [newUser saveInBackground];
-                                        }
-                                    }];
-                                }
-                            }];
-                        }
-                    }];
+                    PFObject* newInterest = [PFObject objectWithClassName:@"Interests"];
+                    [[PFUser currentUser] setObject:@NO forKey:@"gender"];
+                    [[PFUser currentUser] setObject:@(0) forKey:@"age"];
+                    [[PFUser currentUser] setObject:@"" forKey:@"biography"];
+                    [[PFUser currentUser] setObject:@NO forKey:@"hidden"];
+                    [[PFUser currentUser] setObject:@"NOT_INITIALIZED" forKey:@"nearestBeacon"];
+                    [[PFUser currentUser] setObject:point forKey:@"location"];
+                    [[PFUser currentUser] setObject:newInterest forKey:@"interests"];
+                    
+                    [[PFUser currentUser] save];
+                        
+                        [self getSignedUpInterest:^{
+                            NSLog(@"sined up");
+                            self.signedUp = YES;
+                            UIAlertView* created = [[UIAlertView alloc] initWithTitle:@"Welcome" message:@"Your account has been created succesfully" delegate:self cancelButtonTitle:@"Done" otherButtonTitles:nil];
+                            [created show];
+                            self.signUpButton.hidden = YES;
+                            [[PageViewController sharedPageViewController] signUpWasSuccesful];
+                            
+                        }];
+
+                    });
+
                 }
             }];
 
-        });
+
+
+
+
     }
+
     self.signUpButton.alpha = 1.0;
     self.signUpButton.enabled = YES;
+}
+
+-(void)getNewlyUsersInterests:(void(^)(PFObject* object, NSError* error)) completion
+{
+    NSLog(@"Getting Interests");
+    [ParseManager getUserInterest:[PFUser currentUser]
+                   WithCompletion:^(PFObject *object, NSError *error) {
+                       completion(object, error);
+                   }];
+}
+
+-(void)getSignedUpInterest:(void(^)(void))block
+{
+    [self getNewlyUsersInterests:^(PFObject *object, NSError *error) {
+        self.myNewlyCreatedUsersInterests = object;
+        [self.myNewlyCreatedUsersInterests setObject:[PFUser currentUser] forKey:@"user"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"movies"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"music"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"food"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"school"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"dancing"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"books"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"tv"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"art"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"technology"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"games"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"fashion"];
+        [self.myNewlyCreatedUsersInterests setObject:@(0) forKey:@"volunteer"];
+        [self.myNewlyCreatedUsersInterests saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    block();
+        }];
+    }];
 }
 
 -(void)raiseUserNameTakenAlert
