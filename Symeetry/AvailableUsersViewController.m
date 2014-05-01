@@ -34,14 +34,13 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 @property NSMutableDictionary* beacons;
 @property NSMutableDictionary* rangedRegions;
 
-
 //status related
 @property BOOL didRequestCheckin;
 @property (nonatomic, getter=isCheckedIn) BOOL checkedIn;
 
 //local data source
 @property NSArray* users;
-
+@property UIRefreshControl* refreshControl;
 
 @end
 
@@ -66,9 +65,12 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     //set flags for requesting check-in to YES, user can opt-out in settings
     self.checkedIn = YES;
     
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    [self.availableUsersTableView addSubview:refreshControl];
+    UITableViewController *tableViewController = [[UITableViewController alloc] init];
+    tableViewController.tableView = self.availableUsersTableView;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    tableViewController.refreshControl = self.refreshControl;
 
 }
 
@@ -119,10 +121,9 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 
 //allow user to refresh list as desired
-- (void)refresh:(UIRefreshControl *)refreshControl
+- (void)refresh:(id)refreshControl
 {
     [self getUserWithSimlarityRank];
-    [refreshControl endRefreshing];
 }
 
 
@@ -259,6 +260,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     return cell;
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //get the users from the list
@@ -267,6 +269,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     //call the delegate's method to display the profile
     [self.delegate displayUserProfile:user];
 }
+
 
 #pragma mark - Prepare for Segue Method
 
@@ -582,6 +585,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.availableUsersTableView reloadData];
+            [self.refreshControl endRefreshing];
         });
         
     }];
@@ -598,11 +602,6 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         [ParseManager retrieveUsersInLocalVicinityWithSimilarity:regions WithComplettion:^(NSArray *objects, NSError *error)
          {
              completion(objects,error);
-             
-//             dispatch_async(dispatch_get_main_queue(), ^{
-//                 [self.availableUsersTableView reloadData];
-//                 
-//             });
          }];
     }
 }
