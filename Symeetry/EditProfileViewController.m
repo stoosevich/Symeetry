@@ -48,9 +48,9 @@
 - (IBAction)onEditButtonPressed:(id)sender
 {
     self.editingEnabled =! self.editingEnabled;
-    if (self.editingEnabled)
+    if (!self.editingEnabled)
     {
-        self.editButton.titleLabel.text = @"Edit";
+        [self.editButton setTitle:@"Edit" forState:UIControlStateNormal];
         self.backButton.hidden = NO;
         self.femaleButton.enabled = NO;
         self.maleButton.enabled = NO;
@@ -64,7 +64,7 @@
     }
     else
     {
-        self.editButton.titleLabel.text = @"Done";
+        [self.editButton setTitle:@"Done" forState:UIControlStateNormal];
         self.backButton.hidden = YES;
         self.femaleButton.enabled = YES;
         self.maleButton.enabled = YES;
@@ -86,7 +86,13 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     NSNumber* newAge = [NSNumber numberWithInt:textField.text.intValue];
-    [[PFUser currentUser] setObject:newAge forKey:@"age"];}
+    [[PFUser currentUser] setObject:newAge forKey:@"age"];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.fullPageView.frame = CGRectMake(self.fullPageView.frame.origin.x, 0, self.fullPageView.frame.size.width, self.fullPageView.frame.size.height);
+    }];
+
+}
+
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -104,6 +110,9 @@
 -(void)textViewDidEndEditing:(UITextView *)textView
 {
     [[PFUser currentUser] setObject:textView.text forKey:@"biography"];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.fullPageView.frame = CGRectMake(self.fullPageView.frame.origin.x, 0, self.fullPageView.frame.size.width, self.fullPageView.frame.size.height);
+    }];
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -116,6 +125,7 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    self.usernameTextField.enabled = NO;
     self.backButton.hidden = NO;
     self.femaleButton.enabled = NO;
     self.maleButton.enabled = NO;
