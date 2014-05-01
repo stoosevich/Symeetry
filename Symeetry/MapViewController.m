@@ -63,8 +63,17 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     [self retrieveSymeetryUsersForMapView:^(NSArray *objects, NSError *error)
     {
-        self.nearbyUsers = objects;
-        [self getUsersCurrentLocation];
+        
+        if(!error)
+        {
+            self.nearbyUsers = objects;
+            [self getUsersCurrentLocation];
+        }
+        else
+        {
+            NSLog(@"error: %@",[error userInfo]);
+        }
+
     }];
 }
 
@@ -74,24 +83,27 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     
     [self getUsersCurrentLocation:^(PFGeoPoint *object, NSError *error)
     {
-
-        //create a 2D coordinate for the map view, centered on the current user
-        CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(object.latitude,object.longitude);
-        
-        
-        //determine the size of the map area to show around the location
-        MKCoordinateSpan coordinateSpan = [self calculateTheSpanOfTheUserCoordinates:object];
-       
-        
-        //create the region of the map that we want to show
-        MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, coordinateSpan);
-        
-        //update the map view
-        self.mapView.region = region;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self annotateMapWithNearByUserLocations];
-        });
+        if (!error) {
+            
+            //create a 2D coordinate for the map view, centered on the current user
+            CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake(object.latitude,object.longitude);
+            
+            
+            //determine the size of the map area to show around the location
+            MKCoordinateSpan coordinateSpan = [self calculateTheSpanOfTheUserCoordinates:object];
+            
+            
+            //create the region of the map that we want to show
+            MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, coordinateSpan);
+            
+            //update the map view
+            self.mapView.region = region;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self annotateMapWithNearByUserLocations];
+            });
+            
+        }
     }];
 
 }
@@ -345,8 +357,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
     float latitudeRange = northernBorder - southernBorder + 0.005;
     float longitudeRange = westernBorder - easternBorder + 0.005;
     
-    corrdinateSpan.latitudeDelta = latitudeRange;
-    corrdinateSpan.longitudeDelta = longitudeRange;
+//    corrdinateSpan.latitudeDelta = latitudeRange;
+//    corrdinateSpan.longitudeDelta = longitudeRange;
     
 //    NSLog(@"max lat: %f long:%f",maxLatitude,maxLongitude);
 //    NSLog(@"min lat: %f long:%f",minLatitude,minLongitude);

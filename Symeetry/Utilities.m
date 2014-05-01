@@ -33,6 +33,8 @@
     
     int index = [self determineColorByPercentage:similarity]; //(similarity/12)-1;
     
+    NSLog(@"index %d",[self determineColorByPercentage:similarity]);
+    
     if (index > 0)
     {
         rankingColor = colors[index];
@@ -49,24 +51,26 @@
 +(int)determineColorByPercentage:(int)similarity
 {
     
-    float percentage = (similarity/60)*100;
+    float percentage = (similarity/60.0)*100;
     
-    if (percentage >=  95) {
+    
+    if (percentage >=  95)//red
+    {
         return 4;
     }
-    else if (percentage >= 85 && percentage < 95)
+    else if (percentage >= 85 && percentage < 95)//orange
     {
         return 3;
     }
-    else if (percentage >= 75 && percentage < 85)
+    else if (percentage >= 75 && percentage < 85)//yellow
     {
         return 2;
     }
-    else if (percentage >= 65 && percentage < 75)
+    else if (percentage >= 65 && percentage < 75)//green
     {
         return 1;
     }
-    else if (percentage <65)
+    else if (percentage < 65)//blue
     {
         return 0;
     }
