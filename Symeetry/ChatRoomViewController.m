@@ -85,7 +85,7 @@
     else
     {
         MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MyMessageCellID"];
-        cell.myTextView.textAlignment = NSTextAlignmentLeft;
+        cell.myTextView.textAlignment = NSTextAlignmentRight;
         cell.myTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
         cell.myPicture.image = [[ChatManager sharedChatManager] myChatPhoto];
         [cell.myPicture circlify];

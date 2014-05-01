@@ -10,7 +10,7 @@
 #import "ParseManager.h"
 #import "Parse/Parse.h"
 
-@interface BiographyViewController () <UITextFieldDelegate>
+@interface BiographyViewController () <UITextFieldDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *myBioTextView;
 @property (weak, nonatomic) IBOutlet UITextField *ageTextField;
 @property (weak, nonatomic) IBOutlet UIButton *femaleButton;
@@ -44,6 +44,9 @@
 {
     self.maleButton.enabled = NO;
     self.femaleButton.enabled = NO;
+    
+    [self.maleButton setImage:[UIImage imageNamed:@"ic_gender_men_selected.png"] forState:UIControlStateNormal];
+    [self.femaleButton setImage:[UIImage imageNamed:@"ic_gender_wmn"] forState:UIControlStateNormal];
 
     self.gender = NO;
     [[PFUser currentUser]setObject:@NO forKey:@"gender"];
@@ -56,6 +59,9 @@
 {
     self.maleButton.enabled = NO;
     self.femaleButton.enabled = NO;
+    
+    [self.maleButton setImage:[UIImage imageNamed:@"ic_gender_men"] forState:UIControlStateNormal];
+    [self.femaleButton setImage:[UIImage imageNamed:@"ic_gender_wmn_selected"] forState:UIControlStateNormal];
 
     self.gender = YES;
     [[PFUser currentUser]setObject:@YES forKey:@"gender"];
@@ -74,15 +80,45 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (textField == self.ageTextField) {
         [[PFUser currentUser]setObject:@(self.ageTextField.text.intValue) forKey:@"age"];
-    }
-    else
-    {
-        [[PFUser currentUser]setObject:self.myBioTextView.text forKey:@"biography"];
-
-    }
     return YES;
+}
+
+
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if([text isEqualToString:@"\n"])
+        [textView endEditing:YES];
+    return YES;
+}
+
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ((int)[[UIScreen mainScreen] bounds].size.height == 568)
+    {
+        
+    }
+    else {
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.myBioTextView.frame = CGRectMake(self.myBioTextView.frame.origin.x, 140, self.myBioTextView.frame.size.width, self.myBioTextView.frame.size.height);
+        }];
+    }
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ((int)[[UIScreen mainScreen] bounds].size.height == 568)
+    {
+        
+    }
+    else {
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.myBioTextView.frame = CGRectMake(self.myBioTextView.frame.origin.x, 250, self.myBioTextView.frame.size.width, self.myBioTextView.frame.size.height);
+        }];
+    }
 }
 
 /*

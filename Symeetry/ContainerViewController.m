@@ -51,6 +51,7 @@
             UIViewController* login = [self.storyboard instantiateViewControllerWithIdentifier:@"RootNavController"];
             [self presentViewController:login animated:YES completion:nil];
             [ChatManager sharedChatManager].on = NO;
+            [[ChatManager sharedChatManager] checkoutChat];
             
         }
         else
