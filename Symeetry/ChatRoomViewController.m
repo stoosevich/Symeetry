@@ -26,6 +26,15 @@
 
 - (void)viewDidLoad
 {
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_blur_map"]];
+    CALayer *sendButtonPressedLayer = [self.sendButtonPressed layer];
+    [sendButtonPressedLayer setMasksToBounds:YES];
+    [sendButtonPressedLayer setCornerRadius:5.0f];
+    
+    CALayer *chatRoomTextViewLayer = [self.chatRoomTextView layer];
+    [chatRoomTextViewLayer setMasksToBounds:YES];
+    [chatRoomTextViewLayer setCornerRadius:5.0f];
+
     self.chatMessages = [NSMutableArray new];
     [super viewDidLoad];
     self.firstTimeTyping = YES;
@@ -92,6 +101,8 @@
         MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"TheirMessageCellID"];
         NSLog(@"%@", self.chatMessages[indexPath.row][@"messageText"]);
         cell.theirTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
+        cell.theirTextView.textAlignment = NSTextAlignmentLeft;
+
         float height = cell.theirTextView.contentSize.height;
         NSLog(@"%f", cell.theirTextView.contentSize.height);
                if (height > 55)
@@ -106,7 +117,7 @@
     else
     {
         MessageTableViewPrototypeCellTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MyMessageCellID"];
-        cell.myTextView.textAlignment = NSTextAlignmentLeft;
+        cell.myTextView.textAlignment = NSTextAlignmentRight;
         cell.myTextView.text = [NSString stringWithFormat:@"%@",self.chatMessages[indexPath.row][@"messageText"]];
         float height = cell.myTextView.contentSize.height;
         NSLog(@"%f", cell.myTextView.contentSize.height);

@@ -38,6 +38,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    self.navigationController.navigationBar.hidden = YES;
+    
     self.checkedIN =! [ChatManager sharedChatManager].on;
     if (self.checkedIN) {
         self.settings = [NSMutableArray arrayWithArray:@[@"Change Password", @"Delete Account", @"Opt-In",@"Configure UUIDs", @"Reset UUIDs to Default"]];
