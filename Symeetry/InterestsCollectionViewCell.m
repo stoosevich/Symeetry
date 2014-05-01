@@ -30,9 +30,8 @@
 
 - (IBAction)adjustInterest:(UISlider*)sender {
     
-    NSNumber* number = @(sender.value);
+    NSNumber* number = @((int)sender.value);
     
-
     self.rankTestLabel.text = [NSString stringWithFormat:@"%d", (int)self.interestSlider.value];
     
     //Change background color with slider
