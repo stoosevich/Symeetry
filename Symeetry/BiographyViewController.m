@@ -50,6 +50,7 @@
 
     self.gender = NO;
     [[PFUser currentUser]setObject:@NO forKey:@"gender"];
+    [[PFUser currentUser]saveInBackground];
     self.maleButton.enabled = YES;
     self.femaleButton.enabled = YES;
 
@@ -66,6 +67,8 @@
     self.gender = YES;
     [[PFUser currentUser]setObject:@YES forKey:@"gender"];
     
+    [[PFUser currentUser]saveInBackground];
+    
     self.maleButton.enabled = YES;
     self.femaleButton.enabled = YES;
 
@@ -81,6 +84,7 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
         [[PFUser currentUser]setObject:@(self.ageTextField.text.intValue) forKey:@"age"];
+        [[PFUser currentUser]saveInBackground];
     return YES;
 }
 
@@ -89,6 +93,8 @@
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if([text isEqualToString:@"\n"])
+        [[PFUser currentUser]setObject:textView.text forKey:@"biography"];
+        [[PFUser currentUser]saveInBackground];
         [textView endEditing:YES];
     return YES;
 }
