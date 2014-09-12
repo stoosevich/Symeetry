@@ -25,6 +25,8 @@
 @property (nonatomic, copy) void (^gotMessage)(NSData* data);
 @property UIImage* myChatPhoto;
 @property BOOL on;
+@property NSMutableSet* users;
+
 
 -(void)setPeerID;
 

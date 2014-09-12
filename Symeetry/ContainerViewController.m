@@ -45,6 +45,10 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    self.availableUsersViewController.view.frame = CGRectMake(0, 0, self.containerView.frame.size.width, self.containerView.frame.size.height);
+    self.mapViewController.view.frame = CGRectMake(0, 0, self.containerView.frame.size.width, self.containerView.frame.size.height);
+    self.interestsViewController.view.frame = CGRectMake(0, 0, self.containerView.frame.size.width, self.containerView.frame.size.height);
+
     [[BlueToothManager sharedBlueToothManager]createCBCentralManager:^{
         if ([PFUser currentUser] == nil)
         {

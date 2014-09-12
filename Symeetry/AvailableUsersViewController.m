@@ -505,6 +505,8 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
     [self getCurrentUserInterestWithCompletion:^(PFObject *object, NSError *error)
      {
+         NSLog(@"Doing something with users");
+         NSLog(@"%@", object);
          if(object)
          {
              NSDictionary* currentUserInterests = [ParseManager convertPFObjectToNSDictionary:object[@"interests"]];
@@ -527,7 +529,7 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
         //loop through the list of users return for the regions with beacons
         for(PFObject* user in objects)
         {
-                        
+            NSLog(@"Anaylzing user");
             //get the interest for each user in the list of objects returned from the search
             otherUserInterests = [ParseManager convertPFObjectToNSDictionary:user[@"interests"]];
             
@@ -610,8 +612,10 @@ typedef void (^MyCompletion)(NSArray *objects, NSError *error);
 
 - (void)getCurrentUserInterestWithCompletion:(InterestCompletion)completion
 {
+    NSLog(@"Getting users with intersts");
     [ParseManager getUserInterest:[PFUser currentUser] WithCompletion:^(PFObject *object, NSError *error)
      {
+         NSLog(@"Got the users");
          completion(object,error);
      }];
     

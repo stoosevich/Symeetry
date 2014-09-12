@@ -49,6 +49,21 @@
     }
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    for (MCPeerID* peerID in [ChatManager sharedChatManager].users) {
+        if ([peerID.displayName isEqualToString:self.user.username]) {
+            self.chatButton.titleLabel.text = @"Start a Conversation";
+            self.chatButton.enabled = YES;
+            break;
+        }
+        else{
+            self.chatButton.titleLabel.text = @"Unable to connect";
+            self.chatButton.enabled = NO;
+        }
+    }
+}
+
 
 - (void)viewDidLoad
 {
@@ -67,7 +82,6 @@
         self.chatButton.hidden = YES;
     }
     else{
-
         self.chatButton.hidden = NO;
     }
     

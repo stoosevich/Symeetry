@@ -196,6 +196,9 @@
 {
     [[ChatManager sharedChatManager] checkoutChat];
     [ChatManager sharedChatManager].on = NO;
+    
+    //set the users nearest beacon to nil
+    [ParseManager updateUserNearestBeaconInForeground:nil];
 
 }
 

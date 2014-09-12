@@ -17,7 +17,6 @@
 
 @property MCPeerID* userBasedPeerID;
 //@property ChatManager* chatMang;
-@property NSMutableSet* users;
 @property BOOL invited;
 
 @end
